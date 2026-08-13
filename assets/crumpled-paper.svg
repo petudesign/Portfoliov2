@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 190" role="img" aria-labelledby="title desc">
+  <title id="title">Crumpled paper</title>
+  <desc id="desc">A small ball of crumpled warm white paper.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#fffdf7"/><stop offset=".45" stop-color="#ddd7ca"/><stop offset="1" stop-color="#f2eee5"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="5" dy="10" stdDeviation="7" flood-color="#071011" flood-opacity=".28"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <path d="M33 85 52 43l42-22 41 12 42 35 8 43-27 42-52 17-49-19-26-35z" fill="url(#paper)" stroke="#c7c0b5" stroke-width="2.5"/>
+    <g fill="none" stroke-linecap="round">
+      <path d="m53 45 44 41 38-52m-38 52 10 81m-54-44 54-37 51 64m-13-80-38 16 77 26M58 150l49-64-75 1" stroke="#aaa397" stroke-width="3" opacity=".72"/>
+      <path d="m70 31 27 55-44 37m92-89-10 61 42-27m-70 99 28-72 23 58" stroke="#fff" stroke-width="4" opacity=".72"/>
+      <path d="m38 105 69-19 68 27M63 58l44 28 46-25" stroke="#756f66" stroke-width="1.5" opacity=".45"/>
+    </g>
+  </g>
+</svg>

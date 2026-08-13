@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 360" role="img" aria-labelledby="title desc">
+  <title id="title">Closed wireless earbud case</title>
+  <desc id="desc">A minimal white charging case resting on a desk.</desc>
+  <defs>
+    <linearGradient id="case" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#fff"/><stop offset="1" stop-color="#dfe2e6"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="15" stdDeviation="12" flood-color="#061012" flood-opacity=".28"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <rect x="72" y="54" width="376" height="250" rx="84" fill="url(#case)" stroke="#c3c7cc" stroke-width="3"/>
+    <path d="M75 154c63 10 307 10 370 0" fill="none" stroke="#b8bdc2" stroke-width="3"/>
+    <path d="M226 153h68v17c0 9-7 16-16 16h-36c-9 0-16-7-16-16z" fill="#b7bcc1" stroke="#999ea4" stroke-width="2"/>
+    <ellipse cx="260" cy="248" rx="7" ry="6" fill="#57d986"/>
+    <path d="M112 100c54-25 230-34 300 0" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" opacity=".55"/>
+  </g>
+</svg>

@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A visual portfolio hero experiment for Petteri Helttula.">
+    <title>Desk Hero Experiment — Petteri Helttula</title>
+    <link rel="preload" href="Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="desk-experiment.css">
+  </head>
+  <body>
+    <main>
+      <section class="desk-scene" aria-labelledby="hero-title">
+        <div class="desk-grid" aria-hidden="true"></div>
+        <div class="cutting-mat" aria-hidden="true"></div>
+        <img class="desk-sudoku" src="assets/sudoku-open-pages.svg" alt="">
+        <div class="desk-paper desk-paper-flowmark" aria-hidden="true">
+          <span class="paper-label">interaction study</span>
+          <div class="paper-sketch paper-sketch-flow">
+            <span class="sketch-box sketch-box-wide"></span><span class="sketch-box sketch-box-small"></span><span class="sketch-arrow">↗</span>
+          </div>
+          <span class="paper-note">make the next step obvious</span>
+        </div>
+        <div class="desk-paper desk-paper-tahti" aria-hidden="true">
+          <span class="paper-label">reading / focus</span>
+          <div class="paper-lines"><span></span><span></span><span></span><span></span></div>
+          <span class="paper-note">pace can be designed</span>
+        </div>
+        <div class="desk-paper desk-paper-notes" aria-hidden="true">
+          <span class="paper-label">Brio / movement</span>
+          <img class="paper-project-sketch" src="assets/brio-pushup-transparent.png" alt="">
+          <span class="paper-note">break the scroll with movement</span>
+        </div>
+        <div class="desk-paper desk-paper-flow" aria-hidden="true">
+          <span class="paper-label">flow / first pass</span>
+          <div class="paper-sketch paper-sketch-flow"><span class="sketch-box sketch-box-small"></span><span class="sketch-box sketch-box-small sketch-box-second"></span><span class="sketch-arrow">→</span></div>
+          <span class="paper-note">less friction, more confidence</span>
+        </div>
+        <span class="desk-object desk-object-pencil" aria-hidden="true"></span>
+        <span class="desk-object desk-object-sticky" aria-hidden="true">try this</span>
+        <span class="desk-object desk-object-clip" aria-hidden="true"></span>
+        <div class="desk-object desk-keychain-curry" aria-hidden="true">
+          <span class="keychain-ring"></span>
+          <span class="keychain-chain"><i></i><i></i><i></i></span>
+          <span class="keychain-clasp"></span>
+          <img src="assets/curry-sticker.png" alt="">
+        </div>
+        <div class="desk-object desk-object-airpods">
+          <button class="airpods-trigger" type="button" aria-expanded="false" aria-controls="desk-music-card">
+            <span class="visually-hidden">Open AirPods music easter egg</span>
+            <img class="airpods-closed" src="assets/airpods-closed.svg" alt="">
+            <img class="airpods-open" src="assets/airpods-desk.svg" alt="">
+          </button>
+          <div class="desk-music-card" id="desk-music-card" hidden>
+            <div class="music-card-heading">
+              <span>What I'm listening to</span>
+            </div>
+            <div class="spotify-embed" data-uri="spotify:playlist:6IuMsRmYaJu1eAThxQkDyU"></div>
+          </div>
+        </div>
+        <div class="desk-object desk-scrap">
+          <button class="scrap-trigger" type="button" aria-expanded="false" aria-controls="scrap-note">
+            <img src="assets/crumpled-paper.svg" alt="">
+            <span class="visually-hidden">Open a scrapped project idea</span>
+          </button>
+          <div class="scrap-note" id="scrap-note" hidden>
+            <button class="scrap-close" type="button" aria-label="Crumple the idea back up">×</button>
+            <span class="scrap-label">Scrapped idea / 2025</span>
+            <strong>Visual ordering for Deaf diners</strong>
+            <p>Scrapped after the concept started requiring too many restaurant-side changes and risked adding friction instead of removing it.</p>
+            <span class="scrap-verdict">Good intention. Wrong solution.</span>
+          </div>
+        </div>
+
+        <header class="experiment-header">
+          <a href="index.html">Petteri Helttula</a>
+        </header>
+
+        <div class="desk-layout">
+          <div class="hero-copy">
+            <div class="hero-sheet">
+              <div class="hero-tags" aria-label="Design focus">
+                <span class="hero-tag hero-tag-yellow">AI Design Engineering</span>
+                <span class="hero-tag hero-tag-pink">Analytics · Prototypes · Code</span>
+              </div>
+              <h1 id="hero-title">Moi <span aria-hidden="true">👋</span> I'm Petteri.<br>I <button class="turn-toggle" type="button" aria-pressed="false">turn</button> messy product problems into <em>clear directions.</em></h1>
+              <p>I'm a Product Designer evolving into the still-mysterious world of AI Design Engineering — combining psychology, design, code, data, and analytics to build what matters.</p>
+              <a class="hero-link" href="about.html">More about me &amp; how I work <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+
+          <section class="selected-work" id="selected-work" aria-labelledby="selected-work-title">
+            <div class="selected-work-heading">
+              <h2 class="visually-hidden" id="selected-work-title">Selected work</h2>
+            </div>
+
+            <div class="phone-stage">
+              <img class="selected-projects-arc" src="assets/selected-projects-arc.svg" alt="">
+              <span class="stage-note stage-note-two" aria-hidden="true">product detail ↗</span>
+              <div class="phone-shadow" aria-hidden="true"></div>
+              <div class="phone" aria-label="Selected work carousel. Swipe horizontally to change project.">
+                <div class="dynamic-island" aria-live="polite">
+                  <span class="island-sensor" aria-hidden="true"></span>
+                  <span class="island-camera" aria-hidden="true"></span>
+                  <span class="island-now-playing">
+                    <span class="island-wave" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span class="island-track">Petteri's rotation</span>
+                    <span class="island-time" data-idle-label="Spotify">Spotify</span>
+                  </span>
+                </div>
+                <div class="swipe-coach" aria-hidden="true">
+                  <svg viewBox="0 0 150 110" role="presentation">
+                    <path class="swipe-coach-arrow" d="M36 22h70m0 0L92 8m14 14L92 36"/>
+                    <path class="swipe-coach-hand" d="M58 90c-8-5-14-13-15-23l-2-18c-.5-5 3-9 8-9 4 0 7 3 8 7l2 9V22c0-5 4-9 9-9s9 4 9 9v24-8c0-5 4-8 8-8s8 3 8 8v12-6c0-4 3-7 7-7s7 3 7 7v16c0 15-7 27-20 34l-4 10H61z"/>
+                  </svg>
+                  <span>Swipe to explore</span>
+                </div>
+                <div class="phone-screen" tabindex="0">
+                  <div class="phone-track">
+                    <article class="phone-slide" data-project="0" aria-label="Project 1 of 3: S-Hävikkki">
+                      <img src="assets/shavikki-kaappikuva-768.webp" alt="S-Hävikkki food waste cabinet concept in a grocery store">
+                      <div class="phone-slide-copy"><span>Service Design</span><h3>S-Hävikkki</h3><p>Making near-expiry food easier to handle and choose.</p></div>
+                    </article>
+                    <article class="phone-slide" data-project="1" aria-label="Project 2 of 3: Tahti">
+                      <video src="assets/tahtivideo.mp4" poster="assets/tahti-card.webp" muted loop playsinline preload="metadata"></video>
+                      <div class="phone-slide-copy"><span>Reading / Focus</span><h3>Tahti</h3><p>Making the pace of reading visible and controllable.</p></div>
+                    </article>
+                    <article class="phone-slide" data-project="2" aria-label="Project 3 of 3: Flowmark">
+                      <img src="assets/flowmark-card.webp" alt="Flowmark first-click test builder interface">
+                      <div class="phone-slide-copy"><span>SaaS / Feedback</span><h3>Flowmark</h3><p>A lighter feedback loop for prototype ideas.</p></div>
+                    </article>
+                  </div>
+                </div>
+                <div class="phone-controls">
+                  <span class="swipe-hint"><span class="project-dots" aria-hidden="true"><i class="is-active"></i><i></i><i></i></span></span>
+                </div>
+              </div>
+            </div>
+            <a class="case-link" href="shavikki.html">View selected case study <span aria-hidden="true">↗</span></a>
+          </section>
+        </div>
+      </section>
+
+      <section class="folder-section" id="projects" aria-labelledby="projects-title">
+        <a class="scroll-cue" href="#projects-title">Scroll to see more <span aria-hidden="true">↓</span></a>
+        <div class="folder-sticky-header">
+          <nav class="folder-tabs" aria-label="Portfolio sections">
+            <div class="folder-tab">Projects</div>
+            <div class="folder-nav">
+              <a href="about.html">About me</a>
+              <a href="blog.html">Blog</a>
+              <a href="https://drive.google.com/file/d/1jGHfK2btH744Slry8skZ1yfMZMGNYg3_/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume</a>
+              <a class="folder-linkedin" href="https://www.linkedin.com/in/petteri-helttula/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">in</a>
+            </div>
+          </nav>
+        </div>
+        <div class="folder-content">
+          <header class="projects-intro">
+            <p class="section-label">Selected Projects</p>
+            <h2 id="projects-title">Work worth opening.</h2>
+            <p>Quick versions first. Full case studies when you want the decisions behind them.</p>
+          </header>
+
+          <article class="featured-case featured-case-brio">
+            <div class="featured-case-visual" aria-hidden="true">
+              <span class="featured-case-number">01 / Main case</span>
+              <span class="featured-case-status">In development · iOS first</span>
+              <img src="assets/brio-pushup-transparent.png" alt="">
+              <span class="featured-case-wordmark">BRIO</span>
+            </div>
+            <div class="featured-case-content">
+              <p class="section-label">Digital Wellbeing / Product Design</p>
+              <h3>Brio</h3>
+              <p class="featured-case-lede">Interrupt the scroll. Move. Continue intentionally.</p>
+              <div class="case-tldr" aria-label="Brio case summary">
+                <div>
+                  <span>Problem</span>
+                  <p>Doomscrolling often continues without a conscious decision to keep going.</p>
+                </div>
+                <div>
+                  <span>Concept</span>
+                  <p>After 20 minutes of scrolling, Brio introduces a short movement break before the user chooses whether to continue.</p>
+                </div>
+                <div>
+                  <span>Principle</span>
+                  <p>Social media is not the enemy. The goal is to make its use more deliberate and better regulated.</p>
+                </div>
+              </div>
+              <dl class="featured-case-system">
+                <div><dt>Built with</dt><dd>React Native</dd></div>
+                <div><dt>Components</dt><dd>Storybook</dd></div>
+                <div><dt>Design system</dt><dd>Zeroheight</dd></div>
+              </dl>
+              <div class="featured-case-actions">
+                <span class="featured-case-link is-disabled" aria-disabled="true">Full case study coming next <span aria-hidden="true">↗</span></span>
+                <div class="featured-case-external" aria-label="Brio release links coming later">
+                  <span class="github-link is-disabled" aria-label="GitHub repository coming later" title="GitHub repository coming later">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.87c-2.78.61-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.54 1.03 1.54 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.82a9.6 9.6 0 0 1 2.5.34c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+                  </span>
+                  <span class="app-store-preview" aria-label="App Store release planned">
+                    <span>Coming first to</span>
+                    <strong>App Store</strong>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <div class="project-case-grid" aria-label="More selected case studies">
+            <article class="project-case-card">
+              <a class="project-case-media" href="shavikki.html" aria-label="Read the S-Hävikki case study">
+                <img src="assets/shavikki-kaappikuva-768.webp" alt="S-Hävikki food waste cabinet concept in a grocery store" loading="lazy" decoding="async">
+                <span class="project-case-index">02 / Service Design</span>
+              </a>
+              <div class="project-case-body">
+                <div class="project-case-heading">
+                  <h3>S-Hävikki</h3>
+                  <span>6 min read</span>
+                </div>
+                <p>Making near-expiry food easier for stores to handle and easier for customers to choose.</p>
+                <div class="project-case-insight">
+                  <span>Key insight</span>
+                  <p>The service only works when the customer experience and the store's daily process support each other.</p>
+                </div>
+                <a class="project-case-link" href="shavikki.html">Read case study <span aria-hidden="true">↗</span></a>
+              </div>
+            </article>
+
+            <article class="project-case-card">
+              <a class="project-case-media" href="tahti.html" aria-label="Read the Tahti case study">
+                <video src="assets/tahtivideo.mp4" poster="assets/tahti-card.webp" muted loop playsinline preload="metadata"></video>
+                <span class="project-case-index">03 / Reading &amp; Focus</span>
+              </a>
+              <div class="project-case-body">
+                <div class="project-case-heading">
+                  <h3>Tahti</h3>
+                  <span>4 min read</span>
+                </div>
+                <p>A working reading experiment that makes pace visible and gives the user tighter control over focus.</p>
+                <div class="project-case-insight">
+                  <span>Main risk</span>
+                  <p>A calmer reading experience is not useful if removing context also weakens comprehension.</p>
+                </div>
+                <a class="project-case-link" href="tahti.html">Read case study <span aria-hidden="true">↗</span></a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="desk-experiment.js"></script>
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+  </body>
+</html>
