@@ -52,6 +52,7 @@ const createSpotifyPlayer = () => {
     });
     controller.addListener('playback_update', ({ data }) => {
       islandTime.textContent = data.position > 0 ? formatPlaybackTime(data.position) : islandTime.dataset.idleLabel;
+      phone.classList.toggle('is-music-playing', data.position > 0 && !data.isPaused);
     });
   });
 };
@@ -71,7 +72,7 @@ swipeCoachTimer = window.setTimeout(() => swipeCoach?.classList.add('is-visible'
 function setProject(nextProject) {
   activeProject = (nextProject + slides.length) % slides.length;
   track.style.transform = `translateX(-${activeProject * (100 / slides.length)}%)`;
-  caseLink.href = projectLinks[activeProject];
+  if (caseLink) caseLink.href = projectLinks[activeProject];
   dots.forEach((dot, index) => dot.classList.toggle('is-active', index === activeProject));
   videos.forEach((video, index) => {
     if (index === activeProject) video.play().catch(() => {});
@@ -119,6 +120,7 @@ airpodsTrigger?.addEventListener('click', () => {
   if (!isOpen) {
     spotifyController?.pause();
     islandTime.textContent = islandTime.dataset.idleLabel;
+    phone.classList.remove('is-music-playing');
   }
   phone.classList.toggle('is-music-ready', isOpen);
 });
