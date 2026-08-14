@@ -145,9 +145,9 @@
         <a class="scroll-cue" href="#projects-title">Scroll to see more <span aria-hidden="true">↓</span></a>
         <div class="folder-sticky-header">
           <nav class="folder-tabs" aria-label="Portfolio sections">
-            <div class="folder-tab">Projects</div>
+            <button class="folder-tab is-active" type="button" data-folder-case="0">Projects</button>
             <div class="folder-nav">
-              <a href="about.html">About me</a>
+              <a href="#about-me" data-folder-case="3">About me</a>
               <a href="blog.html">Blog</a>
               <a href="https://drive.google.com/file/d/1jGHfK2btH744Slry8skZ1yfMZMGNYg3_/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume</a>
               <a class="folder-linkedin" href="https://www.linkedin.com/in/petteri-helttula/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">in</a>
@@ -155,95 +155,101 @@
           </nav>
         </div>
         <div class="folder-content">
-          <header class="projects-intro">
-            <p class="section-label">Selected Projects</p>
-            <h2 id="projects-title">Work worth opening.</h2>
-            <p>Quick versions first. Full case studies when you want the decisions behind them.</p>
-          </header>
+          <div class="case-book" data-active-case="0">
+            <div class="case-book-pages">
+              <article class="case-spread is-current" id="case-brio" data-case-index="0">
+                <button class="case-edge-tab" type="button" data-case-index="0" aria-label="Open Brio case">01 Brio</button>
+                <div class="case-page case-page-visual case-page-brio">
+                  <div class="case-page-meta"><span>Case no. PH—001</span><strong>Main case / In development</strong></div>
+                  <div class="case-device case-device-phone">
+                    <img src="assets/brio-pushup-transparent.png" alt="Line drawing of a person doing a push-up">
+                  </div>
+                  <span class="case-page-caption">Digital wellbeing · Product design · iOS first</span>
+                </div>
+                <div class="case-page case-page-notes">
+                  <span class="case-page-kicker">Selected case 01</span>
+                  <h3>Brio</h3>
+                  <p class="case-page-lede">Interrupt the scroll. Move. Continue intentionally.</p>
+                  <dl class="case-page-findings">
+                    <div><dt>Question</dt><dd>How might doomscrolling be interrupted without treating social media as the enemy?</dd></div>
+                    <div><dt>Evidence</dt><dd>Scrolling often continues without a conscious decision to keep going.</dd></div>
+                    <div><dt>Finding</dt><dd>A short physical interruption can create a clearer moment for choosing what happens next.</dd></div>
+                    <div><dt>Decision</dt><dd>After 20 minutes, introduce a brief movement break before the user chooses whether to continue.</dd></div>
+                  </dl>
+                  <div class="case-page-footer"><span class="case-file-stamp">In progress</span><span class="project-case-link is-disabled">Full case coming next ↗</span></div>
+                </div>
+              </article>
 
-          <article class="featured-case featured-case-brio">
-            <div class="featured-case-visual" aria-hidden="true">
-              <span class="featured-case-number">01 / Main case</span>
-              <span class="featured-case-status">In development · iOS first</span>
-              <img src="assets/brio-pushup-transparent.png" alt="">
-              <span class="featured-case-wordmark">BRIO</span>
-            </div>
-            <div class="featured-case-content">
-              <p class="section-label">Digital Wellbeing / Product Design</p>
-              <h3>Brio</h3>
-              <p class="featured-case-lede">Interrupt the scroll. Move. Continue intentionally.</p>
-              <div class="case-tldr" aria-label="Brio case summary">
-                <div>
-                  <span>Problem</span>
-                  <p>Doomscrolling often continues without a conscious decision to keep going.</p>
+              <article class="case-spread is-after" id="case-shavikki" data-case-index="1">
+                <button class="case-edge-tab" type="button" data-case-index="1" aria-label="Open S-Hävikki case">02 S-Hävikki</button>
+                <div class="case-page case-page-visual">
+                  <div class="case-page-meta"><span>Case no. PH—002</span><strong>Service system / Field study</strong></div>
+                  <img src="assets/shavikki-kaappikuva-768.webp" alt="S-Hävikki food waste cabinet concept in a grocery store" loading="lazy" decoding="async">
+                  <span class="case-page-caption">Service design · Retail operations · Customer journey</span>
                 </div>
-                <div>
-                  <span>Concept</span>
-                  <p>After 20 minutes of scrolling, Brio introduces a short movement break before the user chooses whether to continue.</p>
-                </div>
-                <div>
-                  <span>Principle</span>
-                  <p>Social media is not the enemy. The goal is to make its use more deliberate and better regulated.</p>
-                </div>
-              </div>
-              <dl class="featured-case-system">
-                <div><dt>Built with</dt><dd>React Native</dd></div>
-                <div><dt>Components</dt><dd>Storybook</dd></div>
-                <div><dt>Design system</dt><dd>Zeroheight</dd></div>
-              </dl>
-              <div class="featured-case-actions">
-                <span class="featured-case-link is-disabled" aria-disabled="true">Full case study coming next <span aria-hidden="true">↗</span></span>
-                <div class="featured-case-external" aria-label="Brio release links coming later">
-                  <span class="github-link is-disabled" aria-label="GitHub repository coming later" title="GitHub repository coming later">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.87c-2.78.61-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.54 1.03 1.54 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.82a9.6 9.6 0 0 1 2.5.34c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
-                  </span>
-                  <span class="app-store-preview" aria-label="App Store release planned">
-                    <span>Coming first to</span>
-                    <strong>App Store</strong>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <div class="project-case-grid" aria-label="More selected case studies">
-            <article class="project-case-card">
-              <a class="project-case-media" href="shavikki.html" aria-label="Read the S-Hävikki case study">
-                <img src="assets/shavikki-kaappikuva-768.webp" alt="S-Hävikki food waste cabinet concept in a grocery store" loading="lazy" decoding="async">
-                <span class="project-case-index">02 / Service Design</span>
-              </a>
-              <div class="project-case-body">
-                <div class="project-case-heading">
+                <div class="case-page case-page-notes">
+                  <span class="case-page-kicker">Selected case 02</span>
                   <h3>S-Hävikki</h3>
-                  <span>6 min read</span>
+                  <p class="case-page-lede">Make near-expiry food easier to handle and easier to choose.</p>
+                  <dl class="case-page-findings">
+                    <div><dt>Question</dt><dd>How might near-expiry food become easier for stores to handle and customers to choose?</dd></div>
+                    <div><dt>Evidence</dt><dd>The customer experience depends on what store employees can realistically maintain every day.</dd></div>
+                    <div><dt>Finding</dt><dd>Visibility alone is not enough—the service and store process must support each other.</dd></div>
+                    <div><dt>Decision</dt><dd>Design one connected service flow instead of treating the cabinet and customer journey separately.</dd></div>
+                  </dl>
+                  <div class="case-page-footer"><span class="case-file-stamp">Field study</span><a class="project-case-link" href="shavikki.html">Open full case ↗</a></div>
                 </div>
-                <p>Making near-expiry food easier for stores to handle and easier for customers to choose.</p>
-                <div class="project-case-insight">
-                  <span>Key insight</span>
-                  <p>The service only works when the customer experience and the store's daily process support each other.</p>
-                </div>
-                <a class="project-case-link" href="shavikki.html">Read case study <span aria-hidden="true">↗</span></a>
-              </div>
-            </article>
+              </article>
 
-            <article class="project-case-card">
-              <a class="project-case-media" href="tahti.html" aria-label="Read the Tahti case study">
-                <video src="assets/tahtivideo.mp4" poster="assets/tahti-card.webp" muted loop playsinline preload="metadata"></video>
-                <span class="project-case-index">03 / Reading &amp; Focus</span>
-              </a>
-              <div class="project-case-body">
-                <div class="project-case-heading">
+              <article class="case-spread is-after" id="case-tahti" data-case-index="2">
+                <button class="case-edge-tab" type="button" data-case-index="2" aria-label="Open Tahti case">03 Tahti</button>
+                <div class="case-page case-page-visual">
+                  <div class="case-page-meta"><span>Case no. PH—003</span><strong>Prototype / Early feedback</strong></div>
+                  <div class="case-device case-device-tablet">
+                    <video src="assets/tahtivideo.mp4" poster="assets/tahti-card.webp" muted loop playsinline preload="metadata"></video>
+                  </div>
+                  <span class="case-page-caption">Reading &amp; focus · Interaction design · Prototype</span>
+                </div>
+                <div class="case-page case-page-notes">
+                  <span class="case-page-kicker">Selected case 03</span>
                   <h3>Tahti</h3>
-                  <span>4 min read</span>
+                  <p class="case-page-lede">Make the pace of reading visible without making it the goal.</p>
+                  <dl class="case-page-findings">
+                    <div><dt>Question</dt><dd>Can reading pace become visible without turning reading into a performance metric?</dd></div>
+                    <div><dt>Evidence</dt><dd>A working prototype exposes pace, timing and focus controls during reading.</dd></div>
+                    <div><dt>Finding</dt><dd>A calmer interface is not useful if removing context also weakens comprehension.</dd></div>
+                    <div><dt>Decision</dt><dd>Keep pacing feedback optional and test it as support—not as the main reading interface.</dd></div>
+                  </dl>
+                  <div class="case-page-footer"><span class="case-file-stamp">Early feedback</span><a class="project-case-link" href="tahti.html">Open full case ↗</a></div>
                 </div>
-                <p>A working reading experiment that makes pace visible and gives the user tighter control over focus.</p>
-                <div class="project-case-insight">
-                  <span>Main risk</span>
-                  <p>A calmer reading experience is not useful if removing context also weakens comprehension.</p>
+              </article>
+
+              <article class="case-spread case-spread-about is-after" id="about-me" aria-label="About me" data-case-index="3">
+                <span class="case-edge-tab case-edge-tab-about" aria-hidden="true">About me</span>
+                <div class="case-page case-page-notes">
+                  <div class="about-photo" aria-hidden="true">
+                    <div class="about-photo-placeholder"><span>PH</span><small>Portrait coming here</small></div>
+                    <span class="paperclip"></span>
+                  </div>
+                  <span class="case-page-kicker">About me</span>
+                  <h3>More than one title.</h3>
+                  <p class="case-page-lede">I keep moving toward the clearest way to understand and build what should exist next.</p>
+                  <dl class="case-page-findings">
+                    <div><dt>Background</dt><dd>ICT engineering and product design, evolving toward AI Design Engineering.</dd></div>
+                    <div><dt>Approach</dt><dd>Psychology, design, code, data and analytics belong in the same investigation.</dd></div>
+                    <div><dt>Curiosity</dt><dd>Puzzles, true crime, criminal psychology and systems that reward noticing patterns.</dd></div>
+                    <div><dt>Principle</dt><dd>Do not stay loyal to one method when a clearer route is available.</dd></div>
+                  </dl>
+                  <div class="case-page-footer"><span class="case-file-stamp">Still evolving</span><a class="project-case-link" href="about.html">Open full profile ↗</a></div>
                 </div>
-                <a class="project-case-link" href="tahti.html">Read case study <span aria-hidden="true">↗</span></a>
-              </div>
-            </article>
+              </article>
+            </div>
+
+            <div class="case-book-controls" aria-label="Case navigation">
+              <button class="case-book-previous" type="button" aria-label="Previous case">←</button>
+              <span><strong>01</strong> / 04</span>
+              <button class="case-book-next" type="button" aria-label="Next case">→</button>
+            </div>
           </div>
         </div>
       </section>
