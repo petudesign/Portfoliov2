@@ -315,6 +315,18 @@ h1 em { color: var(--purple); font-family: Georgia, serif; font-size: 1.04em; fo
 .case-book-controls button:hover { background: #f4e5bd; }
 .case-spread-about { display: block; }
 .case-spread-about .case-page-notes { height: 100%; padding-right: min(38vw, 560px); }
+.listening-stickers { margin-top: 20px; }
+.listening-stickers h4 { margin: 0 0 10px; color: #716653; font-family: "Courier New", monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+.listening-sticker-row { display: flex; min-height: 152px; align-items: flex-end; padding-left: 6px; }
+.listening-sticker { position: relative; width: 96px; margin: 0 -7px 0 0; padding: 6px; border: 0; background: #f5f1e8; box-shadow: 0 7px 12px rgba(55,40,22,.15); cursor: default; transition: z-index 0s, transform 220ms cubic-bezier(.2,.8,.2,1), box-shadow 220ms ease; }
+.listening-sticker img { display: block; width: 100%; aspect-ratio: 2 / 3; object-fit: cover; }
+.listening-sticker-blackbox { z-index: 1; transform: rotate(-4deg); }
+.listening-sticker-build { z-index: 3; transform: translateY(-4px) rotate(2deg); }
+.listening-sticker-userfriendly { z-index: 2; transform: rotate(5deg); }
+.listening-sticker:hover, .listening-sticker:focus-visible { z-index: 6; outline: none; box-shadow: 0 14px 22px rgba(55,40,22,.24); transform: translateY(-12px) rotate(0deg) scale(1.06); }
+.listening-sticker figcaption { position: absolute; bottom: calc(100% + 8px); left: 50%; display: grid; width: max-content; max-width: 190px; gap: 2px; padding: 7px 9px; border: 1px solid rgba(73,58,37,.2); color: #4c4235; background: #f7f1e6; box-shadow: 0 7px 14px rgba(55,40,22,.14); font-size: 10px; line-height: 1.25; opacity: 0; pointer-events: none; transform: translate(-50%,5px); transition: opacity 160ms ease, transform 180ms ease; }
+.listening-sticker figcaption span { color: #716653; }
+.listening-sticker:hover figcaption, .listening-sticker:focus-visible figcaption { opacity: 1; transform: translate(-50%,0); }
 .about-photo { position: absolute; top: -38px; right: -2px; z-index: 8; width: min(32vw, 420px); transform: rotate(3deg); transform-origin: 82% 0; }
 .about-photo-placeholder { position: relative; display: grid; min-height: 440px; place-items: center; align-content: center; gap: 10px; border: 10px solid #f3eee5; outline: 1px solid rgba(62,49,31,.2); color: #615341; background: #c7b7a5; box-shadow: 0 10px 18px rgba(60,45,25,.14); }
 .about-photo-placeholder span { font-family: Georgia, serif; font-size: 96px; }
@@ -413,6 +425,10 @@ h1 em { color: var(--purple); font-family: Georgia, serif; font-size: 1.04em; fo
   .case-spread-about .case-page-notes { padding-right: 20px; padding-top: 250px; }
   .about-photo { top: 26px; right: -10px; width: min(72vw, 290px); }
   .about-photo-placeholder { min-height: 210px; }
+  .listening-stickers { margin-top: 28px; }
+  .listening-sticker-row { min-height: 128px; }
+  .listening-sticker { width: 80px; }
+  .listening-sticker figcaption { display: none; }
   .case-book-controls { margin-top: 16px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
