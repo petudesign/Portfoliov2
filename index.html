@@ -3,273 +3,417 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A visual portfolio hero experiment for Petteri Helttula.">
-    <title>Desk Hero Experiment — Petteri Helttula</title>
+    <meta name="description" content="Petteri Helttula's product design portfolio: UX case studies, interface design work, and AI-assisted product experiments.">
+    <title>Petteri Helttula - Product Design Portfolio</title>
+    <link rel="canonical" href="https://portfoliobypetu.vercel.app/">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <meta property="og:title" content="Petteri Helttula - Product Design Portfolio">
+    <meta property="og:description" content="UX case studies, interface design work, and AI-assisted product experiments by Petteri Helttula.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://portfoliobypetu.vercel.app/">
+    <meta property="og:image" content="https://portfoliobypetu.vercel.app/assets/shavikki-kaappikuva.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Petteri Helttula - Product Design Portfolio">
+    <meta name="twitter:description" content="UX case studies, interface design work, and AI-assisted product experiments by Petteri Helttula.">
+    <meta name="twitter:image" content="https://portfoliobypetu.vercel.app/assets/shavikki-kaappikuva.png">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Petteri Helttula",
+        "url": "https://portfoliobypetu.vercel.app/",
+        "jobTitle": "Product Designer",
+        "sameAs": [
+          "https://www.linkedin.com/in/petteri-helttula/"
+        ],
+        "knowsAbout": [
+          "Product design",
+          "UX design",
+          "Interface design",
+          "AI-assisted workflows",
+          "Automation"
+        ]
+      }
+    </script>
     <link rel="preload" href="Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="desk-experiment.css">
+    <link rel="preload" href="CabinetGrotesk_Complete/Fonts/WEB/fonts/CabinetGrotesk-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="Melodrama_Complete/Fonts/WEB/fonts/Melodrama-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="/_vercel/insights/script.js"></script>
   </head>
-  <body>
-    <main>
-      <section class="desk-scene" aria-labelledby="hero-title">
-        <div class="desk-grid" aria-hidden="true"></div>
-        <div class="cutting-mat" aria-hidden="true"></div>
-        <img class="desk-sudoku" src="assets/sudoku-open-pages.svg" alt="">
-        <div class="desk-paper desk-paper-flowmark" aria-hidden="true">
-          <span class="paper-label">interaction study</span>
-          <div class="paper-sketch paper-sketch-flow">
-            <span class="sketch-box sketch-box-wide"></span><span class="sketch-box sketch-box-small"></span><span class="sketch-arrow">↗</span>
+  <body data-page="home">
+    <header class="site-header">
+      <div class="brand">
+        <a class="top-link" href="#top" aria-label="Back to top">Petteri Helttula</a>
+        <span>Design &amp; Prototypes</span>
+      </div>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav">
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+        <a class="active" href="#projects">Projects</a>
+        <a href="about.html">About</a>
+        <a href="blog.html">Blog</a>
+        <a href="https://drive.google.com/file/d/1jGHfK2btH744Slry8skZ1yfMZMGNYg3_/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume</a>
+        <a class="linkedin" href="https://www.linkedin.com/in/petteri-helttula/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">in</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="tag-row">
+            <span class="tag tag-yellow">Product Designer</span>
+            <span class="tag tag-pink">Into AI, automation &amp; thoughtful details</span>
           </div>
-          <span class="paper-note">make the next step obvious</span>
-        </div>
-        <div class="desk-paper desk-paper-tahti" aria-hidden="true">
-          <span class="paper-label">reading / focus</span>
-          <div class="paper-lines"><span></span><span></span><span></span><span></span></div>
-          <span class="paper-note">pace can be designed</span>
-        </div>
-        <div class="desk-paper desk-paper-notes" aria-hidden="true">
-          <span class="paper-label">Brio / movement</span>
-          <img class="paper-project-sketch" src="assets/brio-pushup-transparent.png" alt="">
-          <span class="paper-note">break the scroll with movement</span>
-        </div>
-        <div class="desk-paper desk-paper-flow" aria-hidden="true">
-          <span class="paper-label">flow / first pass</span>
-          <div class="paper-sketch paper-sketch-flow"><span class="sketch-box sketch-box-small"></span><span class="sketch-box sketch-box-small sketch-box-second"></span><span class="sketch-arrow">→</span></div>
-          <span class="paper-note">less friction, more confidence</span>
-        </div>
-        <span class="desk-object desk-object-pencil" aria-hidden="true"></span>
-        <span class="desk-object desk-object-sticky" aria-hidden="true"><span class="sticky-arrow">&lt;--</span><span>try this</span></span>
-        <span class="desk-object desk-object-clip" aria-hidden="true"></span>
-        <div class="desk-object desk-keychain-curry" aria-hidden="true">
-          <span class="keychain-ring"></span>
-          <span class="keychain-chain"><i></i><i></i><i></i></span>
-          <span class="keychain-clasp"></span>
-          <img src="assets/curry-sticker.png" alt="">
-        </div>
-        <div class="desk-object desk-object-airpods">
-          <button class="airpods-trigger" type="button" aria-expanded="false" aria-controls="desk-music-card">
-            <span class="visually-hidden">Open AirPods music easter egg</span>
-            <img class="airpods-closed" src="assets/airpods-closed.svg" alt="">
-            <img class="airpods-open" src="assets/airpods-desk.svg" alt="">
-          </button>
-          <div class="desk-music-card" id="desk-music-card" hidden>
-            <div class="music-card-heading">
-              <span>What I'm listening to</span>
-            </div>
-            <div class="spotify-embed" data-uri="spotify:playlist:6IuMsRmYaJu1eAThxQkDyU"></div>
-          </div>
-        </div>
-        <div class="desk-object desk-scrap">
-          <button class="scrap-trigger" type="button" aria-expanded="false" aria-controls="scrap-note">
-            <img src="assets/crumpled-paper.svg" alt="">
-            <span class="visually-hidden">Open a scrapped project idea</span>
-          </button>
-          <div class="scrap-note" id="scrap-note" hidden>
-            <button class="scrap-close" type="button" aria-label="Crumple the idea back up">×</button>
-            <span class="scrap-label">Scrapped idea / 2025</span>
-            <strong>Visual ordering for Deaf diners</strong>
-            <p>Scrapped after the concept started requiring too many restaurant-side changes and risked adding friction instead of removing it.</p>
-            <span class="scrap-verdict">Good intention. Wrong solution.</span>
-          </div>
+          <h1 id="hero-title">
+            <span class="hero-line-intro"><span class="hero-intro-moi">Moi <span class="wave" aria-hidden="true">&#128075;</span></span> <span class="hero-intro-name">I'm Petteri.</span></span>
+            <span class="hero-line-product">I design digital products that make complex things feel <em>clear.</em></span>
+          </h1>
+          <p class="hero-meta">
+            <span>I'm a Product Designer specializing in mobile solutions. I care about making interfaces feel useful, understandable, and a little more human.</span>
+          </p>
+          <a class="hero-cta" href="about.html">
+            <span>More about me &amp; how I work</span>
+            <span class="hero-cta-icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" focusable="false">
+                <path d="M5 11L11 5"></path>
+                <path d="M6.5 5H11V9.5"></path>
+              </svg>
+            </span>
+          </a>
         </div>
 
-        <header class="experiment-header">
-          <a href="index.html">Petteri Helttula</a>
-        </header>
-
-        <div class="desk-layout">
-          <div class="hero-copy">
-            <div class="hero-sheet">
-              <div class="hero-tags" aria-label="Design focus">
-                <span class="hero-tag hero-tag-yellow">AI Design Engineering</span>
-                <span class="hero-tag hero-tag-pink">Analytics · Prototypes · Code</span>
-              </div>
-              <h1 id="hero-title">Moi <span aria-hidden="true">👋</span> I'm Petteri.<br>I <button class="turn-toggle" type="button" aria-pressed="false">turn</button> messy product problems into <em>clear directions.</em></h1>
-              <p>I'm a Product Designer evolving into the still-mysterious world of AI Design Engineering — combining psychology, design, code, data, and analytics to build what matters.</p>
-              <a class="hero-link" href="about.html">More about me &amp; how I work <span aria-hidden="true">↗</span></a>
-            </div>
+        <aside class="featured" aria-label="Featured project preview">
+          <div class="featured-heading">
+            <p class="eyebrow">Selected Work</p>
+            <a href="#projects">View all</a>
           </div>
-
-          <section class="selected-work" id="selected-work" aria-labelledby="selected-work-title">
-            <div class="selected-work-heading">
-              <h2 class="visually-hidden" id="selected-work-title">Selected work</h2>
-            </div>
-
-            <div class="phone-stage">
-              <span class="selected-projects-arc" aria-hidden="true">Project Showreel</span>
-              <div class="phone-shadow" aria-hidden="true"></div>
-              <div class="phone" aria-label="Selected work carousel. Swipe horizontally to change project.">
-                <div class="dynamic-island" aria-live="polite">
-                  <span class="island-sensor" aria-hidden="true"></span>
-                  <span class="island-camera" aria-hidden="true"></span>
-                  <span class="island-now-playing">
-                    <span class="island-wave" aria-hidden="true"><i></i><i></i><i></i></span>
-                    <span class="island-track">Petteri's rotation</span>
-                    <span class="island-time" data-idle-label="Spotify">Spotify</span>
+          <div class="selected-project selected-project-featured">
+          <a class="featured-image media-preview media-preview-shavikki" href="shavikki.html" aria-label="Open S-Hävikki case study">
+            <picture>
+              <source
+                type="image/webp"
+                srcset="assets/shavikki-kaappikuva-480.webp 480w, assets/shavikki-kaappikuva-768.webp 768w, assets/shavikki-kaappikuva-1100.webp 1100w"
+                sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1240px) min(780px, calc(100vw - 56px)), 520px"
+              >
+              <img src="assets/shavikki-kaappikuva.png" width="1219" height="816" alt="S-Hävikki branded food waste cabinet concept in a grocery store" decoding="async" fetchpriority="high">
+            </picture>
+            <span class="selected-card-scrim" aria-hidden="true"></span>
+            <span class="selected-card-tags" aria-hidden="true">
+              <span>Service Design</span>
+              <span class="selected-card-tag-time">
+                <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                  <circle cx="8" cy="8" r="6"></circle>
+                  <path d="M8 4.8V8l2.3 1.4"></path>
+                </svg>
+                <span>6 min</span>
+              </span>
+            </span>
+            <span class="selected-card-action" aria-hidden="true">
+              <img src="assets/arrow-up-right.svg" width="24" height="24" alt="">
+            </span>
+            <span class="selected-cover selected-cover-shavikki">
+              <span class="selected-cover-title">S-Hävikki</span>
+              <span class="selected-cover-description">Making near-expiry food easier to handle and choose</span>
+            </span>
+          </a>
+          </div>
+          <div class="selected-grid">
+            <div class="selected-project">
+            <a class="media-preview media-preview-filternews media-preview-video" href="filter-news.html" aria-label="Open FilterNews case">
+              <video
+                class="hover-preview-video"
+                data-src="assets/filter-news-preview.mp4"
+                poster="assets/filternews-bbc-760.webp"
+                muted
+                loop
+                playsinline
+                preload="none"
+              ></video>
+              <img
+                class="mobile-preview-image"
+                src="assets/filternews-bbc-520.webp"
+                width="520"
+                height="258"
+                srcset="assets/filternews-bbc-520.webp 520w, assets/filternews-bbc-760.webp 760w"
+                sizes="(max-width: 760px) calc(100vw - 64px), 260px"
+                alt="BBC news page softened by FilterNews topic controls"
+                decoding="async"
+              >
+              <span class="selected-card-scrim" aria-hidden="true"></span>
+              <span class="selected-card-tags" aria-hidden="true">
+                <span>Product</span>
+              </span>
+              <span class="selected-card-action" aria-hidden="true">
+                <img src="assets/arrow-up-right.svg" width="24" height="24" alt="">
+              </span>
+              <span class="selected-cover selected-cover-filternews">
+                <span class="selected-cover-row">
+                  <span class="selected-cover-title">FilterNews</span>
+                  <span class="selected-cover-time">
+                    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                      <circle cx="8" cy="8" r="6"></circle>
+                      <path d="M8 4.8V8l2.3 1.4"></path>
+                    </svg>
+                    <span>5 min</span>
                   </span>
-                </div>
-                <div class="swipe-coach" aria-hidden="true">
-                  <svg viewBox="0 0 150 110" role="presentation">
-                    <path class="swipe-coach-arrow" d="M36 22h70m0 0L92 8m14 14L92 36"/>
-                    <path class="swipe-coach-hand" d="M58 90c-8-5-14-13-15-23l-2-18c-.5-5 3-9 8-9 4 0 7 3 8 7l2 9V22c0-5 4-9 9-9s9 4 9 9v24-8c0-5 4-8 8-8s8 3 8 8v12-6c0-4 3-7 7-7s7 3 7 7v16c0 15-7 27-20 34l-4 10H61z"/>
-                  </svg>
-                  <span>Swipe to explore</span>
-                </div>
-                <div class="phone-screen" tabindex="0">
-                  <div class="phone-track">
-                    <article class="phone-slide" data-project="0" aria-label="Project 1 of 3: S-Hävikkki">
-                      <img src="assets/shavikki-kaappikuva-768.webp" alt="S-Hävikkki food waste cabinet concept in a grocery store">
-                      <div class="phone-slide-copy"><span>Service Design</span><h3>S-Hävikkki</h3><p>Making near-expiry food easier to handle and choose.</p></div>
-                    </article>
-                    <article class="phone-slide" data-project="1" aria-label="Project 2 of 3: Tahti">
-                      <video src="assets/tahtivideo.mp4" poster="assets/tahti-card.webp" muted loop playsinline preload="metadata"></video>
-                      <div class="phone-slide-copy"><span>Reading / Focus</span><h3>Tahti</h3><p>Making the pace of reading visible and controllable.</p></div>
-                    </article>
-                    <article class="phone-slide" data-project="2" aria-label="Project 3 of 3: Flowmark">
-                      <img src="assets/flowmark-card.webp" alt="Flowmark first-click test builder interface">
-                      <div class="phone-slide-copy"><span>SaaS / Feedback</span><h3>Flowmark</h3><p>A lighter feedback loop for prototype ideas.</p></div>
-                    </article>
-                  </div>
-                </div>
-                <div class="phone-controls">
-                  <span class="swipe-hint"><span class="project-dots" aria-hidden="true"><i class="is-active"></i><i></i><i></i></span></span>
-                </div>
-              </div>
+                </span>
+                <span class="selected-cover-description">Soft news filtering to prevent cognitive overload</span>
+              </span>
+            </a>
+            </div>
+            <div class="selected-project">
+            <a class="media-preview media-preview-flowmark" href="flowmark.html" aria-label="Open Flowmark case">
+              <img src="assets/flowmark-card.webp" width="900" height="440" alt="Flowmark first-click test builder interface" decoding="async">
+              <span class="selected-card-scrim" aria-hidden="true"></span>
+              <span class="selected-card-tags" aria-hidden="true">
+                <span>SaaS</span>
+              </span>
+              <span class="selected-card-action" aria-hidden="true">
+                <img src="assets/arrow-up-right.svg" width="24" height="24" alt="">
+              </span>
+              <span class="selected-cover selected-cover-flowmark">
+                <span class="selected-cover-row">
+                  <span class="selected-cover-title">Flowmark</span>
+                  <span class="selected-cover-time">
+                    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                      <circle cx="8" cy="8" r="6"></circle>
+                      <path d="M8 4.8V8l2.3 1.4"></path>
+                    </svg>
+                    <span>3 min</span>
+                  </span>
+                </span>
+                <span class="selected-cover-description">A lighter feedback loop for mobile prototype ideas</span>
+              </span>
+            </a>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="projects" class="project-section" aria-labelledby="projects-title">
+        <div class="section-heading">
+          <h2 id="projects-title">More product work</h2>
+          <p>Focused audits, interaction experiments, and product concepts.</p>
+        </div>
+
+        <div class="project-grid">
+          <section class="project-year-group" data-year="2026" aria-labelledby="project-year-2026">
+            <div class="project-year-marker">
+              <time id="project-year-2026" datetime="2026">2026</time>
+            </div>
+            <div class="project-year-projects">
+          <article class="project-card" id="elisa-audit">
+            <a class="project-row" href="elisa-audit.html" aria-label="Open Elisa UX audit case">
+              <span class="project-media project-media-video project-media-elisa-reel">
+                <span class="project-reel-cover" aria-hidden="true">
+                  <span class="project-reel-orb project-reel-orb-one"></span>
+                  <span class="project-reel-orb project-reel-orb-two"></span>
+                  <span class="project-reel-hint">Hover to preview <span aria-hidden="true">↗</span></span>
+                  <span class="project-reel-cover-label">Checkout, interrupted.</span>
+                </span>
+                <span class="project-reel-scrim" aria-hidden="true"></span>
+                <span class="project-reel-frame">
+                  <video class="hover-preview-video" data-src="assets/elisa-checkout-preview.mp4" muted loop playsinline preload="none"></video>
+                </span>
+                <img class="mobile-preview-image" src="assets/elisa-final-design-760.webp" width="760" height="480" alt="Elisa checkout redesign" decoding="async" loading="lazy">
+              </span>
+              <span class="project-row-content">
+                <span class="project-row-kicker"><span>01 / 04</span><span>Checkout / Conversion</span></span>
+                <strong>Elisa.fi Checkout UX Audit</strong>
+                <span class="project-row-description">A self-initiated audit of how blocking upsells and weak product reassurance interrupt purchase intent.</span>
+                <span class="project-row-outcome"><span>Audit outcome</span> Two concrete intervention points for a calmer, more reassuring checkout.</span>
+                <span class="project-row-details">
+                  <span class="project-row-time"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6"></circle><path d="M8 4.8V8l2.3 1.4"></path></svg>5 min read</span>
+                </span>
+              </span>
+            </a>
+          </article>
+
+          <article class="project-card" id="tahti">
+            <a class="project-row" href="tahti.html" aria-label="Open Tahti reading support case">
+              <span class="project-media project-media-reel project-media-tahti-reel project-media-card-video">
+                <span class="project-reel-cover project-reel-cover-tahti" aria-hidden="true">
+                  <span class="project-reel-orb project-reel-orb-tahti-one"></span>
+                  <span class="project-reel-orb project-reel-orb-tahti-two"></span>
+                  <span class="project-reel-hint">Hover to preview <span aria-hidden="true">↗</span></span>
+                  <span class="project-reel-cover-label project-reel-cover-label-tahti">Pace, made visible.</span>
+                </span>
+                <span class="project-reel-scrim" aria-hidden="true"></span>
+                <span class="project-reel-frame project-reel-frame-tahti">
+                  <video class="hover-preview-video" data-src="assets/tahtivideo.mp4" poster="assets/tahti-card.webp" muted loop playsinline preload="none"></video>
+                </span>
+                <img class="mobile-preview-image" src="assets/tahti-card.webp" width="900" height="448" alt="Tahti reader overlay prototype" decoding="async" loading="lazy">
+              </span>
+              <span class="project-row-content">
+                <span class="project-row-kicker"><span>02 / 04</span><span>Reading / Focus</span></span>
+                <strong>Tahti</strong>
+                <span class="project-row-description">A working Chrome extension exploring whether controlled pacing can reduce visual load and help people stay with text.</span>
+                <span class="project-row-outcome"><span>Prototype outcome</span> Turned dense selected text into a focused reading session with controllable pace, pause, and rewind.</span>
+                <span class="project-row-details">
+                  <span class="project-row-time"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6"></circle><path d="M8 4.8V8l2.3 1.4"></path></svg>4 min read</span>
+                </span>
+              </span>
+            </a>
+          </article>
+
+          <article class="project-card" id="automotive">
+            <a class="project-row" href="automotive.html" aria-label="Open Automotive UX case">
+              <span class="project-media project-media-card project-media-automotive">
+                <img src="assets/automotiveux-card.webp" width="860" height="682" alt="Automotive infotainment interface shown inside a car cockpit" decoding="async" loading="lazy">
+              </span>
+              <span class="project-row-content">
+                <span class="project-row-kicker"><span>03 / 04</span><span>In-car / Attention</span></span>
+                <strong>Automotive UX</strong>
+                <span class="project-row-description">Redesigning an incoming-call interaction for the split attention and physical constraints of a moving car.</span>
+                <span class="project-row-outcome"><span>Interaction outcome</span> Reduced the call flow to one glanceable decision for a divided-attention context.</span>
+                <span class="project-row-details">
+                  <span class="project-row-time"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6"></circle><path d="M8 4.8V8l2.3 1.4"></path></svg>2 min read</span>
+                </span>
+              </span>
+            </a>
+          </article>
+            </div>
+          </section>
+
+          <section class="project-year-group" data-year="2025" aria-labelledby="project-year-2025">
+            <div class="project-year-marker">
+              <time id="project-year-2025" datetime="2025">2025</time>
+            </div>
+            <div class="project-year-projects">
+          <article class="project-card" id="smartgrocer">
+            <a class="project-row" href="smartgrocer.html" aria-label="Open SmartGrocer case">
+              <span class="project-media project-media-card project-media-smartgrocer-card">
+                <img src="assets/smartgrocer-card.webp" width="1000" height="667" alt="SmartGrocer self-scanning handheld scanner interface in a grocery basket" decoding="async" loading="lazy">
+              </span>
+              <span class="project-row-content">
+                <span class="project-row-kicker"><span>04 / 04</span><span>Retail / Self-scanning</span></span>
+                <strong>SmartGrocer</strong>
+                <span class="project-row-description">A grocery concept connecting shopping lists, store guidance, self-scanning, and loyalty benefits into one trip.</span>
+                <span class="project-row-outcome"><span>Concept outcome</span> Connected four fragmented shopping tasks into one end-to-end flow.</span>
+                <span class="project-row-details">
+                  <span class="project-row-time"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6"></circle><path d="M8 4.8V8l2.3 1.4"></path></svg>4 min read</span>
+                </span>
+              </span>
+            </a>
+          </article>
             </div>
           </section>
         </div>
       </section>
 
-      <section class="folder-section" id="projects" aria-labelledby="projects-title">
-        <a class="scroll-cue" href="#projects-title">Scroll to see more <span aria-hidden="true">↓</span></a>
-        <div class="folder-sticky-header">
-          <nav class="folder-tabs" aria-label="Portfolio sections">
-            <button class="folder-tab is-active" type="button" data-folder-case="0">Projects</button>
-            <div class="folder-nav">
-              <a href="#about-me" data-folder-case="3">About me</a>
-              <a href="blog.html">Blog</a>
-              <a href="https://drive.google.com/file/d/1jGHfK2btH744Slry8skZ1yfMZMGNYg3_/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume</a>
-              <a class="folder-linkedin" href="https://www.linkedin.com/in/petteri-helttula/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">in</a>
+      <section class="prototype-lab" aria-labelledby="prototype-lab-title">
+        <span class="prototype-lab-theme-sentinel prototype-lab-theme-start" aria-hidden="true"></span>
+        <div class="prototype-lab-inner">
+          <div class="prototype-lab-copy">
+            <div class="prototype-lab-label">
+              <p class="eyebrow">Build Lab</p>
+              <span>Experiments, utilities &amp; prototypes</span>
             </div>
-          </nav>
-        </div>
-        <div class="folder-content">
-          <div class="case-book" data-active-case="0">
-            <div class="case-book-pages">
-              <article class="case-spread is-current" id="case-brio" data-case-index="0">
-                <button class="case-edge-tab" type="button" data-case-index="0" aria-label="Open Brio case">01 Brio</button>
-                <div class="case-page case-page-visual case-page-brio">
-                  <div class="case-page-meta"><span>Case no. PH—001</span><strong>Main case / In development</strong></div>
-                  <div class="case-device case-device-phone">
-                    <img src="assets/brio-pushup-transparent.png" alt="Line drawing of a person doing a push-up">
-                  </div>
-                  <span class="case-page-caption">Digital wellbeing · Product design · iOS first</span>
-                </div>
-                <div class="case-page case-page-notes">
-                  <span class="case-page-kicker">Selected case 01</span>
-                  <h3>Brio</h3>
-                  <p class="case-page-lede">Interrupt the scroll. Move. Continue intentionally.</p>
-                  <dl class="case-page-findings">
-                    <div><dt>Question</dt><dd>How might doomscrolling be interrupted without treating social media as the enemy?</dd></div>
-                    <div><dt>Evidence</dt><dd>Scrolling often continues without a conscious decision to keep going.</dd></div>
-                    <div><dt>Finding</dt><dd>A short physical interruption can create a clearer moment for choosing what happens next.</dd></div>
-                    <div><dt>Decision</dt><dd>After 20 minutes, introduce a brief movement break before the user chooses whether to continue.</dd></div>
-                  </dl>
-                  <div class="case-page-footer"><span class="case-file-stamp">In progress</span><span class="project-case-link is-disabled">Full case coming next ↗</span></div>
-                </div>
+            <h2 id="prototype-lab-title">Small builds with a clear reason to exist.</h2>
+            <p>I like building small things around real problems: tools that reduce friction, side projects that test an idea, and AI-assisted prototypes that make a problem easier to understand.</p>
+          </div>
+
+          <div class="lab-board" aria-label="Useful small builds">
+            <a class="lab-card lab-card-featured" href="courttap.html" aria-label="Open CourtTap smartwatch scoring concept">
+              <span class="lab-card-media">
+                <img src="assets/courttap-preview.svg" width="1200" height="800" alt="CourtTap smartwatch scoring interface for tennis and padel" decoding="async" loading="lazy">
+              </span>
+              <span class="lab-card-content">
+                <span class="lab-card-tags">
+                  <span>Side build</span>
+                  <span>Everyday friction</span>
+                </span>
+                <span class="lab-card-title">CourtTap</span>
+                <span class="lab-card-description">A small scoring tool for casual padel and tennis, built around the awkward moment of tracking a match mid-game.</span>
+              </span>
+            </a>
+
+            <article class="lab-card lab-card-tool">
+              <span class="lab-card-media lab-card-tool-media">
+                <img src="assets/font-license-checker-ui.webp" width="1000" height="667" alt="Font License Checker interface showing a Satoshi font specimen and an OFL 1.1 safe-to-use result" decoding="async" loading="lazy">
+              </span>
+              <span class="lab-card-content">
+                <span class="lab-card-tags">
+                  <span>Workflow tool</span>
+                  <span class="lab-card-status">Coming soon</span>
+                </span>
+                <span class="lab-card-title">Font License Checker</span>
+                <span class="lab-card-description">A small utility idea for making font licensing less vague before a type choice becomes a product risk.</span>
+              </span>
+            </article>
+
+            <div class="lab-card-stack">
+              <article class="lab-reel case-media-shell">
+                <video class="case-video" data-src="assets/filter-news-preview.mp4" poster="assets/filternews-bbc-760.webp" muted loop playsinline preload="none"></video>
+                <span class="lab-reel-scrim" aria-hidden="true"></span>
+                <span class="lab-reel-copy">
+                  <span>Prototype reel</span>
+                  <strong>Browser experiments in motion.</strong>
+                </span>
+                <button class="case-video-toggle lab-reel-toggle" type="button" aria-label="Pause video" aria-pressed="false">
+                  <span class="case-video-toggle-icon" aria-hidden="true"></span>
+                  <span class="case-video-toggle-label">Pause</span>
+                </button>
               </article>
 
-              <article class="case-spread is-after" id="case-shavikki" data-case-index="1">
-                <button class="case-edge-tab" type="button" data-case-index="1" aria-label="Open S-Hävikki case">02 S-Hävikki</button>
-                <div class="case-page case-page-visual">
-                  <div class="case-page-meta"><span>Case no. PH—002</span><strong>Service system / Field study</strong></div>
-                  <img src="assets/shavikki-kaappikuva-768.webp" alt="S-Hävikki food waste cabinet concept in a grocery store" loading="lazy" decoding="async">
-                  <span class="case-page-caption">Service design · Retail operations · Customer journey</span>
-                </div>
-                <div class="case-page case-page-notes">
-                  <span class="case-page-kicker">Selected case 02</span>
-                  <h3>S-Hävikki</h3>
-                  <p class="case-page-lede">Make near-expiry food easier to handle and easier to choose.</p>
-                  <dl class="case-page-findings">
-                    <div><dt>Question</dt><dd>How might near-expiry food become easier for stores to handle and customers to choose?</dd></div>
-                    <div><dt>Evidence</dt><dd>The customer experience depends on what store employees can realistically maintain every day.</dd></div>
-                    <div><dt>Finding</dt><dd>Visibility alone is not enough—the service and store process must support each other.</dd></div>
-                    <div><dt>Decision</dt><dd>Design one connected service flow instead of treating the cabinet and customer journey separately.</dd></div>
-                  </dl>
-                  <div class="case-page-footer"><span class="case-file-stamp">Field study</span><a class="project-case-link" href="shavikki.html">Open full case ↗</a></div>
-                </div>
+              <article class="lab-note">
+                <span>Coming next</span>
+                <p>Small utilities for audits, copy checks, accessibility decisions, and workflow cleanup.</p>
               </article>
-
-              <article class="case-spread is-after" id="case-tahti" data-case-index="2">
-                <button class="case-edge-tab" type="button" data-case-index="2" aria-label="Open Tahti case">03 Tahti</button>
-                <div class="case-page case-page-visual">
-                  <div class="case-page-meta"><span>Case no. PH—003</span><strong>Prototype / Early feedback</strong></div>
-                  <div class="case-device case-device-tablet">
-                    <video src="assets/tahtivideo.mp4" poster="assets/tahti-card.webp" muted loop playsinline preload="metadata"></video>
-                  </div>
-                  <span class="case-page-caption">Reading &amp; focus · Interaction design · Prototype</span>
-                </div>
-                <div class="case-page case-page-notes">
-                  <span class="case-page-kicker">Selected case 03</span>
-                  <h3>Tahti</h3>
-                  <p class="case-page-lede">Make the pace of reading visible without making it the goal.</p>
-                  <dl class="case-page-findings">
-                    <div><dt>Question</dt><dd>Can reading pace become visible without turning reading into a performance metric?</dd></div>
-                    <div><dt>Evidence</dt><dd>A working prototype exposes pace, timing and focus controls during reading.</dd></div>
-                    <div><dt>Finding</dt><dd>A calmer interface is not useful if removing context also weakens comprehension.</dd></div>
-                    <div><dt>Decision</dt><dd>Keep pacing feedback optional and test it as support—not as the main reading interface.</dd></div>
-                  </dl>
-                  <div class="case-page-footer"><span class="case-file-stamp">Early feedback</span><a class="project-case-link" href="tahti.html">Open full case ↗</a></div>
-                </div>
-              </article>
-
-              <article class="case-spread case-spread-about is-after" id="about-me" aria-label="About me" data-case-index="3">
-                <span class="case-edge-tab case-edge-tab-about" aria-hidden="true">About me</span>
-                <div class="case-page case-page-notes">
-                  <div class="about-photo" aria-hidden="true">
-                    <div class="about-photo-placeholder"><span>PH</span><small>Portrait coming here</small></div>
-                    <span class="paperclip"></span>
-                  </div>
-                  <span class="case-page-kicker">About me</span>
-                  <h3>More than one title.</h3>
-                  <p class="case-page-lede">I keep moving toward the clearest way to understand and build what should exist next.</p>
-                  <dl class="case-page-findings">
-                    <div><dt>Background</dt><dd>ICT engineering and product design, evolving toward AI Design Engineering.</dd></div>
-                    <div><dt>Approach</dt><dd>Psychology, design, code, data and analytics belong in the same investigation.</dd></div>
-                    <div><dt>Curiosity</dt><dd>Puzzles, true crime, criminal psychology and systems that reward noticing patterns.</dd></div>
-                    <div><dt>Principle</dt><dd>Do not stay loyal to one method when a clearer route is available.</dd></div>
-                  </dl>
-                  <section class="listening-stickers" aria-labelledby="listening-title">
-                    <h4 id="listening-title">Currently listening</h4>
-                    <div class="listening-sticker-row">
-                      <figure class="listening-sticker listening-sticker-blackbox" tabindex="0">
-                        <img src="assets/book-black-box-thinking.png" alt="Black Box Thinking by Matthew Syed" loading="lazy" decoding="async">
-                        <figcaption><strong>Black Box Thinking</strong><span>Matthew Syed</span></figcaption>
-                      </figure>
-                      <figure class="listening-sticker listening-sticker-build" tabindex="0">
-                        <img src="assets/book-build.png" alt="Build by Tony Fadell" loading="lazy" decoding="async">
-                        <figcaption><strong>Build</strong><span>Tony Fadell</span></figcaption>
-                      </figure>
-                      <figure class="listening-sticker listening-sticker-userfriendly" tabindex="0">
-                        <img src="assets/book-user-friendly.png" alt="User Friendly by Cliff Kuang and Robert Fabricant" loading="lazy" decoding="async">
-                        <figcaption><strong>User Friendly</strong><span>Cliff Kuang &amp; Robert Fabricant</span></figcaption>
-                      </figure>
-                    </div>
-                  </section>
-                  <div class="case-page-footer"><span class="case-file-stamp">Still evolving</span><a class="project-case-link" href="about.html">Open full profile ↗</a></div>
-                </div>
-              </article>
-            </div>
-
-            <div class="case-book-controls" aria-label="Case navigation">
-              <button class="case-book-previous" type="button" aria-label="Previous case">←</button>
-              <span><strong>01</strong> / 04</span>
-              <button class="case-book-next" type="button" aria-label="Next case">→</button>
             </div>
           </div>
         </div>
+        <span class="prototype-lab-theme-sentinel prototype-lab-theme-end" aria-hidden="true"></span>
       </section>
     </main>
-    <script src="desk-experiment.js"></script>
-    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-copy">
+          <span>Petteri Helttula</span>
+          <p>Product design, AI-assisted prototypes, and useful side builds.</p>
+          <small>Designed with Figma. Built with Codex. Refined through product judgment.</small>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="index.html#projects">Projects</a>
+          <a href="about.html">About</a>
+          <a href="blog.html">Blog</a>
+          <a href="https://www.linkedin.com/in/petteri-helttula/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="mailto:helttula.petteri@gmail.com">Email</a>
+          <a class="back-to-top" href="#top">Back to top</a>
+        </nav>
+      </div>
+    </footer>
+
+    <section class="project-companion" aria-label="Portfolio Companion">
+      <button
+        class="companion-trigger"
+        type="button"
+        aria-expanded="false"
+        aria-controls="companion-panel"
+      >
+        <span class="companion-trigger-icon" aria-hidden="true"></span>
+        <span>Portfolio Companion</span>
+      </button>
+
+      <div class="companion-panel" id="companion-panel" hidden>
+        <div class="companion-header">
+          <span class="companion-header-icon" aria-hidden="true"></span>
+          <div>
+          <p>Portfolio Companion</p>
+            <h2>Want the quick tour?</h2>
+          </div>
+          <button class="companion-close" type="button" aria-label="Close Portfolio Companion">×</button>
+        </div>
+
+        <div class="companion-messages" aria-live="polite"></div>
+        <div class="companion-prompts" aria-label="Suggested questions"></div>
+      </div>
+    </section>
+
+    <script defer src="script.js"></script>
   </body>
 </html>
