@@ -25,12 +25,43 @@ const caseSpreads = [...document.querySelectorAll('.case-spread')];
 const caseBookPrevious = document.querySelector('.case-book-previous');
 const caseBookNext = document.querySelector('.case-book-next');
 const caseBookCount = document.querySelector('.case-book-controls strong');
-const aboutFolderLink = document.querySelector('[data-folder-case="3"]');
+const aboutFolderLink = document.querySelector('[data-folder-case="4"]');
 const projectsFolderLink = document.querySelector('[data-folder-case="0"]');
 const folderDockTop = 72;
 let activeProject = 0;
 let spotifyController;
 let spotifyApi;
+const playbackState = {
+  isPlaying: false,
+  playingURI: '',
+  title: 'Petteri\'s playlist',
+  position: 0,
+  duration: 0,
+};
+window.portfolioPlaybackState = playbackState;
+
+const publishPlaybackState = (update = {}) => {
+  Object.assign(playbackState, update);
+  window.dispatchEvent(new CustomEvent('portfolio:playback', { detail: { ...playbackState } }));
+};
+
+const spotifyUriToUrl = (uri) => {
+  const [service, type, id] = uri?.split(':') || [];
+  return service === 'spotify' && type && id ? `https://open.spotify.com/${type}/${id}` : '';
+};
+
+const loadPlaybackTitle = async (playingURI) => {
+  const url = spotifyUriToUrl(playingURI);
+  if (!url) return;
+  try {
+    const response = await fetch(`https://open.spotify.com/oembed?url=${encodeURIComponent(url)}`);
+    if (!response.ok) return;
+    const metadata = await response.json();
+    if (playbackState.playingURI === playingURI && metadata.title) publishPlaybackState({ title: metadata.title });
+  } catch {
+    // Playback remains usable if Spotify's optional metadata request is unavailable.
+  }
+};
 
 const projectLinks = ['shavikki.html', 'tahti.html', 'flowmark.html'];
 
@@ -50,9 +81,23 @@ const createSpotifyPlayer = () => {
     controller.addListener('ready', () => {
       if (airpods?.classList.contains('is-open')) phone.classList.add('is-music-ready');
     });
+    controller.addListener('playback_started', ({ data }) => {
+      const playingURI = data.playingURI || '';
+      publishPlaybackState({ isPlaying: true, playingURI, position: 0 });
+      loadPlaybackTitle(playingURI);
+    });
     controller.addListener('playback_update', ({ data }) => {
       islandTime.textContent = data.position > 0 ? formatPlaybackTime(data.position) : islandTime.dataset.idleLabel;
       phone.classList.toggle('is-music-playing', data.position > 0 && !data.isPaused);
+      const playingURI = data.playingURI || playbackState.playingURI;
+      const trackChanged = playingURI && playingURI !== playbackState.playingURI;
+      publishPlaybackState({
+        isPlaying: data.position > 0 && !data.isPaused,
+        playingURI,
+        position: data.position || 0,
+        duration: data.duration || 0,
+      });
+      if (trackChanged) loadPlaybackTitle(playingURI);
     });
   });
 };
@@ -61,6 +106,10 @@ window.onSpotifyIframeApiReady = (iframeApi) => {
   spotifyApi = iframeApi;
   if (airpods?.classList.contains('is-open')) createSpotifyPlayer();
 };
+
+window.addEventListener('portfolio:toggle-playback', () => {
+  spotifyController?.togglePlay();
+});
 
 let swipeCoachTimer;
 const dismissSwipeCoach = () => {
@@ -121,6 +170,13 @@ airpodsTrigger?.addEventListener('click', () => {
     spotifyController?.pause();
     islandTime.textContent = islandTime.dataset.idleLabel;
     phone.classList.remove('is-music-playing');
+    publishPlaybackState({
+      isPlaying: false,
+      playingURI: '',
+      title: 'Petteri\'s playlist',
+      position: 0,
+      duration: 0,
+    });
   }
   phone.classList.toggle('is-music-ready', isOpen);
 });
@@ -141,6 +197,7 @@ scrapClose?.addEventListener('click', () => {
 turnToggle?.addEventListener('click', () => {
   const isOrganized = deskScene.classList.toggle('is-organized');
   turnToggle.setAttribute('aria-pressed', String(isOrganized));
+  turnToggle.setAttribute('aria-label', isOrganized ? 'Turn the desk messy again' : 'Turn the desk organized');
 });
 
 if (folderSection && deskScene) {
@@ -195,8 +252,8 @@ if (caseBook && caseSpreads.length) {
       tab.setAttribute('aria-pressed', String(index === activeCase));
       tab.tabIndex = index === activeCase ? 0 : -1;
     });
-    projectsFolderLink?.classList.toggle('is-active', activeCase < 3);
-    aboutFolderLink?.classList.toggle('is-active', activeCase === 3);
+    projectsFolderLink?.classList.toggle('is-active', activeCase < 4);
+    aboutFolderLink?.classList.toggle('is-active', activeCase === 4);
   };
 
   caseBookTabs.forEach((tab) => tab.addEventListener('click', () => setActiveCase(Number(tab.dataset.caseIndex))));
@@ -205,7 +262,7 @@ if (caseBook && caseSpreads.length) {
   projectsFolderLink?.addEventListener('click', () => setActiveCase(0));
   aboutFolderLink?.addEventListener('click', (event) => {
     event.preventDefault();
-    setActiveCase(3);
+    setActiveCase(4);
     folderSection?.scrollIntoView({ block: 'start', behavior: 'smooth' });
   });
   caseBook.addEventListener('keydown', (event) => {

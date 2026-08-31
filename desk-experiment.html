@@ -3,14 +3,20 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
     <meta name="description" content="A visual portfolio hero experiment for Petteri Helttula.">
     <title>Desk Hero Experiment — Petteri Helttula</title>
     <link rel="preload" href="Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="desk-experiment.css">
+    <link rel="stylesheet" href="desk-experiment.css?v=14">
   </head>
   <body>
     <main>
       <section class="desk-scene" aria-labelledby="hero-title">
+        <button class="workspace-enter" type="button" aria-controls="workspace-view" aria-expanded="false">
+          <span aria-hidden="true">↑</span>
+          <span>Look up</span>
+        </button>
         <div class="desk-grid" aria-hidden="true"></div>
         <div class="cutting-mat" aria-hidden="true"></div>
         <img class="desk-sudoku" src="assets/sudoku-open-pages.svg" alt="">
@@ -83,9 +89,9 @@
                 <span class="hero-tag hero-tag-yellow">AI Design Engineering</span>
                 <span class="hero-tag hero-tag-pink">Analytics · Prototypes · Code</span>
               </div>
-              <h1 id="hero-title">Moi <span aria-hidden="true">👋</span> I'm Petteri.<br>I <button class="turn-toggle" type="button" aria-pressed="false">turn</button> messy product problems into <em>clear directions.</em></h1>
-              <p>I'm a Product Designer evolving into the still-mysterious world of AI Design Engineering — combining psychology, design, code, data, and analytics to build what matters.</p>
-              <a class="hero-link" href="about.html">More about me &amp; how I work <span aria-hidden="true">↗</span></a>
+              <h1 id="hero-title">Moi <span aria-hidden="true">👋</span> I'm Petteri.<br>I <button class="turn-toggle" type="button" aria-pressed="false" aria-label="Turn the desk organized">turn</button> messy product problems into <em>clear directions.</em></h1>
+              <p>I'm a Product Designer becoming an AI Design Engineer — combining psychology, design, code, and data to build what matters.</p>
+              <a class="hero-link" href="about.html">How I turn chaos into direction <span aria-hidden="true">↗</span></a>
             </div>
           </div>
 
@@ -139,13 +145,22 @@
         </div>
       </section>
 
+      <section class="workspace-view" id="workspace-view" aria-label="Petteri's workspace" aria-hidden="true">
+        <div class="workspace-canvas" aria-hidden="true"></div>
+        <div class="workspace-loading" role="status">Loading the workspace…</div>
+        <button class="workspace-exit" type="button">
+          <span aria-hidden="true">↓</span>
+          <span>Back to desk</span>
+        </button>
+      </section>
+
       <section class="folder-section" id="projects" aria-labelledby="projects-title">
         <a class="scroll-cue" href="#projects-title">Scroll to see more <span aria-hidden="true">↓</span></a>
         <div class="folder-sticky-header">
           <nav class="folder-tabs" aria-label="Portfolio sections">
             <button class="folder-tab is-active" type="button" data-folder-case="0">Projects</button>
             <div class="folder-nav">
-              <a href="#about-me" data-folder-case="3">About me</a>
+              <a href="#about-me" data-folder-case="4">About me</a>
               <a href="blog.html">Blog</a>
               <a href="https://drive.google.com/file/d/1jGHfK2btH744Slry8skZ1yfMZMGNYg3_/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume</a>
               <a class="folder-linkedin" href="https://www.linkedin.com/in/petteri-helttula/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">in</a>
@@ -174,19 +189,51 @@
                     <div><dt>Finding</dt><dd>A short physical interruption can create a clearer moment for choosing what happens next.</dd></div>
                     <div><dt>Decision</dt><dd>After 20 minutes, introduce a brief movement break before the user chooses whether to continue.</dd></div>
                   </dl>
-                  <div class="case-page-footer"><span class="case-file-stamp">In progress</span><span class="project-case-link is-disabled">Full case coming next ↗</span></div>
+                  <section class="build-notes" aria-labelledby="brio-build-title">
+                    <h4 id="brio-build-title">Core product stack</h4>
+                    <ul class="build-core" aria-label="Core product stack">
+                      <li class="build-note-react"><img src="assets/react-native-logo.png" alt="" loading="lazy" decoding="async"><span><strong>React Native</strong><small>Production app</small></span></li>
+                      <li><img src="assets/mediapipe-logo.png" alt="" loading="lazy" decoding="async"><span><strong>MediaPipe</strong><small>Pose tracking</small></span></li>
+                      <li><img src="assets/supabase-logo.png" alt="" loading="lazy" decoding="async"><span><strong>Supabase</strong><small>Backend &amp; data</small></span></li>
+                    </ul>
+                  </section>
+                  <div class="case-page-footer"><span class="case-file-stamp">In progress</span><span class="app-store-badge"><img src="assets/app-store-badge.png" alt="Coming to the App Store" loading="lazy" decoding="async"></span></div>
                 </div>
               </article>
 
-              <article class="case-spread is-after" id="case-shavikki" data-case-index="1">
-                <button class="case-edge-tab" type="button" data-case-index="1" aria-label="Open S-Hävikki case">02 S-Hävikki</button>
+              <article class="case-spread is-after" id="case-peluutin" data-case-index="1">
+                <button class="case-edge-tab" type="button" data-case-index="1" aria-label="Open Peluutin case">02 Peluutin</button>
+                <div class="case-page case-page-visual case-page-peluutin">
+                  <div class="case-page-meta"><span>Case no. PH—002</span><strong>Web app / Active build</strong></div>
+                  <div class="peluutin-preview-media">
+                    <img src="assets/peluutin-training-3d.png" alt="Peluutin 3D football training planner showing player positions and a passing route" loading="lazy" decoding="async">
+                    <span>Video coming later</span>
+                  </div>
+                  <span class="case-page-caption">Product design · Responsive web app · 2D/3D interaction</span>
+                </div>
+                <div class="case-page case-page-notes">
+                  <span class="case-page-kicker">Selected case 02</span>
+                  <h3>Peluutin</h3>
+                  <p class="case-page-lede">Less stopwatch. More coaching.</p>
+                  <dl class="case-page-findings">
+                    <div><dt>Need</dt><dd>Junior coaches need to track substitutions and playing time while the match keeps moving.</dd></div>
+                    <div><dt>Core</dt><dd>Teams, formations, goals, substitutions, player minutes and Excel export work across mobile and desktop.</dd></div>
+                    <div><dt>Growth</dt><dd>The next phase reuses existing teams in a 2D/3D training exercise editor for desktop and tablet.</dd></div>
+                    <div><dt>Status</dt><dd>The match-day tool works; the premium training planner is currently in development.</dd></div>
+                  </dl>
+                  <div class="case-page-footer"><span class="case-file-stamp">Active build</span><a class="project-case-link" href="peluutin.html">Open early case ↗</a></div>
+                </div>
+              </article>
+
+              <article class="case-spread is-after" id="case-shavikki" data-case-index="2">
+                <button class="case-edge-tab" type="button" data-case-index="2" aria-label="Open S-Hävikki case">03 S-Hävikki</button>
                 <div class="case-page case-page-visual">
-                  <div class="case-page-meta"><span>Case no. PH—002</span><strong>Service system / Field study</strong></div>
+                  <div class="case-page-meta"><span>Case no. PH—003</span><strong>Service system / Field study</strong></div>
                   <img src="assets/shavikki-kaappikuva-768.webp" alt="S-Hävikki food waste cabinet concept in a grocery store" loading="lazy" decoding="async">
                   <span class="case-page-caption">Service design · Retail operations · Customer journey</span>
                 </div>
                 <div class="case-page case-page-notes">
-                  <span class="case-page-kicker">Selected case 02</span>
+                  <span class="case-page-kicker">Selected case 03</span>
                   <h3>S-Hävikki</h3>
                   <p class="case-page-lede">Make near-expiry food easier to handle and easier to choose.</p>
                   <dl class="case-page-findings">
@@ -199,17 +246,17 @@
                 </div>
               </article>
 
-              <article class="case-spread is-after" id="case-tahti" data-case-index="2">
-                <button class="case-edge-tab" type="button" data-case-index="2" aria-label="Open Tahti case">03 Tahti</button>
+              <article class="case-spread is-after" id="case-tahti" data-case-index="3">
+                <button class="case-edge-tab" type="button" data-case-index="3" aria-label="Open Tahti case">04 Tahti</button>
                 <div class="case-page case-page-visual">
-                  <div class="case-page-meta"><span>Case no. PH—003</span><strong>Prototype / Early feedback</strong></div>
+                  <div class="case-page-meta"><span>Case no. PH—004</span><strong>Prototype / Early feedback</strong></div>
                   <div class="case-device case-device-tablet">
                     <video src="assets/tahtivideo.mp4" poster="assets/tahti-card.webp" muted loop playsinline preload="metadata"></video>
                   </div>
                   <span class="case-page-caption">Reading &amp; focus · Interaction design · Prototype</span>
                 </div>
                 <div class="case-page case-page-notes">
-                  <span class="case-page-kicker">Selected case 03</span>
+                  <span class="case-page-kicker">Selected case 04</span>
                   <h3>Tahti</h3>
                   <p class="case-page-lede">Make the pace of reading visible without making it the goal.</p>
                   <dl class="case-page-findings">
@@ -222,11 +269,11 @@
                 </div>
               </article>
 
-              <article class="case-spread case-spread-about is-after" id="about-me" aria-label="About me" data-case-index="3">
+              <article class="case-spread case-spread-about is-after" id="about-me" aria-label="About me" data-case-index="4">
                 <span class="case-edge-tab case-edge-tab-about" aria-hidden="true">About me</span>
                 <div class="case-page case-page-notes">
-                  <div class="about-photo" aria-hidden="true">
-                    <div class="about-photo-placeholder"><span>PH</span><small>Portrait coming here</small></div>
+                  <div class="about-photo">
+                    <img src="assets/petteri-profile-v2.png" alt="Petteri Helttula seated in black clothing and sunglasses" loading="lazy" decoding="async">
                     <span class="paperclip"></span>
                   </div>
                   <span class="case-page-kicker">About me</span>
@@ -255,21 +302,22 @@
                       </figure>
                     </div>
                   </section>
-                  <div class="case-page-footer"><span class="case-file-stamp">Still evolving</span><a class="project-case-link" href="about.html">Open full profile ↗</a></div>
+                  <div class="case-page-footer"><span class="case-file-stamp">Still evolving</span><a class="project-case-link" href="profile-board.html">Open full profile ↗</a></div>
                 </div>
               </article>
             </div>
 
             <div class="case-book-controls" aria-label="Case navigation">
               <button class="case-book-previous" type="button" aria-label="Previous case">←</button>
-              <span><strong>01</strong> / 04</span>
+              <span><strong>01</strong> / 05</span>
               <button class="case-book-next" type="button" aria-label="Next case">→</button>
             </div>
           </div>
         </div>
       </section>
     </main>
-    <script src="desk-experiment.js"></script>
+    <script src="desk-experiment.js?v=8"></script>
+    <script src="workspace-view.js?v=78"></script>
     <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
   </body>
 </html>

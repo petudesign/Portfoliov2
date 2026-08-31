@@ -1,0 +1,54 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Flowmark prototype testing platform preview</title>
+  <desc id="desc">A product dashboard showing mobile prototype test tasks, first-click results, heat map activity, success metrics, and AI-assisted UX insights.</desc>
+  <rect width="1200" height="800" rx="34" fill="#F4F7F5"/>
+  <rect x="74" y="78" width="1052" height="644" rx="28" fill="#FBFBFB" stroke="#D9E2DE" stroke-width="2"/>
+  <rect x="74" y="78" width="1052" height="72" rx="28" fill="#15231F"/>
+  <rect x="74" y="122" width="1052" height="28" fill="#15231F"/>
+  <circle cx="126" cy="114" r="9" fill="#E9F270"/>
+  <circle cx="156" cy="114" r="9" fill="#7DD7C5"/>
+  <circle cx="186" cy="114" r="9" fill="#F08BBE"/>
+  <text x="226" y="122" fill="#F8F8F8" font-family="Arial, sans-serif" font-size="22" font-weight="700">Flowmark</text>
+  <text x="934" y="122" fill="#B8C8C2" font-family="Arial, sans-serif" font-size="16">Prototype test</text>
+
+  <rect x="116" y="186" width="238" height="488" rx="22" fill="#F3F6F5" stroke="#DCE5E1" stroke-width="2"/>
+  <text x="146" y="232" fill="#15231F" font-family="Arial, sans-serif" font-size="20" font-weight="700">Task links</text>
+  <rect x="146" y="260" width="178" height="44" rx="12" fill="#FFFFFF" stroke="#DCE5E1"/>
+  <rect x="166" y="278" width="88" height="8" rx="4" fill="#7B928B"/>
+  <rect x="146" y="326" width="178" height="44" rx="12" fill="#FFFFFF" stroke="#DCE5E1"/>
+  <rect x="166" y="344" width="126" height="8" rx="4" fill="#7B928B"/>
+  <rect x="146" y="392" width="178" height="44" rx="12" fill="#FFFFFF" stroke="#DCE5E1"/>
+  <rect x="166" y="410" width="104" height="8" rx="4" fill="#7B928B"/>
+  <rect x="146" y="562" width="178" height="56" rx="16" fill="#15231F"/>
+  <text x="181" y="597" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="18" font-weight="700">Share test</text>
+
+  <rect x="398" y="186" width="318" height="488" rx="28" fill="#EAF2EF"/>
+  <rect x="484" y="224" width="146" height="318" rx="34" fill="#101817"/>
+  <rect x="498" y="244" width="118" height="278" rx="24" fill="#FBFBFB"/>
+  <rect x="512" y="266" width="90" height="26" rx="9" fill="#DCE5E1"/>
+  <rect x="512" y="308" width="90" height="64" rx="14" fill="#E7ECEA"/>
+  <rect x="512" y="388" width="42" height="42" rx="13" fill="#008F78"/>
+  <rect x="560" y="388" width="42" height="42" rx="13" fill="#FFD75A"/>
+  <rect x="512" y="446" width="90" height="44" rx="14" fill="#171717"/>
+  <circle cx="566" cy="407" r="38" fill="#008F78" opacity=".14"/>
+  <circle cx="566" cy="407" r="21" fill="#008F78" opacity=".34"/>
+  <circle cx="566" cy="407" r="9" fill="#008F78"/>
+  <path d="M442 572C488 618 584 626 654 572" stroke="#008F78" stroke-width="10" stroke-linecap="round" opacity=".22"/>
+  <text x="448" y="626" fill="#3C514B" font-family="Arial, sans-serif" font-size="18" font-weight="700">First-click heat map</text>
+
+  <rect x="760" y="186" width="320" height="216" rx="22" fill="#FFFFFF" stroke="#DCE5E1" stroke-width="2"/>
+  <text x="790" y="232" fill="#15231F" font-family="Arial, sans-serif" font-size="20" font-weight="700">Success metrics</text>
+  <text x="790" y="296" fill="#008F78" font-family="Arial, sans-serif" font-size="58" font-weight="700">82%</text>
+  <rect x="790" y="326" width="236" height="12" rx="6" fill="#E7ECEA"/>
+  <rect x="790" y="326" width="194" height="12" rx="6" fill="#008F78"/>
+  <rect x="790" y="360" width="112" height="10" rx="5" fill="#8CA099"/>
+  <rect x="920" y="360" width="84" height="10" rx="5" fill="#C6D3CF"/>
+
+  <rect x="760" y="434" width="320" height="240" rx="22" fill="#15231F"/>
+  <text x="790" y="480" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="20" font-weight="700">AI UX insight</text>
+  <rect x="790" y="510" width="236" height="12" rx="6" fill="#5B7069"/>
+  <rect x="790" y="536" width="204" height="12" rx="6" fill="#5B7069"/>
+  <rect x="790" y="562" width="250" height="12" rx="6" fill="#5B7069"/>
+  <rect x="790" y="612" width="142" height="34" rx="17" fill="#FFD75A"/>
+  <text x="814" y="635" fill="#171717" font-family="Arial, sans-serif" font-size="15" font-weight="700">Review friction</text>
+</svg>

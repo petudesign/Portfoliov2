@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The full profile of Petteri Helttula — product designer, builder and pattern hunter.">
+  <title>Profile board — Petteri Helttula</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="about-board.css?v=2">
+</head>
+<body>
+  <main>
+    <section class="board-shell" id="profile-board" aria-labelledby="board-title">
+      <div class="board-toolbar"><div><a class="board-back" href="desk-experiment.html#about-me">← Back to desk</a><p class="case-label">Full profile</p><h2 id="board-title">Follow a thread</h2></div><p>Open a piece of evidence. On desktop, move it if it is in your way.</p></div>
+      <div class="case-board" data-active-clue="start"><canvas class="thread-layer" aria-hidden="true"></canvas>
+        <div class="board-stickers">
+          <button class="board-sticker sticker-alpine" type="button" data-sticker="alpine" aria-label="Open the Alpine cable car note" aria-pressed="false"><img src="assets/sticker-alpine-cablecar.png" alt=""></button>
+          <button class="board-sticker sticker-darts" type="button" data-sticker="darts" aria-label="Open the darts note" aria-pressed="false"><img src="assets/sticker-darts.png" alt=""></button>
+          <button class="board-sticker sticker-headphones" type="button" data-sticker="headphones" aria-label="Open the music note" aria-pressed="false"><img src="assets/sticker-headphones.png" alt=""></button>
+          <button class="board-sticker sticker-color-vision" type="button" data-sticker="colorVision" aria-label="Open the color vision note" aria-pressed="false"><img src="assets/sticker-color-vision.png" alt=""></button>
+          <button class="board-sticker sticker-pattern" type="button" data-sticker="pattern" aria-label="Open the pattern hunter note" aria-pressed="false"><img src="assets/sticker-pattern-hunter.png" alt=""></button>
+        </div>
+        <button class="evidence evidence-start" type="button" data-clue="start" data-links="background,thinking,building,curiosity,offscreen" aria-pressed="true"><span class="pin pin-red" aria-hidden="true"></span><img src="assets/petteri-profile-v2.png" alt="Petteri Helttula seated in black clothing and sunglasses"><span class="evidence-caption"><small>Start here</small><strong>Petteri Helttula</strong><em>Designer × builder × pattern hunter</em></span></button>
+        <button class="evidence evidence-background" type="button" data-clue="background" data-links="start,building"><span class="pin pin-yellow" aria-hidden="true"></span><span class="document-mark">01</span><span class="evidence-caption"><small>Origin</small><strong>From engineering to product design</strong><em>The code was interesting. The people using it became more interesting.</em></span></button>
+        <button class="evidence evidence-thinking" type="button" data-clue="thinking" data-links="start,curiosity"><span class="pin pin-blue" aria-hidden="true"></span><img src="assets/book-black-box-thinking.png" alt="Black Box Thinking book cover"><span class="evidence-caption"><small>Operating system</small><strong>Skeptical dreamer</strong><em>Imagine boldly. Then look for the weak assumption.</em></span></button>
+        <button class="evidence evidence-building" type="button" data-clue="building" data-links="start,background,thinking"><span class="pin pin-green" aria-hidden="true"></span><img src="assets/tahtiUIv3.png" alt="An interface prototype on a phone"><span class="evidence-caption"><small>Method</small><strong>Make it testable</strong><em>Figma, code and AI are ways to think with something tangible.</em></span></button>
+        <button class="evidence evidence-curiosity" type="button" data-clue="curiosity" data-links="start,thinking,offscreen"><span class="pin pin-red" aria-hidden="true"></span><span class="document-mark">?</span><span class="evidence-caption"><small>Rabbit holes</small><strong>Why did they do that?</strong><em>Psychology, systems, true crime and details that do not quite add up.</em></span></button>
+        <button class="evidence evidence-offscreen" type="button" data-clue="offscreen" data-links="start,curiosity"><span class="pin pin-yellow" aria-hidden="true"></span><img src="assets/curry-sticker.png" alt="A playful Stephen Curry keychain illustration"><span class="evidence-caption"><small>Off-screen</small><strong>Music, NBA nights &amp; darts</strong><em>Plus a recurring plan to disappear into the Swiss Alps.</em></span></button>
+        <aside class="clue-file" aria-live="polite"><button class="clue-close" type="button" aria-label="Close detail">×</button><p class="case-label" data-detail-label>Case subject</p><h3 data-detail-title>More than one title</h3><div data-detail-copy><p>I am an ICT engineer turned product designer, moving toward AI design engineering without treating any one title as a border.</p><p>The common thread is making messy product questions visible enough to discuss, test and improve.</p></div><p class="clue-meta" data-detail-meta>Current status: still evolving</p></aside>
+      </div>
+    </section>
+  </main>
+  <script defer src="about-board.js?v=1"></script>
+</body>
+</html>

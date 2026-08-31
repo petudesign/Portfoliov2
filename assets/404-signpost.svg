@@ -1,0 +1,17 @@
+<svg width="720" height="520" viewBox="0 0 720 520" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">404 signpost illustration</title>
+  <desc id="desc">A simple signpost showing a missing page marker.</desc>
+  <rect width="720" height="520" rx="32" fill="#F5F0FF"/>
+  <path d="M108 388C152 339 207 318 273 325C339 332 366 383 431 372C496 361 527 302 612 323" stroke="#D5C8F4" stroke-width="22" stroke-linecap="round"/>
+  <path d="M360 154V394" stroke="#171717" stroke-width="16" stroke-linecap="round"/>
+  <path d="M214 112H486C500.359 112 512 123.641 512 138V204C512 218.359 500.359 230 486 230H214L170 171L214 112Z" fill="#FBFBFB" stroke="#171717" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M242 171H426" stroke="#583973" stroke-width="14" stroke-linecap="round"/>
+  <path d="M242 197H352" stroke="#B9A8DC" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="508" cy="337" r="56" fill="#FFD75A" stroke="#171717" stroke-width="10"/>
+  <path d="M483 337H533" stroke="#171717" stroke-width="12" stroke-linecap="round"/>
+  <path d="M508 312V362" stroke="#171717" stroke-width="12" stroke-linecap="round"/>
+  <path d="M210 392H510" stroke="#171717" stroke-width="16" stroke-linecap="round"/>
+  <circle cx="252" cy="291" r="18" fill="#DC1B9A"/>
+  <circle cx="164" cy="278" r="10" fill="#583973"/>
+  <circle cx="572" cy="246" r="13" fill="#0F8F78"/>
+</svg>

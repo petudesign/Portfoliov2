@@ -1,0 +1,26 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Automotive UX attention preview</title>
+  <desc id="desc">A simplified car cockpit interface showing a glance-friendly incoming call redesign with large action targets and a road context.</desc>
+  <rect width="1200" height="800" rx="34" fill="#EEF4F1"/>
+  <path d="M0 610C166 548 316 526 462 542C654 564 790 648 1200 590V800H0V610Z" fill="#D7E5DF"/>
+  <path d="M520 800C558 680 584 570 600 466C616 570 642 680 680 800H520Z" fill="#2E3D39"/>
+  <path d="M596 780C599 734 600 690 600 650" stroke="#F6F1A8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M600 610C600 572 600 536 602 502" stroke="#F6F1A8" stroke-width="8" stroke-linecap="round"/>
+  <rect x="166" y="118" width="868" height="420" rx="42" fill="#171717"/>
+  <rect x="198" y="150" width="804" height="356" rx="28" fill="#0F1715"/>
+  <rect x="238" y="190" width="314" height="276" rx="24" fill="#172421"/>
+  <path d="M268 394C334 320 410 286 522 266" stroke="#7DD7C5" stroke-width="7" stroke-linecap="round"/>
+  <path d="M268 428C358 384 452 366 522 358" stroke="#5E736D" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="334" cy="326" r="11" fill="#FFD75A"/>
+  <circle cx="474" cy="282" r="11" fill="#7DD7C5"/>
+  <rect x="596" y="190" width="366" height="276" rx="24" fill="#FBFBFB"/>
+  <text x="634" y="242" fill="#171717" font-family="Arial, sans-serif" font-size="24" font-weight="700">Incoming call</text>
+  <text x="634" y="292" fill="#171717" font-family="Arial, sans-serif" font-size="40" font-weight="700">Mika</text>
+  <text x="634" y="326" fill="#687B75" font-family="Arial, sans-serif" font-size="20">Mobile</text>
+  <rect x="634" y="372" width="128" height="64" rx="32" fill="#E45252"/>
+  <path d="M680 407C694 418 712 418 724 404" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+  <rect x="794" y="372" width="128" height="64" rx="32" fill="#008F78"/>
+  <path d="M840 412C852 398 870 394 884 404" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+  <path d="M188 568C296 626 422 652 600 652C778 652 904 626 1012 568" stroke="#171717" stroke-width="42" stroke-linecap="round"/>
+  <path d="M284 584C374 624 478 642 600 642C722 642 826 624 916 584" stroke="#303A37" stroke-width="16" stroke-linecap="round"/>
+</svg>
