@@ -1,0 +1,12 @@
+.env
+.env.*
+!.env.example
+node_modules/
+.vercel/
+*.log
+.DS_Store
+Thumbs.db
+.chrome-profile-*/
+.img2threejs/
+audit-*/
+*.tmp

@@ -1,4 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 230" role="img" aria-label="Project Showreel">
-  <defs><path id="arc" d="M90 220C20 165 24 75 85 35C140 -4 220 8 325 50"/></defs>
-  <text fill="#f7f5ef" font-family="Arial, sans-serif" font-size="22" font-weight="600" letter-spacing="1.5" textLength="292" lengthAdjust="spacing"><textPath href="#arc" startOffset="3%">PROJECT SHOWREEL</textPath></text>
-</svg>

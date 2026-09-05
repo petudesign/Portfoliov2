@@ -1,0 +1,20 @@
+body.is-workspace-open { overflow: hidden; }
+.workspace-view { position: fixed; inset: 0; z-index: 100; overflow: hidden; visibility: hidden; color: #f4f1ec; background: #d5d0c8; opacity: 0; pointer-events: none; transition: visibility 0s linear 720ms, opacity 520ms ease; }
+.workspace-view::before { position: absolute; inset: 0; z-index: 2; background: #d5d0c8; content: ""; pointer-events: none; transform: translateY(0); transition: transform 760ms cubic-bezier(.2,.78,.2,1); }
+.workspace-view.is-open { visibility: visible; opacity: 1; pointer-events: auto; transition-delay: 0s; }
+.workspace-view.is-open, .workspace-view.is-open canvas { cursor: url("assets/eye-cursor.svg") 16 12, crosshair; }
+.workspace-view.is-open canvas.is-over-control { cursor: pointer; }
+.workspace-view.is-open canvas.is-dragging-window { cursor: grabbing; }
+.workspace-book-tooltip { position: fixed; z-index: 5; display: grid; gap: 2px; min-width: 150px; padding: 8px 10px; border: 1px solid rgba(255,255,255,.2); border-radius: 7px; color: #f5f2ed; background: rgba(13,14,16,.84); box-shadow: 0 8px 22px rgba(0,0,0,.22); backdrop-filter: blur(8px); pointer-events: none; }
+.workspace-book-tooltip[hidden] { display: none; }
+.workspace-book-tooltip strong { font-size: 9px; line-height: 1.2; letter-spacing: .055em; }
+.workspace-book-tooltip span { color: rgba(245,242,237,.68); font-size: 8px; line-height: 1.2; }
+.workspace-dock-tooltip { position: fixed; z-index: 6; padding: 5px 8px; border: 1px solid rgba(255,255,255,.18); border-radius: 7px; color: #f6f3ee; background: rgba(15,17,23,.88); box-shadow: 0 8px 18px rgba(0,0,0,.2); font: 650 10px/1 Satoshi, Arial, sans-serif; pointer-events: none; }
+.workspace-view.is-open::before { transform: translateY(105%); }
+.workspace-canvas, .workspace-canvas canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.workspace-loading { position: absolute; top: 50%; left: 50%; z-index: 1; color: rgba(35,35,35,.68); font-size: 12px; letter-spacing: .06em; transform: translate(-50%,-50%); }
+.workspace-view.is-ready .workspace-loading { display: none; }
+.workspace-exit { position: absolute; bottom: 20px; left: 50%; z-index: 4; display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid rgba(255,255,255,.22); border-radius: 999px; color: #f3f1ec; background: rgba(15,17,19,.68); backdrop-filter: blur(8px); font: 650 11px/1 Satoshi, Arial, sans-serif; letter-spacing: .04em; cursor: pointer; transform: translateX(-50%); }
+.workspace-exit > span:first-child { font-size: 15px; }
+/* The room is the secondary full-screen surface. */
+.workspace-view{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;transition:opacity 480ms ease,visibility 0s 480ms}.workspace-view::before{display:none}.workspace-view.is-open{transition-delay:0s}.workspace-canvas{transform:scale(1.16);transition:transform 650ms cubic-bezier(.22,1,.36,1)}.workspace-view.is-open .workspace-canvas{transform:scale(1)}.workspace-view.is-returning .workspace-canvas{transform:scale(1.65)}.is-workspace-open .desktop{transform:scale(.91);filter:blur(4px)}.workspace-exit:focus-visible{outline:3px solid #68a8ff;outline-offset:4px}.workspace-book-tooltip{color:#fff}.workspace-book-tooltip strong{font-size:11px}.workspace-book-tooltip span{font-size:10px}.workspace-exit{font-family:inherit!important;font-size:12px!important;min-height:44px}

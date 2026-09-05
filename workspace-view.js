@@ -2,6 +2,7 @@ const enterButton = document.querySelector('.workspace-enter');
 const exitButton = document.querySelector('.workspace-exit');
 const view = document.querySelector('.workspace-view');
 const canvasHost = document.querySelector('.workspace-canvas');
+const enterLabel = enterButton.querySelector('span:last-child').innerHTML;
 
 let workspace;
 let opening = false;
@@ -1199,7 +1200,7 @@ const createScreenTexture = (THREE, variant) => {
     wallpaperReady = true;
     draw();
   };
-  wallpaper.src = '/assets/macos-mountain-wallpaper.png?v=1';
+  wallpaper.src = 'assets/desktop-wallpaper.png?v=2';
   window.setInterval(draw, 30_000);
   texture.userData = {
     setPlayback(nextPlayback) {
@@ -1234,6 +1235,114 @@ const createScreenTexture = (THREE, variant) => {
     },
   };
   return texture;
+};
+
+const createSofa = (THREE) => {
+  const sofa = new THREE.Group();
+  sofa.name = 'room-sofa';
+
+  const fabric = new THREE.MeshPhysicalMaterial({
+    color: 0x403a39,
+    roughness: .92,
+    sheen: .35,
+    sheenColor: new THREE.Color(0x82736f),
+  });
+  const cushionFabric = fabric.clone();
+  cushionFabric.color.setHex(0x494240);
+  const legMaterial = new THREE.MeshStandardMaterial({ color: 0x171516, roughness: .64 });
+  const addPart = (name, width, height, depth, radius, material, x, y, z) => {
+    const part = roundedBox(THREE, width, height, depth, radius, material);
+    part.name = name;
+    part.position.set(x, y, z);
+    sofa.add(part);
+    return part;
+  };
+
+  addPart('sofa-base', 2.12, .28, .58, .10, fabric, 0, .27, 0);
+  addPart('sofa-back', 2.08, .72, .18, .09, fabric, 0, .70, -.31);
+  addPart('sofa-left-arm', .20, .48, .58, .09, fabric, -1.01, .48, 0);
+  addPart('sofa-right-arm', .20, .48, .58, .09, fabric, 1.01, .48, 0);
+  addPart('sofa-left-cushion', .91, .15, .48, .075, cushionFabric, -.48, .48, .02);
+  addPart('sofa-right-cushion', .91, .15, .48, .075, cushionFabric, .48, .48, .02);
+  [-.82, .82].forEach((x) => {
+    [-.16, .16].forEach((z) => addPart('sofa-leg', .09, .18, .09, .018, legMaterial, x, .09, z));
+  });
+  return sofa;
+};
+
+// A closed-volume sleeping puppy: lit meshes and surface spots, no photo plane.
+const createDalmatianPuppy = (THREE) => {
+  const puppy = new THREE.Group();
+  puppy.name = 'dalmatian-puppy';
+  const fur = new THREE.MeshStandardMaterial({ color: 0xf3eee5, roughness: .95 });
+  const black = new THREE.MeshStandardMaterial({ color: 0x171719, roughness: .86 });
+  const noseMaterial = new THREE.MeshStandardMaterial({ color: 0x252125, roughness: .42 });
+  const innerEar = new THREE.MeshStandardMaterial({ color: 0x574b50, roughness: 1 });
+  const sphere = new THREE.SphereGeometry(1, 36, 24);
+  let seed = 1829;
+  const random = () => { seed = (1664525 * seed + 1013904223) >>> 0; return seed / 4294967296; };
+  const spottedMaterial = (count) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1024; canvas.height = 512;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#f3eee5'; ctx.fillRect(0, 0, 1024, 512);
+    for (let i = 0; i < count; i++) {
+      const x = 30 + random() * 964, y = 65 + random() * 382;
+      const radius = 9 + random() * 13;
+      ctx.fillStyle = i % 4 ? '#252427' : '#454146';
+      ctx.beginPath();
+      for (let j = 0; j < 12; j++) {
+        const angle = j / 12 * Math.PI * 2;
+        const r = radius * (.8 + random() * .4);
+        const px = x + Math.cos(angle) * r, py = y + Math.sin(angle) * r * .75;
+        if (j === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      }
+      ctx.closePath(); ctx.fill();
+    }
+    const texture = new THREE.CanvasTexture(canvas); texture.colorSpace = THREE.SRGBColorSpace;
+    return new THREE.MeshStandardMaterial({ map: texture, roughness: .96 });
+  };
+  const ellipsoid = (parent, name, material, position, scale) => {
+    const mesh = new THREE.Mesh(sphere, material);
+    mesh.name = name; mesh.position.set(...position); mesh.scale.set(...scale);
+    mesh.castShadow = true; mesh.receiveShadow = true; parent.add(mesh); return mesh;
+  };
+  const body = new THREE.Group(); body.name = 'puppy-breathing-body'; puppy.add(body);
+  ellipsoid(body, 'puppy-torso', spottedMaterial(45), [.08, .175, 0], [.35, .17, .18]);
+  ellipsoid(body, 'puppy-haunch', spottedMaterial(22), [.30, .145, -.005], [.185, .14, .165]);
+  ellipsoid(body, 'puppy-shoulder', spottedMaterial(18), [-.16, .175, .02], [.205, .175, .18]);
+  ellipsoid(puppy, 'puppy-back-leg', spottedMaterial(12), [.28, .075, .17], [.20, .075, .085]);
+  ellipsoid(puppy, 'puppy-back-paw', fur, [.09, .055, .21], [.12, .053, .073]);
+  ellipsoid(puppy, 'puppy-front-leg-near', spottedMaterial(9), [-.29, .075, .17], [.23, .065, .065]);
+  ellipsoid(puppy, 'puppy-front-paw-near', fur, [-.47, .05, .18], [.12, .048, .074]);
+  ellipsoid(puppy, 'puppy-front-leg-far', fur, [-.27, .068, -.12], [.23, .055, .06]);
+  ellipsoid(puppy, 'puppy-front-paw-far', fur, [-.46, .045, -.11], [.11, .045, .067]);
+  const head = new THREE.Group(); head.name = 'puppy-head'; head.position.set(-.36, .14, .035); head.rotation.z = .06; puppy.add(head);
+  ellipsoid(head, 'puppy-skull', spottedMaterial(17), [0, .075, 0], [.17, .145, .145]);
+  ellipsoid(head, 'puppy-muzzle', fur, [-.135, .006, .017], [.15, .082, .107]);
+  ellipsoid(head, 'puppy-nose', noseMaterial, [-.258, .023, .018], [.047, .035, .061]);
+  const earNear = ellipsoid(head, 'puppy-floppy-ear-near', black, [.045, .012, .132], [.082, .145, .035]);
+  earNear.rotation.z = -.3;
+  const earFar = ellipsoid(head, 'puppy-floppy-ear-far', black, [.045, .023, -.13], [.077, .14, .034]); earFar.rotation.z = -.25;
+  ellipsoid(head, 'puppy-ear-fold', innerEar, [.061, -.035, .145], [.045, .055, .014]);
+  const curve = (parent, name, points, radius, material) => {
+    const mesh = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points.map(p => new THREE.Vector3(...p))), 20, radius, 7, false), material);
+    mesh.name = name; mesh.castShadow = true; parent.add(mesh); return mesh;
+  };
+  curve(head, 'puppy-closed-eye-near', [[-.112,.099,.103],[-.085,.084,.122],[-.058,.091,.131]], .005, black);
+  curve(head, 'puppy-closed-eye-far', [[-.112,.099,-.103],[-.085,.084,-.122],[-.058,.091,-.131]], .005, black);
+  curve(head, 'puppy-mouth', [[-.24,-.016,.068],[-.18,-.03,.096],[-.11,-.023,.092]], .003, black);
+  curve(puppy, 'puppy-tail', [[.39,.14,-.045],[.51,.09,-.12],[.48,.055,-.24],[.32,.048,-.265]], .027, fur);
+  ellipsoid(puppy, 'puppy-tail-tip', black, [.32,.048,-.265], [.043,.027,.03]);
+  for (const z of [.15,.20]) curve(puppy,'puppy-toe', [[-.545,.066,z],[-.515,.082,z]], .0025, innerEar);
+  // A soft cushion contact shadow grounds the body; the animal itself is all 3D.
+  const shadowCanvas = document.createElement('canvas'); shadowCanvas.width = shadowCanvas.height = 128;
+  const ctx = shadowCanvas.getContext('2d'); const gradient = ctx.createRadialGradient(64,64,8,64,64,64);
+  gradient.addColorStop(0,'rgba(0,0,0,.38)'); gradient.addColorStop(1,'rgba(0,0,0,0)'); ctx.fillStyle=gradient;ctx.fillRect(0,0,128,128);
+  const shadow = new THREE.Mesh(new THREE.PlaneGeometry(1.3,.75),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(shadowCanvas),transparent:true,depthWrite:false}));
+  shadow.name='puppy-contact-shadow';shadow.rotation.x=-Math.PI/2;shadow.position.y=.008;puppy.add(shadow);
+  puppy.userData.animate = (time) => { body.scale.y = 1 + Math.sin(time * .0015) * .014; };
+  return puppy;
 };
 
 const buildWorkspace = async () => {
@@ -1282,9 +1391,30 @@ const buildWorkspace = async () => {
   };
 
   // Blank room: intentionally quiet until real wall objects are defined.
-  addBox(9, 5, .12, standard(0x242326, .94), 0, 2.4, -2.1);
+  const frontWall = addBox(9, 5, .12, standard(0x242326, .94), 0, 2.4, -1.3);
+  frontWall.name = 'room-front-wall';
   addBox(9, .12, 8, standard(0x121315, .96), 0, -.02, .7);
+  const sideWall = new THREE.MeshStandardMaterial({
+    color: 0x454248,
+    roughness: .96,
+    emissive: 0x0b090d,
+    emissiveIntensity: .45,
+  });
+  const rightWall = addBox(.12, 5, 8, sideWall, 3.6, 2.4, 2.64);
+  rightWall.name = 'room-right-wall';
 
+  // Sofa runs along the right wall beside the seated viewer, clear of the desk.
+  const sofa = createSofa(THREE);
+  sofa.position.set(3.14, .04, 2.50);
+  sofa.rotation.y = -Math.PI / 2;
+  scene.add(sofa);
+  const puppy = createDalmatianPuppy(THREE);
+  puppy.position.set(.05, .565, .015);
+  puppy.rotation.y = Math.PI;
+  puppy.scale.setScalar(.92);
+  sofa.add(puppy);
+
+  const wallDecorStart = scene.children.length;
   // A quiet location marker above the monitors.
   const mapFrame = roundedBox(THREE, 1.05, 1.41, .055, .035, black);
   mapFrame.position.set(0, 3.5, -2.01);
@@ -1406,10 +1536,12 @@ const buildWorkspace = async () => {
     basketball.add(seam);
   });
   scene.add(basketball);
+  scene.children.slice(wallDecorStart).forEach(object => { object.position.z += .8; });
 
   // The user's 160 x 80 cm desk. The back edge stays put while the front edge
   // extends toward the seated camera, leaving more usable surface in view.
-  addBox(4.9, .1, 2.45, white, 0, .76, .15);
+  const desktopSurface = addBox(4.9, .1, 2.45, white, 0, .76, .15);
+  desktopSurface.name = 'room-desk-surface';
   addBox(.11, 1.52, .11, metal, -2.18, 0, .9);
   addBox(.11, 1.52, .11, metal, 2.18, 0, .9);
 
@@ -1534,6 +1666,10 @@ const buildWorkspace = async () => {
 
   const ambient = new THREE.HemisphereLight(0xc9c5d0, 0x242126, 1.05);
   scene.add(ambient);
+  // Soft reflected room light makes the side seating readable away from the monitors.
+  const sofaFill = new THREE.PointLight(0xffead7, 9, 6, 2);
+  sofaFill.position.set(1.6, 2.7, 3.5);
+  scene.add(sofaFill);
   const warmLight = new THREE.PointLight(0xffead0, 24, 6, 1.7);
   warmLight.position.set(-2.25, 2.25, .15);
   scene.add(warmLight);
@@ -1547,6 +1683,9 @@ const buildWorkspace = async () => {
   let targetPitch = -.08;
   let yaw = 0;
   let pitch = -.52;
+  let cameraDragging = false;
+  let cameraLastX = 0;
+  let cameraLastY = 0;
   let frameId;
   let hoveredBookRoot;
   const raycaster = new THREE.Raycaster();
@@ -1616,10 +1755,21 @@ const buildWorkspace = async () => {
       renderer.domElement.classList.add('is-over-control');
       return;
     }
+    if (event.pointerType === 'touch' && cameraDragging) {
+      event.preventDefault();
+      const dx = event.clientX - cameraLastX;
+      const dy = event.clientY - cameraLastY;
+      cameraLastX = event.clientX;
+      cameraLastY = event.clientY;
+      targetYaw = THREE.MathUtils.clamp(targetYaw - dx * .004, -1.48, 1.48);
+      targetPitch = THREE.MathUtils.clamp(targetPitch - dy * .003, -.62, .2);
+      return;
+    }
+    if (event.pointerType === 'touch') return;
     const nx = event.clientX / innerWidth * 2 - 1;
     const ny = event.clientY / innerHeight * 2 - 1;
-    targetYaw = nx * -.34;
-    targetPitch = THREE.MathUtils.clamp(-ny * .23 - .06, -.29, .2);
+    targetYaw = nx * -1.48;
+    targetPitch = THREE.MathUtils.clamp(-ny * .46 - .12, -.62, .2);
     const dockIndex = dockHit(event);
     const appControl = appWindowControlAt(event);
     renderer.domElement.classList.toggle('is-over-control', playerControlHit(event) || dockIndex >= 0 || Boolean(appControl) || appWindowHeaderAt(event));
@@ -1635,6 +1785,14 @@ const buildWorkspace = async () => {
   };
 
   const onPointerDown = (event) => {
+    if (document.body.classList.contains('has-desktop')) {
+      setRayFromEvent(event);
+      if (mainScreen && raycaster.intersectObject(mainScreen, false).length) {
+        event.preventDefault();
+        closeWorkspace();
+        return;
+      }
+    }
     const appControl = appWindowControlAt(event);
     if (appControl) {
       event.preventDefault();
@@ -1663,18 +1821,36 @@ const buildWorkspace = async () => {
       return;
     }
     const dockIndex = dockHit(event);
-    if (dockIndex >= 0) openDockApp(dockIndex);
+    if (dockIndex >= 0) {
+      openDockApp(dockIndex);
+      return;
+    }
+    if (event.pointerType === 'touch') {
+      event.preventDefault();
+      cameraDragging = true;
+      cameraLastX = event.clientX;
+      cameraLastY = event.clientY;
+      renderer.domElement.setPointerCapture?.(event.pointerId);
+    }
   };
   const onPointerUp = (event) => {
-    if (!draggingAppWindow) return;
-    draggingAppWindow = false;
-    renderer.domElement.releasePointerCapture?.(event.pointerId);
-    renderer.domElement.classList.remove('is-dragging-window');
+    if (draggingAppWindow) {
+      draggingAppWindow = false;
+      renderer.domElement.classList.remove('is-dragging-window');
+    }
+    cameraDragging = false;
+    if (renderer.domElement.hasPointerCapture?.(event.pointerId)) {
+      renderer.domElement.releasePointerCapture(event.pointerId);
+    }
   };
 
+  const audioForward = new THREE.Vector3();
+  const audioUp = new THREE.Vector3();
+  const audioHeadphones = new THREE.Vector3();
   const render = (time) => {
     if (!active) return;
     keyboard.userData.animate?.(time);
+    puppy.userData.animate?.(time);
     const lift = Math.min(1, (time - startTime) / 1050);
     const easedLift = 1 - Math.pow(1 - lift, 3);
     yaw += (targetYaw - yaw) * .055;
@@ -1683,6 +1859,10 @@ const buildWorkspace = async () => {
     camera.position.z = 3.18 - easedLift * .36;
     camera.rotation.y = yaw;
     camera.rotation.x = pitch;
+    camera.getWorldDirection(audioForward);
+    audioUp.set(0, 1, 0).applyQuaternion(camera.quaternion);
+    headphones.getWorldPosition(audioHeadphones);
+    window.portfolioAudio?.updateRoom(camera.position, audioForward, audioUp, audioHeadphones);
     renderer.render(scene, camera);
     frameId = requestAnimationFrame(render);
   };
@@ -1695,7 +1875,7 @@ const buildWorkspace = async () => {
   };
 
   addEventListener('resize', resize);
-  view.addEventListener('pointermove', onPointerMove, { passive: true });
+  view.addEventListener('pointermove', onPointerMove, { passive: false });
   renderer.domElement.addEventListener('pointerdown', onPointerDown);
   renderer.domElement.addEventListener('pointerup', onPointerUp);
   renderer.domElement.addEventListener('pointercancel', onPointerUp);
@@ -1706,7 +1886,7 @@ const buildWorkspace = async () => {
   return {
     open() {
       active = true;
-      appWindow.visible = true;
+      appWindow.visible = !document.body.classList.contains('has-desktop');
       startTime = performance.now();
       pitch = -.52;
       targetPitch = -.08;
@@ -1729,7 +1909,7 @@ const buildWorkspace = async () => {
 };
 
 const openWorkspace = async () => {
-  if (opening) return;
+  if (opening || view.classList.contains('is-open') || view.classList.contains('is-returning')) return;
   opening = true;
   enterButton.disabled = true;
   enterButton.querySelector('span:last-child').textContent = 'Looking up…';
@@ -1737,29 +1917,43 @@ const openWorkspace = async () => {
   view.classList.add('is-open');
   view.querySelector('.workspace-loading').textContent = 'Loading the workspace…';
   view.setAttribute('aria-hidden', 'false');
+  view.inert = false;
+  document.querySelector('.desktop')?.setAttribute('inert', '');
+  document.querySelector('.folder-section')?.setAttribute('inert', '');
+  exitButton.focus();
   enterButton.setAttribute('aria-expanded', 'true');
   try {
     workspace ||= await buildWorkspace();
+    if (!view.classList.contains('is-open')) return;
     view.classList.add('is-ready');
     workspace.open();
-    window.setTimeout(() => exitButton.focus(), 780);
+    window.portfolioAudio?.setRoom(true);
   } catch (error) {
     view.querySelector('.workspace-loading').textContent = `The workspace could not be loaded: ${error.message}`;
     console.error(error);
   } finally {
     opening = false;
     enterButton.disabled = false;
-    enterButton.querySelector('span:last-child').textContent = 'Look up';
+    enterButton.querySelector('span:last-child').innerHTML = enterLabel;
   }
 };
 
 const closeWorkspace = () => {
-  workspace?.close();
+  if (!view.classList.contains('is-open') || view.classList.contains('is-returning')) return;
+  window.portfolioAudio?.setRoom(false);
+  view.classList.add('is-returning');
   view.classList.remove('is-open');
   view.setAttribute('aria-hidden', 'true');
   enterButton.setAttribute('aria-expanded', 'false');
   document.body.classList.remove('is-workspace-open', 'is-workspace-entering');
-  enterButton.focus();
+  view.inert = true;
+  document.querySelector('.desktop')?.removeAttribute('inert');
+  document.querySelector('.folder-section')?.removeAttribute('inert');
+  (document.querySelector('.room-button') || enterButton).focus({ preventScroll: true });
+  window.setTimeout(() => {
+    workspace?.close();
+    view.classList.remove('is-returning');
+  }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 480);
 };
 
 enterButton?.addEventListener('click', openWorkspace);
@@ -1767,3 +1961,4 @@ exitButton?.addEventListener('click', closeWorkspace);
 addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && view?.classList.contains('is-open')) closeWorkspace();
 });
+

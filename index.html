@@ -1,177 +1,46 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta name="description" content="A visual portfolio hero experiment for Petteri Helttula.">
-    <title>Desk Hero Experiment — Petteri Helttula</title>
-    <link rel="preload" href="Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="desk-experiment.css?v=14">
-  </head>
-  <body>
-    <main>
-      <section class="desk-scene" aria-labelledby="hero-title">
-        <button class="workspace-enter" type="button" aria-controls="workspace-view" aria-expanded="false">
-          <span aria-hidden="true">↑</span>
-          <span>Look up</span>
-        </button>
-        <div class="desk-grid" aria-hidden="true"></div>
-        <div class="cutting-mat" aria-hidden="true"></div>
-        <img class="desk-sudoku" src="assets/sudoku-open-pages.svg" alt="">
-        <div class="desk-paper desk-paper-flowmark" aria-hidden="true">
-          <span class="paper-label">interaction study</span>
-          <div class="paper-sketch paper-sketch-flow">
-            <span class="sketch-box sketch-box-wide"></span><span class="sketch-box sketch-box-small"></span><span class="sketch-arrow">↗</span>
-          </div>
-          <span class="paper-note">make the next step obvious</span>
-        </div>
-        <div class="desk-paper desk-paper-tahti" aria-hidden="true">
-          <span class="paper-label">reading / focus</span>
-          <div class="paper-lines"><span></span><span></span><span></span><span></span></div>
-          <span class="paper-note">pace can be designed</span>
-        </div>
-        <div class="desk-paper desk-paper-notes" aria-hidden="true">
-          <span class="paper-label">Brio / movement</span>
-          <img class="paper-project-sketch" src="assets/brio-pushup-transparent.png" alt="">
-          <span class="paper-note">break the scroll with movement</span>
-        </div>
-        <div class="desk-paper desk-paper-flow" aria-hidden="true">
-          <span class="paper-label">flow / first pass</span>
-          <div class="paper-sketch paper-sketch-flow"><span class="sketch-box sketch-box-small"></span><span class="sketch-box sketch-box-small sketch-box-second"></span><span class="sketch-arrow">→</span></div>
-          <span class="paper-note">less friction, more confidence</span>
-        </div>
-        <span class="desk-object desk-object-pencil" aria-hidden="true"></span>
-        <span class="desk-object desk-object-sticky" aria-hidden="true"><span class="sticky-arrow">&lt;--</span><span>try this</span></span>
-        <span class="desk-object desk-object-clip" aria-hidden="true"></span>
-        <div class="desk-object desk-keychain-curry" aria-hidden="true">
-          <span class="keychain-ring"></span>
-          <span class="keychain-chain"><i></i><i></i><i></i></span>
-          <span class="keychain-clasp"></span>
-          <img src="assets/curry-sticker.png" alt="">
-        </div>
-        <div class="desk-object desk-object-airpods">
-          <button class="airpods-trigger" type="button" aria-expanded="false" aria-controls="desk-music-card">
-            <span class="visually-hidden">Open AirPods music easter egg</span>
-            <img class="airpods-closed" src="assets/airpods-closed.svg" alt="">
-            <img class="airpods-open" src="assets/airpods-desk.svg" alt="">
-          </button>
-          <div class="desk-music-card" id="desk-music-card" hidden>
-            <div class="music-card-heading">
-              <span>What I'm listening to</span>
-            </div>
-            <div class="spotify-embed" data-uri="spotify:playlist:6IuMsRmYaJu1eAThxQkDyU"></div>
-          </div>
-        </div>
-        <div class="desk-object desk-scrap">
-          <button class="scrap-trigger" type="button" aria-expanded="false" aria-controls="scrap-note">
-            <img src="assets/crumpled-paper.svg" alt="">
-            <span class="visually-hidden">Open a scrapped project idea</span>
-          </button>
-          <div class="scrap-note" id="scrap-note" hidden>
-            <button class="scrap-close" type="button" aria-label="Crumple the idea back up">×</button>
-            <span class="scrap-label">Scrapped idea / 2025</span>
-            <strong>Visual ordering for Deaf diners</strong>
-            <p>Scrapped after the concept started requiring too many restaurant-side changes and risked adding friction instead of removing it.</p>
-            <span class="scrap-verdict">Good intention. Wrong solution.</span>
-          </div>
-        </div>
-
-        <header class="experiment-header">
-          <a href="index.html">Petteri Helttula</a>
-        </header>
-
-        <div class="desk-layout">
-          <div class="hero-copy">
-            <div class="hero-sheet">
-              <div class="hero-tags" aria-label="Design focus">
-                <span class="hero-tag hero-tag-yellow">AI Design Engineering</span>
-                <span class="hero-tag hero-tag-pink">Analytics · Prototypes · Code</span>
-              </div>
-              <h1 id="hero-title">Moi <span aria-hidden="true">👋</span> I'm Petteri.<br>I <button class="turn-toggle" type="button" aria-pressed="false" aria-label="Turn the desk organized">turn</button> messy product problems into <em>clear directions.</em></h1>
-              <p>I'm a Product Designer becoming an AI Design Engineer — combining psychology, design, code, and data to build what matters.</p>
-              <a class="hero-link" href="about.html">How I turn chaos into direction <span aria-hidden="true">↗</span></a>
-            </div>
-          </div>
-
-          <section class="selected-work" id="selected-work" aria-labelledby="selected-work-title">
-            <div class="selected-work-heading">
-              <h2 class="visually-hidden" id="selected-work-title">Selected work</h2>
-            </div>
-
-            <div class="phone-stage">
-              <span class="selected-projects-arc" aria-hidden="true">Project Showreel</span>
-              <div class="phone-shadow" aria-hidden="true"></div>
-              <div class="phone" aria-label="Selected work carousel. Swipe horizontally to change project.">
-                <div class="dynamic-island" aria-live="polite">
-                  <span class="island-sensor" aria-hidden="true"></span>
-                  <span class="island-camera" aria-hidden="true"></span>
-                  <span class="island-now-playing">
-                    <span class="island-wave" aria-hidden="true"><i></i><i></i><i></i></span>
-                    <span class="island-track">Petteri's rotation</span>
-                    <span class="island-time" data-idle-label="Spotify">Spotify</span>
-                  </span>
-                </div>
-                <div class="swipe-coach" aria-hidden="true">
-                  <svg viewBox="0 0 150 110" role="presentation">
-                    <path class="swipe-coach-arrow" d="M36 22h70m0 0L92 8m14 14L92 36"/>
-                    <path class="swipe-coach-hand" d="M58 90c-8-5-14-13-15-23l-2-18c-.5-5 3-9 8-9 4 0 7 3 8 7l2 9V22c0-5 4-9 9-9s9 4 9 9v24-8c0-5 4-8 8-8s8 3 8 8v12-6c0-4 3-7 7-7s7 3 7 7v16c0 15-7 27-20 34l-4 10H61z"/>
-                  </svg>
-                  <span>Swipe to explore</span>
-                </div>
-                <div class="phone-screen" tabindex="0">
-                  <div class="phone-track">
-                    <article class="phone-slide" data-project="0" aria-label="Project 1 of 3: S-Hävikkki">
-                      <img src="assets/shavikki-kaappikuva-768.webp" alt="S-Hävikkki food waste cabinet concept in a grocery store">
-                      <div class="phone-slide-copy"><span>Service Design</span><h3>S-Hävikkki</h3><p>Making near-expiry food easier to handle and choose.</p></div>
-                    </article>
-                    <article class="phone-slide" data-project="1" aria-label="Project 2 of 3: Tahti">
-                      <video src="assets/tahtivideo.mp4" poster="assets/tahti-card.webp" muted loop playsinline preload="metadata"></video>
-                      <div class="phone-slide-copy"><span>Reading / Focus</span><h3>Tahti</h3><p>Making the pace of reading visible and controllable.</p></div>
-                    </article>
-                    <article class="phone-slide" data-project="2" aria-label="Project 3 of 3: Flowmark">
-                      <img src="assets/flowmark-card.webp" alt="Flowmark first-click test builder interface">
-                      <div class="phone-slide-copy"><span>SaaS / Feedback</span><h3>Flowmark</h3><p>A lighter feedback loop for prototype ideas.</p></div>
-                    </article>
-                  </div>
-                </div>
-                <div class="phone-controls">
-                  <span class="swipe-hint"><span class="project-dots" aria-hidden="true"><i class="is-active"></i><i></i><i></i></span></span>
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
-      </section>
-
-      <section class="workspace-view" id="workspace-view" aria-label="Petteri's workspace" aria-hidden="true">
-        <div class="workspace-canvas" aria-hidden="true"></div>
-        <div class="workspace-loading" role="status">Loading the workspace…</div>
-        <button class="workspace-exit" type="button">
-          <span aria-hidden="true">↓</span>
-          <span>Back to desk</span>
-        </button>
-      </section>
-
-      <section class="folder-section" id="projects" aria-labelledby="projects-title">
-        <a class="scroll-cue" href="#projects-title">Scroll to see more <span aria-hidden="true">↓</span></a>
-        <div class="folder-sticky-header">
-          <nav class="folder-tabs" aria-label="Portfolio sections">
-            <button class="folder-tab is-active" type="button" data-folder-case="0">Projects</button>
-            <div class="folder-nav">
-              <a href="#about-me" data-folder-case="4">About me</a>
-              <a href="blog.html">Blog</a>
-              <a href="https://drive.google.com/file/d/1jGHfK2btH744Slry8skZ1yfMZMGNYg3_/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume</a>
-              <a class="folder-linkedin" href="https://www.linkedin.com/in/petteri-helttula/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">in</a>
-            </div>
-          </nav>
-        </div>
-        <div class="folder-content">
-          <div class="case-book" data-active-case="0">
-            <div class="case-book-pages">
-              <article class="case-spread is-current" id="case-brio" data-case-index="0">
-                <button class="case-edge-tab" type="button" data-case-index="0" aria-label="Open Brio case">01 Brio</button>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Petteri Helttula — Product design, AI design engineering, and selected work."><title>Petteri Helttula — Desktop</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="desktop.css?v=2"><link rel="stylesheet" href="room.css?v=2"></head>
+<body class="has-desktop"><main class="desktop" id="desktop" aria-label="Petteri's desktop">
+<nav class="desktop-menubar" aria-label="Desktop menu"><a class="desktop-brand" href="#home" aria-label="Petteri's portfolio">ph</a><a href="#home" class="active-app">Portfolio</a><a href="#work">Work</a><a href="#about">About</a><a href="mailto:helttula.petteri@gmail.com" class="menu-contact">Contact</a><div class="menubar-right"><button type="button" data-mixer-toggle aria-controls="sound-mixer" aria-expanded="false" aria-label="Sound mixer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h16M4 17h16"/><rect x="7" y="4" width="4" height="6" rx="2" fill="currentColor"/><rect x="14" y="14" width="4" height="6" rx="2" fill="currentColor"/></svg></button><time id="desktop-clock"></time></div></nav>
+<div class="desktop-content">
+<article class="portfolio-window" id="portfolio-window" aria-label="Portfolio browser">
+<header class="browser-titlebar"><div class="traffic-lights"><button type="button" data-window-hide aria-label="Close portfolio"></button><button type="button" data-window-hide aria-label="Minimize portfolio"></button><button type="button" data-window-expand aria-label="Maximize portfolio" aria-pressed="false"></button></div><div class="browser-tab"><img src="assets/favicon.svg" alt=""><span>Petteri Helttula — Portfolio</span><button type="button" data-window-hide aria-label="Close portfolio tab">×</button></div><button class="browser-new" type="button" data-show-portfolio aria-label="Open portfolio home">＋</button></header>
+<div class="browser-toolbar"><button type="button" id="browser-back" aria-label="Back" disabled>‹</button><button type="button" id="browser-forward" aria-label="Forward" disabled>›</button><a href="#home" aria-label="Portfolio home">⌂</a><div class="browser-address"><span aria-hidden="true">⊙</span><span id="browser-location">Portfolio / Home</span></div><button type="button" data-show-desktop aria-label="Show desktop">▱</button></div>
+<nav class="portfolio-nav" aria-label="Portfolio navigation"><a href="#home">Petteri Helttula<span>Product Designer & AI Design Engineer</span></a><div><a href="#work">Work</a><a href="#about">About</a><a href="https://drive.google.com/file/d/1jGHfK2btH744Slry8skZ1yfMZMGNYg3_/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume ↗</a></div></nav>
+<div class="browser-page" id="browser-page" tabindex="0"></div>
+</article>
+<aside class="desktop-side" aria-label="Desktop widgets"><section class="date-widget"><span id="widget-weekday"></span><strong id="widget-day"></strong><span id="widget-month"></span><div>Helsinki, Finland<time id="widget-clock"></time></div></section><div class="desktop-shortcuts" id="desktop-shortcuts"></div><button class="room-button workspace-enter" type="button" aria-controls="workspace-view" aria-expanded="false"><span aria-hidden="true">↙</span><span>My room<small>Behind the screen</small></span></button></aside>
+</div>
+<section class="sound-mixer" hidden id="sound-mixer" aria-labelledby="mixer-title">
+              <header><h2 id="mixer-title">Sound mixer</h2><button type="button" id="sound-enable" aria-pressed="false">Enable sound</button></header>
+              <p>Your desk, your atmosphere. Spotify has its own player controls.</p>
+              <label for="click-volume">Mouse clicks <output id="click-value">35%</output></label><input id="click-volume" type="range" min="0" max="100" value="35">
+              <label for="key-volume">Keyboard <output id="key-value">20%</output></label><input id="key-volume" type="range" min="0" max="100" value="20">
+              <label for="music-volume">Local music · 3D room audio <output id="music-value">40%</output></label><input id="music-volume" type="range" min="0" max="100" value="40">
+              <label class="music-file-label" for="music-file">Choose a music file <span>＋</span></label><input id="music-file" type="file" accept="audio/*" class="visually-hidden">
+              <div class="music-transport"><span id="music-name">No track selected</span><button type="button" id="music-play" disabled aria-label="Play music">▶</button></div>
+              <p class="mixer-note" id="sound-status" role="status">Sound is off. Always your choice.</p>
+            </section>
+<nav class="desktop-dock" id="desktop-dock" aria-label="Applications"></nav>
+</main>
+<section class="spotify-window is-minimized" id="spotify-window" aria-label="Spotify player" inert>
+  <header><img src="assets/dock/spotify.svg" alt=""><strong>Spotify</strong><span>Petteri’s rotation</span><button type="button" id="spotify-hide" aria-label="Minimize Spotify">−</button></header>
+  <div id="spotify-host"><p id="spotify-loading" role="status">Loading Spotify…</p><div id="spotify-embed"></div></div>
+  <p class="spotify-note">Spotify stays in stereo in the room. For the 3D headphone effect, choose a local music file in Sound mixer. Spotify may offer previews depending on your session.</p>
+  <div class="spotify-actions"><button type="button" id="spotify-pause" disabled>Pause Spotify</button><button type="button" id="spotify-retry" hidden>Retry loading</button></div>
+</section>
+<section class="workspace-view" id="workspace-view" aria-label="Petteri's room" aria-hidden="true" inert><div class="workspace-canvas" aria-hidden="true"></div><div class="workspace-loading" role="status">Loading the workspace…</div><button class="workspace-exit" type="button"><span aria-hidden="true">↗</span><span>Back to screen</span></button></section>
+<template id="page-home">
+              <div class="desktop-intro"><div><p class="desktop-eyebrow">PRODUCT DESIGN · AI DESIGN ENGINEERING</p><h1>Moi, I'm Petteri.<br><em>Clarity from chaos.</em></h1><p>I combine psychology, design, code, and data to turn messy product problems into things that work.</p><div class="intro-links"><a href="#work">Explore my work <span aria-hidden="true">↓</span></a><a href="#about">A little about me ↗</a></div></div><img src="assets/petteri-profile-v2.png" alt="Petteri Helttula" class="desktop-portrait"></div>
+              <div class="desktop-work-heading"><h2>Selected work</h2><span>Ideas, decisions & things I've built</span></div>
+              <div class="desktop-projects">
+                <a href="#brio"><div class="desktop-project-image brio-preview"><img src="assets/brio-pushup-transparent.png" alt="Brio movement break illustration"></div><span class="project-type">DIGITAL WELLBEING · IN DEVELOPMENT</span><h3>Brio <span>↗</span></h3><p>Interrupt the scroll. Move. Choose.</p></a>
+                <a href="#peluutin"><div class="desktop-project-image"><img src="assets/peluutin-training-3d.png" alt="Peluutin football training planner"></div><span class="project-type">PRODUCT DESIGN · WEB APP</span><h3>Peluutin <span>↗</span></h3><p>Less stopwatch. More coaching.</p></a>
+                <a href="#shavikki"><div class="desktop-project-image"><img src="assets/shavikki-kaappikuva-768.webp" alt="S-Hävikki store cabinet"></div><span class="project-type">SERVICE DESIGN · FIELD STUDY</span><h3>S-Hävikki <span>↗</span></h3><p>A better second chance for food.</p></a>
+              <a href="#tahti"><div class="desktop-project-image"><img src="assets/tahti-card.webp" alt="Tahti reading prototype"></div><span class="project-type">INTERACTION DESIGN · PROTOTYPE</span><h3>Tahti <span>↗</span></h3><p>Find your own reading rhythm.</p></a></div>
+              <footer class="desktop-window-footer"><span>Based in Finland. Built with curiosity.</span><a href="https://drive.google.com/file/d/1jGHfK2btH744Slry8skZ1yfMZMGNYg3_/view?usp=sharing" target="_blank" rel="noopener noreferrer">View resume ↗</a></footer></template>
+<template id="page-brio"><div class="reading-page"><article class="case-spread is-current" id="case-brio" data-case-index="0">
+                
                 <div class="case-page case-page-visual case-page-brio">
                   <div class="case-page-meta"><span>Case no. PH—001</span><strong>Main case / In development</strong></div>
                   <div class="case-device case-device-phone">
@@ -199,78 +68,9 @@
                   </section>
                   <div class="case-page-footer"><span class="case-file-stamp">In progress</span><span class="app-store-badge"><img src="assets/app-store-badge.png" alt="Coming to the App Store" loading="lazy" decoding="async"></span></div>
                 </div>
-              </article>
-
-              <article class="case-spread is-after" id="case-peluutin" data-case-index="1">
-                <button class="case-edge-tab" type="button" data-case-index="1" aria-label="Open Peluutin case">02 Peluutin</button>
-                <div class="case-page case-page-visual case-page-peluutin">
-                  <div class="case-page-meta"><span>Case no. PH—002</span><strong>Web app / Active build</strong></div>
-                  <div class="peluutin-preview-media">
-                    <img src="assets/peluutin-training-3d.png" alt="Peluutin 3D football training planner showing player positions and a passing route" loading="lazy" decoding="async">
-                    <span>Video coming later</span>
-                  </div>
-                  <span class="case-page-caption">Product design · Responsive web app · 2D/3D interaction</span>
-                </div>
-                <div class="case-page case-page-notes">
-                  <span class="case-page-kicker">Selected case 02</span>
-                  <h3>Peluutin</h3>
-                  <p class="case-page-lede">Less stopwatch. More coaching.</p>
-                  <dl class="case-page-findings">
-                    <div><dt>Need</dt><dd>Junior coaches need to track substitutions and playing time while the match keeps moving.</dd></div>
-                    <div><dt>Core</dt><dd>Teams, formations, goals, substitutions, player minutes and Excel export work across mobile and desktop.</dd></div>
-                    <div><dt>Growth</dt><dd>The next phase reuses existing teams in a 2D/3D training exercise editor for desktop and tablet.</dd></div>
-                    <div><dt>Status</dt><dd>The match-day tool works; the premium training planner is currently in development.</dd></div>
-                  </dl>
-                  <div class="case-page-footer"><span class="case-file-stamp">Active build</span><a class="project-case-link" href="peluutin.html">Open early case ↗</a></div>
-                </div>
-              </article>
-
-              <article class="case-spread is-after" id="case-shavikki" data-case-index="2">
-                <button class="case-edge-tab" type="button" data-case-index="2" aria-label="Open S-Hävikki case">03 S-Hävikki</button>
-                <div class="case-page case-page-visual">
-                  <div class="case-page-meta"><span>Case no. PH—003</span><strong>Service system / Field study</strong></div>
-                  <img src="assets/shavikki-kaappikuva-768.webp" alt="S-Hävikki food waste cabinet concept in a grocery store" loading="lazy" decoding="async">
-                  <span class="case-page-caption">Service design · Retail operations · Customer journey</span>
-                </div>
-                <div class="case-page case-page-notes">
-                  <span class="case-page-kicker">Selected case 03</span>
-                  <h3>S-Hävikki</h3>
-                  <p class="case-page-lede">Make near-expiry food easier to handle and easier to choose.</p>
-                  <dl class="case-page-findings">
-                    <div><dt>Question</dt><dd>How might near-expiry food become easier for stores to handle and customers to choose?</dd></div>
-                    <div><dt>Evidence</dt><dd>The customer experience depends on what store employees can realistically maintain every day.</dd></div>
-                    <div><dt>Finding</dt><dd>Visibility alone is not enough—the service and store process must support each other.</dd></div>
-                    <div><dt>Decision</dt><dd>Design one connected service flow instead of treating the cabinet and customer journey separately.</dd></div>
-                  </dl>
-                  <div class="case-page-footer"><span class="case-file-stamp">Field study</span><a class="project-case-link" href="shavikki.html">Open full case ↗</a></div>
-                </div>
-              </article>
-
-              <article class="case-spread is-after" id="case-tahti" data-case-index="3">
-                <button class="case-edge-tab" type="button" data-case-index="3" aria-label="Open Tahti case">04 Tahti</button>
-                <div class="case-page case-page-visual">
-                  <div class="case-page-meta"><span>Case no. PH—004</span><strong>Prototype / Early feedback</strong></div>
-                  <div class="case-device case-device-tablet">
-                    <video src="assets/tahtivideo.mp4" poster="assets/tahti-card.webp" muted loop playsinline preload="metadata"></video>
-                  </div>
-                  <span class="case-page-caption">Reading &amp; focus · Interaction design · Prototype</span>
-                </div>
-                <div class="case-page case-page-notes">
-                  <span class="case-page-kicker">Selected case 04</span>
-                  <h3>Tahti</h3>
-                  <p class="case-page-lede">Make the pace of reading visible without making it the goal.</p>
-                  <dl class="case-page-findings">
-                    <div><dt>Question</dt><dd>Can reading pace become visible without turning reading into a performance metric?</dd></div>
-                    <div><dt>Evidence</dt><dd>A working prototype exposes pace, timing and focus controls during reading.</dd></div>
-                    <div><dt>Finding</dt><dd>A calmer interface is not useful if removing context also weakens comprehension.</dd></div>
-                    <div><dt>Decision</dt><dd>Keep pacing feedback optional and test it as support—not as the main reading interface.</dd></div>
-                  </dl>
-                  <div class="case-page-footer"><span class="case-file-stamp">Early feedback</span><a class="project-case-link" href="tahti.html">Open full case ↗</a></div>
-                </div>
-              </article>
-
-              <article class="case-spread case-spread-about is-after" id="about-me" aria-label="About me" data-case-index="4">
-                <span class="case-edge-tab case-edge-tab-about" aria-hidden="true">About me</span>
+              </article></div></template>
+<template id="page-about"><div class="reading-page"><article class="case-spread case-spread-about is-after" id="about-me" aria-label="About me" data-case-index="4">
+                
                 <div class="case-page case-page-notes">
                   <div class="about-photo">
                     <img src="assets/petteri-profile-v2.png" alt="Petteri Helttula seated in black clothing and sunglasses" loading="lazy" decoding="async">
@@ -302,22 +102,577 @@
                       </figure>
                     </div>
                   </section>
-                  <div class="case-page-footer"><span class="case-file-stamp">Still evolving</span><a class="project-case-link" href="profile-board.html">Open full profile ↗</a></div>
+                  <div class="case-page-footer"><span class="case-file-stamp">Still evolving</span></div>
                 </div>
-              </article>
-            </div>
+              </article><p><a href="mailto:helttula.petteri@gmail.com">helttula.petteri@gmail.com</a> · <a href="https://www.linkedin.com/in/petteri-helttula/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></p></div></template>
+<template id="page-peluutin"><div class="reading-page">
+    <section class="case-hero" aria-labelledby="case-title">
+      <p class="eyebrow">Responsive web app · Junior football</p>
+      <h1 id="case-title">Peluutin</h1>
+      <p class="hero-lede">Less stopwatch. More coaching.</p>
+      <div class="case-summary">
+        <p>Peluutin began as a sideline tool for tracking fair playing time, substitutions and match events. It is now growing into a visual exercise planner for coaches who need a modern alternative to outdated desktop software.</p>
+        <dl>
+          <div><dt>Role</dt><dd>Product design &amp; development</dd></div>
+          <div><dt>Platforms</dt><dd>Mobile, desktop &amp; tablet</dd></div>
+          <div><dt>Status</dt><dd>Core working, planner in progress</dd></div>
+        </dl>
+      </div>
+    </section>
 
-            <div class="case-book-controls" aria-label="Case navigation">
-              <button class="case-book-previous" type="button" aria-label="Previous case">←</button>
-              <span><strong>01</strong> / 05</span>
-              <button class="case-book-next" type="button" aria-label="Next case">→</button>
+    <figure class="hero-media">
+      <div class="media-frame">
+        <img src="assets/peluutin-training-3d.png" alt="Peluutin 3D training planner with football players and a passing route">
+        <span>Video will replace this image</span>
+      </div>
+      <figcaption>The training planner supports both 2D and 3D views and reuses teams already created in Peluutin.</figcaption>
+    </figure>
+
+    <section class="case-grid" aria-label="Peluutin early case structure">
+      <article>
+        <span>01 / Starting point</span>
+        <h2>A real sideline problem</h2>
+        <p>The first users are my girlfriend and another junior football coach. During a match they need to manage substitutions, goals and playing time without letting the tool take attention away from the pitch.</p>
+        <p>The primary context is mobile use at the sideline, while team setup and reviewing saved information also need to work on a larger screen.</p>
+      </article>
+      <article>
+        <span>02 / Working core</span>
+        <h2>Match-day control without a spreadsheet</h2>
+        <ul>
+          <li>Create teams, players and formations</li>
+          <li>Manage substitutions and positions</li>
+          <li>Track goals, scorers and individual minutes</li>
+          <li>Export saved playing time to Excel</li>
+          <li>Use light or dark mode for different contexts</li>
+        </ul>
+      </article>
+      <article>
+        <span>03 / Next phase</span>
+        <h2>From matches to training</h2>
+        <p>The premium direction is a desktop and tablet exercise builder. Coaches can switch between 2D and 3D, place existing players on the pitch and describe movement through visual routes.</p>
+        <p>This part is intentionally shown as an active build. The next case iteration should document the interaction model, first coach feedback and what belongs in the smallest useful release.</p>
+      </article>
+    </section>
+  </div></template>
+<template id="page-shavikki"><div class="reading-page">
+      <section class="case-hero" aria-labelledby="case-title">
+        
+        <p class="eyebrow">Service Design / Retail UX</p>
+        <h1 id="case-title">S-H&auml;vikki</h1>
+        <div class="case-facts" id="overview" aria-label="Project overview">
+          <div>
+            <h2>Overview</h2>
+            <p>A food waste reduction concept for S Group's retail environment, designed to reduce waste, save money, and make near-expiry product checks less frustrating for store employees.</p>
+            <p class="case-read-time">
+              <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                <circle cx="8" cy="8" r="6"></circle>
+                <path d="M8 4.8V8l2.3 1.4"></path>
+              </svg>
+              <span>6 min read</span>
+            </p>
+          </div>
+          <div>
+            <h2>My role</h2>
+            <div class="case-role-tags" aria-label="Project roles">
+              <span>Product design</span>
+              <span>UX design</span>
+              <span>Service design</span>
+              <span>Brand direction</span>
             </div>
           </div>
+          <div>
+            <h2>Status</h2>
+            <p>Concept and prototype scope, 2026</p>
+          </div>
         </div>
+        <img class="case-image" src="assets/shavikki-kaappikuva.png" alt="S-Hävikki branded food waste cabinet concept in a grocery store" decoding="async" fetchpriority="high">
+        <section class="case-impact" aria-labelledby="takeaways-title">
+          <h2 id="takeaways-title">Project Takeaways</h2>
+          <div class="impact-grid">
+            <article>
+              <h3>What I explored</h3>
+              <p>How near-expiry products could become easier to find, handle, and choose through a connected employee tool, branded in-store point, and digital extension.</p>
+            </article>
+            <article>
+              <h3>What is worth preserving</h3>
+              <p>The strongest part is the practical system thinking: the concept connects store operations and customer behaviour instead of treating food waste as only a campaign message.</p>
+            </article>
+            <article>
+              <h3>What needs validation</h3>
+              <p>The risky assumption is that better visibility will change behaviour enough. The next step should test placement, signage, and employee workload before adding more features.</p>
+            </article>
+          </div>
+        </section>
       </section>
-    </main>
-    <script src="desk-experiment.js?v=8"></script>
-    <script src="workspace-view.js?v=78"></script>
-    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
-  </body>
-</html>
+
+      <div class="case-layout">
+        
+
+        <article class="case-content">
+          <section class="case-section" id="problem-framing">
+            <h2>Problem framing</h2>
+            <p>Finland has already made meaningful progress around food waste. Grocery stores discount near-expiry products more visibly than before, consumers are more used to buying them, and the topic is no longer hidden in the background.</p>
+            <p>This project does not frame food waste as an ignored or unsolved crisis. The opportunity is more practical: if the category is already moving in the right direction, how could design help stores make the next step easier?</p>
+            <p>The context matters: <a href="https://www.pty.fi/kaupan-toiminta/vastuullisuus/ilmastovaikutukset-ja-ruokahavikki/kauppa-vahentaa-ruokahavikkia/" target="_blank" rel="noopener noreferrer">The Finnish Grocery Trade Association cites Natural Resources Institute Finland estimates</a> showing that grocery retail accounts for around 15% of food waste in the Finnish food chain, about 53 million kilos. At the same time, retail has improved heavily: the same source reports that PTY member companies' food waste averaged 1.0% of food volume in 2024, and <a href="https://s-ryhma.fi/uutinen/s-ryhmassa-havikkiviikko-on-joka-viikko-tavoitteen/4joSpHpU5IWDNhAH6X1kKf" target="_blank" rel="noopener noreferrer">S Group says</a> its grocery food waste fell 31% between 2014 and 2024.</p>
+            <p>The bigger reason for the project is simple: reduce waste while saving money, time, and unnecessary stress. If fewer products are thrown away, stores lose less value, customers get better deals, and the environmental impact becomes smaller.</p>
+            <p>The more technical problem sits inside the daily work. Checking expiry dates is still a surprisingly manual and old-fashioned task. Products close to expiry need to be found, discounted, moved, and followed up consistently during busy store routines.</p>
+            <p>There is also a customer experience challenge. Near-expiry products can still be scattered, visually inconsistent, or treated like leftovers. Even when the discount is attractive, the product can feel like a compromise instead of a smart choice.</p>
+            <div class="case-context-grid" aria-label="S-Havikki product context">
+              <article>
+                <h3>Who this is for</h3>
+                <p>Store employees responsible for expiry checks and customers who are open to discounted food when it feels easy, trustworthy, and normal to choose.</p>
+              </article>
+              <article>
+                <h3>User situation</h3>
+                <p>Employees need to find and handle near-expiry products during normal store routines, while customers notice the products only if the in-store signal is clear.</p>
+              </article>
+              <article>
+                <h3>Success would mean</h3>
+                <p>Fewer missed products, faster handovers between employees, better pickup of near-expiry items, and less waste without adding a heavy new process.</p>
+              </article>
+            </div>
+            <div class="case-callout">
+              <p><strong>Design challenge:</strong> build on existing progress by making date checking faster, less frustrating, and more reliable for employees while making near-expiry products easier for customers to choose.</p>
+            </div>
+          </section>
+          <section class="case-section case-subsection" id="problem-boundaries">
+            <h3>Problem boundaries</h3>
+            <p>A key assumption to avoid is that discounted products do not sell. In many Finnish stores, red-label products already move well and can disappear from shelves quickly. That changes the design problem.</p>
+            <p>S-H&auml;vikki is not trying to convince customers that discounts exist. The sharper problem is how to support the store work around expiry checks, make the remaining products easier to handle, and avoid promising availability that may change minute by minute.</p>
+            <p>That means the digital layer should not behave like a reservation system. If only one or two products are available, or if they may already be in another customer's basket, the app should show broad, time-sensitive signals rather than exact future availability.</p>
+          </section>
+          <section class="case-section case-subsection" id="context">
+            <h3>Context</h3>
+            <p>This concept grew out of my own experience working in grocery retail for more than four years. During that time, I saw how much of the work around expiring products depended on manual checking, employee memory, shelf familiarity, and local store habits.</p>
+            <p>The frustrating part was not only that the process took time. It was that the work could feel repetitive and unnecessarily hard to keep track of, especially when the store was busy and the same shelves needed to be checked again later.</p>
+            <p>I had earlier suggested separating near-expiry products into dedicated displays near checkout. That type of display now exists in many stores, which is a good sign: the market has already moved. It also makes the remaining opportunity clearer. Visibility helps, but it does not fully solve the employee workflow or create a consistent branded experience.</p>
+          </section>
+          <section class="case-section case-subsection" id="opportunity">
+            <h3>Opportunity</h3>
+            <p>S Group is a good base for the concept because it already communicates sustainability through initiatives such as <a href="https://www.s-kanava.fi/tekosysteemi/" target="_blank" rel="noopener noreferrer">Tekosysteemi</a>, and because its cooperative structure makes chain-level rollout easier than a store-by-store model.</p>
+            <p>The opportunity is not to invent a completely new waste process or dramatize the current situation. The sharper direction is to package existing behaviours into a clearer system: identify products earlier, move the right products into a visible point, and make the customer-facing message feel intentional.</p>
+          </section>
+          <div class="case-section-band">
+            <section class="case-section" id="solution">
+              <h2>Solution</h2>
+              <p>S-H&auml;vikki is a connected retail concept with three parts: an employee shelf-mapping tool, a branded S-H&auml;vikki point in store, and a lightweight section inside the S-kaupat app.</p>
+              <p>The system is intentionally practical. The value does not come from one big feature. It comes from reducing friction at the exact moments where food waste is created: when employees need to find products, when stores need to present them clearly, and when customers decide whether they are worth picking.</p>
+              <p>For employees, the goal is not just speed. The tool should make the task feel easier to start, easier to continue, and easier to hand over to someone else.</p>
+            </section>
+            <section class="case-section case-subsection" id="employee-tool">
+              <h3><span class="case-step-number">01</span> Employee shelf-mapping tool</h3>
+              <p>The employee tool is designed as software for the existing store tool ecosystem, not as a separate device requirement. The most realistic first version would run on the handheld scanners or internal tools employees already use.</p>
+              <p>The interface is built around a simple shelf map that mirrors the physical product layout. Instead of checking items one by one without a clear overview, employees can see which shelf areas need attention and act faster during daily routines.</p>
+              <p>The intended flow is narrow:</p>
+              <ol>
+                <li>Open the S-H&auml;vikki tool during the daily shelf check.</li>
+                <li>See highlighted shelf sections with products close to expiry.</li>
+                <li>Check the matching physical products.</li>
+                <li>Choose the next action: discount, move to the S-H&auml;vikki point, or mark as handled.</li>
+                <li>Update the status so the next employee can see what has already been checked.</li>
+              </ol>
+              <p>This avoids turning the first prototype into a full inventory system. The first job is to support one repeated task well.</p>
+            </section>
+            <section class="case-section case-subsection shavikki-prototype-section" id="ui-prototype">
+              <h3 class="case-subheading">UI prototype direction</h3>
+              <p>The shelf map is designed to work one shelf unit at a time. In this early direction, each square represents one physical shelf section. The colour shows whether that section needs attention, while the back action takes the employee to a broader department map if the device needs to be used elsewhere.</p>
+              <div class="shavikki-prototype-wrap" aria-label="Interactive S-Hävikki employee tool prototype">
+                <div class="shavikki-device" data-shavikki-prototype>
+                  <div class="shavikki-device-topbar">
+                    <button class="shavikki-icon-button" type="button" aria-label="Back" data-shavikki-back>
+                      <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                        <path d="M10 3.5L5.5 8l4.5 4.5"></path>
+                      </svg>
+                    </button>
+                    <div class="shavikki-device-brand" aria-label="S-Hävikki">
+                      <span class="shavikki-brand-mark" aria-hidden="true"></span>
+                      <span>Hävikki</span>
+                    </div>
+                    <button class="shavikki-icon-button" type="button" aria-label="Open department map" aria-expanded="false" data-shavikki-map-toggle>
+                      <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                        <path d="M2.5 4.2l3-1.2 5 1.9 3-1.2v8.1l-3 1.2-5-1.9-3 1.2z"></path>
+                        <path d="M5.5 3v8.1"></path>
+                        <path d="M10.5 4.9V13"></path>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="shavikki-device-context">
+                    <p data-shavikki-title>Milk shelf map - Unit 4</p>
+                    <span data-shavikki-breadcrumb>Dairy department > Milk > Unit 4</span>
+                  </div>
+                  <div class="shavikki-control-row" aria-label="Prototype controls">
+                    <label>
+                      <span>Product group</span>
+                      <select data-shavikki-department>
+                        <option value="maidot">Milk</option>
+                        <option value="voit">Butter</option>
+                        <option value="jogurtit">Yogurts</option>
+                      </select>
+                    </label>
+                    <label>
+                      <span>Unit</span>
+                      <select data-shavikki-cabinet>
+                        <option value="1">Unit 1</option>
+                        <option value="2">Unit 2</option>
+                        <option value="3">Unit 3</option>
+                        <option value="4" selected>Unit 4</option>
+                      </select>
+                    </label>
+                    <button class="shavikki-manage-button" type="button" data-shavikki-group-manage>
+                      <span>Edit</span>
+                    </button>
+                  </div>
+                  <div class="shavikki-shelf-status" role="status" aria-live="polite">
+                    <span data-shavikki-status-primary>2 sections</span>
+                    <span data-shavikki-status-secondary>need checking · Unit 4</span>
+                  </div>
+                  <div class="shavikki-shelf-map" aria-label="Shelf map">
+                    <div class="shavikki-level-label shavikki-level-label-top">Top level</div>
+                    <div class="shavikki-shelf-row">
+                      <span>1</span>
+                      <div class="shavikki-shelf-cells">
+                        <button class="shavikki-cell is-ok" type="button" aria-label="Hylly 1 osa 1, ok" data-products="Arla kevytmaito 1L|Valio rasvaton maito 1L"></button>
+                        <button class="shavikki-cell is-ok" type="button" aria-label="Hylly 1 osa 2, ok" data-products="Valio kevytmaito 1L|Kotimaista maitojuoma 1L"></button>
+                        <button class="shavikki-cell is-ok" type="button" aria-label="Hylly 1 osa 3, ok" data-products="Juustoportti vapaan lehmän maito|Arla täysmaito"></button>
+                        <button class="shavikki-cell is-ok" type="button" aria-label="Hylly 1 osa 4, ok" data-products="Valio Luomu maito|Kotimaista täysmaito"></button>
+                      </div>
+                    </div>
+                    <div class="shavikki-shelf-row">
+                      <span>2</span>
+                      <div class="shavikki-shelf-cells">
+                        <button class="shavikki-cell is-ok" type="button" aria-label="Hylly 2 osa 1, ok" data-products="Valio laktoositon kevytmaito|Arla laktoositon maitojuoma"></button>
+                        <button class="shavikki-cell is-warning" type="button" aria-label="Shelf 2 section 2, 2-3 days left" data-products="Valio laktoositon kevytmaito 1L|Kotimaista laktoositon maitojuoma 1L"></button>
+                        <button class="shavikki-cell is-ok" type="button" aria-label="Hylly 2 osa 3, ok" data-products="Valio Plus maito|Arla Protein maitojuoma"></button>
+                        <button class="shavikki-cell is-ok" type="button" aria-label="Hylly 2 osa 4, ok" data-products="Kaurajuoma barista|Soijajuoma maustamaton"></button>
+                      </div>
+                    </div>
+                    <div class="shavikki-shelf-row">
+                      <span>3</span>
+                      <div class="shavikki-shelf-cells">
+                        <button class="shavikki-cell is-ok" type="button" aria-label="Hylly 3 osa 1, ok" data-products="Valio piimä|AB-piimä"></button>
+                        <button class="shavikki-cell is-ok" type="button" aria-label="Hylly 3 osa 2, ok" data-products="Gefilus piimä|Kotimaista piimä"></button>
+                        <button class="shavikki-cell is-ok" type="button" aria-label="Hylly 3 osa 3, ok" data-products="Kefiiri maustamaton|Luomu piimä"></button>
+                        <button class="shavikki-cell is-ok" type="button" aria-label="Hylly 3 osa 4, ok" data-products="Ruokakerma 2dl|Kermaviili"></button>
+                      </div>
+                    </div>
+                    <div class="shavikki-shelf-row">
+                      <span>4</span>
+                      <div class="shavikki-shelf-cells">
+                        <button class="shavikki-cell is-ok" type="button" aria-label="Hylly 4 osa 1, ok" data-products="Ruokakerma 5%|Ruokakerma 10%"></button>
+                        <button class="shavikki-cell is-ok" type="button" aria-label="Hylly 4 osa 2, ok" data-products="Kuohukerma|Vispikerma"></button>
+                        <button class="shavikki-cell is-warning" type="button" aria-label="Shelf 4 section 3, 2-3 days left" data-products="Kermaviili 200g|Creme fraiche 150g"></button>
+                        <button class="shavikki-cell is-ok" type="button" aria-label="Hylly 4 osa 4, ok" data-products="Valio ruokajogurtti|Turkkilainen jogurtti"></button>
+                      </div>
+                    </div>
+                    <div class="shavikki-shelf-row">
+                      <span>5</span>
+                      <div class="shavikki-shelf-cells">
+                        <button class="shavikki-cell is-ok" type="button" aria-label="Hylly 5 osa 1, ok" data-products="Laktoositon kermaviili|Rahka maustamaton"></button>
+                        <button class="shavikki-cell is-ok" type="button" aria-label="Hylly 5 osa 2, ok" data-products="Maitorahka|Proteiinirahka"></button>
+                        <button class="shavikki-cell is-ok" type="button" aria-label="Hylly 5 osa 3, ok" data-products="Vaniljarahka|Maustamaton rahka"></button>
+                        <button class="shavikki-cell is-ok" type="button" aria-label="Hylly 5 osa 4, ok" data-products="Luonnonjogurtti|Kreikkalainen jogurtti"></button>
+                      </div>
+                    </div>
+                    <div class="shavikki-level-label shavikki-level-label-bottom">Bottom level</div>
+                  </div>
+                  <div class="shavikki-overlay" hidden data-shavikki-map>
+                    <div>
+                      <p>Department map</p>
+                      <button type="button" aria-label="Close department map" data-shavikki-overlay-close>&times;</button>
+                    </div>
+                    <div class="shavikki-map-grid" aria-label="Department map">
+                      <button class="is-active" type="button" data-section="maito">Dairy</button>
+                      <button type="button" data-section="hevi">Hevi</button>
+                      <button type="button" data-section="valmisruoka">Ready meals</button>
+                      <button type="button" data-section="leipa">Bakery</button>
+                    </div>
+                  </div>
+                  <div class="shavikki-overlay shavikki-product-panel" hidden data-shavikki-products>
+                    <div>
+                      <p data-shavikki-product-title>Hylly 2, osa 2</p>
+                      <button type="button" aria-label="Close product list" data-shavikki-products-close>&times;</button>
+                    </div>
+                    <ul data-shavikki-product-list></ul>
+                    <button class="shavikki-scan-button" type="button" data-shavikki-scan>Scan product</button>
+                    <div class="shavikki-count-row">
+                      <span>Amount</span>
+                      <button type="button" data-shavikki-count-minus aria-label="Decrease amount">-</button>
+                      <strong data-shavikki-count>1</strong>
+                      <button type="button" data-shavikki-count-plus aria-label="Increase amount">+</button>
+                    </div>
+                    <button class="shavikki-action-button" type="button" data-shavikki-waste>Mark as waste</button>
+                  </div>
+                  <div class="shavikki-overlay" hidden data-shavikki-groups>
+                    <div>
+                      <p>Product groups</p>
+                      <button type="button" aria-label="Close product group settings" data-shavikki-groups-close>&times;</button>
+                    </div>
+                    <p class="shavikki-overlay-copy">Product groups and shelf units can be edited from store or chain-level settings so the shelf maps stay consistent across devices.</p>
+                    <button class="shavikki-action-button" type="button">Request shelf map change</button>
+                  </div>
+                </div>
+                <div class="shavikki-prototype-notes">
+                  <figure class="shavikki-logic-figure">
+                    <img src="assets/shavikki-shelflogic.png" alt="Physical grocery shelf with coloured rectangles showing how digital shelf map squares correspond to shelf sections." decoding="async" loading="lazy">
+                    <figcaption>The coloured areas show how each square in the tool can represent one physical shelf section.</figcaption>
+                  </figure>
+                  <ul>
+                    <li><span class="shavikki-dot is-ok"></span> Green: no action needed</li>
+                    <li><span class="shavikki-dot is-warning"></span> Brown: 2-3 days left</li>
+                    <li><span class="shavikki-dot is-critical"></span> Red: act now</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+            <section class="case-section case-subsection" id="store-point">
+              <h3><span class="case-step-number">02</span> Branded in-store point</h3>
+              <p>The S-H&auml;vikki point is the customer-facing part of the system: a dedicated cooler, shelf, or display near checkout or another high-traffic area. Its job is to make discounted near-expiry products quick to scan and easy to understand.</p>
+              <p>The customer value should stay concrete: save money, find useful products quickly, and feel confident that choosing them is a normal, practical choice. The concept should not rely on guilt or a dramatic sustainability message.</p>
+              <p>The point should communicate three things immediately:</p>
+              <ul>
+                <li>These products are still good to use.</li>
+                <li>Choosing them saves money and reduces waste.</li>
+                <li>The selection changes often, so it is worth checking regularly.</li>
+              </ul>
+              <p>For the first version, the physical setup should stay lightweight: branded signage, a consistent label system, and a clear product zone. A custom installation can wait until the behaviour change is proven.</p>
+              <figure class="case-section-figure">
+                
+                  <img src="assets/shavikki-kaappikuva.png" alt="S-Hävikki branded in-store point concept in a grocery store environment." decoding="async" loading="lazy">
+                
+                <figcaption>The branded point turns near-expiry products into a visible, intentional store touchpoint instead of a scattered discount area.</figcaption>
+              </figure>
+            </section>
+            <section class="case-section case-subsection" id="app-extension">
+              <h3><span class="case-step-number">03</span> S-kaupat app extension</h3>
+              <p>The app extension would give S-H&auml;vikki a digital surface without making the app carry the whole concept. The most useful first version would be a simple section for nearby S-H&auml;vikki availability, selected product categories, or store-level reminders.</p>
+              <p>This should stay secondary in the first version. The in-store flow matters more because near-expiry products are still physical, time-sensitive, and dependent on store handling. The app is useful only if it supports that reality instead of promising exact availability the store cannot maintain.</p>
+              <p>To avoid a broken customer promise, the app should avoid exact future claims like "available in three days". A safer model would show live or near-live category signals, such as "S-H&auml;vikki products available today", and hide the section when availability is too low or uncertain.</p>
+            </section>
+          </div>
+          <section class="case-section" id="prototype-scope">
+            <h2>Prototype scope</h2>
+            <p>The prototype is scoped around the employee workflow instead of a new physical device. That keeps the work close to the real store environment: employees already use handheld scanners and internal tools, so the first version should prove the interaction model before adding hardware.</p>
+            <ul>
+              <li><strong>Core prototype:</strong> shelf map, expiry highlights, item status, and simple actions for discount, move, or handled.</li>
+              <li><strong>Physical concept:</strong> a branded shelf or cooler with simple signage and consistent labels.</li>
+              <li><strong>Out of scope for version one:</strong> custom hardware, advanced inventory integrations, personalized app alerts, and complex customer rewards.</li>
+            </ul>
+            <div class="case-callout">
+              <p><strong>Scope principle:</strong> prove the workflow and in-store behaviour first, then decide whether a dedicated device, deeper app integration, or more automation would actually improve the system.</p>
+            </div>
+          </section>
+          <section class="case-section" id="validation">
+            <h2>Validation plan</h2>
+            <p>I would validate the concept through a small pilot before designing a more polished system: one store, one or two product categories, and a short test period of one to two weeks.</p>
+            <ul>
+              <li><strong>Employee test:</strong> compare a normal shelf check against a mapped checklist prototype. Measure time, missed items, and how often employees need to re-check the same area.</li>
+              <li><strong>Customer test:</strong> place the same discounted products in the current location and in a branded S-H&auml;vikki point. Compare noticeability, pickup rate, and shopper understanding of the offer.</li>
+              <li><strong>Availability test:</strong> check whether the app can show useful signals without creating false expectations when only a few products are available.</li>
+            </ul>
+            <p>The important metric is not whether people like the brand idea in theory. The useful signal is whether the system reduces missed products, makes the task feel easier for employees, and increases actual selection without confusing customers.</p>
+            <ul>
+              <li><strong>Operational metrics:</strong> shelf check time, missed near-expiry products, repeated checks, and handover clarity between employees.</li>
+              <li><strong>Customer metrics:</strong> noticeability, pickup rate, perceived clarity, and whether the display feels useful rather than gimmicky.</li>
+              <li><strong>Business and impact metrics:</strong> value recovered from discounted products, reduction in unsold near-expiry items, and whether the process fits normal store routines.</li>
+            </ul>
+          </section>
+          <section class="case-section" id="reflection">
+            <h2>Reflection</h2>
+            <p>The strongest version of S-H&auml;vikki is not a big app idea or a custom hardware pitch. It is a small retail system that connects employee action with customer discovery.</p>
+            <p>The concept still needs evidence. The biggest risk is assuming that branding and placement alone can overcome real operational friction. That is why the prototype should stay narrow: prove the employee flow and the in-store point first, then decide whether the app and hardware deserve more investment.</p>
+          </section>
+        </article>
+      </div>
+    </div></template>
+<template id="page-tahti"><div class="reading-page">
+      <section class="case-hero" aria-labelledby="case-title">
+        
+        <p class="eyebrow">Chrome Extension / Reading Support Experiment</p>
+        <h1 id="case-title">Tahti</h1>
+        <p class="tahti-definition"><strong>Tahti</strong> <span>noun</span> pace, rhythm</p>
+        <div class="case-facts" id="overview" aria-label="Project overview">
+          <div>
+            <h2>Overview</h2>
+            <p>Tahti is an experiment in reading selected text one word at a time at a controlled rhythm. The goal is not to prove that this is a better way to read everything, but to test whether pacing can make starting, focusing, and staying with text feel easier.</p>
+            <p class="case-read-time">
+              <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                <circle cx="8" cy="8" r="6"></circle>
+                <path d="M8 4.8V8l2.3 1.4"></path>
+              </svg>
+              <span>4 min read</span>
+            </p>
+          </div>
+          <div>
+            <h2>My role</h2>
+            <div class="case-role-tags" aria-label="Project roles">
+              <span>Product design</span>
+              <span>UX design</span>
+              <span>Interaction design</span>
+              <span>Validation planning</span>
+            </div>
+          </div>
+          <div>
+            <h2>Status</h2>
+            <p>Active experiment, 2026</p>
+          </div>
+        </div>
+        <div class="case-image tahti-hero-visual" role="img" aria-label="Tahti wordmark over a moving soft gradient background">
+          <span class="tahti-cover-word">Tahti</span>
+          <span class="tahti-cover-definition">noun &middot; pace, rhythm</span>
+        </div>
+        <section class="case-impact" aria-labelledby="takeaways-title">
+          <h2 id="takeaways-title">Project Takeaways</h2>
+          <div class="impact-grid">
+            <article>
+              <h3>What I explored</h3>
+              <p>Whether a one-word reading mode can reduce the friction of starting a longer text and help the user stay with a controlled reading rhythm.</p>
+            </article>
+            <article>
+              <h3>What is worth preserving</h3>
+              <p>The strongest decision is the narrow MVP: selected text, overlay reader, pace control, pause, rewind, and basic comfort settings.</p>
+            </article>
+            <article>
+              <h3>What needs validation</h3>
+              <p>The risk is comprehension. Tahti may help focus, but it can also remove sentence structure, scanning, and context that normal reading depends on.</p>
+            </article>
+          </div>
+        </section>
+      </section>
+
+      <div class="case-layout">
+        
+
+        <article class="case-content">
+          <section class="case-section" id="problem-framing">
+            <h2>Problem framing</h2>
+            <p>Some reading problems start before comprehension. A long block of text can feel heavy before the first sentence is even read. Tahti looks at that starting moment: what if the interface reduced the visible amount of text and gave the user a simple rhythm to follow?</p>
+            <p>The starting point is personal: I have mild astigmatism, and ADD makes sustained reading focus harder for me at times. I am also not a particularly fast reader in the traditional line-by-line format. In my own use, Tahti has helped in some situations by reducing visual load, giving the reading session a clearer pace, and letting me move through text faster than I normally would. That is a useful signal, but not enough evidence on its own.</p>
+            <p>The product should not be framed as a speed-reading promise. Reading one word at a time can remove useful context, make backtracking harder, and flatten the natural rhythm of paragraphs. A more honest direction is reading support: pace, focus, and temporary structure when ordinary reading feels demanding.</p>
+            <div class="case-context-grid" aria-label="Tahti product context">
+              <article>
+                <h3>Who this is for</h3>
+                <p>People who struggle to start or stay with dense text, especially when the barrier is visual load, focus, or reading fatigue rather than lack of interest.</p>
+              </article>
+              <article>
+                <h3>User situation</h3>
+                <p>The user has found a long article, notes, or documentation page and wants to read one selected part without leaving the current page.</p>
+              </article>
+              <article>
+                <h3>Success would mean</h3>
+                <p>The user starts reading faster, stays with the text longer, and still understands enough for the pace tradeoff to be worth it.</p>
+              </article>
+            </div>
+            <div class="case-callout">
+              <p><strong>Product principle:</strong> Tahti should help users control reading pace without pretending that faster reading is automatically better reading.</p>
+            </div>
+          </section>
+
+          <section class="case-section case-subsection" id="why-extension">
+            <h3>Why a Chrome extension first</h3>
+            <p>The first useful test does not need accounts, a mobile app, reading streaks, PDFs, or AI summaries. It needs one core behavior: select text on a web page and read it in a focused overlay.</p>
+            <p>Selected text keeps the MVP technically small and gives the user control. Full article parsing can wait, because web pages contain headings, images, tables, embeds, code blocks, and layout patterns that would quickly turn the first version into a parser project instead of a reading experiment.</p>
+          </section>
+
+          <section class="case-section case-subsection" id="research-context">
+            <h3>Research context</h3>
+            <p>Tahti sits close to a known reading method called Rapid Serial Visual Presentation, or RSVP. The basic idea is not new: words or small chunks are shown sequentially in one fixed visual position, reducing the need for eye movements.</p>
+            <p>The evidence is mixed, which is exactly why I want to keep the product claim careful. A mobile readability study found that RSVP formats increased reading speed for short texts without significant differences in comprehension or task load, but longer texts increased task load. A study of Spritz-style RSVP found weaker literal comprehension and more visual fatigue, likely because users lose rereading, parafoveal preview, and some natural control over pace.</p>
+            <p>There is also a relevant accessibility angle. Research with visually impaired readers has found faster reading with dynamic text presentation, including RSVP, compared with more traditional page-style presentation. That does not prove Tahti works for attention or focus, but it supports the idea that alternative text presentation can be worth testing for specific reading constraints.</p>
+            <ul class="case-source-list">
+              <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0953543803000390" target="_blank" rel="noopener noreferrer">Adaptive RSVP on mobile devices</a></li>
+              <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0747563214007663" target="_blank" rel="noopener noreferrer">Spritz and RSVP reading comprehension</a></li>
+              <li><a href="https://pubmed.ncbi.nlm.nih.gov/7500210/" target="_blank" rel="noopener noreferrer">RSVP and dynamic text for visually impaired readers</a></li>
+              <li><a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0153786" target="_blank" rel="noopener noreferrer">RSVP reading-rate limits and comprehension caveats</a></li>
+            </ul>
+            <div class="case-callout">
+              <p><strong>Design implication:</strong> Tahti should be tested as reading support for specific situations, not positioned as a universal speed-reading tool.</p>
+            </div>
+          </section>
+
+          <section class="case-section" id="mvp">
+            <h2>MVP scope</h2>
+            <p>The first build is a framework-free Chrome extension. The user selects text, launches Tahti from the context menu or extension popup, and reads the selection one word at a time in an overlay.</p>
+            <ul>
+              <li><strong>Core reader:</strong> one-word display, play, pause, reset, back 10, and next 10.</li>
+              <li><strong>Pace control:</strong> WPM starts lower, warms up toward the chosen pace, and pauses slightly longer after punctuation.</li>
+              <li><strong>Comfort settings:</strong> font size, dark/light mode, and a short countdown so the first word is not missed.</li>
+              <li><strong>Out of scope:</strong> accounts, analytics, streaks, mobile app, PDF support, AI features, and automatic article extraction.</li>
+            </ul>
+            <ol class="case-flow" aria-label="Tahti MVP user flow">
+              <li>Select text</li>
+              <li>Right-click</li>
+              <li>Read with Tahti</li>
+              <li>Set pace</li>
+              <li>Read</li>
+              <li>Pause or rewind</li>
+              <li>Return to page</li>
+            </ol>
+          </section>
+
+          <section class="case-section case-subsection" id="pacing">
+            <h3>Design detail: pacing</h3>
+            <p>A fixed WPM setting was not enough. Reading rhythm depends on punctuation, word length, and language.</p>
+            <p>Instead of advancing every word at the exact same interval, Tahti gives slightly more time to sentence endings, soft breaks, and longer words. The first words also start slower, helping the reader settle into the rhythm.</p>
+            <p>This was a small implementation detail, but an important product decision: the goal was not just speed, but a pace that still feels readable.</p>
+          </section>
+
+          <section class="case-section" id="interaction">
+            <h2>Interaction decisions</h2>
+            <p>The reader UI has one main job: reduce eye work. If the user only gets a short countdown before the first word appears, they should not have to scan the edges of the screen to understand controls, progress, or current state.</p>
+            <figure class="case-section-figure">
+              <div class="case-image case-media-shell tahti-video-shell">
+                <video controls
+                  class="case-video"
+                  src="assets/tahtivideo.mp4"
+                  poster="assets/tahtiUIv3.png"
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  aria-label="Tahti reader prototype video"
+                ></video>
+                
+              </div>
+              <figcaption>The current prototype keeps the reading word, controls, and progress close to the user's central focus.</figcaption>
+            </figure>
+            <p>The current direction keeps the word, controls, and progress in one central reading stack. WPM and font size use compact sliders instead of stepper buttons, because the steppers made the overlay feel too much like a control panel.</p>
+            <div class="tahti-snapshot-grid" aria-label="Tahti prototype screenshots">
+              <figure>
+                
+                  <img src="assets/tahti_rightclickparannusv1.png" alt="Selected article text with a browser context menu option to read with Tahti." decoding="async" loading="lazy">
+                
+                <figcaption>The first version required opening the extension after selecting text. Moving launch into the right-click menu removes that extra step.</figcaption>
+              </figure>
+              <figure>
+                
+                  <img src="assets/tahti_ekav1.png" alt="Early Tahti reader overlay with settings panel and bottom controls." decoding="async" loading="lazy">
+                
+                <figcaption>The first overlay exposed settings, but split attention across too many areas.</figcaption>
+              </figure>
+              <figure>
+                
+                  <img src="assets/tahtiUIv3.png" alt="Updated Tahti reader overlay with centered word, progress, and compact controls." decoding="async" loading="lazy">
+                
+                <figcaption>The later version pulls progress and controls into a tighter reading stack.</figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <section class="case-section" id="risks">
+            <h2>Risks</h2>
+            <p>The main UX risk is false usefulness. Tahti may feel calmer while also reducing comprehension. One-word reading removes many things people normally rely on: sentence shape, paragraph rhythm, quick back-scanning, lists, visual grouping, and the ability to slow down naturally when the content gets harder.</p>
+            <p>That is why the project should stay in experiment mode until it is tested with real reading tasks. The useful question is not "can this move words across the screen?" but "does this help the user start, continue, and understand enough to make the tradeoff worth it?"</p>
+          </section>
+
+          <section class="case-section" id="next">
+            <h2>Next step</h2>
+            <p>I would keep the next version narrow: use Tahti on real articles, notes, and documentation, then log where it helps and where it damages understanding. After that, I want to run user testing to understand whether the need exists beyond my own reading habits and whether the interaction helps other people with focus, visual load, or reading fatigue.</p>
+            <p>If that signal is positive, the next feature worth exploring is article mode with pauses for headings, images, tables, and other elements that should not be forced into a one-word stream.</p>
+            <div class="case-callout">
+              <p><strong>Validation questions:</strong> do I start reading more easily, stay focused longer, understand enough, feel less tired, and know which text types are clearly wrong for this mode?</p>
+            </div>
+          </section>
+        </article>
+      </div>
+    </div></template>
+<script src="desktop.js?v=2"></script><script src="workspace-view.js?v=90"></script></body></html>
