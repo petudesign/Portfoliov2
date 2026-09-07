@@ -1,6 +1,41 @@
 const enterButton = document.querySelector('.workspace-enter');
 const exitButton = document.querySelector('.workspace-exit');
 const view = document.querySelector('.workspace-view');
+const desktopFloatingWindows = [...document.querySelectorAll('#spotify-window, [data-document-window], #chess-window')];
+const hideDesktopWindowsInRoom = (hidden) => {
+  desktopFloatingWindows.forEach((windowElement) => {
+    if (hidden) {
+      windowElement.classList.add('is-room-hidden');
+    } else {
+      windowElement.classList.add('is-room-restoring');
+      windowElement.classList.remove('is-room-hidden');
+      void windowElement.offsetWidth;
+      requestAnimationFrame(() => windowElement.classList.remove('is-room-restoring'));
+    }
+    windowElement.inert = hidden || windowElement.classList.contains('is-minimized');
+  });
+};
+const captureDesktopWindows = () => {
+  const windows = [
+    ['portfolio-window', 'portfolio', 'Petteri Helttula — Portfolio'],
+    ['resume-window', 'resume', 'Resume'],
+    ['how-i-work-window', 'markdown', 'How I work.md'],
+    ['notes-window', 'notes', 'Notes.txt'],
+    ['chess-window', 'chess', 'Chess'],
+    ['spotify-window', 'spotify', 'Spotify'],
+  ];
+  return windows.map(([id, type, title]) => {
+    const element = document.getElementById(id);
+    return {
+      type,
+      title,
+      open: Boolean(element && !element.classList.contains('is-minimized')),
+      layer: Number(element?.style.zIndex) || 0,
+      detail: type === 'notes' ? (document.querySelector('#notes-editor')?.value || '') : '',
+      solved: type === 'chess' && !document.querySelector('#chess-solution')?.hidden,
+    };
+  }).filter((item) => item.open).sort((a, b) => a.layer - b.layer);
+};
 const canvasHost = document.querySelector('.workspace-canvas');
 const enterLabel = enterButton.querySelector('span:last-child').innerHTML;
 
@@ -283,7 +318,7 @@ const createKeyboardGlowTexture = (THREE) => {
 };
 
 const createKeyboard = (THREE, materials) => {
-  const { white, keyWhite, dark } = materials;
+  const { white, keyWhite } = materials;
   const group = new THREE.Group();
   group.name = 'compact-keyboard';
   group.userData.reconstruction = 'approximate-single-view';
@@ -367,11 +402,12 @@ const createKeyboard = (THREE, materials) => {
     new THREE.Vector3(0, .05, -.24),
     new THREE.Vector3(-.035, .048, -.58),
     new THREE.Vector3(.055, .045, -1.02),
-    new THREE.Vector3(.025, .046, -1.52),
-    new THREE.Vector3(.02, .046, -1.86),
-    new THREE.Vector3(.02, -.12, -2.02),
-  ]);
-  const cable = namePart(new THREE.Mesh(new THREE.TubeGeometry(cablePath, 36, .011, 8, false), white), 'keyboard-cable');
+    new THREE.Vector3(.025, .048, -1.38),
+    new THREE.Vector3(.02, .046, -1.6),
+    new THREE.Vector3(.018, -.04, -1.69),
+    new THREE.Vector3(.015, -.26, -1.72),
+  ], false, 'centripetal');
+  const cable = namePart(new THREE.Mesh(new THREE.TubeGeometry(cablePath, 64, .014, 8, false), white), 'keyboard-cable');
   group.add(cable);
   return group;
 };
@@ -576,6 +612,65 @@ const createDac = (THREE, materials) => {
   const jack = namePart(new THREE.Mesh(new THREE.CircleGeometry(.02, 18), black), 'dac-headphone-jack', 'dac-chassis');
   jack.position.set(-.292, .083, .253);
   group.add(jack);
+  return group;
+};
+
+const createSugarfreeCanTexture = (THREE) => {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1024;
+  canvas.height = 512;
+  const context = canvas.getContext('2d');
+  const gradient = context.createLinearGradient(0, 0, canvas.width, 0);
+  gradient.addColorStop(0, '#dcecf2');gradient.addColorStop(.22, '#4dc9ee');gradient.addColorStop(.48, '#edf4f5');gradient.addColorStop(.72, '#38b9e6');gradient.addColorStop(1, '#dbe9ee');
+  context.fillStyle = gradient;context.fillRect(0, 0, canvas.width, canvas.height);
+  context.fillStyle = 'rgba(255,255,255,.72)';
+  context.beginPath();context.moveTo(180,0);context.lineTo(430,0);context.lineTo(300,512);context.lineTo(40,512);context.closePath();context.fill();
+  context.beginPath();context.moveTo(690,0);context.lineTo(910,0);context.lineTo(800,512);context.lineTo(550,512);context.closePath();context.fill();
+  context.fillStyle = '#e51b42';context.strokeStyle = 'rgba(255,255,255,.82)';context.lineWidth = 5;context.font = '700 94px Arial, sans-serif';context.textAlign = 'center';context.strokeText('Red Bull', 512, 235);context.fillText('Red Bull', 512, 235);
+  context.fillStyle = '#f4cb36';context.beginPath();context.arc(512, 294, 42, 0, Math.PI * 2);context.fill();
+  context.fillStyle = '#d91d3f';
+  [-1,1].forEach((side)=>{context.save();context.translate(512+side*45,294);context.scale(side,1);context.beginPath();context.moveTo(-4,-13);context.lineTo(34,-28);context.lineTo(27,-7);context.lineTo(52,4);context.lineTo(23,10);context.lineTo(7,27);context.lineTo(-3,10);context.closePath();context.fill();context.restore();});
+  context.font = '700 38px Arial, sans-serif';context.letterSpacing = '10px';context.fillText('SUGARFREE', 512, 378);
+  context.fillStyle = 'rgba(26,116,157,.82)';context.font = '600 18px Arial, sans-serif';context.letterSpacing = '0px';context.fillText('250 ml', 512, 456);
+  const texture = new THREE.CanvasTexture(canvas);texture.colorSpace = THREE.SRGBColorSpace;texture.anisotropy = 4;
+  return texture;
+};
+
+const createDeskDrink = (THREE) => {
+  const group = new THREE.Group();
+  group.name = 'sugarfree-can-and-coaster';
+  const coasterEdge = new THREE.MeshStandardMaterial({ color: 0x4b3224, roughness: .9 });
+  const coasterWood = new THREE.MeshStandardMaterial({ color: 0xd9b278, roughness: .78 });
+  const edge = namePart(new THREE.Mesh(new THREE.CylinderGeometry(.19, .19, .014, 48), coasterEdge), 'single-coaster-edge');
+  edge.position.y = .007;group.add(edge);
+  const coaster = namePart(new THREE.Mesh(new THREE.CylinderGeometry(.182, .182, .018, 48), coasterWood), 'single-wood-coaster');
+  coaster.position.y = .019;group.add(coaster);
+  const canTexture = createSugarfreeCanTexture(THREE);
+  const sideMaterial = new THREE.MeshPhysicalMaterial({
+    map: canTexture,
+    emissive: 0xffffff,
+    emissiveMap: canTexture,
+    emissiveIntensity: .2,
+    metalness: .18,
+    roughness: .3,
+    clearcoat: .5,
+    clearcoatRoughness: .2
+  });
+  const canBody = namePart(new THREE.Mesh(new THREE.CylinderGeometry(.102, .102, .51, 48, 1, true), sideMaterial), 'red-bull-sugarfree-250ml-can');
+  canBody.position.y = .291;group.add(canBody);
+  const aluminium = new THREE.MeshStandardMaterial({ color: 0xcbd2d4, metalness: .9, roughness: .22 });
+  const top = namePart(new THREE.Mesh(new THREE.CylinderGeometry(.1, .102, .018, 48), aluminium), 'can-top', 'red-bull-sugarfree-250ml-can');
+  top.position.y = .555;group.add(top);
+  const bottom = namePart(new THREE.Mesh(new THREE.CylinderGeometry(.095, .1, .016, 48), aluminium), 'can-bottom', 'red-bull-sugarfree-250ml-can');
+  bottom.position.y = .027;group.add(bottom);
+  [-1,1].forEach((side) => {
+    const rim = namePart(new THREE.Mesh(new THREE.TorusGeometry(.097, .006, 8, 48), aluminium), side > 0 ? 'can-top-rim' : 'can-bottom-rim');
+    rim.rotation.x = Math.PI / 2;rim.position.y = side > 0 ? .565 : .018;group.add(rim);
+  });
+  const tab = namePart(roundedBox(THREE, .052, .009, .026, .007, aluminium), 'can-pull-tab', 'can-top');
+  tab.position.set(.012, .568, .004);tab.rotation.y = -.2;group.add(tab);
+  const tabHole = namePart(roundedBox(THREE, .022, .011, .01, .004, new THREE.MeshBasicMaterial({ color: 0x677074 })), 'can-pull-tab-hole', 'can-pull-tab');
+  tabHole.position.set(.018, .572, .004);tabHole.rotation.y = -.2;group.add(tabHole);
   return group;
 };
 
@@ -1085,7 +1180,8 @@ const createScreenTexture = (THREE, variant) => {
   let wallpaperReady = false;
   let playback = { ...window.portfolioPlaybackState };
   let appOpen = false;
-  const dockIconFiles = ['vscode.png', 'chrome.svg', 'spotify.svg', 'discord.svg', 'steam.svg', 'figma.svg', 'codex.svg', 'obsidian.svg', 'lmstudio.svg', 'xcode.svg'];
+  let desktopWindows = [];
+  const dockIconFiles = ['spotify.svg', 'chrome.svg', 'figma.svg', 'codex.svg', 'paper.svg', 'obsidian.svg', 'lmstudio.svg', 'vscode.svg'];
   const dockIcons = [];
 
   const formatScreenTime = (milliseconds) => {
@@ -1100,6 +1196,82 @@ const createScreenTexture = (THREE, variant) => {
     hour12: false,
   });
   const playerBounds = { x: 452, y: 288, width: 172, height: 62 };
+
+  const drawWindowChrome = (x, y, width, height, title, dark = false) => {
+    context.fillStyle = dark ? 'rgba(19,20,24,.96)' : 'rgba(251,250,252,.97)';
+    context.strokeStyle = 'rgba(255,255,255,.55)';
+    context.lineWidth = 1;
+    context.beginPath();context.roundRect(x, y, width, height, 7);context.fill();context.stroke();
+    context.fillStyle = dark ? '#27292e' : '#e5e1e8';context.fillRect(x, y, width, 20);
+    ['#ff6058','#ffbd2e','#28c840'].forEach((color, index) => {
+      context.fillStyle = color;context.beginPath();context.arc(x + 10 + index * 11, y + 10, 3, 0, Math.PI * 2);context.fill();
+    });
+    context.fillStyle = dark ? '#f6f4f7' : '#3c3543';context.font = '600 6px Arial, sans-serif';context.textAlign = 'left';context.fillText(title, x + 48, y + 10);
+  };
+
+  const drawMirroredWindow = (item, index) => {
+    const sizes = {
+      portfolio: { x: 34, y: 34, width: 452, height: 308 },
+      chess: { x: 92, y: 40, width: 338, height: 300 },
+      resume: { x: 74, y: 52, width: 370, height: 260 },
+      markdown: { x: 74, y: 52, width: 370, height: 260 },
+      notes: { x: 74, y: 52, width: 370, height: 260 },
+      spotify: { x: 86, y: 78, width: 340, height: 205 },
+    };
+    const size = sizes[item.type] || sizes.portfolio;
+    const x = size.x + Math.min(index, 4) * 5;
+    const y = size.y + Math.min(index, 4) * 5;
+    const { width, height } = size;
+    const dark = item.type === 'spotify';
+    drawWindowChrome(x, y, width, height, item.title, dark);
+    if (item.type === 'chess') {
+      context.fillStyle = '#302b37';context.font = '700 15px Arial, sans-serif';context.fillText('Can you find checkmate?', x + 22, y + 43);
+      context.font = '500 6px Arial, sans-serif';context.fillStyle = '#756e7b';context.fillText(item.solved ? 'Solved — 47...f5#' : 'Black to move. Mate in one.', x + 22, y + 56);
+      const boardSize=202,boardX=x+(width-boardSize)/2,boardY=y+67,square=boardSize/8;
+      const pieces={a8:'♖',f7:'♟',h6:'♚',g5:'♟',b4:'♙',e4:'♖',g4:'♔',f3:'♜',f2:'♜',h2:'♙',...(item.solved?{f7:'',f5:'♟'}:{})};
+      const files='hgfedcba';
+      for(let row=0;row<8;row++)for(let column=0;column<8;column++){
+        const rank=row+1,file=files[column],squareName=`${file}${rank}`;
+        context.fillStyle=(file.charCodeAt(0)+rank)%2===0?'#ebe7d2':'#4fa34a';context.fillRect(boardX+column*square,boardY+row*square,square,square);
+        if(pieces[squareName]){context.fillStyle='#202421';context.font=`${square*.7}px 'DejaVu Sans', serif`;context.textAlign='center';context.fillText(pieces[squareName],boardX+(column+.5)*square,boardY+(row+.58)*square);}
+      }
+      context.strokeStyle='#252d27';context.lineWidth=4;context.strokeRect(boardX,boardY,boardSize,boardSize);context.textAlign='left';
+      return;
+    }
+    if (item.type === 'spotify') {
+      context.fillStyle='#1ed760';context.beginPath();context.arc(x+55,y+78,24,0,Math.PI*2);context.fill();
+      context.fillStyle='#fff';context.font='700 18px Arial, sans-serif';context.fillText('Petteri’s rotation',x+95,y+72);
+      context.font='500 8px Arial, sans-serif';context.fillStyle='#bbb';context.fillText('Spotify',x+95,y+88);
+      context.fillStyle='#303238';context.fillRect(x+25,y+125,width-50,2);context.fillStyle='#1ed760';context.fillRect(x+25,y+125,(width-50)*.38,2);
+      return;
+    }
+    const headings = {
+      portfolio: ['Moi, I’m Petteri.', 'Complexity, made useful.', 'Selected work', 'Brio     Peluutin     S-Hävikki'],
+      resume: ['Resume', 'Product design · AI design engineering', 'Focus     Selected work     Contact'],
+      markdown: ['# HOW I WORK', 'Clarity before polish.', 'Understand the system', 'Make the smallest useful thing'],
+      notes: ['Notes.txt', item.detail || 'Write something…'],
+    };
+    const lines=headings[item.type]||[item.title];
+    context.fillStyle='#332e38';context.font='700 18px Arial, sans-serif';context.fillText(lines[0],x+24,y+57);
+    lines.slice(1).forEach((line,lineIndex)=>{context.fillStyle=lineIndex===0?'#76629a':'#756e7b';context.font=lineIndex===0?'italic 16px Georgia, serif':'600 8px Arial, sans-serif';context.fillText(String(line).slice(0,62),x+24,y+82+lineIndex*35);});
+    context.fillStyle='#ebe7ee';for(let line=0;line<4;line++)context.fillRect(x+24,y+190+line*17,width-48,line===3?2:3);
+  };
+
+  const drawDesktopDetails = () => {
+    if (variant !== 0) return;
+    context.textAlign='left';
+    context.fillStyle='rgba(255,255,255,.9)';context.beginPath();context.roundRect(524,28,92,75,10);context.fill();
+    const now=new Date();context.fillStyle='#d84157';context.font='700 6px Arial, sans-serif';context.fillText(helsinkiClock.format(now).split(' ')[0].toUpperCase(),534,41);
+    context.fillStyle='#302b37';context.font='300 28px Arial, sans-serif';context.fillText(String(now.getDate()),534,68);
+    context.font='600 6px Arial, sans-serif';context.fillStyle='#807785';context.fillText('Helsinki, Finland',534,88);
+    [['My work','▰'],['About me','▰'],['Resume','CV'],['How I work','MD'],['Notes','TXT'],['Chess','♟']].forEach(([label,icon],index)=>{
+      const column=index%2,row=Math.floor(index/2),iconX=523+column*51,iconY=119+row*58;
+      context.fillStyle=icon==='▰'?'#63bdf5':'rgba(255,255,255,.92)';context.beginPath();context.roundRect(iconX,iconY,25,22,4);context.fill();
+      context.fillStyle=icon==='▰'?'#fff':'#4d4653';context.font=icon==='♟'?'15px serif':'700 5px Arial, sans-serif';context.textAlign='center';context.fillText(icon,iconX+12.5,iconY+12);
+      context.fillStyle='#fff';context.font='600 5px Arial, sans-serif';context.fillText(label,iconX+12.5,iconY+31);context.textAlign='left';
+    });
+    desktopWindows.forEach(drawMirroredWindow);
+  };
 
   const draw = () => {
     if (!wallpaperReady) return;
@@ -1121,6 +1293,8 @@ const createScreenTexture = (THREE, variant) => {
     context.textAlign = 'right';
     context.fillText(`⌁   ◉   ${helsinkiClock.format(new Date()).replace(',', '')}`, 633, 7);
 
+    drawDesktopDetails();
+
     // macOS Dock
     const dockWidth = 208;
     const dockX = (640 - dockWidth) / 2;
@@ -1141,7 +1315,7 @@ const createScreenTexture = (THREE, variant) => {
       context.roundRect(x, 375, size, size, 4);
       context.fill();
       if (icon.complete && icon.naturalWidth) context.drawImage(icon, x + 2, 377, 12, 12);
-      if (index < 3 || (index === 6 && appOpen)) {
+      if (index === 1 || (index === 0 && playback?.isPlaying) || (index === 3 && appOpen)) {
         context.fillStyle = 'rgba(255,255,255,.9)';
         context.beginPath();
         context.arc(x + size / 2, 394, 1, 0, Math.PI * 2);
@@ -1231,6 +1405,10 @@ const createScreenTexture = (THREE, variant) => {
     },
     setAppOpen(nextOpen) {
       appOpen = Boolean(nextOpen);
+      draw();
+    },
+    setDesktopWindows(nextWindows) {
+      desktopWindows = nextWindows || [];
       draw();
     },
   };
@@ -1351,8 +1529,9 @@ const buildWorkspace = async () => {
   scene.background = new THREE.Color(0x171719);
   scene.fog = new THREE.Fog(0x171719, 8, 15);
 
-  const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.05, 30);
-  camera.position.set(0, 1.34, 3.18);
+  const camera = new THREE.PerspectiveCamera(48, innerWidth / innerHeight, 0.05, 30);
+  // Keep the live right-hand display on the room's visual centerline.
+  camera.position.set(.14, 1.34, 3.18);
   camera.rotation.order = 'YXZ';
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
@@ -1360,7 +1539,7 @@ const buildWorkspace = async () => {
   renderer.setSize(innerWidth, innerHeight);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.02;
+  renderer.toneMappingExposure = .88;
   canvasHost.append(renderer.domElement);
   const bookTooltip = document.createElement('div');
   bookTooltip.className = 'workspace-book-tooltip';
@@ -1391,7 +1570,7 @@ const buildWorkspace = async () => {
   };
 
   // Blank room: intentionally quiet until real wall objects are defined.
-  const frontWall = addBox(9, 5, .12, standard(0x242326, .94), 0, 2.4, -1.3);
+  const frontWall = addBox(7.35, 5, .12, standard(0x242326, .94), .825, 2.4, -1.3);
   frontWall.name = 'room-front-wall';
   addBox(9, .12, 8, standard(0x121315, .96), 0, -.02, .7);
   const sideWall = new THREE.MeshStandardMaterial({
@@ -1402,6 +1581,88 @@ const buildWorkspace = async () => {
   });
   const rightWall = addBox(.12, 5, 8, sideWall, 3.6, 2.4, 2.64);
   rightWall.name = 'room-right-wall';
+  const leftWall = addBox(.12, 5, 8, sideWall, -2.85, 2.4, 2.64);
+  leftWall.name = 'room-left-wall';
+
+  // Deep interior reveals make the side-wall opening read as a real thick
+  // wall, not a flat panel. The window and sill sit inside this tunnel.
+  const windowRevealMaterial = standard(0x6b5848, .9);
+  const revealDepth = .25;
+  const revealX = -2.70;
+  const revealY = 2.12;
+  const revealZ = .92;
+  const revealSideOffset = .68;
+  [revealZ - revealSideOffset, revealZ + revealSideOffset].forEach((z) => {
+    const jamb = new THREE.Mesh(new THREE.BoxGeometry(revealDepth, 1.62, .09), windowRevealMaterial);
+    jamb.name = 'left-window-wall-jamb';
+    jamb.position.set(revealX, revealY, z);
+    jamb.castShadow = true;
+    jamb.receiveShadow = true;
+    scene.add(jamb);
+  });
+  [revealY - .81, revealY + .81].forEach((y) => {
+    const reveal = new THREE.Mesh(
+      new THREE.BoxGeometry(revealDepth, .09, 1.27),
+      windowRevealMaterial
+    );
+    reveal.name = 'left-window-wall-reveal';
+    reveal.position.set(revealX, y, revealZ);
+    reveal.castShadow = true;
+    reveal.receiveShadow = true;
+    scene.add(reveal);
+  });
+
+  // A mostly hidden window sits across the far-left corner. The side wall
+  // naturally masks roughly 70% of it, leaving only a quiet exterior sliver.
+  const leftWindow = new THREE.Group();
+  leftWindow.name = 'left-wall-window';
+  // The opening belongs to the actual left side wall: rotate the window so
+  // its face is flush with the wall at x = -2.85, then let the camera crop it.
+  // Move it toward the back corner so the max-left camera limit catches only
+  // the right side of the opening; the left frame stays outside the view.
+  leftWindow.position.set(-2.78, 2.12, .92);
+  leftWindow.rotation.y = Math.PI / 2;
+  const windowView = new THREE.Mesh(
+    new THREE.PlaneGeometry(1.4, 1.6),
+    new THREE.MeshBasicMaterial({
+      map: loadAssetTexture(THREE, '/assets/helsinki-blue-hour-window.png?v=1'),
+      color: 0x6d7890,
+      toneMapped: false,
+    })
+  );
+  windowView.name = 'left-window-helsinki-view';
+  windowView.position.z = .012;
+  leftWindow.add(windowView);
+  const windowFrameMaterial = standard(0x151414, .72);
+  [
+    [1.52, .07, .06, 0, .835, .03],
+    [1.52, .07, .06, 0, -.835, .03],
+    [.07, 1.74, .06, -.755, 0, .03],
+    [.07, 1.74, .06, .755, 0, .03],
+  ].forEach(([width, height, depth, x, y, z]) => {
+    const framePart = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), windowFrameMaterial);
+    framePart.position.set(x, y, z);
+    framePart.castShadow = true;
+    leftWindow.add(framePart);
+  });
+  scene.add(leftWindow);
+
+  // Pale interior sill: the window sits in the wall, while this ledge projects
+  // back into the room and catches the warm ambient light.
+  const windowSill = new THREE.Mesh(
+    new THREE.BoxGeometry(.48, .10, 1.24),
+    standard(0xf0eee7, .5)
+  );
+  windowSill.name = 'left-window-interior-sill';
+  windowSill.position.set(-2.52, 1.36, .92);
+  windowSill.castShadow = true;
+  windowSill.receiveShadow = true;
+  scene.add(windowSill);
+
+  const windowLight = new THREE.PointLight(0x506383, .42, 3.2, 2);
+  windowLight.name = 'left-window-blue-hour-light';
+  windowLight.position.set(-2.52, 2.05, .92);
+  scene.add(windowLight);
 
   // Sofa runs along the right wall beside the seated viewer, clear of the desk.
   const sofa = createSofa(THREE);
@@ -1461,6 +1722,52 @@ const buildWorkspace = async () => {
     bookTargets.push(bookBody, spine);
     scene.add(bookRoot);
   });
+
+  const hailMary = {
+    title: 'PROJECT HAIL MARY',
+    author: 'Andy Weir',
+    style: 'project-hail-mary',
+    background: '#080808',
+    foreground: '#f5f3e8',
+    titleSize: 38,
+    weight: 500
+  };
+  const hailMaryRoot = new THREE.Group();
+  hailMaryRoot.position.set(-1.185, 3.36, -1.9);
+  hailMaryRoot.userData.restZ = -1.9;
+  const hailMaryCover = standard(0x090909, .7);
+  const hailMaryPages = standard(0xe6cf8f, .84);
+  const hailMaryBody = new THREE.Mesh(
+    new THREE.BoxGeometry(.085, .5, .32),
+    [hailMaryPages, hailMaryCover, hailMaryPages, hailMaryPages, hailMaryCover, hailMaryCover]
+  );
+  hailMaryBody.userData.book = hailMary;
+  hailMaryBody.userData.bookRoot = hailMaryRoot;
+  hailMaryRoot.add(hailMaryBody);
+  const hailMarySpine = new THREE.Mesh(
+    new THREE.PlaneGeometry(.08, .49),
+    new THREE.MeshBasicMaterial({ map: createBookSpineTexture(THREE, hailMary), toneMapped: false })
+  );
+  hailMarySpine.name = 'book-spine-project-hail-mary';
+  hailMarySpine.position.z = .161;
+  hailMarySpine.userData.book = hailMary;
+  hailMarySpine.userData.bookRoot = hailMaryRoot;
+  hailMaryRoot.add(hailMarySpine);
+  const hailMaryFront = new THREE.Mesh(
+    new THREE.PlaneGeometry(.318, .498),
+    new THREE.MeshBasicMaterial({
+      map: loadAssetTexture(THREE, '/assets/book-project-hail-mary.png?v=2'),
+      toneMapped: false
+    })
+  );
+  hailMaryFront.name = 'book-cover-project-hail-mary';
+  hailMaryFront.position.set(.043, 0, 0);
+  hailMaryFront.rotation.y = Math.PI / 2;
+  hailMaryFront.userData.book = hailMary;
+  hailMaryFront.userData.bookRoot = hailMaryRoot;
+  hailMaryRoot.add(hailMaryFront);
+  bookTargets.push(hailMaryBody, hailMarySpine, hailMaryFront);
+  scene.add(hailMaryRoot);
 
   const potMaterial = standard(0xded9cf, .72);
   const leafTextures = createLeafSurfaceTextures(THREE);
@@ -1536,14 +1843,17 @@ const buildWorkspace = async () => {
     basketball.add(seam);
   });
   scene.add(basketball);
-  scene.children.slice(wallDecorStart).forEach(object => { object.position.z += .8; });
+  scene.children.slice(wallDecorStart).forEach(object => {
+    object.position.z += .8;
+    if (object.userData.restZ !== undefined) object.userData.restZ += .8;
+  });
 
   // The user's 160 x 80 cm desk. The back edge stays put while the front edge
   // extends toward the seated camera, leaving more usable surface in view.
   const desktopSurface = addBox(4.9, .1, 2.45, white, 0, .76, .15);
   desktopSurface.name = 'room-desk-surface';
-  addBox(.11, 1.52, .11, metal, -2.18, 0, .9);
-  addBox(.11, 1.52, .11, metal, 2.18, 0, .9);
+  addBox(.11, 2.5, .11, metal, -2.18, -.49, .9);
+  addBox(.11, 2.5, .11, metal, 2.18, -.49, .9);
 
   // One dual-monitor arm and two modest monitors.
   addBox(.13, 1.18, .13, metal, -.48, 1.39, -1.02);
@@ -1569,61 +1879,124 @@ const buildWorkspace = async () => {
     if (index === 0) mainScreen = screen;
   });
 
-  // App windows are opened from the dock. The supplied Codex screenshot is used
-  // as-is (with only its surrounding wallpaper made transparent).
+  // The left display is a static, art-directed counterpoint to the live desktop.
+  // Keeping it on a separate plane preserves the existing screen interactions.
   const appWindow = new THREE.Group();
   appWindow.visible = true;
-  const appTexture = loadAssetTexture(THREE, '/assets/codex-window.png?v=2');
-  appTexture.colorSpace = THREE.SRGBColorSpace;
+  const showcaseCanvas = document.createElement('canvas');
+  showcaseCanvas.width = 740;
+  showcaseCanvas.height = 400;
+  const showcaseContext = showcaseCanvas.getContext('2d');
+  const showcaseTexture = new THREE.CanvasTexture(showcaseCanvas);
+  showcaseTexture.colorSpace = THREE.SRGBColorSpace;
+  showcaseTexture.anisotropy = 4;
+  const showcaseBase = new Image();
+  const showcaseCat = new Image();
+  let lastShowcaseFrame = -100;
+  const drawShowcase = (time = 0) => {
+    if (time - lastShowcaseFrame < 66) {
+      requestAnimationFrame(drawShowcase);
+      return;
+    }
+    lastShowcaseFrame = time;
+    const ctx = showcaseContext;
+    if (showcaseBase.complete && showcaseBase.naturalWidth) ctx.drawImage(showcaseBase, 0, 0, 740, 400);
+    else { ctx.fillStyle = '#050505'; ctx.fillRect(0, 0, 740, 400); }
+
+    // Refresh the name without disturbing the original editorial composition.
+    ctx.fillStyle = '#050505';
+    ctx.fillRect(18, 8, 178, 44);
+    ctx.fillStyle = '#f0df00';
+    ctx.font = '400 20px Aktura, "Bodoni MT", Didot, Georgia, serif';
+    ctx.fillText('PETTERI', 22, 27);
+    ctx.fillText('HELTTULA', 22, 47);
+
+    // Replace only the former shoe window with the supplied pixel-cat image.
+    const catX = 58, catY = 204, catW = 136, catH = 129;
+    ctx.fillStyle = '#050505';
+    ctx.fillRect(catX - 2, catY - 2, catW + 4, catH + 4);
+    ctx.fillStyle = '#ddd9d4';
+    ctx.fillRect(catX, catY, catW, 14);
+    ['#ff6058', '#ffbd2e', '#28c840'].forEach((color, index) => {
+      ctx.fillStyle = color;
+      ctx.beginPath(); ctx.arc(catX + 8 + index * 10, catY + 7, 2.4, 0, Math.PI * 2); ctx.fill();
+    });
+    ctx.fillStyle = '#332e38';
+    ctx.font = '600 5px Arial, sans-serif';
+    ctx.fillText('found_image_01.jpg', catX + 45, catY + 9);
+    if (showcaseCat.complete && showcaseCat.naturalWidth) {
+      ctx.save();
+      ctx.imageSmoothingEnabled = false;
+      const sourceRatio = showcaseCat.naturalWidth / showcaseCat.naturalHeight;
+      const targetRatio = catW / (catH - 14);
+      const sourceWidth = sourceRatio > targetRatio ? showcaseCat.naturalHeight * targetRatio : showcaseCat.naturalWidth;
+      const sourceHeight = sourceRatio > targetRatio ? showcaseCat.naturalHeight : showcaseCat.naturalWidth / targetRatio;
+      const sourceX = (showcaseCat.naturalWidth - sourceWidth) / 2;
+      const sourceY = (showcaseCat.naturalHeight - sourceHeight) / 2;
+      ctx.drawImage(showcaseCat, sourceX, sourceY, sourceWidth, sourceHeight, catX, catY + 14, catW, catH - 14);
+      ctx.restore();
+    }
+
+    // Replace only the former body window with an artsy but real local-LLM run.
+    const llmX = 317, llmY = 183, llmW = 223, llmH = 195;
+    ctx.fillStyle = '#050505';
+    ctx.fillRect(llmX - 2, llmY - 2, llmW + 4, llmH + 4);
+    ctx.fillStyle = '#d9d6d0';
+    ctx.fillRect(llmX, llmY, llmW, 15);
+    ['#ff6058', '#ffbd2e', '#28c840'].forEach((color, index) => {
+      ctx.fillStyle = color;
+      ctx.beginPath(); ctx.arc(llmX + 8 + index * 10, llmY + 7.5, 2.4, 0, Math.PI * 2); ctx.fill();
+    });
+    ctx.fillStyle = '#332e38';
+    ctx.font = '600 5px Arial, sans-serif';
+    ctx.fillText('local_model.session', llmX + 57, llmY + 10);
+    ctx.fillStyle = '#070807';
+    ctx.fillRect(llmX, llmY + 15, llmW, llmH - 15);
+    const phase = Math.floor(time / 80) % 8;
+    for (let y = llmY + 23; y < llmY + llmH - 8; y += 7) {
+      for (let x = llmX + 126; x < llmX + llmW - 8; x += 7) {
+        const wave = (x + y + phase * 9) % 35;
+        if (wave < 14) {
+          ctx.fillStyle = wave < 7 ? '#f0df00' : 'rgba(240,223,0,.38)';
+          ctx.fillRect(x, y, 2, 2);
+        }
+      }
+    }
+    const tokens = ['loading weights...', 'context  4096', 'gpu layers  32', 'thinking locally', 'token stream  ▓▒░'];
+    ctx.font = '600 8px Consolas, monospace';
+    tokens.forEach((line, index) => {
+      ctx.fillStyle = index === tokens.length - 1 ? '#f0df00' : 'rgba(236,232,222,.78)';
+      const reveal = Math.max(2, Math.min(line.length, Math.floor(time / 115 - index * 5) % (line.length + 8)));
+      ctx.fillText(line.slice(0, reveal), llmX + 12, llmY + 38 + index * 21);
+    });
+    ctx.strokeStyle = 'rgba(240,223,0,.58)';
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(llmX + 12, llmY + 160);
+    ctx.bezierCurveTo(llmX + 54, llmY + 130, llmX + 78, llmY + 178, llmX + 112, llmY + 142);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(255,255,255,.28)';
+    ctx.fillRect(llmX + 8 + (time / 18) % (llmW - 34), llmY + llmH - 9, 24, 2);
+    showcaseTexture.needsUpdate = true;
+    requestAnimationFrame(drawShowcase);
+  };
+  showcaseCat.src = '/assets/cat-microwave-pixel.png?v=1';
+  showcaseBase.src = '/assets/studio-showcase-screen.png?v=2';
+  requestAnimationFrame(drawShowcase);
   const appPlane = new THREE.Mesh(
-    new THREE.PlaneGeometry(1.62, .88),
-    new THREE.MeshBasicMaterial({ map: appTexture, transparent: true, depthWrite: false, toneMapped: false })
+    new THREE.PlaneGeometry(2.11, 1.14),
+    new THREE.MeshBasicMaterial({ map: showcaseTexture, toneMapped: false })
   );
-  // Default Codex window lives on the left-hand display.
-  appPlane.position.set(-1.61 + Math.sin(.14) * .07, 1.92, -.71 + Math.cos(.14) * .07);
+  appPlane.name = 'studio-showcase-screen';
+  appPlane.position.set(-1.61 + Math.sin(.14) * .057, 1.87, -.71 + Math.cos(.14) * .057);
   appPlane.rotation.y = .14;
   appWindow.add(appPlane);
   scene.add(appWindow);
-  let appWindowMaximized = false;
-  let draggingAppWindow = false;
-  let dragLastX = 0;
-  let dragLastY = 0;
-  const appNames = ['VS Code', 'Chrome', 'Spotify', 'Discord', 'Steam', 'Figma', 'Codex', 'Obsidian', 'LM Studio', 'Xcode'];
-  const actionableApps = new Set([0, 1, 6, 7, 8, 9]);
+  const appNames = ['Spotify', 'Chrome', 'Figma', 'Codex', 'Paper', 'Obsidian', 'LM Lab', 'VS Code'];
   const dockTooltip = document.createElement('div');
   dockTooltip.className = 'workspace-dock-tooltip';
   dockTooltip.hidden = true;
   view.append(dockTooltip);
-  const openDockApp = (index) => {
-    if (!actionableApps.has(index)) return;
-    appWindow.visible = true;
-    screenTextures.forEach((screenTexture) => screenTexture.userData.setAppOpen?.(true));
-    appWindowMaximized = false;
-    appWindow.scale.set(1, 1, 1);
-  };
-  const appWindowControlAt = (event) => {
-    if (!appWindow.visible) return '';
-    setRayFromEvent(event);
-    const hit = raycaster.intersectObject(appPlane, false)[0];
-    if (!hit?.uv) return '';
-    const x = hit.uv.x;
-    const y = 1 - hit.uv.y;
-    // The asset is cropped to the app window, so traffic lights are near the
-    // left edge (not at the original full-image x coordinates).
-    if (x < .03 && y < .13) return 'close';
-    if (x < .06 && y < .13) return 'minimize';
-    if (x < .09 && y < .13) return 'maximize';
-    return '';
-  };
-  const appWindowHeaderAt = (event) => {
-    if (!appWindow.visible) return false;
-    setRayFromEvent(event);
-    const hit = raycaster.intersectObject(appPlane, false)[0];
-    if (!hit?.uv) return false;
-    const y = 1 - hit.uv.y;
-    return y < .16;
-  };
-
   const propMaterials = { white, keyWhite, dark, black, metal, silver, indicator, folder, folderLight, sticky, pencil, wood, eraser, paper };
   const deskLayers = createDeskLayers(THREE, propMaterials);
   deskLayers.position.set(0, .81, -.3);
@@ -1659,30 +2032,39 @@ const buildWorkspace = async () => {
   keyboard.position.set(-1.58, .81, .55);
   keyboard.rotation.y = .12;
   scene.add(keyboard);
+  const deskDrink = createDeskDrink(THREE);
+  deskDrink.position.set(-1.02, .81, -.62);
+  deskDrink.rotation.y = Math.PI - .16;
+  scene.add(deskDrink);
+
   const mouse = createMouse(THREE, propMaterials);
   mouse.position.set(1.85, .81, .62);
   mouse.scale.set(.9, .9, .78);
   scene.add(mouse);
-
-  const ambient = new THREE.HemisphereLight(0xc9c5d0, 0x242126, 1.05);
+  const ambient = new THREE.HemisphereLight(0xb4aabf, 0x15131a, .68);
   scene.add(ambient);
   // Soft reflected room light makes the side seating readable away from the monitors.
-  const sofaFill = new THREE.PointLight(0xffead7, 9, 6, 2);
+  const sofaFill = new THREE.PointLight(0xffc995, 6.5, 6, 2);
   sofaFill.position.set(1.6, 2.7, 3.5);
   scene.add(sofaFill);
-  const warmLight = new THREE.PointLight(0xffead0, 24, 6, 1.7);
+  const warmLight = new THREE.PointLight(0xffb86f, 18, 5.5, 1.8);
   warmLight.position.set(-2.25, 2.25, .15);
   scene.add(warmLight);
-  const purpleLight = new THREE.PointLight(0x8154a3, 26, 4.2, 1.8);
-  purpleLight.position.set(0, 1.15, -1.22);
+  const purpleLight = new THREE.PointLight(0x6b4b9d, 16, 3.8, 1.9);
+  // Hidden behind the monitors: the wall receives the colored spill, while
+  // the light source itself stays out of the viewer's line of sight.
+  purpleLight.position.set(0, 1.92, -1.94);
   scene.add(purpleLight);
-
   let active = false;
   let startTime = 0;
   let targetYaw = 0;
   let targetPitch = -.08;
+  // Keep the room framed around the desk; side glances are intentionally
+  // narrow so the scene cannot be inspected too far past either wall.
+  const maxYaw = .44;
+  const minPitch = -.14;
   let yaw = 0;
-  let pitch = -.52;
+  let pitch = minPitch;
   let cameraDragging = false;
   let cameraLastX = 0;
   let cameraLastY = 0;
@@ -1739,40 +2121,23 @@ const buildWorkspace = async () => {
   };
 
   const onPointerMove = (event) => {
-    if (draggingAppWindow) {
-      const dx = (event.clientX - dragLastX) / innerWidth * 4.15;
-      const dy = -(event.clientY - dragLastY) / innerHeight * 2.25;
-      dragLastX = event.clientX;
-      dragLastY = event.clientY;
-      // The plane starts over the left display; these offsets keep its full
-      // width inside the combined two-monitor span while crossing the seam.
-      appWindow.position.x = THREE.MathUtils.clamp(appWindow.position.x + dx, -.22, 2.3);
-      // Move the window toward the nearer display's depth as it crosses the seam.
-      const seamProgress = THREE.MathUtils.clamp(appWindow.position.x / 2.3, 0, 1);
-      appWindow.position.z = THREE.MathUtils.smoothstep(seamProgress, 0, 1) * .105;
-      // Keep the window above the Dock and inside the monitor's top edge.
-      appWindow.position.y = THREE.MathUtils.clamp(appWindow.position.y + dy, -.08, .08);
-      renderer.domElement.classList.add('is-over-control');
-      return;
-    }
     if (event.pointerType === 'touch' && cameraDragging) {
       event.preventDefault();
       const dx = event.clientX - cameraLastX;
       const dy = event.clientY - cameraLastY;
       cameraLastX = event.clientX;
       cameraLastY = event.clientY;
-      targetYaw = THREE.MathUtils.clamp(targetYaw - dx * .004, -1.48, 1.48);
-      targetPitch = THREE.MathUtils.clamp(targetPitch - dy * .003, -.62, .2);
+      targetYaw = THREE.MathUtils.clamp(targetYaw - dx * .004, -maxYaw, maxYaw);
+      targetPitch = THREE.MathUtils.clamp(targetPitch - dy * .003, minPitch, .2);
       return;
     }
     if (event.pointerType === 'touch') return;
     const nx = event.clientX / innerWidth * 2 - 1;
     const ny = event.clientY / innerHeight * 2 - 1;
-    targetYaw = nx * -1.48;
-    targetPitch = THREE.MathUtils.clamp(-ny * .46 - .12, -.62, .2);
+    targetYaw = THREE.MathUtils.clamp(nx * -.86, -maxYaw, maxYaw);
+    targetPitch = THREE.MathUtils.clamp(-ny * .46 - .12, minPitch, .2);
     const dockIndex = dockHit(event);
-    const appControl = appWindowControlAt(event);
-    renderer.domElement.classList.toggle('is-over-control', playerControlHit(event) || dockIndex >= 0 || Boolean(appControl) || appWindowHeaderAt(event));
+    renderer.domElement.classList.toggle('is-over-control', playerControlHit(event) || dockIndex >= 0);
     if (dockIndex >= 0) {
       dockTooltip.textContent = appNames[dockIndex];
       dockTooltip.style.left = `${Math.min(innerWidth - 150, event.clientX + 14)}px`;
@@ -1793,36 +2158,9 @@ const buildWorkspace = async () => {
         return;
       }
     }
-    const appControl = appWindowControlAt(event);
-    if (appControl) {
-      event.preventDefault();
-      if (appControl === 'close' || appControl === 'minimize') {
-        appWindow.visible = false;
-        screenTextures.forEach((screenTexture) => screenTexture.userData.setAppOpen?.(false));
-      }
-      if (appControl === 'maximize') {
-        appWindowMaximized = !appWindowMaximized;
-        appWindow.scale.setScalar(appWindowMaximized ? 1.12 : 1);
-      }
-      return;
-    }
-    if (appWindowHeaderAt(event)) {
-      event.preventDefault();
-      draggingAppWindow = true;
-      dragLastX = event.clientX;
-      dragLastY = event.clientY;
-      renderer.domElement.setPointerCapture?.(event.pointerId);
-      renderer.domElement.classList.add('is-dragging-window');
-      return;
-    }
     if (playerControlHit(event)) {
       event.preventDefault();
       window.dispatchEvent(new Event('portfolio:toggle-playback'));
-      return;
-    }
-    const dockIndex = dockHit(event);
-    if (dockIndex >= 0) {
-      openDockApp(dockIndex);
       return;
     }
     if (event.pointerType === 'touch') {
@@ -1834,10 +2172,6 @@ const buildWorkspace = async () => {
     }
   };
   const onPointerUp = (event) => {
-    if (draggingAppWindow) {
-      draggingAppWindow = false;
-      renderer.domElement.classList.remove('is-dragging-window');
-    }
     cameraDragging = false;
     if (renderer.domElement.hasPointerCapture?.(event.pointerId)) {
       renderer.domElement.releasePointerCapture(event.pointerId);
@@ -1886,9 +2220,13 @@ const buildWorkspace = async () => {
   return {
     open() {
       active = true;
-      appWindow.visible = !document.body.classList.contains('has-desktop');
+      appWindow.visible = true;
+      screenTextures.forEach((screenTexture) => screenTexture.userData.setAppOpen?.(true));
+      screenTextures[0]?.userData.setDesktopWindows?.(captureDesktopWindows());
       startTime = performance.now();
-      pitch = -.52;
+      yaw = 0;
+      targetYaw = 0;
+      pitch = minPitch;
       targetPitch = -.08;
       frameId = requestAnimationFrame(render);
     },
@@ -1902,8 +2240,6 @@ const buildWorkspace = async () => {
       dockTooltip.hidden = true;
       appWindow.visible = false;
       screenTextures.forEach((screenTexture) => screenTexture.userData.setAppOpen?.(false));
-      draggingAppWindow = false;
-      renderer.domElement.classList.remove('is-dragging-window');
     },
   };
 };
@@ -1914,6 +2250,7 @@ const openWorkspace = async () => {
   enterButton.disabled = true;
   enterButton.querySelector('span:last-child').textContent = 'Looking up…';
   document.body.classList.add('is-workspace-open', 'is-workspace-entering');
+  hideDesktopWindowsInRoom(true);
   view.classList.add('is-open');
   view.querySelector('.workspace-loading').textContent = 'Loading the workspace…';
   view.setAttribute('aria-hidden', 'false');
@@ -1953,6 +2290,7 @@ const closeWorkspace = () => {
   window.setTimeout(() => {
     workspace?.close();
     view.classList.remove('is-returning');
+    hideDesktopWindowsInRoom(false);
   }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 480);
 };
 

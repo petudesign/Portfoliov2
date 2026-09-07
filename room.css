@@ -4,7 +4,6 @@ body.is-workspace-open { overflow: hidden; }
 .workspace-view.is-open { visibility: visible; opacity: 1; pointer-events: auto; transition-delay: 0s; }
 .workspace-view.is-open, .workspace-view.is-open canvas { cursor: url("assets/eye-cursor.svg") 16 12, crosshair; }
 .workspace-view.is-open canvas.is-over-control { cursor: pointer; }
-.workspace-view.is-open canvas.is-dragging-window { cursor: grabbing; }
 .workspace-book-tooltip { position: fixed; z-index: 5; display: grid; gap: 2px; min-width: 150px; padding: 8px 10px; border: 1px solid rgba(255,255,255,.2); border-radius: 7px; color: #f5f2ed; background: rgba(13,14,16,.84); box-shadow: 0 8px 22px rgba(0,0,0,.22); backdrop-filter: blur(8px); pointer-events: none; }
 .workspace-book-tooltip[hidden] { display: none; }
 .workspace-book-tooltip strong { font-size: 9px; line-height: 1.2; letter-spacing: .055em; }

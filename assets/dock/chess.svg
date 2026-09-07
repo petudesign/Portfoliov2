@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>Chess pawn</title>
+  <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#b8a0f2"/><stop offset="1" stop-color="#66539d"/></linearGradient></defs>
+  <rect width="64" height="64" rx="14" fill="#29253a"/>
+  <circle cx="32" cy="17" r="8" fill="url(#g)" stroke="#eee7ff" stroke-width="1.5"/>
+  <path d="M27 24c1 4 1 7-3 12l-5 8h26l-5-8c-4-5-4-8-3-12Z" fill="url(#g)" stroke="#eee7ff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M17 44h30l4 7H13Z" fill="url(#g)" stroke="#eee7ff" stroke-width="1.5" stroke-linejoin="round"/>
+</svg>

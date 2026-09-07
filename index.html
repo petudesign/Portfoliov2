@@ -1,21 +1,20 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Petteri Helttula — Product design, AI design engineering, and selected work."><title>Petteri Helttula — Desktop</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="desktop.css?v=2"><link rel="stylesheet" href="room.css?v=2"></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Petteri Helttula — Product design, AI design engineering, and selected work."><title>Petteri Helttula — Desktop</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=aktura@400&amp;display=swap"><link rel="stylesheet" href="desktop.css?v=3"><link rel="stylesheet" href="room.css?v=2"></head>
 <body class="has-desktop"><main class="desktop" id="desktop" aria-label="Petteri's desktop">
 <nav class="desktop-menubar" aria-label="Desktop menu"><a class="desktop-brand" href="#home" aria-label="Petteri's portfolio">ph</a><a href="#home" class="active-app">Portfolio</a><a href="#work">Work</a><a href="#about">About</a><a href="mailto:helttula.petteri@gmail.com" class="menu-contact">Contact</a><div class="menubar-right"><button type="button" data-mixer-toggle aria-controls="sound-mixer" aria-expanded="false" aria-label="Sound mixer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h16M4 17h16"/><rect x="7" y="4" width="4" height="6" rx="2" fill="currentColor"/><rect x="14" y="14" width="4" height="6" rx="2" fill="currentColor"/></svg></button><time id="desktop-clock"></time></div></nav>
 <div class="desktop-content">
 <article class="portfolio-window" id="portfolio-window" aria-label="Portfolio browser">
 <header class="browser-titlebar"><div class="traffic-lights"><button type="button" data-window-hide aria-label="Close portfolio"></button><button type="button" data-window-hide aria-label="Minimize portfolio"></button><button type="button" data-window-expand aria-label="Maximize portfolio" aria-pressed="false"></button></div><div class="browser-tab"><img src="assets/favicon.svg" alt=""><span>Petteri Helttula — Portfolio</span><button type="button" data-window-hide aria-label="Close portfolio tab">×</button></div><button class="browser-new" type="button" data-show-portfolio aria-label="Open portfolio home">＋</button></header>
 <div class="browser-toolbar"><button type="button" id="browser-back" aria-label="Back" disabled>‹</button><button type="button" id="browser-forward" aria-label="Forward" disabled>›</button><a href="#home" aria-label="Portfolio home">⌂</a><div class="browser-address"><span aria-hidden="true">⊙</span><span id="browser-location">Portfolio / Home</span></div><button type="button" data-show-desktop aria-label="Show desktop">▱</button></div>
-<nav class="portfolio-nav" aria-label="Portfolio navigation"><a href="#home">Petteri Helttula<span>Product Designer & AI Design Engineer</span></a><div><a href="#work">Work</a><a href="#about">About</a><a href="https://drive.google.com/file/d/1jGHfK2btH744Slry8skZ1yfMZMGNYg3_/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume ↗</a></div></nav>
+<nav class="portfolio-nav" aria-label="Portfolio navigation"><a href="#home">Petteri Helttula<span>A blend of product design and AI design engineering</span></a><div><a href="#work">Work</a><a href="#about">About</a><a href="#resume">Resume</a></div></nav>
 <div class="browser-page" id="browser-page" tabindex="0"></div>
 </article>
-<aside class="desktop-side" aria-label="Desktop widgets"><section class="date-widget"><span id="widget-weekday"></span><strong id="widget-day"></strong><span id="widget-month"></span><div>Helsinki, Finland<time id="widget-clock"></time></div></section><div class="desktop-shortcuts" id="desktop-shortcuts"></div><button class="room-button workspace-enter" type="button" aria-controls="workspace-view" aria-expanded="false"><span aria-hidden="true">↙</span><span>My room<small>Behind the screen</small></span></button></aside>
+<aside class="desktop-side" aria-label="Desktop widgets"><section class="date-widget"><span id="widget-weekday"></span><strong id="widget-day"></strong><span id="widget-month"></span><div>Helsinki, Finland<time id="widget-clock"></time></div></section><nav class="desktop-shortcuts" id="desktop-shortcuts" aria-label="Desktop files"></nav><button class="room-button workspace-enter" type="button" aria-controls="workspace-view" aria-expanded="false"><span>My room<small>Behind the screen</small></span></button></aside>
 </div>
 <section class="sound-mixer" hidden id="sound-mixer" aria-labelledby="mixer-title">
               <header><h2 id="mixer-title">Sound mixer</h2><button type="button" id="sound-enable" aria-pressed="false">Enable sound</button></header>
               <p>Your desk, your atmosphere. Spotify has its own player controls.</p>
               <label for="click-volume">Mouse clicks <output id="click-value">35%</output></label><input id="click-volume" type="range" min="0" max="100" value="35">
-              <label for="key-volume">Keyboard <output id="key-value">20%</output></label><input id="key-volume" type="range" min="0" max="100" value="20">
               <label for="music-volume">Local music · 3D room audio <output id="music-value">40%</output></label><input id="music-volume" type="range" min="0" max="100" value="40">
               <label class="music-file-label" for="music-file">Choose a music file <span>＋</span></label><input id="music-file" type="file" accept="audio/*" class="visually-hidden">
               <div class="music-transport"><span id="music-name">No track selected</span><button type="button" id="music-play" disabled aria-label="Play music">▶</button></div>
@@ -29,16 +28,60 @@
   <p class="spotify-note">Spotify stays in stereo in the room. For the 3D headphone effect, choose a local music file in Sound mixer. Spotify may offer previews depending on your session.</p>
   <div class="spotify-actions"><button type="button" id="spotify-pause" disabled>Pause Spotify</button><button type="button" id="spotify-retry" hidden>Retry loading</button></div>
 </section>
-<section class="workspace-view" id="workspace-view" aria-label="Petteri's room" aria-hidden="true" inert><div class="workspace-canvas" aria-hidden="true"></div><div class="workspace-loading" role="status">Loading the workspace…</div><button class="workspace-exit" type="button"><span aria-hidden="true">↗</span><span>Back to screen</span></button></section>
+<section class="document-window is-minimized" id="resume-window" data-document-window aria-label="Resume" inert>
+  <header class="browser-titlebar document-titlebar"><div class="traffic-lights"><button type="button" data-document-hide aria-label="Close resume"></button><button type="button" data-document-minimize aria-label="Minimize resume"></button><button type="button" data-document-expand aria-label="Maximize resume" aria-pressed="false"></button></div><div class="browser-tab"><span class="document-icon document-icon-cv" aria-hidden="true">CV</span><span>Resume</span></div></header>
+  <div class="document-body resume-document">
+    <p class="document-eyebrow">PETTERI HELTTULA · PRODUCT DESIGN & AI DESIGN ENGINEERING</p>
+    <h1>Resume</h1>
+    <p class="document-lede">I turn messy product problems into clear, useful things that work.</p>
+    <div class="resume-grid">
+      <div><h2>Focus</h2><p>Product design, UX, interaction design, AI design engineering, and validation.</p></div>
+      <div><h2>Based in</h2><p>Finland · Available for thoughtful product work.</p></div>
+      <div><h2>Selected work</h2><p>Brio · Peluutin · S-Hävikki · Tahti</p></div>
+      <div><h2>Contact</h2><p><a href="mailto:helttula.petteri@gmail.com">helttula.petteri@gmail.com</a></p></div>
+    </div>
+    <p class="document-footnote">This portfolio is the living version of my resume: open the projects to see the decisions behind the work.</p>
+  </div>
+</section>
+<section class="document-window is-minimized" id="how-i-work-window" data-document-window aria-label="How I work markdown file" inert>
+  <header class="browser-titlebar document-titlebar"><div class="traffic-lights"><button type="button" data-document-hide aria-label="Close How I work"></button><button type="button" data-document-minimize aria-label="Minimize How I work"></button><button type="button" data-document-expand aria-label="Maximize How I work" aria-pressed="false"></button></div><div class="browser-tab"><span class="document-icon document-icon-md" aria-hidden="true">MD</span><span>How I work.md</span></div></header>
+  <article class="document-body markdown-document">
+    <p class="markdown-meta"># HOW I WORK</p>
+    <h1>Clarity before polish.</h1>
+    <p>I start by making the problem concrete: who is struggling, where the friction appears, and what would actually change if we solved it.</p>
+    <h2>01 · Understand the system</h2>
+    <p>I look at the user, the business, the data, and the technical constraints together. A neat interface cannot rescue a confused product decision.</p>
+    <h2>02 · Make the smallest useful thing</h2>
+    <p>I prototype the core behaviour early, keep the scope narrow, and use real tasks to find out what deserves more work.</p>
+    <h2>03 · Explain the tradeoffs</h2>
+    <p>Good design makes decisions visible. I document what changed, what remains uncertain, and what evidence would change my mind.</p>
+    <p class="markdown-signoff">— Petteri</p>
+  </article>
+</section>
+<section class="document-window note-window is-minimized" id="notes-window" data-document-window aria-label="Notes text file" inert>
+  <header class="browser-titlebar document-titlebar"><div class="traffic-lights"><button type="button" data-document-hide aria-label="Close Notes"></button><button type="button" data-document-minimize aria-label="Minimize Notes"></button><button type="button" data-document-expand aria-label="Maximize Notes" aria-pressed="false"></button></div><div class="browser-tab"><span class="document-icon document-icon-txt" aria-hidden="true">TXT</span><span>Notes.txt</span></div></header>
+  <div class="note-body"><p class="note-meta">PLAIN TEXT · AUTOSAVED LOCALLY</p><textarea id="notes-editor" aria-label="Notes" placeholder="Write something…"></textarea><p class="note-hint">Your notes stay in this browser on this device.</p></div>
+</section>
+<section class="chess-window is-minimized" id="chess-window" aria-label="Chess puzzle" inert>
+  <header class="browser-titlebar document-titlebar chess-titlebar"><div class="traffic-lights"><button type="button" data-chess-hide aria-label="Close Chess"></button><button type="button" data-chess-minimize aria-label="Minimize Chess"></button><button type="button" data-chess-expand aria-label="Maximize Chess" aria-pressed="false"></button></div><div class="browser-tab"><img class="document-icon chess-brand-icon" src="assets/dock/chess.svg" alt=""><span>Chess</span></div><span class="chess-source-label">Lichess #pOTFc</span></header>
+  <div class="chess-body">
+    <div class="chess-heading"><div><h1>Can you find checkmate?</h1><p>Black to move. Find the one move that ends the game.</p></div><div class="chess-rating"><strong>1693</strong><span>Lichess rating</span></div></div>
+    <div class="chess-board-wrap"><div id="chess-board" class="chess-board" role="group" aria-label="Chess board"></div></div>
+    <p id="chess-status" class="chess-status" role="status">Black to move. Find checkmate in one.</p>
+    <div id="chess-solution" class="chess-solution" hidden><strong>47... f5#</strong><span>The pawn check is protected by the rook, so the king has no legal escape.</span></div>
+    <div class="chess-actions"><button type="button" data-chess-reset>Reset</button><button type="button" data-chess-reveal>Show solution</button></div>
+  </div>
+</section>
+<section class="workspace-view" id="workspace-view" aria-label="Petteri's room" aria-hidden="true" inert><div class="workspace-canvas" aria-hidden="true"></div><div class="workspace-loading" role="status">Loading the workspace…</div><button class="workspace-exit" type="button">Back to screen</button></section>
 <template id="page-home">
-              <div class="desktop-intro"><div><p class="desktop-eyebrow">PRODUCT DESIGN · AI DESIGN ENGINEERING</p><h1>Moi, I'm Petteri.<br><em>Clarity from chaos.</em></h1><p>I combine psychology, design, code, and data to turn messy product problems into things that work.</p><div class="intro-links"><a href="#work">Explore my work <span aria-hidden="true">↓</span></a><a href="#about">A little about me ↗</a></div></div><img src="assets/petteri-profile-v2.png" alt="Petteri Helttula" class="desktop-portrait"></div>
+              <div class="desktop-intro"><div><h1>Moi, I'm Petteri.<br><em>Complexity, made useful.</em></h1><p>I combine psychology, design, code, and data to turn messy product problems into things that work.</p><div class="intro-links"><a href="#work">Explore my work</a><a href="#about">A little about me</a></div></div><img src="assets/petteri-profile-v2.png" alt="Petteri Helttula" class="desktop-portrait"></div>
               <div class="desktop-work-heading"><h2>Selected work</h2><span>Ideas, decisions & things I've built</span></div>
               <div class="desktop-projects">
-                <a href="#brio"><div class="desktop-project-image brio-preview"><img src="assets/brio-pushup-transparent.png" alt="Brio movement break illustration"></div><span class="project-type">DIGITAL WELLBEING · IN DEVELOPMENT</span><h3>Brio <span>↗</span></h3><p>Interrupt the scroll. Move. Choose.</p></a>
-                <a href="#peluutin"><div class="desktop-project-image"><img src="assets/peluutin-training-3d.png" alt="Peluutin football training planner"></div><span class="project-type">PRODUCT DESIGN · WEB APP</span><h3>Peluutin <span>↗</span></h3><p>Less stopwatch. More coaching.</p></a>
-                <a href="#shavikki"><div class="desktop-project-image"><img src="assets/shavikki-kaappikuva-768.webp" alt="S-Hävikki store cabinet"></div><span class="project-type">SERVICE DESIGN · FIELD STUDY</span><h3>S-Hävikki <span>↗</span></h3><p>A better second chance for food.</p></a>
-              <a href="#tahti"><div class="desktop-project-image"><img src="assets/tahti-card.webp" alt="Tahti reading prototype"></div><span class="project-type">INTERACTION DESIGN · PROTOTYPE</span><h3>Tahti <span>↗</span></h3><p>Find your own reading rhythm.</p></a></div>
-              <footer class="desktop-window-footer"><span>Based in Finland. Built with curiosity.</span><a href="https://drive.google.com/file/d/1jGHfK2btH744Slry8skZ1yfMZMGNYg3_/view?usp=sharing" target="_blank" rel="noopener noreferrer">View resume ↗</a></footer></template>
+                <a href="#brio"><div class="desktop-project-image brio-preview"><img src="assets/brio-pushup-transparent.png" alt="Brio movement break illustration"></div><span class="project-type">DIGITAL WELLBEING · IN DEVELOPMENT</span><h3>Brio <span>↗</span></h3><p>An iOS concept that interrupts doomscrolling with short movement breaks.</p></a>
+                <a href="#peluutin"><div class="desktop-project-image"><img src="assets/peluutin-training-3d.png" alt="Peluutin football training planner"></div><span class="project-type">PRODUCT DESIGN · WEB APP</span><h3>Peluutin <span>↗</span></h3><p>A responsive web app for managing junior football matches and planning training exercises.</p></a>
+                <a href="#shavikki"><div class="desktop-project-image"><img src="assets/shavikki-kaappikuva-768.webp" alt="S-Hävikki store cabinet"></div><span class="project-type">SERVICE DESIGN · FIELD STUDY</span><h3>S-Hävikki <span>↗</span></h3><p>A retail service concept for reducing food waste and simplifying near-expiry checks.</p></a>
+              <a href="#tahti"><div class="desktop-project-image"><img src="assets/tahti-card.webp" alt="Tahti reading prototype"></div><span class="project-type">INTERACTION DESIGN · PROTOTYPE</span><h3>Tahti <span>↗</span></h3><p>A Chrome extension that presents selected text one word at a time at a controlled pace.</p></a></div>
+              <footer class="desktop-window-footer"><span>Based in Finland. Built with curiosity.</span><a href="#resume">View resume</a></footer></template>
 <template id="page-brio"><div class="reading-page"><article class="case-spread is-current" id="case-brio" data-case-index="0">
                 
                 <div class="case-page case-page-visual case-page-brio">
@@ -104,7 +147,7 @@
                   </section>
                   <div class="case-page-footer"><span class="case-file-stamp">Still evolving</span></div>
                 </div>
-              </article><p><a href="mailto:helttula.petteri@gmail.com">helttula.petteri@gmail.com</a> · <a href="https://www.linkedin.com/in/petteri-helttula/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></p></div></template>
+              </article><p><a href="mailto:helttula.petteri@gmail.com">helttula.petteri@gmail.com</a> · <a href="https://www.linkedin.com/in/petteri-helttula/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></div></template>
 <template id="page-peluutin"><div class="reading-page">
     <section class="case-hero" aria-labelledby="case-title">
       <p class="eyebrow">Responsive web app · Junior football</p>
@@ -675,4 +718,4 @@
         </article>
       </div>
     </div></template>
-<script src="desktop.js?v=2"></script><script src="workspace-view.js?v=90"></script></body></html>
+<script src="desktop.js?v=4"></script><script src="workspace-view.js?v=90"></script></body></html>
