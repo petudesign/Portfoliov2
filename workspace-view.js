@@ -1257,6 +1257,7 @@ const createScreenTexture = (THREE, variant) => {
     context.fillStyle='#ebe7ee';for(let line=0;line<4;line++)context.fillRect(x+24,y+190+line*17,width-48,line===3?2:3);
   };
 
+
   const drawDesktopDetails = () => {
     if (variant !== 0) return;
     context.textAlign='left';
@@ -1365,7 +1366,7 @@ const createScreenTexture = (THREE, variant) => {
   dockIconFiles.forEach((file) => {
     const icon = new Image();
     icon.onload = draw;
-    icon.src = `/assets/dock/${file}?v=1`;
+    icon.src = `assets/dock/${file}?v=2`;
     dockIcons.push(icon);
   });
 
@@ -1625,7 +1626,7 @@ const buildWorkspace = async () => {
   const windowView = new THREE.Mesh(
     new THREE.PlaneGeometry(1.4, 1.6),
     new THREE.MeshBasicMaterial({
-      map: loadAssetTexture(THREE, '/assets/helsinki-blue-hour-window.png?v=1'),
+      map: loadAssetTexture(THREE, 'assets/helsinki-blue-hour-window.png?v=2'),
       color: 0x6d7890,
       toneMapped: false,
     })
@@ -1682,7 +1683,7 @@ const buildWorkspace = async () => {
   scene.add(mapFrame);
   const map = new THREE.Mesh(
     new THREE.PlaneGeometry(.91, 1.27),
-    new THREE.MeshBasicMaterial({ map: loadAssetTexture(THREE, '/assets/helsinki-map.png?v=3'), side: THREE.DoubleSide, toneMapped: false })
+    new THREE.MeshBasicMaterial({ map: loadAssetTexture(THREE, 'assets/helsinki-map.png?v=4'), side: THREE.DoubleSide, toneMapped: false })
   );
   map.position.set(0, 3.5, -1.96);
   map.renderOrder = 2;
@@ -1756,7 +1757,7 @@ const buildWorkspace = async () => {
   const hailMaryFront = new THREE.Mesh(
     new THREE.PlaneGeometry(.318, .498),
     new THREE.MeshBasicMaterial({
-      map: loadAssetTexture(THREE, '/assets/book-project-hail-mary.png?v=2'),
+      map: loadAssetTexture(THREE, 'assets/book-project-hail-mary.png?v=3'),
       toneMapped: false
     })
   );
@@ -1879,119 +1880,6 @@ const buildWorkspace = async () => {
     if (index === 0) mainScreen = screen;
   });
 
-  // The left display is a static, art-directed counterpoint to the live desktop.
-  // Keeping it on a separate plane preserves the existing screen interactions.
-  const appWindow = new THREE.Group();
-  appWindow.visible = true;
-  const showcaseCanvas = document.createElement('canvas');
-  showcaseCanvas.width = 740;
-  showcaseCanvas.height = 400;
-  const showcaseContext = showcaseCanvas.getContext('2d');
-  const showcaseTexture = new THREE.CanvasTexture(showcaseCanvas);
-  showcaseTexture.colorSpace = THREE.SRGBColorSpace;
-  showcaseTexture.anisotropy = 4;
-  const showcaseBase = new Image();
-  const showcaseCat = new Image();
-  let lastShowcaseFrame = -100;
-  const drawShowcase = (time = 0) => {
-    if (time - lastShowcaseFrame < 66) {
-      requestAnimationFrame(drawShowcase);
-      return;
-    }
-    lastShowcaseFrame = time;
-    const ctx = showcaseContext;
-    if (showcaseBase.complete && showcaseBase.naturalWidth) ctx.drawImage(showcaseBase, 0, 0, 740, 400);
-    else { ctx.fillStyle = '#050505'; ctx.fillRect(0, 0, 740, 400); }
-
-    // Refresh the name without disturbing the original editorial composition.
-    ctx.fillStyle = '#050505';
-    ctx.fillRect(18, 8, 178, 44);
-    ctx.fillStyle = '#f0df00';
-    ctx.font = '400 20px Aktura, "Bodoni MT", Didot, Georgia, serif';
-    ctx.fillText('PETTERI', 22, 27);
-    ctx.fillText('HELTTULA', 22, 47);
-
-    // Replace only the former shoe window with the supplied pixel-cat image.
-    const catX = 58, catY = 204, catW = 136, catH = 129;
-    ctx.fillStyle = '#050505';
-    ctx.fillRect(catX - 2, catY - 2, catW + 4, catH + 4);
-    ctx.fillStyle = '#ddd9d4';
-    ctx.fillRect(catX, catY, catW, 14);
-    ['#ff6058', '#ffbd2e', '#28c840'].forEach((color, index) => {
-      ctx.fillStyle = color;
-      ctx.beginPath(); ctx.arc(catX + 8 + index * 10, catY + 7, 2.4, 0, Math.PI * 2); ctx.fill();
-    });
-    ctx.fillStyle = '#332e38';
-    ctx.font = '600 5px Arial, sans-serif';
-    ctx.fillText('found_image_01.jpg', catX + 45, catY + 9);
-    if (showcaseCat.complete && showcaseCat.naturalWidth) {
-      ctx.save();
-      ctx.imageSmoothingEnabled = false;
-      const sourceRatio = showcaseCat.naturalWidth / showcaseCat.naturalHeight;
-      const targetRatio = catW / (catH - 14);
-      const sourceWidth = sourceRatio > targetRatio ? showcaseCat.naturalHeight * targetRatio : showcaseCat.naturalWidth;
-      const sourceHeight = sourceRatio > targetRatio ? showcaseCat.naturalHeight : showcaseCat.naturalWidth / targetRatio;
-      const sourceX = (showcaseCat.naturalWidth - sourceWidth) / 2;
-      const sourceY = (showcaseCat.naturalHeight - sourceHeight) / 2;
-      ctx.drawImage(showcaseCat, sourceX, sourceY, sourceWidth, sourceHeight, catX, catY + 14, catW, catH - 14);
-      ctx.restore();
-    }
-
-    // Replace only the former body window with an artsy but real local-LLM run.
-    const llmX = 317, llmY = 183, llmW = 223, llmH = 195;
-    ctx.fillStyle = '#050505';
-    ctx.fillRect(llmX - 2, llmY - 2, llmW + 4, llmH + 4);
-    ctx.fillStyle = '#d9d6d0';
-    ctx.fillRect(llmX, llmY, llmW, 15);
-    ['#ff6058', '#ffbd2e', '#28c840'].forEach((color, index) => {
-      ctx.fillStyle = color;
-      ctx.beginPath(); ctx.arc(llmX + 8 + index * 10, llmY + 7.5, 2.4, 0, Math.PI * 2); ctx.fill();
-    });
-    ctx.fillStyle = '#332e38';
-    ctx.font = '600 5px Arial, sans-serif';
-    ctx.fillText('local_model.session', llmX + 57, llmY + 10);
-    ctx.fillStyle = '#070807';
-    ctx.fillRect(llmX, llmY + 15, llmW, llmH - 15);
-    const phase = Math.floor(time / 80) % 8;
-    for (let y = llmY + 23; y < llmY + llmH - 8; y += 7) {
-      for (let x = llmX + 126; x < llmX + llmW - 8; x += 7) {
-        const wave = (x + y + phase * 9) % 35;
-        if (wave < 14) {
-          ctx.fillStyle = wave < 7 ? '#f0df00' : 'rgba(240,223,0,.38)';
-          ctx.fillRect(x, y, 2, 2);
-        }
-      }
-    }
-    const tokens = ['loading weights...', 'context  4096', 'gpu layers  32', 'thinking locally', 'token stream  ▓▒░'];
-    ctx.font = '600 8px Consolas, monospace';
-    tokens.forEach((line, index) => {
-      ctx.fillStyle = index === tokens.length - 1 ? '#f0df00' : 'rgba(236,232,222,.78)';
-      const reveal = Math.max(2, Math.min(line.length, Math.floor(time / 115 - index * 5) % (line.length + 8)));
-      ctx.fillText(line.slice(0, reveal), llmX + 12, llmY + 38 + index * 21);
-    });
-    ctx.strokeStyle = 'rgba(240,223,0,.58)';
-    ctx.lineWidth = 1.4;
-    ctx.beginPath();
-    ctx.moveTo(llmX + 12, llmY + 160);
-    ctx.bezierCurveTo(llmX + 54, llmY + 130, llmX + 78, llmY + 178, llmX + 112, llmY + 142);
-    ctx.stroke();
-    ctx.fillStyle = 'rgba(255,255,255,.28)';
-    ctx.fillRect(llmX + 8 + (time / 18) % (llmW - 34), llmY + llmH - 9, 24, 2);
-    showcaseTexture.needsUpdate = true;
-    requestAnimationFrame(drawShowcase);
-  };
-  showcaseCat.src = '/assets/cat-microwave-pixel.png?v=1';
-  showcaseBase.src = '/assets/studio-showcase-screen.png?v=2';
-  requestAnimationFrame(drawShowcase);
-  const appPlane = new THREE.Mesh(
-    new THREE.PlaneGeometry(2.11, 1.14),
-    new THREE.MeshBasicMaterial({ map: showcaseTexture, toneMapped: false })
-  );
-  appPlane.name = 'studio-showcase-screen';
-  appPlane.position.set(-1.61 + Math.sin(.14) * .057, 1.87, -.71 + Math.cos(.14) * .057);
-  appPlane.rotation.y = .14;
-  appWindow.add(appPlane);
-  scene.add(appWindow);
   const appNames = ['Spotify', 'Chrome', 'Figma', 'Codex', 'Paper', 'Obsidian', 'LM Lab', 'VS Code'];
   const dockTooltip = document.createElement('div');
   dockTooltip.className = 'workspace-dock-tooltip';
@@ -2220,7 +2108,6 @@ const buildWorkspace = async () => {
   return {
     open() {
       active = true;
-      appWindow.visible = true;
       screenTextures.forEach((screenTexture) => screenTexture.userData.setAppOpen?.(true));
       screenTextures[0]?.userData.setDesktopWindows?.(captureDesktopWindows());
       startTime = performance.now();
@@ -2238,7 +2125,6 @@ const buildWorkspace = async () => {
       hoveredBookRoot = undefined;
       bookTooltip.hidden = true;
       dockTooltip.hidden = true;
-      appWindow.visible = false;
       screenTextures.forEach((screenTexture) => screenTexture.userData.setAppOpen?.(false));
     },
   };
