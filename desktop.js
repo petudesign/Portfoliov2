@@ -4,12 +4,12 @@ const desktopShortcuts = [
  {name:'Resume',href:'#resume',icon:'CV'},
  {name:'How I work.md',href:'#how-i-work',icon:'MD'},
  {name:'Notes.txt',href:'#notes',icon:'TXT'},
- {name:'Chess',href:'#chess',icon:'chess'},
+ {name:'Chess',href:'#chess',icon:'chess'}, {name:'Spire Coach Mod',href:'#spire-coach-mod',icon:'spire'},
 ];
 const desktopApps = [
  ['Spotify','spotify.svg','#spotify'],
  ['Chrome','chrome.svg','#home'], ['Figma','figma.svg','https://www.figma.com/'],
- ['Codex','codex.svg','https://chatgpt.com/codex'], ['Paper','paper.svg','https://paper.design/'],
+ ['Codex','codex.svg','https://chatgpt.com/codex'], ['Paper Design','paper.png','https://paper.design/'], ['Audible','audible.png',null],
  ['Obsidian','obsidian.svg','https://obsidian.md/'], ['LM Lab','lmstudio.svg','https://lmstudio.ai/'],
  ['VS Code','vscode.svg','https://vscode.dev/'],
 ];
@@ -49,7 +49,7 @@ function enableArrowNavigation(container,selector,columns=1){
   event.preventDefault();items[nextIndex].focus({preventScroll:true});
  });
 }
-const pageTitles={home:'Home',work:'Selected work',about:'About me',brio:'Brio',peluutin:'Peluutin',shavikki:'S-Hävikki',tahti:'Tahti'};
+const pageTitles={home:'Home',work:'Selected work',about:'About me','sports-map':'Helsinki Sports Map',korisiq:'KorisIQ','spire-coach-mod':'Spire Coach Mod',brio:'Brio',peluutin:'Peluutin',shavikki:'S-Hävikki',tahti:'Tahti'};
 let navigation=['home'];let navigationIndex=0;
 function showPortfolio(){
  rememberLauncher(portfolioWindow);
@@ -200,22 +200,23 @@ function renderPage(route,record=true,focus=true){
  if(focus) browserPage.focus({preventScroll:true});
 }
 for(const shortcut of desktopShortcuts){
- const element=document.createElement('a');element.className='desktop-shortcut';element.href=shortcut.href;
+ const element=document.createElement('a');element.className=`desktop-shortcut${shortcut.icon==='spire'?' desktop-shortcut-spire':''}`;element.href=shortcut.href;
  if(!shortcut.href.startsWith('#')){element.target='_blank';element.rel='noopener noreferrer';}
- const icon=document.createElement(shortcut.icon==='chess'?'img':'span');icon.className=shortcut.icon==='folder'?'folder-icon':shortcut.icon==='chess'?'chess-shortcut-icon':'file-icon';icon.setAttribute('aria-hidden','true');if(shortcut.icon==='chess'){icon.src='assets/dock/chess.svg';icon.alt='';}else if(shortcut.icon!=='folder')icon.textContent=shortcut.icon;
- const label=document.createElement('span');label.textContent=shortcut.name;element.append(icon,label);document.querySelector('#desktop-shortcuts').append(element);
+ const icon=document.createElement(shortcut.icon==='chess'||shortcut.icon==='spire'?'img':'span');icon.className=shortcut.icon==='folder'?'folder-icon':shortcut.icon==='chess'?'chess-shortcut-icon':shortcut.icon==='spire'?'spire-shortcut-icon':'file-icon';icon.setAttribute('aria-hidden','true');if(shortcut.icon==='chess'){icon.src='assets/dock/chess.svg';icon.alt='';}else if(shortcut.icon==='spire'){icon.src='assets/spire-coach-mod.png';icon.alt='';}else if(shortcut.icon!=='folder')icon.textContent=shortcut.icon;
+ const label=document.createElement('span');label.textContent=shortcut.name;element.append(icon,label);
+ const shortcutContainer=shortcut.icon==='spire'?document.querySelector('#desktop'):document.querySelector('#desktop-shortcuts');
+ shortcutContainer.append(element);
 }
 enableArrowNavigation(document.querySelector('#desktop-shortcuts'),'.desktop-shortcut',2);
 for(const[name,file,destination]of desktopApps){
- const element=document.createElement('a');element.className='dock-app';element.dataset.app=name;element.href=destination;
- element.setAttribute('aria-label',name==='Spotify'?'Spotify — open player':name==='Chrome'?'Chrome — open portfolio':`${name} — opens in a new tab`);
- if(!destination.startsWith('#')){element.target='_blank';element.rel='noopener noreferrer';}
+ const element=document.createElement(destination?'a':'div');element.className=`dock-app${destination?'':' dock-app-static'}`;element.dataset.app=name;
+ if(destination)element.href=destination;
+ element.setAttribute('aria-label',name==='Spotify'?'Spotify — open player':name==='Chrome'?'Chrome — open portfolio':destination?`${name} — opens in a new tab`:name);
+ if(destination&&!destination.startsWith('#')){element.target='_blank';element.rel='noopener noreferrer';}
  const icon=document.createElement('img');icon.src=`assets/dock/${file}`;icon.alt='';
  const label=document.createElement('span');label.textContent=name;element.append(icon,label);document.querySelector('#desktop-dock').append(element);
 }
-const divider=document.createElement('span');divider.className='dock-divider';divider.setAttribute('aria-hidden','true');
-const desktopButton=document.createElement('button');desktopButton.type='button';desktopButton.className='dock-app dock-desktop';desktopButton.setAttribute('aria-label','Show desktop');desktopButton.textContent='▱';desktopButton.addEventListener('click',()=>portfolioWindow.inert?showPortfolio():hidePortfolio());document.querySelector('#desktop-dock').append(divider,desktopButton);
-enableArrowNavigation(document.querySelector('#desktop-dock'),'.dock-app');
+enableArrowNavigation(document.querySelector('#desktop-dock'),'.dock-app:not(.dock-app-static)');
 const desktopMenu=document.querySelector('.desktop-menubar');
 const desktopFiles=document.querySelector('#desktop-shortcuts');
 const desktopDock=document.querySelector('#desktop-dock');

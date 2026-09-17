@@ -5,7 +5,7 @@
 .portfolio-window:has(.editorial-title) .portfolio-nav>a{color:#dfe7da}
 .portfolio-window:has(.editorial-title) .portfolio-nav>a>span{color:#a2aaa0}
 .browser-page:has(.editorial-title){background:radial-gradient(ellipse at 0 20%,#364339,transparent 55%),radial-gradient(ellipse at 100% 70%,#38342c,transparent 60%),#111614;color:#e4e8dd;scrollbar-color:#687565 #171b1a}
-.portfolio-content:has(.editorial-title){width:calc(100% - 112px);max-width:970px;padding:0;margin:36px auto 0;background:#d9d7ce;color:#202720}
+.portfolio-content:has(.editorial-title){width:calc(100% - 112px);max-width:970px;padding:0;margin:0 auto;background:#d9d7ce;color:#202720}
 .desktop-intro:has(.editorial-title){position:relative;display:block;min-height:650px;isolation:isolate;overflow:hidden;margin:0;background:#657c72}
 .editorial-photo{position:absolute;inset:0;z-index:-2;background:#9ba99b}
 .editorial-photo .desktop-portrait{display:block;width:100%;height:100%;max-height:none;object-fit:cover;object-position:center top;filter:grayscale(1) contrast(1.35);mix-blend-mode:multiply;opacity:.83}
@@ -48,8 +48,11 @@
 @keyframes editorial-enter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .editorial-title{animation:editorial-enter 950ms cubic-bezier(.22,1,.36,1) both}
 .portfolio-content:has(.editorial-title) a:focus-visible{outline:2px solid #8e955a;outline-offset:5px}
-@media(max-width:760px){.portfolio-content:has(.editorial-title){width:calc(100% - 32px);margin-top:16px}.desktop-intro:has(.editorial-title){min-height:570px}.editorial-title{padding:28px 22px}.editorial-title h1{font-size:clamp(75px,16vw,118px)}.hero-caption{font-size:8px}.hero-signature{font-size:18px}.hero-bottom{padding:22px;display:block}.hero-bottom .intro-links{flex-direction:row;align-items:center;gap:22px;margin-top:16px}.portfolio-content:has(.editorial-title) .desktop-projects{grid-template-columns:1fr;padding:0 22px 30px}.portfolio-content:has(.editorial-title) .desktop-work-heading{padding:35px 22px 22px}.portfolio-content:has(.editorial-title) .desktop-project-image{height:260px}.portfolio-content:has(.editorial-title) .desktop-window-footer{padding:22px}}
+@media(max-width:760px){.portfolio-content:has(.editorial-title){width:calc(100% - 32px);margin-top:0}.desktop-intro:has(.editorial-title){min-height:450px}.editorial-title{padding:28px 22px}.editorial-title h1{font-size:clamp(75px,16vw,118px)}.hero-caption{font-size:8px}.hero-signature{font-size:18px}.hero-bottom{padding:22px;display:block}.hero-bottom .intro-links{flex-direction:row;align-items:center;gap:22px;margin-top:16px}.portfolio-content:has(.editorial-title) .desktop-projects{grid-template-columns:1fr;padding:0 22px 30px}.portfolio-content:has(.editorial-title) .desktop-work-heading{padding:35px 22px 22px}.portfolio-content:has(.editorial-title) .desktop-project-image{height:260px}.portfolio-content:has(.editorial-title) .desktop-window-footer{padding:22px}}
 @media(prefers-reduced-motion:reduce){.editorial-title{animation:none}.portfolio-content:has(.editorial-title) .desktop-project-image img{transition:none}.browser-page:has(.editorial-title){scroll-behavior:auto}}
+.portfolio-content:has(.editorial-title) .desktop-project-image img{filter:saturate(.5);transition:none}
+.portfolio-content:has(.editorial-title) .desktop-projects a:hover img,
+.portfolio-content:has(.editorial-title) .desktop-projects a:focus-visible img{filter:saturate(.5);transform:none;transition:none}
 @media(max-width:760px){
  .portfolio-content:has(.editorial-title) .desktop-projects{gap:32px}
  .portfolio-content:has(.editorial-title) .desktop-projects>a{display:block;padding:25px 0 0}
@@ -58,4 +61,107 @@
  .portfolio-content:has(.editorial-title) .desktop-projects>a .project-type{margin:18px 0 8px}
  .portfolio-content:has(.editorial-title) .desktop-projects>a:first-child h3{font-size:32px;margin-bottom:8px}
  .portfolio-content:has(.editorial-title) .desktop-projects>a:first-child p{margin-top:0}
+}
+
+/* Let the editorial project cards breathe between one another. */
+.portfolio-content:has(.editorial-title) .desktop-projects{row-gap:96px}
+@media(max-width:760px){
+ .portfolio-content:has(.editorial-title) .desktop-projects{row-gap:80px}
+}
+
+/* About gets the same editorial world as Home, without the old paper/page treatment. */
+.browser-page:has(.about-page){background:radial-gradient(ellipse at 0 20%,#364339,transparent 55%),radial-gradient(ellipse at 100% 70%,#38342c,transparent 60%),#111614;color:#e4e8dd;scrollbar-color:#687565 #171b1a}
+.about-page{width:calc(100% - 112px);max-width:970px;margin:0 auto;padding:0 35px 54px;background:#d9d7ce;color:#202720;font-family:Satoshi,sans-serif}
+.about-banner{position:relative;display:flex;align-items:end;min-height:235px;margin:0 -35px;overflow:hidden;padding:28px 35px;background:#657c72;color:#e2efd4;isolation:isolate}
+.about-banner::before{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(circle,#e2efd420 .7px,transparent .9px) 0 0/4px 4px,linear-gradient(115deg,#18291f88,#92a19033 55%,#263b2f99);mix-blend-mode:screen}
+.about-banner::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#12231922,transparent 45%,#101e18c4)}
+.about-banner-placeholder{display:grid;gap:12px;max-width:340px}
+.about-banner-placeholder span,.about-banner-meta,.about-kicker,.about-card-label{font-size:9px;letter-spacing:.12em;text-transform:uppercase}
+.about-banner-placeholder span{color:#dce7d5aa}
+.about-banner-placeholder strong{font:600 clamp(40px,5vw,70px)/.88 Harmond,'Times New Roman',serif;letter-spacing:.015em;font-weight:600}
+.about-banner-meta{position:absolute;top:26px;right:35px;color:#e2efd4b8}
+.about-intro{padding:66px 0 54px;border-bottom:1px solid #20272035}
+.about-kicker{margin:0 0 20px;color:#687565;font-weight:700}
+.about-intro h1{max-width:790px;margin:0;color:#202720;font:600 clamp(54px,7vw,92px)/.9 Harmond,'Times New Roman',serif;letter-spacing:.005em}
+.about-lede{max-width:540px;margin:28px 0 0;color:#566055;font-size:17px;line-height:1.55}
+.about-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;margin:0;background:#20272035}
+.about-card{min-height:215px;padding:28px 24px 30px;background:#d9d7ce}
+.about-card-wide{grid-column:1/-1;min-height:0}
+.about-card-label{display:block;margin-bottom:44px;color:#788173;font-weight:700}
+.about-card h2{max-width:390px;margin:0 0 13px;color:#202720;font-size:27px;line-height:1;letter-spacing:-.035em}
+.about-card p{max-width:520px;margin:0;color:#62695e;font-size:12px;line-height:1.7}
+.about-now{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:35px;align-items:end;padding:56px 0 48px;border-bottom:1px solid #20272035}
+.about-now h2{margin:0;color:#202720;font:600 clamp(40px,4.5vw,62px)/.92 Harmond,'Times New Roman',serif;letter-spacing:.005em}
+.about-tags{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.about-tags span{padding:8px 11px;border:1px solid #68756570;border-radius:999px;color:#566055;font-size:10px}
+.about-footer{display:flex;justify-content:space-between;gap:18px;padding:23px 0 0;color:#687565;font-size:10px}
+.about-footer p{margin:0}
+.about-footer a{color:#202720;text-decoration:underline;text-underline-offset:3px}
+.about-page a:focus-visible{outline:2px solid #8e955a;outline-offset:5px}
+@media(max-width:760px){
+ .about-page{width:calc(100% - 32px);padding:0 22px 34px}
+ .about-banner{min-height:190px;margin:0 -22px;padding:22px}
+ .about-banner-meta{top:22px;right:22px}
+ .about-banner-placeholder strong{font-size:clamp(42px,12vw,66px)}
+ .about-intro{padding:44px 0 38px}
+ .about-intro h1{font-size:clamp(55px,15vw,86px)}
+ .about-lede{font-size:15px}
+ .about-grid{grid-template-columns:1fr}
+ .about-card,.about-card-wide{grid-column:auto;min-height:0;padding:24px 18px 27px}
+ .about-card-label{margin-bottom:34px}
+ .about-card h2{font-size:25px}
+ .about-now{display:block;padding:42px 0 34px}
+ .about-tags{justify-content:flex-start;margin-top:25px}
+ .about-footer{display:block;padding-top:20px;line-height:1.7}
+ .about-footer p{margin-top:5px}
+}
+
+/* About uses the same dark browser chrome as Home. */
+.portfolio-window:has(.about-page) .portfolio-nav{background:#171b1a;color:#dfe7da;border-color:#dfe7da20;padding-inline:clamp(24px,5vw,74px)}
+.portfolio-window:has(.about-page) .portfolio-nav>a{color:#dfe7da}
+.portfolio-window:has(.about-page) .portfolio-nav>a>span{color:#a2aaa0}
+
+/* The About page is a visual story, not a stack of FAQ cards. */
+.about-banner{height:clamp(145px,20vh,195px);min-height:0;aspect-ratio:auto;padding:0;background:#657c72}
+.about-banner img{position:absolute;inset:0;width:100%;height:100%;max-width:none;max-height:none;object-fit:cover;object-position:center;display:block;margin:0;border-radius:0;filter:saturate(.78) contrast(1.04)}
+.about-banner::before{z-index:1;mix-blend-mode:screen;pointer-events:none}
+.about-banner::after{z-index:1;pointer-events:none}
+.about-banner figcaption{position:absolute;z-index:2;left:35px;right:35px;bottom:24px;max-width:520px;margin:0;padding:10px 13px;border-left:2px solid #e4eca7;background:#171b1acc;color:#e2efd4;font-size:10px;line-height:1.5}
+.about-story{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:35px;padding:58px 0 52px;border-bottom:1px solid #20272035}
+.about-story h2{max-width:420px;margin:0;color:#202720;font:600 clamp(42px,5vw,68px)/.9 Harmond,'Times New Roman',serif;letter-spacing:.005em}
+.about-story p{max-width:480px;margin:0 0 16px;color:#62695e;font-size:13px;line-height:1.75}
+.about-story p:last-child{margin-bottom:0}
+@media(max-width:760px){
+ .about-banner{height:130px;min-height:0}
+ .about-banner figcaption{left:22px;right:22px;bottom:18px;padding:9px 11px;font-size:9px}
+ .about-story{grid-template-columns:1fr;gap:25px;padding:43px 0 38px}
+ .about-story h2{font-size:clamp(45px,13vw,72px)}
+ .about-story p{font-size:12px}
+}
+
+/* Give the biography a slower, more magazine-like rhythm. */
+.about-intro{padding-top:88px;padding-bottom:76px}
+.about-story{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:64px;padding-top:88px;padding-bottom:86px}
+.about-story-heading h2{max-width:340px}
+.about-story-body{min-width:0}
+.about-story-media{position:relative;margin:30px 0 32px;overflow:hidden;background:#657c72}
+.about-story-media img{display:block;width:100%;height:auto;max-width:none;max-height:none;margin:0;border-radius:0;filter:saturate(.82) contrast(1.03)}
+.about-story-media figcaption{margin:0;padding:11px 13px;border-left:2px solid #8e955a;background:#202720;color:#dfe7da;font-size:10px;line-height:1.5}
+.about-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 64px;background:none}
+.about-card,.about-card-wide{min-height:0;padding:76px 0 78px;background:transparent;border-top:1px solid #20272035}
+.about-card:nth-child(even){padding-left:34px}
+.about-card-wide{grid-column:1/-1;padding-left:0}
+.about-card h2{max-width:460px;font:600 clamp(36px,4vw,58px)/.92 Harmond,'Times New Roman',serif;letter-spacing:.005em}
+.about-card p{max-width:480px;font-size:13px;line-height:1.8}
+.about-now{padding-top:88px;padding-bottom:78px}
+.about-now>div:first-child p{max-width:440px;margin:22px 0 0;color:#62695e;font-size:13px;line-height:1.75}
+@media(max-width:760px){
+ .about-intro{padding-top:58px;padding-bottom:52px}
+ .about-story{grid-template-columns:1fr;gap:25px;padding-top:56px;padding-bottom:56px}
+ .about-grid{grid-template-columns:1fr;gap:0}
+ .about-card,.about-card-wide{padding:50px 0 54px}
+ .about-card:nth-child(even){padding-left:0}
+ .about-card h2{font-size:clamp(38px,11vw,55px)}
+ .about-card p{font-size:12px}
+ .about-now{padding-top:58px;padding-bottom:52px}
 }
