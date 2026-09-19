@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Petteri Helttula — Product design, AI design engineering, and selected work."><title>Petteri Helttula — Desktop</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=aktura@400&amp;display=swap"><link rel="stylesheet" href="desktop.css?v=14"><link rel="stylesheet" href="room.css?v=2"></head>
-<body class="has-desktop"><link rel="stylesheet" href="editorial.css?v=11"><main class="desktop" id="desktop" aria-label="Petteri's desktop">
+<body class="has-desktop"><link rel="stylesheet" href="editorial.css?v=12"><main class="desktop" id="desktop" aria-label="Petteri's desktop">
 <nav class="desktop-menubar" aria-label="Desktop menu"><a class="desktop-brand" href="#home" aria-label="Petteri's portfolio">ph</a><a href="#home" class="active-app">Portfolio</a><a href="#work">Work</a><a href="#about">About</a><a href="mailto:helttula.petteri@gmail.com" class="menu-contact">Contact</a><div class="menubar-right"><button type="button" data-mixer-toggle aria-controls="sound-mixer" aria-expanded="false" aria-label="Sound mixer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h16M4 17h16"/><rect x="7" y="4" width="4" height="6" rx="2" fill="currentColor"/><rect x="14" y="14" width="4" height="6" rx="2" fill="currentColor"/></svg></button><time id="desktop-clock"></time></div></nav>
 <div class="desktop-content">
 <article class="portfolio-window" id="portfolio-window" aria-label="Portfolio browser">
 <header class="browser-titlebar"><div class="traffic-lights"><button type="button" data-window-hide aria-label="Close portfolio"></button><button type="button" data-window-hide aria-label="Minimize portfolio"></button><button type="button" data-window-expand aria-label="Maximize portfolio" aria-pressed="false"></button></div><div class="browser-tab"><img src="assets/favicon.svg" alt=""><span>Petteri Helttula — Portfolio</span><button type="button" data-window-hide aria-label="Close portfolio tab">×</button></div><button class="browser-new" type="button" data-show-portfolio aria-label="Open portfolio home">＋</button></header>
 <div class="browser-toolbar"><button type="button" id="browser-back" aria-label="Back" disabled>‹</button><button type="button" id="browser-forward" aria-label="Forward" disabled>›</button><a href="#home" aria-label="Portfolio home">⌂</a><div class="browser-address"><span aria-hidden="true">⊙</span><span id="browser-location">Portfolio / Home</span></div></div>
 <nav class="portfolio-nav" aria-label="Portfolio navigation"><a href="#home">DESIGN / AI / CODE<span>A blend of product design and AI design engineering</span></a><div><a href="#work">Work</a><a href="#about">About</a><a href="#resume">Resume</a><a class="linkedin-link" href="https://www.linkedin.com/in/petteri-helttula/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 8.2H2.4V21h2.8V8.2ZM3.8 3A1.8 1.8 0 1 0 3.8 6.6 1.8 1.8 0 0 0 3.8 3ZM9.1 8.2H6.4V21h2.7v-6.3c0-1.7.3-3.3 2.4-3.3 2 0 2 1.9 2 3.4V21h2.8v-6.8c0-3.3-.7-5.8-4.4-5.8-1.8 0-3 .9-3.5 1.8h-.1V8.2Z"/></svg></a></div></nav>
+<nav class="portfolio-toc" id="portfolio-toc" aria-label="Table of contents" hidden>
+  <div class="portfolio-toc-panel">
+    <span class="portfolio-toc-kicker">Contents</span>
+    <div class="portfolio-toc-items" data-toc-items></div>
+  </div>
+</nav>
 <div class="browser-page" id="browser-page" tabindex="0"></div>
 </article>
 <aside class="desktop-side" aria-label="Desktop widgets"><section class="date-widget"><span id="widget-weekday"></span><strong id="widget-day"></strong><span id="widget-month"></span><div>Helsinki, Finland<time id="widget-clock"></time></div></section><nav class="desktop-shortcuts" id="desktop-shortcuts" aria-label="Desktop files"></nav><button class="room-button workspace-enter" type="button" aria-controls="workspace-view" aria-expanded="false"><span>Explore my room<small>Behind the screen</small></span></button></aside>
@@ -43,22 +49,31 @@
     <p class="document-footnote">This portfolio is the living version of my resume: open the projects to see the decisions behind the work.</p>
   </div>
 </section>
-<section class="document-window is-minimized" id="how-i-work-window" data-document-window aria-label="How I work markdown file" inert>
-  <header class="browser-titlebar document-titlebar"><div class="traffic-lights"><button type="button" data-document-hide aria-label="Close How I work"></button><button type="button" data-document-minimize aria-label="Minimize How I work"></button><button type="button" data-document-expand aria-label="Maximize How I work" aria-pressed="false"></button></div><div class="browser-tab"><span class="document-icon document-icon-md" aria-hidden="true">MD</span><span>How I work.md</span></div></header>
+<section class="document-window is-minimized" id="how-i-work-window" data-document-window aria-label="As a designer markdown file" inert>
+  <header class="browser-titlebar document-titlebar"><div class="traffic-lights"><button type="button" data-document-hide aria-label="Close As a designer"></button><button type="button" data-document-minimize aria-label="Minimize As a designer"></button><button type="button" data-document-expand aria-label="Maximize As a designer" aria-pressed="false"></button></div><div class="browser-tab"><span class="document-icon document-icon-md" aria-hidden="true">MD</span><span>As a designer.md</span></div></header>
   <article class="document-body markdown-document">
-    <p class="markdown-meta"># HOW I WORK</p>
-    <h1>Stay curious. Keep it useful.</h1>
-    <p>I like testing new software, new ways of working, and different ways of looking at the same problem. Curiosity is useful when it changes what we notice, what we make, or how clearly we can explain a decision.</p>
-    <h2>Start with the question</h2>
-    <p>Design is not only about the interface. I am more interested in why people decide to do something, what makes them click one button instead of another, and what the surrounding system is asking them to understand.</p>
-    <h2>Use the tool that fits</h2>
-    <p>I am not attached to a particular stack or app just because that is how it has always been done. I also do not change tools just to look different. I keep what works, test what might work better, and let the problem set the direction.</p>
-    <h2>Build a small team when it helps</h2>
-    <p>I use agentic AI as part of the workflow, sometimes as a set of focused collaborators: a research agent, a builder agent, and a PM agent each handling a different kind of work. Not every project needs its own team. The point is to create useful momentum, not extra ceremony.</p>
-    <h2>Keep a lab running</h2>
-    <p>Lately I have been spending a lot of time with local LLMs and building a small AI tech lab on my machine. It is a place to test models, tools, and ideas close to the work instead of treating AI as a separate layer added at the end.</p>
-    <h2>Stay close to the reason</h2>
-    <p>I use Figma less and less, even though design is still a big part of what I care about. The UI itself has never been the whole point for me. I like tools that keep the reasoning close to the making, which is why I have been enjoying Paper Design and its simple Codex → Paper → Codex loop.</p>
+    <p class="markdown-meta"># AS A DESIGNER</p>
+    <p>I've been interested in people for much longer than I've been interested in design. Why people behave the way they do, what influences their decisions, and why we sometimes act against our own intentions have fascinated me since I was a kid.</p>
+    <p>Product design became a practical outlet for that curiosity. Today, I'm most interested in where human behavior, business, technology and data meet.</p>
+    <h2>Look beyond the obvious answer</h2>
+    <p>Behind every click, purchase, abandoned flow and metric is still a person. That's why behavioral science and psychology influence how I think about products.</p>
+    <p>I also try not to confuse an observation with its explanation.</p>
+    <p>A million visits doesn't automatically mean success. Nobody using a feature doesn't automatically make it useless. People saying they want something doesn't mean they'll actually use it.</p>
+    <p>Data gives us signals. The interesting part is figuring out what could explain them — and how confident we should be in that explanation.</p>
+    <h2>Sometimes I build because I don't know</h2>
+    <p>When something is cheap to build and easy to reverse, a working product can sometimes answer a question better than asking people to imagine using it.</p>
+    <p>I don't build because I assume an idea is good. Sometimes I build precisely because I don't know if it is.</p>
+    <p>That doesn't make usage data the truth either. Low adoption could mean low value, but it could also be discoverability, UX, implementation, context or simply insufficient evidence.</p>
+    <p>Different questions need different methods. Interviews, research, usability testing, analytics and working experiments are tools for learning — not rituals I need to perform in a particular order.</p>
+    <h2>Design includes the business</h2>
+    <p>A product has to create value for the people using it and for the business sustaining it.</p>
+    <p>I care about conversion, retention, growth and revenue, but also about what we're optimizing and what behavior those decisions encourage. The highest-converting solution isn't automatically the best long-term product decision.</p>
+    <p>The interesting problems are often the ones where user and business incentives can be made to point in the same direction.</p>
+    <h2>Process should have a reason</h2>
+    <p>I've worked in teams and understand why shared planning, documentation and coordination matter.</p>
+    <p>But a team of twenty, a team of three and a team of one don't need the same machinery.</p>
+    <p>I scale process with the people, risk and complexity involved. The same applies to tools: I move between design, code, AI, research and data based on what helps me answer the question.</p>
+    <p>Tools change. The goal doesn't: <strong>understand the problem well enough to make a better decision.</strong></p>
     <p class="markdown-signoff">— Petteri</p>
   </article>
 </section>
@@ -88,8 +103,8 @@
                 <a href="#shavikki"><div class="desktop-project-image"><img src="assets/shavikki-kaappikuva-768.webp" alt="S-Hävikki store cabinet"></div><span class="project-type">SERVICE DESIGN · FIELD STUDY</span><h3>S-Hävikki <span>↗</span></h3><p>A retail service concept for reducing food waste and simplifying near-expiry checks.</p></a>
               <a href="#tahti"><div class="desktop-project-image"><img src="assets/tahti-card.webp" alt="Tahti reading prototype"></div><span class="project-type">INTERACTION DESIGN · PROTOTYPE</span><h3>Tahti <span>↗</span></h3><p>A Chrome extension that presents selected text one word at a time at a controlled pace.</p></a></div>
               <footer class="desktop-window-footer"><span>Based in Finland. Built with curiosity.</span><div class="footer-links"><span class="footer-explorations">some other project explorations</span><a class="github-link" href="https://github.com/petudesign" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.74.08-.74 1.2.09 1.84 1.23 1.84 1.23 1.07 1.83 2.8 1.3 3.48.99.11-.77.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.23-3.22-.12-.3-.53-1.52.12-3.17 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23.65 1.65.24 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.62-2.8 5.64-5.48 5.94.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.83.57A12 12 0 0 0 12 .5Z"/></svg></a><a href="#resume">View resume</a></div></footer></template>
-<template id="page-sports-map"><div class="reading-page"><article class="wip-case"><p class="eyebrow">PRODUCT DESIGN · WORK IN PROGRESS</p><h1>Helsinki Sports Map</h1><p class="case-page-lede">An accessible sports discovery platform for Helsinki, powered by public data, a custom API, and a reusable venue data pipeline.</p><p class="case-external-cta"><a href="https://helsinki-sports-map.vercel.app/" target="_blank" rel="noopener noreferrer">Wanna see how it works? <span aria-hidden="true">↗</span></a></p><figure><img src="assets/helsinki-sports-map.png" alt="Helsinki Sports Map isometric map interface"><figcaption>Early interface direction: spatial context, sport filters, and route planning.</figcaption></figure><h2>Current focus</h2><p>The project is exploring how an isometric city view can help people understand sports venues in context instead of treating them as a flat list.</p><p class="case-file-stamp">Work in progress · More to come</p></article></div></template>
-<template id="page-korisiq"><div class="reading-page"><article class="wip-case"><p class="eyebrow">PRODUCT DESIGN · WORK IN PROGRESS</p><h1>KorisIQ</h1><p class="case-page-lede">Making Finnish basketball data easier to explore, understand and use, starting with the Women's Korisliiga.</p><figure><img src="assets/korisiq-analysis.png" alt="KorisIQ basketball shot analysis concept"><figcaption>Temporary visual direction for shot context, player ability, and historical performance.</figcaption></figure><h2>Current focus</h2><p>KorisIQ is still being shaped around the questions that matter during analysis: what happened, why it happened, and what to try next.</p><p class="case-file-stamp">Work in progress · More to come</p></article></div></template>
+<template id="page-sports-map"><div class="reading-page"><article class="wip-case"><p class="eyebrow">PRODUCT DESIGN · WORK IN PROGRESS</p><h1>Helsinki Sports Map</h1><p class="case-page-lede">An accessible sports discovery platform for Helsinki, powered by public data, a custom API, and a reusable venue data pipeline.</p><div class="case-actions case-actions-wip" aria-label="Case options"><div class="case-mode-toggle" role="group" aria-label="Case length"><button type="button" class="is-active" data-case-mode="tldr" aria-pressed="true">TL;DR</button><button type="button" data-case-mode="full" aria-pressed="false">Full case</button></div><span class="case-status-pill">Work in progress</span><div class="case-media-links"><a class="case-external-cta" href="https://helsinki-sports-map.vercel.app/" target="_blank" rel="noopener noreferrer">Wanna see how it works? <span aria-hidden="true">↗</span></a></div></div><section class="case-tldr-content" aria-label="Helsinki Sports Map case summary"><article><span>Problem</span><h2>Sports options are difficult to discover in context.</h2><p>The project brings places, activities and useful route information into a more understandable view of Helsinki.</p></article><article><span>My contribution</span><h2>Product direction, data structure and interface work.</h2><p>I am shaping the discovery experience alongside the public-data, API and reusable venue pipeline.</p></article><article><span>Current state</span><h2>The map is being expanded toward wider Helsinki coverage.</h2><p>The core direction is in place, but the product and venue data are still actively developing.</p></article></section><div class="case-full-content" hidden><figure><img src="assets/helsinki-sports-map.png" alt="Helsinki Sports Map isometric map interface"><figcaption>Early interface direction: spatial context, sport filters, and route planning.</figcaption></figure><h2>Current focus</h2><p>The project is exploring how an isometric city view can help people understand sports venues in context instead of treating them as a flat list.</p><p class="case-file-stamp">Work in progress · More to come</p></div></article></div></template>
+<template id="page-korisiq"><div class="reading-page"><article class="wip-case"><p class="eyebrow">PRODUCT DESIGN · WORK IN PROGRESS</p><h1>KorisIQ</h1><p class="case-page-lede">Making Finnish basketball data easier to explore, understand and use, starting with the Women's Korisliiga.</p><div class="case-actions case-actions-wip" aria-label="Case options"><div class="case-mode-toggle" role="group" aria-label="Case length"><button type="button" class="is-active" data-case-mode="tldr" aria-pressed="true">TL;DR</button><button type="button" data-case-mode="full" aria-pressed="false">Full case</button></div><span class="case-status-pill">Work in progress</span></div><section class="case-tldr-content" aria-label="KorisIQ case summary"><article><span>Problem</span><h2>Basketball data is available, but not easy to use.</h2><p>KorisIQ explores how Finnish basketball performance data could support clearer questions and better analysis.</p></article><article><span>My contribution</span><h2>Product framing and data-led interface direction.</h2><p>I am working on how statistics, player context and visual analysis can become useful product decisions.</p></article><article><span>Current state</span><h2>An active product and data exploration.</h2><p>The interface direction is still being tested around what coaches, players and interested viewers need to understand.</p></article></section><div class="case-full-content" hidden><figure><img src="assets/korisiq-analysis.png" alt="KorisIQ basketball shot analysis concept"><figcaption>Early visual direction for shot context, player ability, and historical performance.</figcaption></figure><h2>Current focus</h2><p>KorisIQ is still being shaped around the questions that matter during analysis: what happened, why it happened, and what to try next.</p><p class="case-file-stamp">Work in progress · More to come</p></div></article></div></template>
 <template id="page-spire-coach-mod"><div class="reading-page"><article class="wip-case"><p class="eyebrow">MINI PROJECT · WORK IN PROGRESS</p><h1>Spire Coach Mod</h1><p class="case-page-lede">A data-driven Slay the Spire coaching mod that turns gameplay mistakes into lessons without taking decisions away from the player.</p><figure><img src="assets/spire-coach-mod.png" alt="Slay the Spire game artwork used for the Spire Coach Mod concept"><figcaption>An early visual placeholder for the coaching mod.</figcaption></figure><p class="case-file-stamp">Work in progress · More to come</p></article></div></template>
 <template id="page-brio"><div class="reading-page"><article class="case-spread is-current" id="case-brio" data-case-index="0">
                 
@@ -123,22 +138,29 @@
               </article></div></template>
 <template id="page-about"><div class="about-page" id="about-me" aria-label="About me">
   <section class="about-banner" aria-label="About banner"><img src="assets/about-banner-mountain.png" alt="A mountain landscape with a cow in a green alpine meadow" loading="lazy" decoding="async"></section>
-  <section class="about-intro" aria-labelledby="about-title">
-    <h1 id="about-title">Somewhere between a profile sticker and a product system.</h1>
-    <p class="about-lede">I discovered UX/UI design at 26. Looking back, the combination of designing and building had been important to me for a long time already.</p>
+  <section class="about-intro" aria-labelledby="about-title" data-toc-label="About me">
+    <h1 id="about-title">About me</h1>
+    <p class="about-lede">I'm Petteri. My friends call me Petu. I'm 28 and I live in Helsinki, Finland. I don't really know what my title should be, since I'm not a software engineer nor am I only a UX/UI designer. I'm still looking for the right fit as things evolve. It gets me excited.</p>
+    <p class="about-intro-followup">I discovered UX/UI design at 26, and I've known ever since that it was the right space for me.</p>
   </section>
-  <section class="about-story" aria-label="A short history of making things">
-    <div class="about-story-heading"><h2>Before UX had a name for me.</h2></div>
-    <div class="about-story-body"><p>My first UX/UI experiments happened almost twenty years ago in Habbo, when I was shaping my public profile with stickers and trying to make a tiny page feel like mine.</p><figure class="about-story-media"><img src="assets/habbo-profile-placeholder.png" alt="A Habbo profile and friends view from the early 2000s" loading="lazy" decoding="async"><figcaption>This is not my old profile or character. It is an archival stand-in for the profiles that are no longer available.</figcaption></figure><p>Later I found the first places where I could create my own blog pages. I was about ten, so they mostly contained images and text, but the instinct was already there: choose what people see, arrange it, and make a small corner of the internet feel personal.</p><p>That thread eventually became a real design practice. I just did not have the vocabulary for it yet.</p></div>
+  <section class="about-story" aria-label="The early years" data-toc-label="The early years">
+    <figure class="about-story-media about-origin-banner"><img src="assets/habbo-profile-placeholder.png" alt="An archival Habbo profile image found through Google" loading="lazy" decoding="async"><figcaption>This isn't my old profile or character. The image was found through Google and is used as an archival stand-in because the original profiles are no longer available.</figcaption></figure>
+    <div class="about-story-grid">
+      <div class="about-story-heading"><h2>It started much earlier.</h2></div>
+      <div class="about-story-body">
+      <p>As a kid, I spent probably too much time arranging stickers on my Habbo profile and later building tiny blog pages of my own. I didn't know anything about design, but I liked deciding what people would see, where things belonged, and how a small corner of the internet could feel like mine.</p>
+      <p>Around the same time, I became fascinated by people and human behaviour. <em>Lie to Me</em> was one of my favourite shows growing up — I wanted to be Dr. Lightman long before I knew what behavioural science was. That interest never really disappeared.</p>
+      <p>Technology followed its own path. Games led to computers, computers led to tinkering, and in vocational school I built my first PC. Years later, I ended up studying ICT engineering.</p>
+      <p>None of those interests felt particularly connected at the time.</p>
+      <p>Finding product design was one of the first times they did.</p>
+      </div>
+    </div>
   </section>
-  <section class="about-grid" aria-label="About Petteri">
-    <article class="about-card"><h2>People have always been the interesting part.</h2><p>I have been hooked on behavioral psychology since childhood, when Tim Roth's microexpression expert in <em>Lie to Me</em> got me asking why people do what they do. I bring that same curiosity into UX.</p></article>
-    <article class="about-card"><h2>Accessibility is personal.</h2><p>Being red-green colorblind means accessibility has always felt personal, not like a checklist. I care about interfaces that stay clear when real people, real contexts, and real constraints enter the room.</p></article>
-    <article class="about-card"><h2>Analytical, rational, reflective — and a dreamer.</h2><p>I tend to say what I think, make my perspective clear, and ask questions when the easy answer feels too convenient. I like being precise without closing the door on imagination.</p></article>
-    <article class="about-card"><h2>I love learning something new.</h2><p>New subjects, tools, places, and perspectives keep me moving. I like the feeling of not knowing enough yet, then slowly building a better mental model.</p></article>
-    <article class="about-card about-card-wide"><h2>Outside the screen.</h2><p>I enjoy being a spectator, especially when there is a basketball game to follow. I like live music, playing darts, looking at art, and getting pulled into a good true crime story.</p></article>
+  <section class="about-grid" aria-label="Design, technology, and AI">
+    <article class="about-card about-card-wide about-card-with-visual" data-toc-label="Design and technology"><div class="about-card-copy"><h2>Somewhere between design and technology</h2><p>My degree was heavily focused on programming, but becoming a traditional software developer never felt quite right. I was more interested in what we were building, why it should exist, and how someone would actually experience it.</p><p>Finding UX/UI gave me another side of that equation. More recently, AI has made the technical side exciting to me again. It has shortened the distance between having an idea and being able to make something real, and given me much more freedom to move between designing and building.</p><p>That middle ground feels like home to me. I don't really want to choose between understanding the product and making it.</p></div><figure class="about-inline-visual"><img src="assets/studio-showcase-screen.png" alt="A collage of selected work across psychology, design, code, and data" loading="lazy" decoding="async"><figcaption>A few of the things that sit in that middle ground.</figcaption></figure></article>
+    <article class="about-card" data-toc-label="Curious beyond work"><h2>Curious beyond work</h2><p>I can get interested in almost anything if there's something underneath the surface to understand.</p><p>Psychology and behavioural science have probably been the longest-running examples, but that curiosity moves around. Technology, society, art, sports, data, history — I enjoy starting with very little knowledge and gradually understanding how the pieces fit together.</p><p>I'm also red-green colorblind. It's a small part of who I am, but a useful reminder that something that seems obvious to one person might genuinely look different to someone else.</p><figure class="about-photo-bento"><div class="about-photo-bento-grid"><img src="assets/about-museum-bento.webp" alt="A museum display of designed objects and materials" loading="lazy" decoding="async"><img src="assets/about-drawing-bento.webp" alt="A hand-drawn illustration on a tablet" loading="lazy" decoding="async"><img src="assets/about-dinner-bento.webp" alt="A shared dinner being prepared at the table" loading="lazy" decoding="async"><img src="assets/about-cable-car-bento.webp" alt="A cable car crossing a green mountain valley" loading="lazy" decoding="async"></div><figcaption>Art, hiking, food, and other things that keep curiosity moving.</figcaption></figure></article>
+    <article class="about-card" data-toc-label="Away from the screen"><h2>Away from the screen</h2><p>Not everything needs to become a project.</p><p>I love basketball, live music, playing darts, looking at art, and getting pulled into a good true crime story. I like spending time with people I care about, discovering new places, and finding something completely unrelated to work to obsess over for a while.</p><p>There is a lot more to be curious about than technology.</p><figure class="about-inline-visual about-away-visual"><img src="assets/about-basketball.webp" alt="A basketball held while standing on an outdoor court" loading="lazy" decoding="async"><figcaption>One of the things that gets me away from the screen.</figcaption></figure></article>
   </section>
-  <section class="about-now" aria-labelledby="about-now-title"><div><h2 id="about-now-title">There is always more to learn.</h2><p>I like the feeling of not knowing enough yet. It keeps me open to new subjects, new places, and the next unexpected connection.</p></div><div class="about-tags" aria-label="Personal interests"><span>Basketball</span><span>Live music</span><span>Darts</span><span>Art</span><span>True crime</span><span>Learning</span></div></section>
   <footer class="about-footer"><span>Still evolving, by design.</span><p><a href="https://www.linkedin.com/in/petteri-helttula/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer>
 </div></template>
 <template id="page-peluutin"><div class="reading-page">
@@ -155,41 +177,57 @@
         </dl>
       </div>
     </section>
-    <p class="case-external-cta"><a href="https://peluutin.vercel.app/" target="_blank" rel="noopener noreferrer">Wanna see how it works? <span aria-hidden="true">↗</span></a></p>
-
-    <figure class="hero-media">
-      <div class="media-frame">
-        <img src="assets/peluutin-training-3d.png" alt="Peluutin 3D training planner with football players and a passing route">
-        <span>Video will replace this image</span>
+    <div class="case-actions" aria-label="Case options">
+      <div class="case-mode-toggle" role="group" aria-label="Case length">
+        <button type="button" class="is-active" data-case-mode="tldr" aria-pressed="true">TL;DR</button>
+        <button type="button" data-case-mode="full" aria-pressed="false">Full case</button>
       </div>
-      <figcaption>The training planner supports both 2D and 3D views and reuses teams already created in Peluutin.</figcaption>
-    </figure>
+      <div class="case-media-links">
+        <a class="case-external-cta" href="https://peluutin.vercel.app/" target="_blank" rel="noopener noreferrer">Wanna see how it works? <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
 
-    <section class="case-grid" aria-label="Peluutin early case structure">
-      <article>
-        <span>01 / Starting point</span>
-        <h2>A real sideline problem</h2>
-        <p>The first users are my girlfriend and another junior football coach. During a match they need to manage substitutions, goals and playing time without letting the tool take attention away from the pitch.</p>
-        <p>The primary context is mobile use at the sideline, while team setup and reviewing saved information also need to work on a larger screen.</p>
-      </article>
-      <article>
-        <span>02 / Working core</span>
-        <h2>Match-day control without a spreadsheet</h2>
-        <ul>
-          <li>Create teams, players and formations</li>
-          <li>Manage substitutions and positions</li>
-          <li>Track goals, scorers and individual minutes</li>
-          <li>Export saved playing time to Excel</li>
-          <li>Use light or dark mode for different contexts</li>
-        </ul>
-      </article>
-      <article>
-        <span>03 / Next phase</span>
-        <h2>From matches to training</h2>
-        <p>The premium direction is a desktop and tablet exercise builder. Coaches can switch between 2D and 3D, place existing players on the pitch and describe movement through visual routes.</p>
-        <p>This part is intentionally shown as an active build. The next case iteration should document the interaction model, first coach feedback and what belongs in the smallest useful release.</p>
-      </article>
+    <section class="case-tldr-content" aria-label="Peluutin case summary">
+      <article><span>Problem</span><h2>Match-day coaching is difficult to manage in real time.</h2><p>Coaches need to track playing time, substitutions and match events without losing focus on the pitch.</p></article>
+      <article><span>My contribution</span><h2>Product design and development.</h2><p>I have shaped the product structure, interaction model and working match-day core.</p></article>
+      <article><span>Current state</span><h2>The match core works; the training planner is still in progress.</h2><p>The next phase extends the product to 2D and 3D exercise planning across desktop and tablet.</p></article>
     </section>
+
+    <div class="case-full-content" hidden>
+      <figure class="hero-media">
+        <div class="media-frame">
+          <img src="assets/peluutin-training-3d.png" alt="Peluutin 3D training planner with football players and a passing route">
+          <span>Video will replace this image</span>
+        </div>
+        <figcaption>The training planner supports both 2D and 3D views and reuses teams already created in Peluutin.</figcaption>
+      </figure>
+
+      <section class="case-grid" aria-label="Peluutin early case structure">
+        <article>
+          <span>01 / Starting point</span>
+          <h2>A real sideline problem</h2>
+          <p>The first users are my girlfriend and another junior football coach. During a match they need to manage substitutions, goals and playing time without letting the tool take attention away from the pitch.</p>
+          <p>The primary context is mobile use at the sideline, while team setup and reviewing saved information also need to work on a larger screen.</p>
+        </article>
+        <article>
+          <span>02 / Working core</span>
+          <h2>Match-day control without a spreadsheet</h2>
+          <ul>
+            <li>Create teams, players and formations</li>
+            <li>Manage substitutions and positions</li>
+            <li>Track goals, scorers and individual minutes</li>
+            <li>Export saved playing time to Excel</li>
+            <li>Use light or dark mode for different contexts</li>
+          </ul>
+        </article>
+        <article>
+          <span>03 / Next phase</span>
+          <h2>From matches to training</h2>
+          <p>The premium direction is a desktop and tablet exercise builder. Coaches can switch between 2D and 3D, place existing players on the pitch and describe movement through visual routes.</p>
+          <p>This part is intentionally shown as an active build. The next case iteration should document the interaction model, first coach feedback and what belongs in the smallest useful release.</p>
+        </article>
+      </section>
+    </div>
   </div></template>
 <template id="page-shavikki"><div class="reading-page">
       <section class="case-hero" aria-labelledby="case-title">
@@ -222,6 +260,18 @@
             <p>Concept and prototype scope, 2026</p>
           </div>
         </div>
+        <div class="case-actions" aria-label="Case options">
+          <div class="case-mode-toggle" role="group" aria-label="Case length">
+            <button type="button" class="is-active" data-case-mode="tldr" aria-pressed="true">TL;DR</button>
+            <button type="button" data-case-mode="full" aria-pressed="false">Full case</button>
+          </div>
+          <div class="case-media-links" aria-label="Case media links"></div>
+        </div>
+        <section class="case-tldr-content" aria-label="S-Hävikki case summary">
+          <article><span>Problem</span><h2>Near-expiry work is still harder to manage than it needs to be.</h2><p>Employees need a clearer way to find, check and hand over products before they become waste.</p></article>
+          <article><span>My contribution</span><h2>Service concept, interaction model and prototype direction.</h2><p>I connected the employee workflow, the in-store S-Hävikki point and the customer-facing idea into one service system.</p></article>
+          <article><span>Current state</span><h2>A scoped concept with an interactive employee-tool prototype.</h2><p>The next step is validating the workflow in a real store before expanding the app or physical setup.</p></article>
+        </section>
         <img class="case-image" src="assets/shavikki-kaappikuva.png" alt="S-Hävikki branded food waste cabinet concept in a grocery store" decoding="async" fetchpriority="high">
         <section class="case-impact" aria-labelledby="takeaways-title">
           <h2 id="takeaways-title">Project Takeaways</h2>
@@ -242,6 +292,7 @@
         </section>
       </section>
 
+      <div class="case-full-content" hidden>
       <div class="case-layout">
         
 
@@ -520,6 +571,7 @@
           </section>
         </article>
       </div>
+      </div>
     </div></template>
 <template id="page-tahti"><div class="reading-page">
       <section class="case-hero" aria-labelledby="case-title">
@@ -550,9 +602,21 @@
           </div>
           <div>
             <h2>Status</h2>
-            <p>Active experiment, 2026</p>
+            <p>Work in progress · Active experiment</p>
           </div>
         </div>
+        <div class="case-actions" aria-label="Case options">
+          <div class="case-mode-toggle" role="group" aria-label="Case length">
+            <button type="button" class="is-active" data-case-mode="tldr" aria-pressed="true">TL;DR</button>
+            <button type="button" data-case-mode="full" aria-pressed="false">Full case</button>
+          </div>
+          <div class="case-media-links" aria-label="Case media links"><span class="case-media-note">Prototype video in full case</span></div>
+        </div>
+        <section class="case-tldr-content" aria-label="Tahti case summary">
+          <article><span>Problem</span><h2>Dense text can be difficult to start and stay with.</h2><p>Tahti tests whether a controlled one-word rhythm can reduce visual load without pretending to replace normal reading.</p></article>
+          <article><span>My contribution</span><h2>Product framing, interaction design and working extension.</h2><p>I shaped the MVP, built the reader flow and tuned pacing, controls and comfort settings around the experiment.</p></article>
+          <article><span>Current state</span><h2>A working experiment that still needs evidence.</h2><p>The next step is testing real reading tasks to understand where the format helps and where it damages comprehension.</p></article>
+        </section>
         <div class="case-image tahti-hero-visual" role="img" aria-label="Tahti wordmark over a moving soft gradient background">
           <span class="tahti-cover-word">Tahti</span>
           <span class="tahti-cover-definition">noun &middot; pace, rhythm</span>
@@ -576,6 +640,7 @@
         </section>
       </section>
 
+      <div class="case-full-content" hidden>
       <div class="case-layout">
         
 
@@ -711,5 +776,6 @@
           </section>
         </article>
       </div>
+      </div>
     </div></template>
-<script src="desktop.js?v=4"></script><script src="workspace-view.js?v=91"></script></body></html>
+<script src="desktop.js?v=5"></script><script src="workspace-view.js?v=91"></script></body></html>

@@ -141,3 +141,4 @@
 @media(max-width:700px){
  .dock-app-static[data-app="Audible"]:hover{transform:none}
 }
+.markdown-signoff{font-family:'Segoe Script','Segoe Print','Bradley Hand','Comic Sans MS',cursive!important;font-size:19px!important;font-style:normal;letter-spacing:-.02em}
