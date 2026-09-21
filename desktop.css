@@ -142,3 +142,54 @@
  .dock-app-static[data-app="Audible"]:hover{transform:none}
 }
 .markdown-signoff{font-family:'Segoe Script','Segoe Print','Bradley Hand','Comic Sans MS',cursive!important;font-size:19px!important;font-style:normal;letter-spacing:-.02em}
+.document-icon-folder{color:#4d7396}
+.sideprojects-window{width:min(500px,calc(100vw - 32px))}
+.sideprojects-body{padding:28px 30px 34px}
+.sideprojects-body h1{margin-bottom:24px}
+.sideprojects-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sideproject-shortcut{display:grid;gap:8px;min-width:0;padding:12px;border:1px solid #e7e1e9;border-radius:9px;background:#fff;color:#302b37!important;text-decoration:none!important}
+.sideproject-shortcut:hover,.sideproject-shortcut:focus-visible{background:#f4eff8;outline:2px solid #b5a2cf;outline-offset:2px}
+.sideproject-preview{width:100%;aspect-ratio:1.3;object-fit:cover;margin:0!important;border-radius:5px}
+.sideproject-shortcut span{font-size:12px;font-weight:650}
+.sideproject-shortcut small{font-size:10px;line-height:1.4;color:#827b89}
+@media(max-width:700px){.sideprojects-grid{grid-template-columns:1fr 1fr}.sideprojects-body{padding:24px 20px 28px}}
+.desktop-shortcut-folder{position:relative;z-index:0;isolation:isolate}
+.desktop-shortcut-folder .folder-icon{position:relative;width:62px;height:47px;margin-top:8px;background:none;border:0;border-radius:0;box-shadow:none;overflow:visible;transform-origin:50% 100%;transition:transform 220ms cubic-bezier(.23,1,.32,1)}
+.desktop-shortcut-folder .folder-icon::before{content:none}
+.folder-back{position:absolute;inset:5px 0 0;background:linear-gradient(160deg,#8cd5ff,#53b3fa);border:1px solid #a8e0ff;border-radius:4px 5px 5px 5px;box-shadow:0 3px 7px #25435740;z-index:1}
+.folder-back::after{content:'';position:absolute;top:-7px;left:-1px;width:25px;height:7px;border-radius:4px 4px 0 0;background:#79cafa}
+.folder-paper{position:absolute;bottom:7px;left:50%;display:grid;place-items:center;width:52px;height:24px;padding:3px 4px;box-sizing:border-box;overflow:hidden;border:1px solid #fff;border-radius:4px;background:#fffaf4;color:#3f3b43;font-size:6px;font-weight:700;line-height:1.1;text-align:center;text-shadow:none;box-shadow:0 3px 7px #1e263622;opacity:0;transform:translate(-50%,10px) rotate(0deg) scale(.96);transform-origin:50% 100%;transition:transform 210ms cubic-bezier(.23,1,.32,1),opacity 140ms ease}
+.folder-paper:nth-child(1){z-index:1;background:#fff0e8;transform:translate(-50%,10px) rotate(-5deg) scale(.96)}
+.folder-paper:nth-child(2){z-index:2;background:#f7f8ff;transform:translate(-50%,10px) rotate(2deg) scale(.96)}
+.folder-paper:nth-child(3){z-index:3;background:#fff;transform:translate(-50%,10px) rotate(5deg) scale(.96)}
+.folder-front{position:absolute;bottom:0;height:100%;width:58%;background:linear-gradient(165deg,#75c8fa,#4faef3);border:0;box-sizing:border-box;z-index:4;transform-origin:bottom;transition:transform 220ms cubic-bezier(.23,1,.32,1)}
+.folder-front-left{left:0;border-right:0;border-radius:5px 0 3px 5px}
+.folder-front-right{right:0;border-left:0;border-radius:0 5px 5px 3px}
+.desktop-shortcut-folder .desktop-shortcut-label{position:relative;z-index:5}
+@media (hover:hover) and (pointer:fine){
+ .desktop-shortcut-folder:hover{z-index:6}
+ .desktop-shortcut-folder:hover .folder-icon{transform:translateY(-4px)}
+ .desktop-shortcut-folder:hover .folder-paper{opacity:1}
+ .desktop-shortcut-folder:hover .folder-paper:nth-child(1){transform:translate(-50%,-2px) rotate(-5deg) scale(1);transition-delay:0ms}
+ .desktop-shortcut-folder:hover .folder-paper:nth-child(2){transform:translate(-50%,-8px) rotate(2deg) scale(1);transition-delay:35ms}
+ .desktop-shortcut-folder:hover .folder-paper:nth-child(3){transform:translate(-50%,-14px) rotate(5deg) scale(1);transition-delay:70ms}
+ .desktop-shortcut-folder:hover .folder-icon-single .folder-paper{transform:translate(-50%,-14px) rotate(5deg) scale(1);transition-delay:70ms}
+ .desktop-shortcut-folder:hover .folder-front-left{transform:skew(10deg) scaleY(.64) translateY(3px)}
+ .desktop-shortcut-folder:hover .folder-front-right{transform:skew(-10deg) scaleY(.64) translateY(3px)}
+}
+.desktop-shortcut-folder:focus-visible{z-index:6}
+.desktop-shortcut-folder:focus-visible .folder-paper{opacity:1;transition:none}
+.desktop-shortcut-folder:focus-visible .folder-paper:nth-child(1){transform:translate(-50%,-2px) rotate(-5deg) scale(1)}
+.desktop-shortcut-folder:focus-visible .folder-paper:nth-child(2){transform:translate(-50%,-8px) rotate(2deg) scale(1)}
+.desktop-shortcut-folder:focus-visible .folder-paper:nth-child(3){transform:translate(-50%,-14px) rotate(5deg) scale(1)}
+.desktop-shortcut-folder:focus-visible .folder-icon-single .folder-paper{transform:translate(-50%,-14px) rotate(5deg) scale(1)}
+.desktop-shortcut-folder:focus-visible .folder-front-left{transform:skew(10deg) scaleY(.64) translateY(3px);transition:none}
+.desktop-shortcut-folder:focus-visible .folder-front-right{transform:skew(-10deg) scaleY(.64) translateY(3px);transition:none}
+@media(prefers-reduced-motion:reduce){
+ .desktop-shortcut-folder .folder-icon,.folder-paper,.folder-front{transition:none!important}
+ .desktop-shortcut-folder:hover .folder-icon,.desktop-shortcut-folder:focus-visible .folder-icon{transform:none}
+ .desktop-shortcut-folder:hover .folder-paper,.desktop-shortcut-folder:focus-visible .folder-paper{transform:translate(-50%,0) rotate(0deg) scale(1)}
+ .desktop-shortcut-folder:hover .folder-front-left,.desktop-shortcut-folder:hover .folder-front-right,.desktop-shortcut-folder:focus-visible .folder-front-left,.desktop-shortcut-folder:focus-visible .folder-front-right{transform:none}
+}
+.document-window>header.document-titlebar{padding:0 12px;align-items:end}
+.document-window>header.document-titlebar .browser-tab{transform:translateY(1px)}

@@ -1,10 +1,10 @@
 // Edit these lists to add shortcuts or Dock applications.
 const desktopShortcuts = [
- {name:'My work',href:'#work',icon:'folder'}, {name:'About me',href:'#about',icon:'folder'},
+ {name:'My work',href:'#work',icon:'folder',items:['Peluutin','Helsinki Sports Map','KorisIQ']}, {name:'About me',href:'#about',icon:'folder',items:['About me','As a designer']},
+ {name:'Sideprojects',href:'#sideprojects',icon:'folder',items:['Spire Coach Mod']},
  {name:'Resume',href:'#resume',icon:'CV'},
  {name:'As a designer.md',href:'#how-i-work',icon:'MD'},
- {name:'Notes.txt',href:'#notes',icon:'TXT'},
- {name:'Chess',href:'#chess',icon:'chess'}, {name:'Spire Coach Mod',href:'#spire-coach-mod',icon:'spire'},
+ {name:'Chess',href:'#chess',icon:'chess'},
 ];
 const desktopApps = [
  ['Spotify','spotify.svg','#spotify'],
@@ -168,7 +168,8 @@ for(const windowElement of document.querySelectorAll('[data-document-window]')){
  const launcher={
   'resume-window':'a[href="#resume"]',
   'how-i-work-window':'a[href="#how-i-work"]',
-  'notes-window':'a[href="#notes"]'
+  'notes-window':'a[href="#notes"]',
+  'sideprojects-window':'a[href="#sideprojects"]'
  }[windowElement.id];
  const hide=()=>{windowElement.classList.add('is-minimized');windowElement.inert=true;restoreLauncher(windowElement,launcher);};
  windowElement.querySelector('[data-document-hide]').addEventListener('click',hide);
@@ -184,6 +185,13 @@ const resetBrowserPageScroll=()=>{
  const previousScrollBehavior=browserPage.style.scrollBehavior;
  browserPage.style.scrollBehavior='auto';
  browserPage.scrollTo(0,0);
+ browserPage.style.scrollBehavior=previousScrollBehavior;
+};
+const scrollPortfolioToWork=()=>{
+ const target=browserPage.querySelector('.desktop-work-heading');if(!target)return;
+ const previousScrollBehavior=browserPage.style.scrollBehavior;
+ browserPage.style.scrollBehavior='auto';
+ browserPage.scrollTop=target.getBoundingClientRect().top-browserPage.getBoundingClientRect().top+browserPage.scrollTop;
  browserPage.style.scrollBehavior=previousScrollBehavior;
 };
 function getPortfolioTocSections(){
@@ -360,23 +368,37 @@ function renderPage(route,record=true,focus=true){
  initializeShavikkiPrototype();
  buildPortfolioToc();
  resetBrowserPageScroll();
- requestAnimationFrame(()=>requestAnimationFrame(resetBrowserPageScroll));
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{resetBrowserPageScroll();if(route==='work')scrollPortfolioToWork();}));
  showPortfolio();
- if(route==='work') browserPage.querySelector('.desktop-work-heading').scrollIntoView({block:'start',behavior:'instant'});
  document.querySelector('#browser-location').textContent=`${location.host || 'Portfolio'} / ${pageTitles[route]}`;
  document.title=`${pageTitles[route]} — Petteri Helttula`;
  document.querySelector('#browser-back').disabled=navigationIndex===0;
  document.querySelector('#browser-forward').disabled=navigationIndex===navigation.length-1;
  document.querySelectorAll('.portfolio-nav a').forEach(link=>{if(link.hash===`#${route}`)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
  if(focus) browserPage.focus({preventScroll:true});
-}
-for(const shortcut of desktopShortcuts){
- const element=document.createElement('a');element.className=`desktop-shortcut${shortcut.icon==='spire'?' desktop-shortcut-spire':''}`;element.href=shortcut.href;
+ }
+ function createFolderIcon(items){
+  const icon=document.createElement('span');icon.className=`folder-icon${items.length===1?' folder-icon-single':''}`;icon.setAttribute('aria-hidden','true');
+  const back=document.createElement('span');back.className='folder-back';
+  items.slice(0,3).forEach((name,index)=>{
+   const paper=document.createElement('span');paper.className='folder-paper';paper.dataset.paperIndex=String(index+1);paper.textContent=name;back.append(paper);
+  });
+  const frontLeft=document.createElement('span');frontLeft.className='folder-front folder-front-left';
+  const frontRight=document.createElement('span');frontRight.className='folder-front folder-front-right';
+  back.append(frontLeft,frontRight);icon.append(back);return icon;
+ }
+ for(const shortcut of desktopShortcuts){
+ const isFolder=shortcut.icon==='folder';
+ const element=document.createElement('a');element.className=`desktop-shortcut${shortcut.icon==='spire'?' desktop-shortcut-spire':''}${isFolder?' desktop-shortcut-folder':''}`;element.href=shortcut.href;
  if(!shortcut.href.startsWith('#')){element.target='_blank';element.rel='noopener noreferrer';}
- const icon=document.createElement(shortcut.icon==='chess'||shortcut.icon==='spire'?'img':'span');icon.className=shortcut.icon==='folder'?'folder-icon':shortcut.icon==='chess'?'chess-shortcut-icon':shortcut.icon==='spire'?'spire-shortcut-icon':'file-icon';icon.setAttribute('aria-hidden','true');if(shortcut.icon==='chess'){icon.src='assets/dock/chess.svg';icon.alt='';}else if(shortcut.icon==='spire'){icon.src='assets/spire-coach-mod.png';icon.alt='';}else if(shortcut.icon!=='folder')icon.textContent=shortcut.icon;
- const label=document.createElement('span');label.textContent=shortcut.name;element.append(icon,label);
- const shortcutContainer=shortcut.icon==='spire'?document.querySelector('#desktop'):document.querySelector('#desktop-shortcuts');
- shortcutContainer.append(element);
+  let icon;
+  if(isFolder)icon=createFolderIcon(shortcut.items||[]);
+  else{
+   icon=document.createElement(shortcut.icon==='chess'||shortcut.icon==='spire'?'img':'span');icon.className=shortcut.icon==='chess'?'chess-shortcut-icon':shortcut.icon==='spire'?'spire-shortcut-icon':'file-icon';icon.setAttribute('aria-hidden','true');
+   if(shortcut.icon==='chess'){icon.src='assets/dock/chess.svg';icon.alt='';}else if(shortcut.icon==='spire'){icon.src='assets/spire-coach-mod.png';icon.alt='';}else icon.textContent=shortcut.icon;
+  }
+  const label=document.createElement('span');label.className='desktop-shortcut-label';label.textContent=shortcut.name;element.append(icon,label);
+ document.querySelector('#desktop-shortcuts').append(element);
 }
 enableArrowNavigation(document.querySelector('#desktop-shortcuts'),'.desktop-shortcut',2);
 for(const[name,file,destination]of desktopApps){
@@ -420,6 +442,7 @@ document.addEventListener('click',event=>{
  if(route==='spotify'){event.preventDefault();openSpotify();return;}
  if(route==='resume'){event.preventDefault();openDocumentWindow('resume-window');return;}
  if(route==='how-i-work'){event.preventDefault();openDocumentWindow('how-i-work-window');return;}
+ if(route==='sideprojects'){event.preventDefault();openDocumentWindow('sideprojects-window');return;}
  if(route==='notes'){event.preventDefault();openDocumentWindow('notes-window');return;}
  if(route==='chess'){event.preventDefault();openChess();return;}
  if(Object.hasOwn(pageTitles,route)){event.preventDefault();if(location.hash===link.hash)renderPage(route);else location.hash=route;}

@@ -414,3 +414,37 @@
  .tahti-snapshot-grid{grid-template-columns:1fr}
  .tahti-snapshot-grid img{height:auto;aspect-ratio:1.5}
 }
+
+/* Home entrance: the first render and a refresh share one deliberate, quiet sequence. */
+@keyframes home-photo-enter{from{opacity:0;transform:scale(1.025)}to{opacity:1;transform:scale(1)}}
+@keyframes home-copy-enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes home-name-enter{from{opacity:0;transform:translateY(22px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes home-explore-enter{from{opacity:0;transform:translate(5px,-3px) rotate(-7deg)}to{opacity:1;transform:translate(0,0) rotate(-7deg)}}
+@keyframes home-explore-type{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes home-explore-arrow-enter{from{opacity:0;transform:translate(-5px,-5px)}to{opacity:1;transform:translate(0,0)}}
+@keyframes home-explore-arrow-float{from{transform:translate(0,0)}to{transform:translate(3px,3px)}}
+.portfolio-content:has(.editorial-title) .editorial-title{animation:none}
+.portfolio-content:has(.editorial-title) .editorial-photo{animation:home-photo-enter 1050ms cubic-bezier(.22,1,.36,1) both}
+.portfolio-content:has(.editorial-title) .hero-caption{animation:home-copy-enter 520ms cubic-bezier(.22,1,.36,1) 80ms both}
+.portfolio-content:has(.editorial-title) .editorial-title h1{animation:home-name-enter 820ms cubic-bezier(.22,1,.36,1) 170ms both;transform-origin:left bottom}
+.hero-signature-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:4px;width:max-content;margin:18px 0 0 auto}
+.hero-signature{margin:0}
+.hero-explore{display:inline-flex;align-items:center;gap:7px;min-height:24px;color:#e4eca7;text-decoration:none;font:italic 17px/1.1 'Segoe Print','Comic Sans MS',cursive;transform:rotate(-7deg);opacity:0;animation:home-explore-enter 480ms cubic-bezier(.22,1,.36,1) 1450ms both}
+.hero-explore-label{display:inline-block;clip-path:inset(0 100% 0 0);white-space:nowrap;animation:home-explore-type 720ms steps(7,end) 1680ms both}
+.hero-explore-arrow{display:inline-block;opacity:0;animation:home-explore-arrow-enter 320ms cubic-bezier(.22,1,.36,1) 2370ms both,home-explore-arrow-float 2600ms ease-in-out 2800ms infinite alternate}
+.hero-explore:hover,.hero-explore:focus-visible{color:#fff4a9;text-decoration:none}
+.hero-explore:hover .hero-explore-arrow,.hero-explore:focus-visible .hero-explore-arrow{transform:translate(4px,4px) rotate(3deg)}
+.portfolio-content:has(.editorial-title) .hero-signature-wrap{animation:home-copy-enter 560ms cubic-bezier(.22,1,.36,1) 700ms both}
+.portfolio-content:has(.editorial-title) .hero-bottom{animation:home-copy-enter 650ms cubic-bezier(.22,1,.36,1) 930ms both}
+@media(max-width:760px){
+ .hero-signature-wrap{margin-top:15px}
+ .hero-explore{font-size:15px}
+}
+@media(prefers-reduced-motion:reduce){
+ .portfolio-content:has(.editorial-title) .editorial-photo,
+ .portfolio-content:has(.editorial-title) .hero-caption,
+ .portfolio-content:has(.editorial-title) .editorial-title h1,
+ .portfolio-content:has(.editorial-title) .hero-signature-wrap,
+ .portfolio-content:has(.editorial-title) .hero-bottom,
+ .hero-explore,.hero-explore-label,.hero-explore-arrow{animation:none!important;opacity:1!important;transform:none!important;clip-path:none!important}
+}
