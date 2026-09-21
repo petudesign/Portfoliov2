@@ -15,12 +15,25 @@ Open http://127.0.0.1:8091/. There is no build step or runtime package installat
 - `index.html`: desktop shell and preserved case content (Brio, Peluutin, S-Hävikki, Tahti, About).
 - `desktop.css`, `desktop.js`: desktop/browser interactions, navigation, Dock and audio channels.
 - `room.css`, `workspace-view.js`: existing 3D room, loaded only when opened.
+- `case-page.css`, `case-page.js`, and the case folders: standalone, crawlable case pages such as `/peluutin/` and `/korisiq/`.
 - `assets/`: images, icons, one video, and the existing vendored Three.js runtime needed by the current portfolio and room.
 - `Satoshi_Complete/`: the used webfont and its license.
 - `desk-experiment.html`: compatibility redirect to the homepage.
 - `tests/desktop.cjs`: runnable browser regression check; screenshots go to the system temporary directory.
 
 Add shortcuts in `desktopShortcuts`, and applications in `desktopApps`, at the top of `desktop.js`.
+
+## Public case routes
+
+- `/peluutin/`
+- `/helsinki-sports-map/`
+- `/korisiq/`
+- `/brio/`
+- `/s-havikki/`
+- `/tahti/`
+- `/spire-coach-mod/`
+
+The homepage keeps its desktop experience, while project cards link to these standalone pages so each case has its own crawlable HTML, metadata, canonical URL, and structured data.
 
 ## Sound and links
 

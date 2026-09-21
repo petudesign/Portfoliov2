@@ -1,0 +1,30 @@
+# Petteri Helttula
+
+> Portfolio of Petteri Helttula, a Helsinki-based product designer and design engineer.
+
+Petteri works across product design, UX/UI, AI, code, data and interactive product experiments. The portfolio includes selected case studies, work-in-progress projects, personal experiments and background on his design approach.
+
+## Main site
+
+- [Portfolio](https://petu.design/): The canonical portfolio homepage and entry point to all work.
+- [About](https://petu.design/#about): Background, interests and the path into product design.
+- [Selected work](https://petu.design/#work): Product design projects and experiments.
+- [Resume](https://petu.design/#resume): Experience, focus areas and contact details.
+
+## Selected projects
+
+- [Peluutin](https://petu.design/peluutin/): Product design and development for junior football match-day coaching and training exercises.
+- [Helsinki Sports Map](https://petu.design/helsinki-sports-map/): Work-in-progress sports discovery product using public data, a custom API and a reusable venue data pipeline.
+- [KorisIQ](https://petu.design/korisiq/): Work-in-progress exploration of clearer basketball data and analysis for the Finnish game.
+- [Brio](https://petu.design/brio/): Digital wellbeing concept using pose tracking to encourage short movement breaks while scrolling.
+- [S-Hävikki](https://petu.design/s-havikki/): Service design project exploring retail food waste reduction and near-expiry checks.
+- [Tahti](https://petu.design/tahti/): Interaction design project that presents selected text one word at a time at a controlled pace.
+
+## Side projects
+
+- [Spire Coach Mod](https://petu.design/spire-coach-mod/): Work-in-progress game coaching experiment exploring how gameplay data can become useful feedback without taking decisions away from the player.
+
+## External profiles
+
+- [LinkedIn](https://www.linkedin.com/in/petteri-helttula/)
+- [GitHub](https://github.com/petudesign)

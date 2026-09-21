@@ -1,7 +1,8 @@
 // Edit these lists to add shortcuts or Dock applications.
+if(!document.head.querySelector('base')){const portfolioBase=document.createElement('base');portfolioBase.href=new URL('/',location.href).href;document.head.prepend(portfolioBase);}
 const desktopShortcuts = [
  {name:'My work',href:'#work',icon:'folder',items:['Peluutin','Helsinki Sports Map','KorisIQ']}, {name:'About me',href:'#about',icon:'folder',items:['About me','As a designer']},
- {name:'Sideprojects',href:'#sideprojects',icon:'folder',items:['Spire Coach Mod']},
+ {name:'Sideprojects',href:'#sideprojects',icon:'folder',items:['Spire Coach Mod','OpenSlot']},
  {name:'Resume',href:'#resume',icon:'CV'},
  {name:'As a designer.md',href:'#how-i-work',icon:'MD'},
  {name:'Chess',href:'#chess',icon:'chess'},
@@ -52,7 +53,22 @@ function enableArrowNavigation(container,selector,columns=1){
   event.preventDefault();items[nextIndex].focus({preventScroll:true});
  });
 }
-const pageTitles={home:'Home',work:'Selected work',about:'About me','sports-map':'Helsinki Sports Map',korisiq:'KorisIQ','spire-coach-mod':'Spire Coach Mod',brio:'Brio',peluutin:'Peluutin',shavikki:'S-Hävikki',tahti:'Tahti'};
+const pageTitles={home:'Portfolio',work:'Selected work',about:'About me','sports-map':'Helsinki Sports Map',korisiq:'KorisIQ','spire-coach-mod':'Spire Coach Mod',brio:'Brio',peluutin:'Peluutin',shavikki:'S-Hävikki',tahti:'Tahti'};
+const defaultPageDescription='Petteri Helttula is a Helsinki-based product designer and design engineer working across UX/UI, AI, code, data and interactive products.';
+const pageDescriptions={home:defaultPageDescription,work:'Selected product design work by Petteri Helttula, spanning UX/UI, code, data and interactive product experiments.',about:'About Petteri Helttula, a Helsinki-based product designer and design engineer interested in people, technology and how products work.',"sports-map":'Helsinki Sports Map is a work-in-progress product design project for discovering sports, venues and routes across Helsinki.',korisiq:'KorisIQ is a work-in-progress product design project exploring clearer basketball data and analysis for the Finnish game.',"spire-coach-mod":'Spire Coach Mod is a work-in-progress game coaching experiment that turns gameplay mistakes into useful lessons.',brio:'Brio is a digital wellbeing concept using pose tracking to encourage short movement breaks while scrolling.',peluutin:'Peluutin is a product design and development project for managing junior football, match-day coaching and training exercises.',shavikki:'S-Hävikki is a service design project exploring how retail teams can reduce food waste and simplify near-expiry checks.',tahti:'Tahti is an interaction design project that presents selected text one word at a time at a controlled pace.'};
+const cleanRoutePaths={'sports-map':'/helsinki-sports-map/','korisiq':'/korisiq/','spire-coach-mod':'/spire-coach-mod/','brio':'/brio/','peluutin':'/peluutin/','shavikki':'/s-havikki/','tahti':'/tahti/'};
+const cleanPathRoutes=Object.fromEntries(Object.entries(cleanRoutePaths).map(([route,path])=>[path,route]));
+const routeLocations={home:'/',work:'/#work',about:'/#about',...cleanRoutePaths};
+const normalizePath=pathname=>{
+ const path=pathname.replace(/\\/g,'/');
+ return path==='/'?'/':`${path.replace(/\/$/,'')}/`;
+};
+const routeFromLocation=()=>{
+ const hash=location.hash.slice(1);
+ if(Object.hasOwn(pageTitles,hash))return hash;
+ return cleanPathRoutes[normalizePath(location.pathname)]||'home';
+};
+const locationForRoute=route=>routeLocations[route]||`/#${route}`;
 let navigation=['home'];let navigationIndex=0;
 function showPortfolio(){
  rememberLauncher(portfolioWindow);
@@ -372,6 +388,7 @@ function renderPage(route,record=true,focus=true){
  showPortfolio();
  document.querySelector('#browser-location').textContent=`${location.host || 'Portfolio'} / ${pageTitles[route]}`;
  document.title=`${pageTitles[route]} — Petteri Helttula`;
+ document.querySelector('meta[name="description"]')?.setAttribute('content',pageDescriptions[route]||defaultPageDescription);
  document.querySelector('#browser-back').disabled=navigationIndex===0;
  document.querySelector('#browser-forward').disabled=navigationIndex===navigation.length-1;
  document.querySelectorAll('.portfolio-nav a').forEach(link=>{if(link.hash===`#${route}`)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
@@ -437,7 +454,18 @@ document.addEventListener('keydown',event=>{
  event.preventDefault();moveBetweenDesktopRegions(event.shiftKey?-1:1);
 });
 document.addEventListener('click',event=>{
- const link=event.target.closest('a[href^="#"]');if(!link)return;
+ const clickedLink=event.target.closest('a');
+ if(!clickedLink||event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+ const clickedUrl=new URL(clickedLink.href,location.href);
+ const cleanPath=normalizePath(clickedUrl.pathname);
+ const cleanRoute=clickedUrl.origin===location.origin&&!clickedUrl.hash&&!clickedUrl.search?cleanPathRoutes[cleanPath]:undefined;
+ if(cleanRoute){
+  event.preventDefault();
+  history.pushState(null,'',cleanRoutePaths[cleanRoute]);
+  renderPage(cleanRoute);
+  return;
+ }
+ const link=clickedLink.matches('a[href^="#"]')?clickedLink:null;if(!link)return;
  const route=link.hash.slice(1);
  if(route==='spotify'){event.preventDefault();openSpotify();return;}
  if(route==='resume'){event.preventDefault();openDocumentWindow('resume-window');return;}
@@ -445,13 +473,19 @@ document.addEventListener('click',event=>{
  if(route==='sideprojects'){event.preventDefault();openDocumentWindow('sideprojects-window');return;}
  if(route==='notes'){event.preventDefault();openDocumentWindow('notes-window');return;}
  if(route==='chess'){event.preventDefault();openChess();return;}
- if(Object.hasOwn(pageTitles,route)){event.preventDefault();if(location.hash===link.hash)renderPage(route);else location.hash=route;}
+ if(Object.hasOwn(pageTitles,route)){event.preventDefault();if(route===routeFromLocation())renderPage(route);else{history.pushState(null,'',locationForRoute(route));renderPage(route);}}
 });
-window.addEventListener('hashchange',()=>{const route=location.hash.slice(1);if(Object.hasOwn(pageTitles,route))renderPage(route);});
+window.addEventListener('hashchange',()=>{const route=routeFromLocation();if(Object.hasOwn(pageTitles,route))renderPage(route);});
+window.addEventListener('popstate',()=>{
+ const route=routeFromLocation();
+ const knownIndex=navigation.lastIndexOf(route);
+ if(knownIndex>=0)navigationIndex=knownIndex;
+ renderPage(route,false);
+});
 for(const button of document.querySelectorAll('[data-window-hide],[data-show-desktop]'))button.addEventListener('click',hidePortfolio);
 for(const button of document.querySelectorAll('[data-show-portfolio]'))button.addEventListener('click',()=>{history.replaceState(null,'','#home');renderPage('home');});
 document.querySelector('[data-window-expand]').addEventListener('click',event=>{event.currentTarget.setAttribute('aria-pressed',portfolioWindow.classList.toggle('is-expanded'));});
-for(const[selector,step]of [['#browser-back',-1],['#browser-forward',1]])document.querySelector(selector).addEventListener('click',()=>{const next=navigationIndex+step;if(next<0||next>=navigation.length)return;navigationIndex=next;history.replaceState(null,'',`#${navigation[next]}`);renderPage(navigation[next],false);});
+for(const[selector,step]of [['#browser-back',-1],['#browser-forward',1]])document.querySelector(selector).addEventListener('click',()=>{const next=navigationIndex+step;if(next<0||next>=navigation.length)return;navigationIndex=next;history.replaceState(null,'',locationForRoute(navigation[next]));renderPage(navigation[next],false);});
 // Pointer capture keeps dragging stable; bounds keep the titlebar reachable.
 const titlebar=document.querySelector('.browser-titlebar');let drag;
 titlebar.addEventListener('pointerdown',event=>{
@@ -501,7 +535,7 @@ document.addEventListener('keydown',event=>{
 });
 function updateClock(){const date=new Date();const options={timeZone:'Europe/Helsinki'};document.querySelector('#desktop-clock').textContent=date.toLocaleString('en-GB',{...options,weekday:'short',hour:'2-digit',minute:'2-digit'});document.querySelector('#widget-weekday').textContent=date.toLocaleDateString('en-GB',{...options,weekday:'long'});document.querySelector('#widget-day').textContent=date.toLocaleDateString('en-GB',{...options,day:'numeric'});document.querySelector('#widget-month').textContent=date.toLocaleDateString('en-GB',{...options,month:'long'});document.querySelector('#widget-clock').textContent=date.toLocaleTimeString('en-GB',{...options,hour:'2-digit',minute:'2-digit'});}
 updateClock();setInterval(updateClock,60000);
-renderPage(location.hash.slice(1)||'home',true,false);
+renderPage(routeFromLocation(),true,false);
 window.addEventListener('load',()=>{
  if((location.hash.slice(1)||'home')==='home')resetBrowserPageScroll();
 },{once:true});
