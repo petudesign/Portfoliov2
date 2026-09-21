@@ -1,7 +1,7 @@
 @font-face{font-family:Satoshi;src:url('Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Variable.woff2') format('woff2');font-weight:300 900;font-display:swap}
 @font-face{font-family:Harmond;src:url('assets/Harmond-SemiBoldCondensed.otf') format('opentype');font-style:normal;font-weight:600;font-display:swap}
 
-:root{font-family:Satoshi,system-ui,sans-serif;color:#202720;background:#111614;color-scheme:dark}
+:root{--ease:cubic-bezier(.22,1,.36,1);font-family:Satoshi,system-ui,sans-serif;color:#202720;background:#111614;color-scheme:dark}
 *{box-sizing:border-box}
 html{min-width:320px;background:#111614;scroll-behavior:smooth}
 body{min-width:320px;min-height:100vh;margin:0;background:radial-gradient(ellipse at 0 10%,#364339,transparent 48%),radial-gradient(ellipse at 100% 75%,#38342c,transparent 55%),#111614;color:#e4e8dd}
@@ -31,6 +31,13 @@ a{color:inherit}
 .case-actions{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:28px 0 34px;padding:16px 0;border-top:1px solid #20272035;border-bottom:1px solid #20272035}
 .case-mode-toggle{display:inline-flex;gap:3px;padding:4px;border:1px solid #68756570;border-radius:999px;background:#c8c9be}
 .case-mode-toggle button{display:inline-flex;align-items:center;justify-content:center;width:84px;min-height:34px;padding:8px 10px;border:0;border-radius:999px;background:transparent;color:#566055;font:650 10px/1 Satoshi,sans-serif;cursor:pointer}
+.case-mode-toggle button{transition:background-color 180ms var(--ease),color 180ms var(--ease),transform 140ms var(--ease)}
+.case-mode-toggle button:active{transform:scale(.97)}
+.case-mode-toggle{position:relative;isolation:isolate}
+.case-mode-toggle::before{content:'';position:absolute;z-index:0;top:4px;bottom:4px;left:4px;width:84px;border-radius:999px;background:#202720;pointer-events:none;transform:translateX(0);transition:transform 220ms var(--ease);will-change:transform}
+.case-mode-toggle[data-active-mode="full"]::before{transform:translateX(87px)}
+.case-mode-toggle button{position:relative;z-index:1}
+.case-mode-toggle button.is-active{background:transparent}
 .case-mode-toggle button:hover,.case-mode-toggle button:focus-visible{color:#202720;background:#e4eca7}
 .case-mode-toggle button.is-active{background:#202720;color:#e4eca7}
 .case-media-links{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}
@@ -44,6 +51,17 @@ a{color:inherit}
 .case-tldr-content p,.standalone-case p,.standalone-case li{color:#4d584d;font-size:15px;line-height:1.78}
 .case-tldr-content p{margin:0}
 .case-full-content{padding-top:8px}
+.case-full-content,.case-tldr-content{transition:opacity 220ms var(--ease),transform 220ms var(--ease);will-change:opacity,transform}
+.case-full-content.is-case-entering,.case-tldr-content.is-case-entering{opacity:0;transform:translateY(10px)}
+.case-full-content.is-case-exiting,.case-tldr-content.is-case-exiting{opacity:0;transform:translateY(-6px);pointer-events:none}
+.hsm-case{position:relative;isolation:isolate}
+.hsm-case>*:not(.hsm-hero-banner){position:relative;z-index:1}
+.hsm-case .hsm-case-hero{position:relative;padding-top:0}
+.hsm-case h1{margin:0;padding-top:clamp(42px,6vw,70px)}
+.hsm-hero-banner{position:absolute;z-index:0;inset:0 0 auto;height:390px;overflow:hidden;background:#afb6a7;pointer-events:none}
+.hsm-hero-banner img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 45%;filter:blur(13px) saturate(.72) brightness(.82);opacity:.72;transform:scale(1.06)}
+.hsm-hero-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#d9d7ce72 0%,#d9d7cebd 58%,#d9d7ce 100%)}
+.hsm-case .case-page-lede{max-width:760px}
 .case-full-content figure{margin:0 0 58px}
 .case-full-content figure img{display:block;width:100%;max-height:430px;object-fit:cover}
 .case-full-content figcaption{margin-top:10px;color:#687565;font-size:11px;line-height:1.5}
@@ -77,6 +95,9 @@ a{color:inherit}
  .standalone-main{width:calc(100% - 24px);padding-top:16px}
  .standalone-surface{padding:0 22px 44px}
  .standalone-case .eyebrow{padding-top:52px}
+ .hsm-case .hsm-case-hero{padding-top:0}
+ .hsm-case h1{padding-top:38px}
+ .hsm-case .hsm-hero-banner{height:430px}
  .standalone-case h1{font-size:62px}
  .case-page-lede{font-size:19px}
  .case-summary{grid-template-columns:1fr;gap:18px;margin-top:28px}
@@ -88,4 +109,4 @@ a{color:inherit}
  .case-section{padding:45px 0}
  .standalone-footer{flex-direction:column}
 }
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.case-mode-toggle button,.case-mode-toggle::before,.case-full-content,.case-tldr-content{transition:none!important}.case-mode-toggle button:active{transform:none}.case-full-content.is-case-entering,.case-full-content.is-case-exiting,.case-tldr-content.is-case-entering,.case-tldr-content.is-case-exiting{transform:none}}

@@ -204,6 +204,22 @@
 .about-page [data-toc-label],.reading-page [data-toc-label]{scroll-margin-top:28px}
 @media(max-width:760px){.portfolio-toc{display:none}}
 
+/* Case mode changes should feel like one continuous reading surface. */
+.case-mode-toggle button{transition:background-color 180ms var(--ease),color 180ms var(--ease),transform 140ms var(--ease)}
+.case-mode-toggle button:active{transform:scale(.97)}
+.case-mode-toggle{position:relative;isolation:isolate}
+.case-mode-toggle::before{content:'';position:absolute;z-index:0;top:4px;bottom:4px;left:4px;width:84px;border-radius:999px;background:#202720;pointer-events:none;transform:translateX(0);transition:transform 220ms var(--ease);will-change:transform}
+.case-mode-toggle[data-active-mode="full"]::before{transform:translateX(87px)}
+.case-mode-toggle button{position:relative;z-index:1}
+.case-mode-toggle button.is-active{background:transparent}
+.reading-page .case-full-content{transition:opacity 220ms var(--ease),transform 220ms var(--ease);will-change:opacity,transform}
+.reading-page .case-full-content.is-case-entering{opacity:0;transform:translateY(10px)}
+.reading-page .case-full-content.is-case-exiting{opacity:0;transform:translateY(-6px);pointer-events:none}
+.portfolio-toc{transform:translate(0,-50%);transition:width 180ms var(--ease),opacity 180ms var(--ease),transform 220ms var(--ease)}
+.portfolio-toc.is-toc-entering{opacity:0;transform:translate(-10px,-50%)}
+.portfolio-toc.is-toc-exiting{opacity:0;transform:translate(-6px,-50%);pointer-events:none}
+@media(prefers-reduced-motion:reduce){.case-mode-toggle button,.case-mode-toggle::before,.reading-page .case-full-content,.portfolio-toc{transition:none!important}.case-mode-toggle button:active{transform:none}.reading-page .case-full-content.is-case-entering,.reading-page .case-full-content.is-case-exiting,.portfolio-toc.is-toc-entering,.portfolio-toc.is-toc-exiting{transform:none}}
+
 /* Personal photos stay grouped as a small visual rhythm instead of becoming a gallery. */
 .about-photo-bento{margin:42px 0 0}
 .about-photo-bento-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:7px;height:clamp(205px,22vw,250px)}
@@ -273,10 +289,20 @@
 .reading-page .wip-case figure img{width:100%;max-height:420px;object-fit:cover;border-radius:0}
 .reading-page .wip-case figcaption{color:#788173}
 .reading-page .case-file-stamp{color:#788173;border-top:1px solid #20272035;padding-top:16px}
+.reading-page .wip-case.hsm-case{position:relative;padding-top:0;isolation:isolate}
+.reading-page .hsm-case>*:not(.hsm-hero-banner){position:relative;z-index:1}
+.reading-page .hsm-case h1{margin:0;padding-top:clamp(42px,6vw,70px)}
+.hsm-hero-banner{position:absolute;z-index:0;inset:0 0 auto;height:390px;overflow:hidden;background:#afb6a7;pointer-events:none}
+.hsm-hero-banner img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 45%;filter:blur(13px) saturate(.72) brightness(.82);opacity:.72;transform:scale(1.06)}
+.hsm-hero-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#d9d7ce72 0%,#d9d7cebd 58%,#d9d7ce 100%)}
+.reading-page .hsm-case .case-page-lede{max-width:760px}
 @media(max-width:760px){
  .reading-page{width:calc(100% - 32px);padding:0 22px 34px}
  .reading-page .case-hero{padding-top:52px}
  .reading-page .wip-case{padding-top:52px}
+ .reading-page .wip-case.hsm-case{padding-top:0}
+ .reading-page .hsm-case h1{padding-top:38px}
+ .reading-page .hsm-case .hsm-hero-banner{height:430px}
  .reading-page .case-facts{grid-template-columns:1fr;padding:20px 0}
  .case-actions{display:block;margin:22px 0 28px}
  .case-media-links{justify-content:flex-start;margin-top:12px}
