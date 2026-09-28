@@ -4,18 +4,18 @@ A standalone static portfolio with a macOS-inspired desktop, a working portfolio
 
 ## Start
 
-Serve this directory with any static HTTP server. For example:
+Start the local server with clean case-route rewrites:
 
-    python -m http.server 8091 --bind 127.0.0.1
+    node dev-server.js --port 8092
 
-Open http://127.0.0.1:8091/. There is no build step or runtime package installation.
+Open http://127.0.0.1:8092/. Direct case URLs load the same portfolio shell as the homepage. Vercel uses the matching rewrites in `vercel.json`. There is no build step or runtime package installation.
 
 ## Project contents
 
 - `index.html`: desktop shell and preserved case content (Brio, Peluutin, S-Hävikki, Tahti, About).
 - `desktop.css`, `desktop.js`: desktop/browser interactions, navigation, Dock and audio channels.
 - `room.css`, `workspace-view.js`: existing 3D room, loaded only when opened.
-- `case-page.css`, `case-page.js`, and the case folders: standalone, crawlable case pages such as `/peluutin/` and `/korisiq/`.
+- `case-page.css`, `case-page.js`, and the case folders: case-page styles, interactions and source content. Public case routes render through the portfolio shell using the route map in `desktop.js`.
 - `assets/`: images, icons, one video, and the existing vendored Three.js runtime needed by the current portfolio and room.
 - `Satoshi_Complete/`: the used webfont and its license.
 - `desk-experiment.html`: compatibility redirect to the homepage.
