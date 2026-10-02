@@ -5,6 +5,7 @@ const path = require('node:path');
 const root = __dirname;
 const caseRoutes = new Set([
   'helsinki-sports-map',
+  'korislab',
   'korisiq',
   'spire-coach-mod',
   'brio',

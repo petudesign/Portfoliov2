@@ -1,7 +1,7 @@
 // Edit these lists to add shortcuts or Dock applications.
 if(!document.head.querySelector('base')){const portfolioBase=document.createElement('base');portfolioBase.href=new URL('/',location.href).href;document.head.prepend(portfolioBase);}
 const desktopShortcuts = [
- {name:'My work',href:'#work',icon:'folder',items:['Peluutin','Helsinki Sports Map','KorisIQ']}, {name:'About me',href:'#about',icon:'folder',items:['About me','As a designer']},
+ {name:'My work',href:'#work',icon:'folder',items:['Peluutin','Helsinki Sports Map','KorisLab']}, {name:'About me',href:'#about',icon:'folder',items:['About me','As a designer']},
  {name:'Sideprojects',href:'#sideprojects',icon:'folder',items:['Spire Coach Mod','OpenSlot']},
  {name:'Resume',href:'#resume',icon:'CV'},
  {name:'As a designer.md',href:'#how-i-work',icon:'MD'},
@@ -55,11 +55,12 @@ function enableArrowNavigation(container,selector,columns=1){
   event.preventDefault();items[nextIndex].focus({preventScroll:true});
  });
 }
-const pageTitles={home:'Portfolio',work:'Selected work',about:'About me','sports-map':'Helsinki Sports Map',korisiq:'KorisIQ','spire-coach-mod':'Spire Coach Mod',brio:'Brio',peluutin:'Peluutin',shavikki:'S-Hävikki',tahti:'Tahti'};
+const pageTitles={home:'Portfolio',work:'Selected work',about:'About me','sports-map':'Helsinki Sports Map',korislab:'KorisLab','spire-coach-mod':'Spire Coach Mod',brio:'Brio',peluutin:'Peluutin',shavikki:'S-Hävikki',tahti:'Tahti'};
 const defaultPageDescription='Petteri Helttula is a Helsinki-based product designer and design engineer working across UX/UI, AI, code, data and interactive products.';
-const pageDescriptions={home:defaultPageDescription,work:'Selected product design work by Petteri Helttula, spanning UX/UI, code, data and interactive product experiments.',about:'About Petteri Helttula, a Helsinki-based product designer and design engineer interested in people, technology and how products work.',"sports-map":'Helsinki Sports Map is a work-in-progress product design project for discovering sports, venues and routes across Helsinki.',korisiq:'KorisIQ is a work-in-progress product design project exploring clearer basketball data and analysis for the Finnish game.',"spire-coach-mod":'Spire Coach Mod is a work-in-progress game coaching experiment that turns gameplay mistakes into useful lessons.',brio:'Brio is a digital wellbeing concept using pose tracking to encourage short movement breaks while scrolling.',peluutin:'Peluutin is a product design and development project for managing junior football, match-day coaching and training exercises.',shavikki:'S-Hävikki is a service design project exploring how retail teams can reduce food waste and simplify near-expiry checks.',tahti:'Tahti is an interaction design project that presents selected text one word at a time at a controlled pace.'};
-const cleanRoutePaths={'sports-map':'/helsinki-sports-map/','korisiq':'/korisiq/','spire-coach-mod':'/spire-coach-mod/','brio':'/brio/','peluutin':'/peluutin/','shavikki':'/s-havikki/','tahti':'/tahti/'};
+const pageDescriptions={home:defaultPageDescription,work:'Selected product design work by Petteri Helttula, spanning UX/UI, code, data and interactive product experiments.',about:'About Petteri Helttula, a Helsinki-based product designer and design engineer interested in people, technology and how products work.',"sports-map":'Helsinki Sports Map is a work-in-progress product design project for discovering sports, venues and routes across Helsinki.',korislab:'KorisLab is a work-in-progress basketball analysis product for Finland’s men’s and women’s Korisliiga, with season data from 2024–25 onward.',"spire-coach-mod":'Spire Coach Mod is a work-in-progress game coaching experiment that turns gameplay mistakes into useful lessons.',brio:'Brio is a digital wellbeing concept using pose tracking to encourage short movement breaks while scrolling.',peluutin:'Peluutin is a product design and development project for managing junior football, match-day coaching and training exercises.',shavikki:'S-Hävikki is a service design project exploring how retail teams can reduce food waste and simplify near-expiry checks.',tahti:'Tahti is an interaction design project that presents selected text one word at a time at a controlled pace.'};
+const cleanRoutePaths={'sports-map':'/helsinki-sports-map/','korislab':'/korislab/','spire-coach-mod':'/spire-coach-mod/','brio':'/brio/','peluutin':'/peluutin/','shavikki':'/s-havikki/','tahti':'/tahti/'};
 const cleanPathRoutes=Object.fromEntries(Object.entries(cleanRoutePaths).map(([route,path])=>[path,route]));
+cleanPathRoutes['/korisiq/']='korislab';
 const routeLocations={home:'/',work:'/#work',about:'/#about',...cleanRoutePaths};
 const normalizePath=pathname=>{
  const path=pathname.replace(/\\/g,'/');

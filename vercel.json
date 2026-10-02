@@ -2,6 +2,8 @@
   "rewrites": [
     { "source": "/helsinki-sports-map", "destination": "/index.html" },
     { "source": "/helsinki-sports-map/:path*", "destination": "/index.html" },
+    { "source": "/korislab", "destination": "/index.html" },
+    { "source": "/korislab/:path*", "destination": "/index.html" },
     { "source": "/korisiq", "destination": "/index.html" },
     { "source": "/korisiq/:path*", "destination": "/index.html" },
     { "source": "/spire-coach-mod", "destination": "/index.html" },

@@ -27,13 +27,14 @@ Add shortcuts in `desktopShortcuts`, and applications in `desktopApps`, at the t
 
 - `/peluutin/`
 - `/helsinki-sports-map/`
-- `/korisiq/`
+- `/korislab/`
+- `/korisiq/` (legacy alias)
 - `/brio/`
 - `/s-havikki/`
 - `/tahti/`
 - `/spire-coach-mod/`
 
-The homepage keeps its desktop experience, while project cards link to these standalone pages so each case has its own crawlable HTML, metadata, canonical URL, and structured data.
+The homepage keeps its desktop experience, and clean case URLs render inside the same portfolio browser shell. Vercel rewrites the case routes to `index.html`; the local preview server applies the same mapping. `/korisiq/` remains a legacy alias for KorisLab.
 
 ## Sound and links
 
