@@ -17,7 +17,7 @@ Petteri works across product design, UX/UI, AI, code, data and interactive produ
 - [Helsinki Sports Map](https://petu.design/helsinki-sports-map/): Work-in-progress sports discovery product using public data, a custom API and a reusable venue data pipeline.
 - [KorisLab](https://petu.design/korislab/): Work-in-progress basketball analysis product for Finland's men's and women's Korisliiga, with season data from 2024–25 onward.
 - [Brio](https://petu.design/brio/): Digital wellbeing concept using pose tracking to encourage short movement breaks while scrolling.
-- [S-Hävikki](https://petu.design/s-havikki/): Service design project exploring retail food waste reduction and near-expiry checks.
+- [S-hävikki](https://petu.design/s-havikki/): Service design project exploring retail food waste reduction and near-expiry checks.
 - [Tahti](https://petu.design/tahti/): Interaction design project that presents selected text one word at a time at a controlled pace.
 
 ## Side projects

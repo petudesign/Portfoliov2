@@ -1,7 +1,7 @@
 // Edit these lists to add shortcuts or Dock applications.
 if(!document.head.querySelector('base')){const portfolioBase=document.createElement('base');portfolioBase.href=new URL('/',location.href).href;document.head.prepend(portfolioBase);}
 const desktopShortcuts = [
- {name:'My work',href:'#work',icon:'folder',items:['Peluutin','Helsinki Sports Map','KorisLab']}, {name:'About me',href:'#about',icon:'folder',items:['About me','As a designer']},
+ {name:'My work',href:'#work',icon:'folder',items:['Peluutin','KorisLab','Helsinki Sports Map','Brio']}, {name:'About me',href:'#about',icon:'folder',items:['About me','As a designer']},
  {name:'Sideprojects',href:'#sideprojects',icon:'folder',items:['Spire Coach Mod','OpenSlot']},
  {name:'Resume',href:'#resume',icon:'CV'},
  {name:'As a designer.md',href:'#how-i-work',icon:'MD'},
@@ -9,10 +9,10 @@ const desktopShortcuts = [
 ];
 const desktopApps = [
  ['Spotify','spotify.svg','#spotify'],
- ['Chrome','chrome.svg','#home'], ['Figma','figma.svg','https://www.figma.com/'],
- ['Codex','codex.svg','https://chatgpt.com/codex'], ['Paper Design','paper.png','https://paper.design/'], ['Audible','audible.png',null],
- ['Obsidian','obsidian.svg','https://obsidian.md/'], ['LM Lab','lmstudio.svg','https://lmstudio.ai/'],
- ['VS Code','vscode.svg','https://vscode.dev/'],
+ ['Chrome','chrome.svg','#home'], ['Figma','figma.svg',null],
+ ['Codex','codex.svg',null], ['Paper Design','paper.png',null], ['Audible','audible.png',null],
+ ['Obsidian','obsidian.svg',null], ['LM Lab','lmstudio.svg',null],
+ ['VS Code','vscode.svg',null], ['Xcode','xcode.svg',null],
 ];
 const portfolioWindow=document.querySelector('#portfolio-window');
 const browserPage=document.querySelector('#browser-page');
@@ -55,9 +55,9 @@ function enableArrowNavigation(container,selector,columns=1){
   event.preventDefault();items[nextIndex].focus({preventScroll:true});
  });
 }
-const pageTitles={home:'Portfolio',work:'Selected work',about:'About me','sports-map':'Helsinki Sports Map',korislab:'KorisLab','spire-coach-mod':'Spire Coach Mod',brio:'Brio',peluutin:'Peluutin',shavikki:'S-Hävikki',tahti:'Tahti'};
+const pageTitles={home:'Portfolio',work:'Selected work',about:'About me','sports-map':'Helsinki Sports Map',korislab:'KorisLab','spire-coach-mod':'Spire Coach Mod',brio:'Brio',peluutin:'Peluutin',shavikki:'S-hävikki',tahti:'Tahti'};
 const defaultPageDescription='Petteri Helttula is a Helsinki-based product designer and design engineer working across UX/UI, AI, code, data and interactive products.';
-const pageDescriptions={home:defaultPageDescription,work:'Selected product design work by Petteri Helttula, spanning UX/UI, code, data and interactive product experiments.',about:'About Petteri Helttula, a Helsinki-based product designer and design engineer interested in people, technology and how products work.',"sports-map":'Helsinki Sports Map is a work-in-progress product design project for discovering sports, venues and routes across Helsinki.',korislab:'KorisLab is a work-in-progress basketball analysis product for Finland’s men’s and women’s Korisliiga, with season data from 2024–25 onward.',"spire-coach-mod":'Spire Coach Mod is a work-in-progress game coaching experiment that turns gameplay mistakes into useful lessons.',brio:'Brio is a digital wellbeing concept using pose tracking to encourage short movement breaks while scrolling.',peluutin:'Peluutin is a product design and development project for managing junior football, match-day coaching and training exercises.',shavikki:'S-Hävikki is a service design project exploring how retail teams can reduce food waste and simplify near-expiry checks.',tahti:'Tahti is an interaction design project that presents selected text one word at a time at a controlled pace.'};
+const pageDescriptions={home:defaultPageDescription,work:'Selected product design work by Petteri Helttula, spanning UX/UI, code, data and interactive product experiments.',about:'About Petteri Helttula, a Helsinki-based product designer and design engineer interested in people, technology and how products work.',"sports-map":'Helsinki Sports Map is a work-in-progress product design project for discovering sports, venues and routes across Helsinki.',korislab:'KorisLab is a work-in-progress basketball analysis product for Finland’s men’s and women’s Korisliiga, with season data from 2024–25 onward.',"spire-coach-mod":'Spire Coach Mod is a work-in-progress game coaching experiment that turns gameplay mistakes into useful lessons.',brio:'Brio is a digital wellbeing concept using pose tracking to encourage short movement breaks while scrolling.',peluutin:'Peluutin is built with junior coaches to track playing time, manage football and futsal matches, and create shareable training exercises.',shavikki:'S-hävikki is a service design project exploring how retail teams can reduce food waste and simplify near-expiry checks.',tahti:'Tahti is an interaction design project that presents selected text one word at a time at a controlled pace.'};
 const cleanRoutePaths={'sports-map':'/helsinki-sports-map/','korislab':'/korislab/','spire-coach-mod':'/spire-coach-mod/','brio':'/brio/','peluutin':'/peluutin/','shavikki':'/s-havikki/','tahti':'/tahti/'};
 const cleanPathRoutes=Object.fromEntries(Object.entries(cleanRoutePaths).map(([route,path])=>[path,route]));
 cleanPathRoutes['/korisiq/']='korislab';

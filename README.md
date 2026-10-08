@@ -12,7 +12,7 @@ Open http://127.0.0.1:8092/. Direct case URLs load the same portfolio shell as t
 
 ## Project contents
 
-- `index.html`: desktop shell and preserved case content (Brio, Peluutin, S-Hävikki, Tahti, About).
+- `index.html`: desktop shell and preserved case content (Brio, Peluutin, S-hävikki, Tahti, About).
 - `desktop.css`, `desktop.js`: desktop/browser interactions, navigation, Dock and audio channels.
 - `room.css`, `workspace-view.js`: existing 3D room, loaded only when opened.
 - `case-page.css`, `case-page.js`, and the case folders: case-page styles, interactions and source content. Public case routes render through the portfolio shell using the route map in `desktop.js`.

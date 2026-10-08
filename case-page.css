@@ -133,3 +133,94 @@ a{color:inherit}
  .standalone-footer{flex-direction:column}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.case-mode-toggle button,.case-mode-toggle::before,.case-full-content,.case-tldr-content{transition:none!important}.case-mode-toggle button:active{transform:none}.case-full-content.is-case-entering,.case-full-content.is-case-exiting,.case-tldr-content.is-case-entering,.case-tldr-content.is-case-exiting{transform:none}}
+
+/* Preserve the full exercise timeline and mobile substitution screenshots. */
+.portfolio-case .case-product-figure{margin:32px 0;}
+.portfolio-case .case-product-figure img{display:block;width:100%;height:auto;max-height:none;object-fit:contain;margin:0;}
+.portfolio-case .case-product-figure figcaption{margin-top:10px;font-size:12px;line-height:1.6;color:#687565;}
+.portfolio-case .peluutin-mobile-proof{max-width:420px;margin-inline:auto;}
+
+/* Shared case layout: product facts first, restrained reading hierarchy. */
+.portfolio-case .case-hero{padding-top:30px;}
+.portfolio-case .case-hero h1{margin:0 0 22px;font-size:clamp(60px,6vw,80px);line-height:.95;}
+.portfolio-case .case-hero .hero-lede{max-width:700px;margin:0;font:550 clamp(20px,2vw,24px)/1.35 Satoshi,system-ui,sans-serif;letter-spacing:-.025em;color:#202720;}
+.portfolio-case .case-intro{max-width:680px;margin:12px 0 0;font-size:15px;line-height:1.6;}
+.case-project-facts{display:flex;flex-wrap:wrap;gap:14px 30px;margin:0;}
+.case-project-facts>div{display:flex;align-items:baseline;gap:10px;min-width:0;}
+.case-project-facts dt{flex-shrink:0;white-space:nowrap;margin:0;font-size:13px;line-height:1.5;font-weight:650;color:#202720;}
+.case-project-facts dd{margin:0;font-size:13px;line-height:1.5;color:#4d584d;}
+.portfolio-case .case-actions{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 14px;padding:0;border:0;}
+.portfolio-case .case-overview-image{margin:0 0 28px;}
+.portfolio-case .case-tldr-content{gap:28px;margin:0 0 30px;padding:26px;background:#ecebe3;border-radius:8px;}
+.portfolio-case .case-tldr-content article{padding:0;background:none;}
+.portfolio-case .case-tldr-content article>span{margin-bottom:10px;font-size:10px;letter-spacing:.08em;color:#52604c;}
+.portfolio-case .case-tldr-content h2{margin:0 0 8px;font:650 19px/1.25 Satoshi,system-ui,sans-serif;letter-spacing:-.015em;}
+.portfolio-case .case-tldr-content p{font-size:14px;line-height:1.6;}
+.portfolio-case .case-full-content{padding-top:0;}
+.portfolio-case .case-section{padding:26px 0;border:0;}
+.portfolio-case .case-section:first-child{padding-top:6px;}
+.portfolio-case .case-section h2{margin:0 0 12px;font:650 clamp(22px,2.1vw,28px)/1.25 Satoshi,system-ui,sans-serif;letter-spacing:-.025em;}
+.portfolio-case .case-section p{max-width:76ch;margin:0 0 12px;font-size:15px;line-height:1.65;}
+.portfolio-case .peluutin-match-decision{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:32px;align-items:start;}
+.portfolio-case .peluutin-match-decision .peluutin-mobile-proof{margin:0;}
+@media(max-width:760px){
+ .portfolio-case .case-hero{padding-top:24px;}
+ .portfolio-case .case-project-facts{gap:12px 20px;}
+ .portfolio-case .case-tldr-content{gap:24px;padding:22px 20px;}
+ .portfolio-case .case-media-links{justify-content:flex-start;}
+ .portfolio-case .case-media-links .case-external-cta{min-width:0;}
+ .portfolio-case .peluutin-match-decision{grid-template-columns:1fr;gap:16px;}
+ .portfolio-case .peluutin-match-decision .peluutin-mobile-proof{width:min(100%,280px);margin-inline:auto;}
+}
+
+/* Keep project information, live links and reading controls at distinct levels. */
+.case-hero-details{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px 24px;margin-top:20px;}
+.portfolio-case .case-media-links{gap:18px;}
+.portfolio-case .case-media-links .case-external-cta{min-width:0;min-height:36px;padding:8px 14px;border-radius:6px;font-size:12px;}
+.portfolio-case .case-media-links .case-external-cta:first-child{min-height:42px;padding:10px 18px;background:#202720;color:#e7eadb;border-color:#202720;font-size:13px;}
+.portfolio-case .case-media-links .case-external-cta:not(:first-child){padding:8px 0;border:0;border-radius:0;background:none;color:#4f5d48;font-weight:500;}
+.portfolio-case .case-media-links .case-external-cta:not(:first-child):hover{text-decoration:underline;text-underline-offset:4px;}
+.portfolio-case .case-mode-toggle{gap:8px;padding:0;border:0;border-radius:0;background:none;}
+.portfolio-case .case-mode-toggle::before{display:none;}
+.portfolio-case .case-mode-toggle button{width:auto;min-width:72px;min-height:32px;padding:7px 12px;border:1px solid #87917e;border-radius:6px;background:#ecebe3;color:#4d584d;font-size:11px;font-weight:650;}
+.portfolio-case .case-mode-toggle button.is-active{border-color:#202720;background:#202720;color:#e7eadb;font-weight:700;}
+.portfolio-case .case-mode-toggle button:hover{border-color:#202720;background:#e0e3d4;color:#202720;}
+.portfolio-case .case-mode-toggle button.is-active:hover{background:#333d30;color:#e7eadb;}
+@media(max-width:700px){
+ .case-hero-details{align-items:flex-start;gap:14px;margin-top:18px;}
+ .portfolio-case .case-actions{margin-top:18px;}
+}
+
+.standalone-case:not(.portfolio-case)>.case-hero{padding-top:48px;}
+
+/* Frame the mobile detail without changing the captured product screen. */
+.peluutin-phone-mockup{position:relative;padding:12px 7px 16px;border:2px solid #697074;border-radius:36px;background:#171b1e;box-shadow:0 16px 28px #20272026,0 0 0 1px #171b1e;}
+.peluutin-phone-mockup::before{content:'';position:absolute;z-index:2;top:13px;left:50%;width:64px;height:14px;border-radius:12px;background:#171b1e;transform:translateX(-50%);pointer-events:none;}
+.peluutin-phone-mockup::after{content:'';position:absolute;bottom:7px;left:50%;width:72px;height:3px;border-radius:3px;background:#a8adb0;transform:translateX(-50%);pointer-events:none;}
+.peluutin-phone-screen{overflow:hidden;border-radius:25px;background:#f1f0eb;}
+.portfolio-case .peluutin-mobile-proof figcaption{margin-top:16px;}
+.portfolio-case .peluutin-decisions{display:grid;gap:14px;margin:0;padding:0;list-style:none;}
+.portfolio-case .peluutin-decisions li{max-width:76ch;margin:0;padding-left:16px;border-left:2px solid #9da58d;font-size:15px;line-height:1.65;}
+.peluutin-decisions strong{color:#202720;font-weight:650;}
+
+/* Expanded summary: a compact overview followed by readable decision notes. */
+.case-tldr-details{grid-column:1/-1;display:grid;gap:22px;padding-top:24px;border-top:1px solid #b5baac;}
+.portfolio-case .case-tldr-details h2{margin-bottom:8px;font-size:19px;}
+.portfolio-case .case-tldr-details p{max-width:82ch;margin:0;font-size:14px;line-height:1.65;}
+.portfolio-case .case-tldr-details p+p{margin-top:10px;}
+
+[data-case-mode="full"] .case-tldr-details{display:none;}
+
+.standalone-case .case-year{display:inline-block;margin-left:14px;vertical-align:middle;color:#687565;font:500 13px/1.4 Satoshi,system-ui,sans-serif;letter-spacing:0;white-space:nowrap;}
+
+.portfolio-case .case-hero h1{padding-top:0;}
+.portfolio-case .case-section h3{margin:0 0 10px;font:650 20px/1.3 Satoshi,system-ui,sans-serif;letter-spacing:-.015em;}
+.portfolio-case .case-detail-grid,.portfolio-case .case-context-grid{display:grid;grid-template-columns:1fr;gap:18px;margin:24px 0;background:none;}
+.portfolio-case .case-detail-grid article,.portfolio-case .case-context-grid article{padding:0;background:none;}
+.portfolio-case .case-detail-grid h2{margin:0 0 8px;font:650 22px/1.3 Satoshi,system-ui,sans-serif;letter-spacing:-.02em;}
+.portfolio-case .case-tldr-details section>h2{max-width:82ch;}
+.portfolio-case .case-tldr-details ul{margin:0;padding-left:20px;font-size:14px;line-height:1.65;}
+.portfolio-case .case-tldr-details li{margin:0 0 5px;font-size:14px;line-height:1.65;}
+.portfolio-case .hsm-challenge-list{display:grid;gap:18px;margin-top:16px;}
+.portfolio-case .hsm-challenge-list article{margin:0;padding:0;border:0;}
+.portfolio-case .hsm-challenge-list h3{margin:0 0 8px;font:650 16px/1.3 Satoshi,system-ui,sans-serif;}
