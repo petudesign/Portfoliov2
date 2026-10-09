@@ -52,77 +52,28 @@
   <figcaption>3D exercise planning with a timeline for passes and movement. Shared exercises can be replayed on a phone.</figcaption>
 </figure>
 <section class="case-tldr-content" aria-label="Peluutin case summary">
-  <article><span>Problem</span><h2>Who gets playing time?</h2><p>Two junior coaches needed to track individual minutes and explain their distribution to parents.</p></article>
-  <article><span>My contribution</span><h2>Design and build, with coaches.</h2><p>I built the match tool, exercise planner and opt-in PostHog analytics, refining the workflows with coach feedback.</p></article>
-  <article><span>Current state</span><h2>A working coaching tool.</h2><p>Mobile match management and player statistics. Football includes a 2D/3D exercise planner; futsal currently has its own pitch and match timing.</p></article>
-  <div class="case-tldr-details">
-    <section>
-      <h2>What changed through testing</h2>
-      <p>Two coaches have given feedback throughout development. One requested saved lineups, so whole groups can be prepared and substituted together. On mobile, an outgoing-player grid beside the bench keeps substitutions in one place.</p>
-    </section>
-    <section>
-      <h2>Beyond the match</h2>
-      <p>A statistics page tracks each player's all-time minutes. For football, I built a Three.js exercise planner with 2D/3D views and a timeline for passes and movement. Coaches can share a PNG or playable link; recipients can watch on a phone without team setup.</p>
-    </section>
-    <section>
-      <h2>Current limits and next steps</h2>
-      <p>There is no cloud storage yet, but team data and exercises can be saved as files, backed up on a phone or transferred to a computer. Futsal has its own pitch and timing, with exercise planning still ahead.</p>
-      <p>The aim is a multi-sport tool, adding basketball and floorball, and possibly ice hockey. Each needs its own substitution and timing workflows. Coach feedback and consent-based PostHog analytics help guide further improvements.</p>
-    </section>
-  </div>
+<article><span>Problem</span><h2>Make playing time explainable.</h2><p>Two junior coaches needed a record of individual minutes they could review themselves and discuss with parents.</p></article>
+<article><span>My contribution</span><h2>Design and development with coaches.</h2><p>I designed and built the product. Two junior coaches supplied the needs and ongoing feedback that shaped match management and the Three.js exercise planner.</p></article>
+<article><span>Current state</span><h2>A working web app.</h2><p>Football match management and exercise planning are available. Futsal has its own pitch and timing; its exercise planner is still ahead.</p></article>
+<div class="case-tldr-details">
+<section><h2>A substitution stays in one place</h2><p>On mobile, choosing a substitute opens a compact grid of on-field players below the bench. A coach can select who comes off without returning to the pitch. Saved lineups, requested by a tester, also let whole groups change together.</p></section>
+<section><h2>Plans people can watch on a phone</h2><p>Football exercises have a timeline for passes and movement. Coaches create on a larger screen, then share a PNG or playable link that opens on a phone without team setup.</p></section>
+<section><h2>Local storage, with file backups</h2><p>Team data and exercises can be saved to a phone or transferred to a computer. There is no cloud recovery yet. Opt-in PostHog analytics complement coach feedback; expansion into basketball and floorball is planned, with ice hockey a possibility.</p></section>
+</div>
 </section>
 <div class="case-full-content" hidden>
-  <section class="case-section" data-toc-label="The starting point">
-    <h2>From a coach's own problem</h2>
-    <p>My girlfriend and her colleague coach junior football. They needed to stay on top of individual playing time and give parents a clear record. That became Peluutin's first job: track minutes and substitutions during the match, then keep the information for review and Excel export.</p>
-    <p>Both coaches have tested the product and given feedback throughout development. Her colleague had struggled with another app; trying it myself revealed inconsistent interactions and too many menus. I focused on keeping the main actions together and reducing navigation.</p>
-  </section>
-  <section class="case-section peluutin-match-decision" data-toc-label="Mobile substitutions">
-    <div class="peluutin-decision-copy">
-      <h2>Complete a substitution in one place</h2>
-      <p>The pitch shows formations and player-specific minutes, with the bench below it. Coaches can select several players for a change. At one tester's request, I also added saved lineups so coaches can prepare groups in advance and substitute an entire group together.</p>
-      <p>On mobile, the full pitch and bench do not fit comfortably together. Selecting a substitute brings the on-field players into a compact grid beside the decision. The coach chooses who comes off without scrolling back to the pitch.</p>
-      <p>Goals, scorers and match history stay in the same workflow. A statistics page brings together each player's all-time playing time, helping coaches review minutes across matches and explain their distribution to parents.</p>
-    </div>
-    <figure class="case-product-figure peluutin-mobile-proof">
+<section class="case-section" data-toc-label="Starting point"><h2>Start with the people using it</h2><p>My girlfriend and her colleague coach junior football. Keeping track of individual minutes was difficult, and they needed to explain playing-time distribution to parents. I made playing-time tracking the first priority, with both coaches testing it throughout development. Their day-to-day needs guided which workflows I built next.</p><p>That gave me a direct connection between the product and its intended use. Playing-time records, prepared lineups and exercise planning each came from a coaching task. The relationship let me keep developing with the people who raised the need.</p><p>One coach had struggled with a competing app. Trying it myself, I found inconsistent interactions and too many menus. That informed the interface: keep match actions close together and reduce the navigation needed during a game.</p></section>
+<section class="case-section peluutin-match-decision" data-toc-label="Mobile substitutions"><div class="peluutin-decision-copy"><h2>Keep the substitution beside the bench</h2><p>The pitch shows formations and individual minutes, with the bench below. On a phone, both cannot fit comfortably in the same view. I added a compact outgoing-player grid below the bench selection, bringing the players on the pitch to the point where the coach makes the change.</p><p>A coach asked to prepare lineups in advance. I turned that request into saved groups that can be substituted together, alongside multiple-player selection on the pitch. This was a concrete change driven by the people using the product.</p><p>The statistics page brings together all-time playing minutes. Goals, scorers, match history and Excel export give coaches a record to review after the match.</p></div><figure class="case-product-figure peluutin-mobile-proof">
       <div class="peluutin-phone-mockup">
         <div class="peluutin-phone-screen">
       <img src="../assets/peluutin-substitution-grid.png" alt="Roni selected on the bench, with an on-field player grid below for choosing who comes off" loading="lazy" decoding="async">
         </div>
       </div>
       <figcaption>The outgoing-player grid appears directly below the bench selection.</figcaption>
-    </figure>
-  </section>
-  <section class="case-section" data-toc-label="Design decisions">
-    <h2>Decisions shaped by real constraints</h2>
-    <ul class="peluutin-decisions">
-      <li><strong>Keep substitutions together.</strong> The mobile pitch and bench could not fit comfortably in one view. The outgoing-player grid keeps the decision beside the bench.</li>
-      <li><strong>Plan on desktop, view on mobile.</strong> Detailed exercise editing needs more space. Shared playback works on a phone and opens without team setup.</li>
-      <li><strong>Share without an account.</strong> Encoding the exercise in the link makes direct viewing possible today. The cost is long URLs. Team data stays in the browser, with file backups available.</li>
-    </ul>
-  </section>
-  <section class="case-section" data-toc-label="Exercise planning">
-    <h2>From tracking matches to planning exercises</h2>
-    <p>The coaches then needed a training planner. The software my girlfriend used through the Finnish Football Association would not run on her newer M-series Mac. I tried it on my own computer and wanted to make the experience clearer and more visual.</p>
-    <p>I built a Three.js exercise planner with 2D and 3D views, an animation timeline and shareable playback. Coaches can add players, training elements, routes and annotations, then use the timeline to set the order of passes and movements.</p>
-  </section>
-  <section class="case-section" data-toc-label="Sharing exercises">
-    <h2>Create on a larger screen. Watch on a phone.</h2>
-    <p>Coaches can share a PNG or a link to a playable, read-only exercise. Recipients open it directly without creating a team, adding players or entering the editor. Exercise creation uses a larger screen; viewing also works on mobile.</p>
-    <p><a href="https://peluutin.vercel.app/#harjoite=g.H4sIAAAAAAAAE6XSwU7jQAwA0F9BPk-iTNJk0dw4cEBaLazKaREHk7jN0GQmmnFWhKq_xQ_wYyjTVKTdBSFxzNjysx1v4S85r60BJQVUDlcMagsGWwIFy-H1hfn15ewRzxqtNwQCjGXyoAAE0BO5Unu6rSmkg4DSYllrs76x2vCUtqHhd0-etTXTS4tuQ86DutuCrkBB1-BALpJjtjbvLyCACVtQ8ND0o-5sM0oVrchUIT61eoHOjl99-0AuDPMEKsriQsAzqDROd-LYSr9qtbpaaWqOtEtq9ExL95qMF0GT_2rZVzVkxnIzt37SfLDsMFgaqOg_1uJjy1H1-WC_rMWZtghaGp_vt3gq5d-Qro2ZrzAPkoyzICVxcWoV37HYz3dYBCubrEjG-e5eQIdcz08SuT46SPQeBKycba9Ozojt1dGvHquhMZZxuvm7ewFri81SP4_tDLbnGgR0msv6xpEnBgXsUBtt1ofAtdNk9iVAQYOm8iV2dAgveQjzrt2-sb6rkKm6GEulSVpEMomS81sp1SJX-Y84S-Qf2O3eABklGXfxAwAA" target="_blank" rel="noopener noreferrer">Watch “Syöttö ja liike” <span aria-hidden="true">↗</span></a></p>
-  </section>
-  <section class="case-section" data-toc-label="Product analytics">
-    <h2>Use feedback and data to improve the flows</h2>
-    <p>I built a PostHog analytics layer to follow visitor numbers, key actions and recurring problems. It helps identify where users struggle and which flows need refinement, alongside feedback from the coaches.</p>
-    <p>Analytics data is collected only from visitors who opt in through the consent popup.</p>
-  </section>
-  <section class="case-section" data-toc-label="Current scope and next steps">
-    <h2>Working today, still growing</h2>
-    <p>There is no cloud storage yet. Data is kept in the browser, but coaches can also save it as a file on their phone, keep a local backup or transfer it to a computer. Exercises can be saved as files too. A new browser or cleared storage does not automatically recover the data.</p>
-    <p>Shared links carry the exercise data and bypass setup, at the cost of long URLs. Accounts and PDF export are planned, with shared viewing intended to remain open without signing in.</p>
-    <p>Football has match management and exercise planning. Futsal currently has its own pitch and match timing, but no exercise planner yet.</p>
-    <p>The aim is a multi-sport coaching tool, with basketball and floorball planned and ice hockey a possibility. Each sport brings different substitution patterns and timing rules, so expanding means adapting the workflows as well as the pitch. Feedback so far comes from two coaches; broader testing and measured outcomes are still ahead.</p>
-  </section>
+    </figure></section>
+<section class="case-section" data-toc-label="Exercise planning"><h2>Expand when a second real need appears</h2><p>The exercise planner came from a second need raised by the same coaches. The Finnish Football Association software my girlfriend used would not run on her newer M-series Mac. I tried it myself and wanted to make planning clearer and more visual.</p><p>I built the football planner with Three.js, 2D/3D views and a timeline that controls the sequence of passes and movement. Players, routes, training elements and annotations form a plan that can be replayed. Detailed editing uses a larger screen; shared playback also works on mobile.</p></section>
+<section class="case-section" data-toc-label="Sharing and storage"><h2>Let recipients open the exercise directly</h2><p>A coach can share a PNG or a read-only playable link. The recipient goes straight to the exercise without creating a team or adding players. The link carries the exercise data, which makes it self-contained but produces long URLs.</p><p>Team data stays in the browser. File export gives coaches a way to keep backups on their phone or transfer data to a computer; exercises can be saved too. A cleared browser cannot recover that data automatically. Accounts and PDF export are planned, with shared viewing intended to remain open without signing in.</p><p><a href="https://peluutin.vercel.app/#harjoite=g.H4sIAAAAAAAAE6XSwU7jQAwA0F9BPk-iTNJk0dw4cEBaLazKaREHk7jN0GQmmnFWhKq_xQ_wYyjTVKTdBSFxzNjysx1v4S85r60BJQVUDlcMagsGWwIFy-H1hfn15ewRzxqtNwQCjGXyoAAE0BO5Unu6rSmkg4DSYllrs76x2vCUtqHhd0-etTXTS4tuQ86DutuCrkBB1-BALpJjtjbvLyCACVtQ8ND0o-5sM0oVrchUIT61eoHOjl99-0AuDPMEKsriQsAzqDROd-LYSr9qtbpaaWqOtEtq9ExL95qMF0GT_2rZVzVkxnIzt37SfLDsMFgaqOg_1uJjy1H1-WC_rMWZtghaGp_vt3gq5d-Qro2ZrzAPkoyzICVxcWoV37HYz3dYBCubrEjG-e5eQIdcz08SuT46SPQeBKycba9Ozojt1dGvHquhMZZxuvm7ewFri81SP4_tDLbnGgR0msv6xpEnBgXsUBtt1ofAtdNk9iVAQYOm8iV2dAgveQjzrt2-sb6rkKm6GEulSVpEMomS81sp1SJX-Y84S-Qf2O3eABklGXfxAwAA" target="_blank" rel="noopener noreferrer">Watch “Syöttö ja liike” ↗</a></p></section>
+<section class="case-section" data-toc-label="Current scope"><h2>Improve the flows, then adapt to more sports</h2><p>I added consent-based PostHog analytics to inspect visitor numbers, key actions and recurring problems. Together with coach feedback, it gives me a way to identify flows that need work. Analytics is collected only from visitors who accept the popup.</p><p>Football currently includes match management and exercise planning. Futsal has its own pitch and match timing. Basketball and floorball are planned, with ice hockey a possibility.</p><p>The next sports will need more than a different pitch. Substitution frequency and timing rules affect how a coach prepares and manages a match, so the football workflow is a starting point that needs adapting for each sport.</p><p>Feedback so far comes from two coaches. Their involvement has shaped concrete features, but broader testing is still needed to understand how well the workflows serve other coaching styles. Measured outcomes are still ahead.</p></section>
 </div>
 </div></article>
     <footer class="standalone-footer"><span>Petteri Helttula · Product design and development</span><a href="../#work">Back to work</a></footer>

@@ -18,92 +18,18 @@
 <div class="case-actions" aria-label="Case options"><div class="case-mode-toggle" role="group" aria-label="Case length"><button type="button" class="is-active" data-case-mode="tldr" aria-pressed="true">TL;DR</button><button type="button" data-case-mode="full" aria-pressed="false">Full case</button></div></div>
 <figure class="case-product-figure case-overview-image"><img src="../assets/shavikki-kaappikuva.png" alt="S-hävikki branded food waste cabinet concept in a grocery store" decoding="async" fetchpriority="high"><figcaption>The proposed in-store point, part of a connected service concept.</figcaption></figure>
 <section class="case-tldr-content" aria-label="S-hävikki case summary">
-          <article><span>Problem</span><h2>Near-expiry work is still harder to manage than it needs to be.</h2><p>Employees need a clearer way to find, check and hand over products before they become waste.</p></article>
-          <article><span>My contribution</span><h2>Service concept, interaction model and prototype direction.</h2><p>I connected the employee workflow, the in-store S-hävikki point and the customer-facing idea into one service system.</p></article>
-          <article><span>Current state</span><h2>A scoped concept with an interactive employee-tool prototype.</h2><p>The next step is validating the workflow in a real store before expanding the app or physical setup.</p></article>
-        <div class="case-tldr-details"><section>
-              <h2>What I explored</h2>
-              <p>How near-expiry products could become easier to find, handle, and choose through a connected employee tool, branded in-store point, and digital extension.</p>
-            </section><section>
-              <h2>What is worth preserving</h2>
-              <p>The strongest part is the practical system thinking: the concept connects store operations and customer behaviour instead of treating food waste as only a campaign message.</p>
-            </section><section>
-              <h2>What needs validation</h2>
-              <p>The risky assumption is that better visibility will change behaviour enough. The next step should test placement, signage, and employee workload before adding more features.</p>
-            </section></div></section>
+<article><span>Problem</span><h2>Expiry checks depend on manual work.</h2><p>Store employees need to find, handle and hand over near-expiry products during busy daily routines.</p></article>
+<article><span>My contribution</span><h2>Connect the employee and customer experience.</h2><p>I translated more than four years of grocery-retail experience into a shelf-map prototype and a connected service concept, prioritising the employee workflow before deeper app integration.</p></article>
+<article><span>Current state</span><h2>A concept with an interactive prototype.</h2><p>The employee tool illustrates the interaction. Store-system integration, operational feasibility and customer response still need validation.</p></article>
+<div class="case-tldr-details">
+<section><h2>Map the interface to the physical shelf</h2><p>Each square represents a shelf section. The proposed status view helps employees see what needs checking and what has been handled, supporting continuity between shifts.</p></section>
+<section><h2>Keep availability promises realistic</h2><p>Discounted products can sell quickly or already be in a customer’s basket. The proposed app would show broad, time-sensitive category signals; exact future availability and reservations are outside the concept.</p></section>
+<section><h2>Validate the workflow before expanding</h2><p>The proposed first pilot covers one store and one or two product categories. I would compare shelf-check effort and missed items, then assess the visibility and pickup of a simple branded display. A custom installation and deeper app integration come later if the results justify them.</p></section>
+</div>
+</section>
 <div class="case-full-content" hidden>
-      <div class="case-layout">
-
-
-        <article class="case-content">
-          <section class="case-section" id="problem-framing">
-            <h2>Problem framing</h2>
-            <p>Finland has already made meaningful progress around food waste. Grocery stores discount near-expiry products more visibly than before, consumers are more used to buying them, and the topic is no longer hidden in the background.</p>
-            <p>This project does not frame food waste as an ignored or unsolved crisis. The opportunity is more practical: if the category is already moving in the right direction, how could design help stores make the next step easier?</p>
-            <p>The context matters: <a href="https://www.pty.fi/kaupan-toiminta/vastuullisuus/ilmastovaikutukset-ja-ruokahavikki/kauppa-vahentaa-ruokahavikkia/" target="_blank" rel="noopener noreferrer">The Finnish Grocery Trade Association cites Natural Resources Institute Finland estimates</a> showing that grocery retail accounts for around 15% of food waste in the Finnish food chain, about 53 million kilos. At the same time, retail has improved heavily: the same source reports that PTY member companies' food waste averaged 1.0% of food volume in 2024, and <a href="https://s-ryhma.fi/uutinen/s-ryhmassa-havikkiviikko-on-joka-viikko-tavoitteen/4joSpHpU5IWDNhAH6X1kKf" target="_blank" rel="noopener noreferrer">S Group says</a> its grocery food waste fell 31% between 2014 and 2024.</p>
-            <p>The bigger reason for the project is simple: reduce waste while saving money, time, and unnecessary stress. If fewer products are thrown away, stores lose less value, customers get better deals, and the environmental impact becomes smaller.</p>
-            <p>The more technical problem sits inside the daily work. Checking expiry dates is still a surprisingly manual and old-fashioned task. Products close to expiry need to be found, discounted, moved, and followed up consistently during busy store routines.</p>
-            <p>There is also a customer experience challenge. Near-expiry products can still be scattered, visually inconsistent, or treated like leftovers. Even when the discount is attractive, the product can feel like a compromise instead of a smart choice.</p>
-            <div class="case-context-grid" aria-label="S-havikki product context">
-              <article>
-                <h3>Who this is for</h3>
-                <p>Store employees responsible for expiry checks and customers who are open to discounted food when it feels easy, trustworthy, and normal to choose.</p>
-              </article>
-              <article>
-                <h3>User situation</h3>
-                <p>Employees need to find and handle near-expiry products during normal store routines, while customers notice the products only if the in-store signal is clear.</p>
-              </article>
-              <article>
-                <h3>Success would mean</h3>
-                <p>Fewer missed products, faster handovers between employees, better pickup of near-expiry items, and less waste without adding a heavy new process.</p>
-              </article>
-            </div>
-            <div class="case-callout">
-              <p><strong>Design challenge:</strong> build on existing progress by making date checking faster, less frustrating, and more reliable for employees while making near-expiry products easier for customers to choose.</p>
-            </div>
-          </section>
-          <section class="case-section case-subsection" id="problem-boundaries">
-            <h3>Problem boundaries</h3>
-            <p>A key assumption to avoid is that discounted products do not sell. In many Finnish stores, red-label products already move well and can disappear from shelves quickly. That changes the design problem.</p>
-            <p>S-h&auml;vikki is not trying to convince customers that discounts exist. The sharper problem is how to support the store work around expiry checks, make the remaining products easier to handle, and avoid promising availability that may change minute by minute.</p>
-            <p>That means the digital layer should not behave like a reservation system. If only one or two products are available, or if they may already be in another customer's basket, the app should show broad, time-sensitive signals rather than exact future availability.</p>
-          </section>
-          <section class="case-section case-subsection" id="context">
-            <h3>Context</h3>
-            <p>This concept grew out of my own experience working in grocery retail for more than four years. During that time, I saw how much of the work around expiring products depended on manual checking, employee memory, shelf familiarity, and local store habits.</p>
-            <p>The frustrating part was not only that the process took time. It was that the work could feel repetitive and unnecessarily hard to keep track of, especially when the store was busy and the same shelves needed to be checked again later.</p>
-            <p>I had earlier suggested separating near-expiry products into dedicated displays near checkout. That type of display now exists in many stores, which is a good sign: the market has already moved. It also makes the remaining opportunity clearer. Visibility helps, but it does not fully solve the employee workflow or create a consistent branded experience.</p>
-          </section>
-          <section class="case-section case-subsection" id="opportunity">
-            <h3>Opportunity</h3>
-            <p>S Group is a good base for the concept because it already communicates sustainability through initiatives such as <a href="https://www.s-kanava.fi/tekosysteemi/" target="_blank" rel="noopener noreferrer">Tekosysteemi</a>, and because its cooperative structure makes chain-level rollout easier than a store-by-store model.</p>
-            <p>The opportunity is not to invent a completely new waste process or dramatize the current situation. The sharper direction is to package existing behaviours into a clearer system: identify products earlier, move the right products into a visible point, and make the customer-facing message feel intentional.</p>
-          </section>
-          <div class="case-section-band">
-            <section class="case-section" id="solution">
-              <h2>Solution</h2>
-              <p>S-h&auml;vikki is a connected retail concept with three parts: an employee shelf-mapping tool, a branded S-h&auml;vikki point in store, and a lightweight section inside the S-kaupat app.</p>
-              <p>The system is intentionally practical. The value does not come from one big feature. It comes from reducing friction at the exact moments where food waste is created: when employees need to find products, when stores need to present them clearly, and when customers decide whether they are worth picking.</p>
-              <p>For employees, the goal is not just speed. The tool should make the task feel easier to start, easier to continue, and easier to hand over to someone else.</p>
-            </section>
-            <section class="case-section case-subsection" id="employee-tool">
-              <h3><span class="case-step-number">01</span> Employee shelf-mapping tool</h3>
-              <p>The employee tool is designed as software for the existing store tool ecosystem, not as a separate device requirement. The most realistic first version would run on the handheld scanners or internal tools employees already use.</p>
-              <p>The interface is built around a simple shelf map that mirrors the physical product layout. Instead of checking items one by one without a clear overview, employees can see which shelf areas need attention and act faster during daily routines.</p>
-              <p>The intended flow is narrow:</p>
-              <ol>
-                <li>Open the S-h&auml;vikki tool during the daily shelf check.</li>
-                <li>See highlighted shelf sections with products close to expiry.</li>
-                <li>Check the matching physical products.</li>
-                <li>Choose the next action: discount, move to the S-h&auml;vikki point, or mark as handled.</li>
-                <li>Update the status so the next employee can see what has already been checked.</li>
-              </ol>
-              <p>This avoids turning the first prototype into a full inventory system. The first job is to support one repeated task well.</p>
-            </section>
-            <section class="case-section case-subsection shavikki-prototype-section" id="ui-prototype">
-              <h3 class="case-subheading">UI prototype direction</h3>
-              <p>The shelf map is designed to work one shelf unit at a time. In this early direction, each square represents one physical shelf section. The colour shows whether that section needs attention, while the back action takes the employee to a broader department map if the device needs to be used elsewhere.</p>
-              <div class="shavikki-prototype-wrap" aria-label="Interactive S-hävikki employee tool prototype">
+<section class="case-section" data-toc-label="Retail experience"><h2>Start from the work I knew</h2><p>I worked in grocery retail for more than four years. Expiry checks relied on manual inspection, employee memory, shelf familiarity and local routines. The same shelves could need checking again later, and keeping track of completed work was frustrating when the store was busy.</p><p>Discounted products already sell well in many stores. I focused the concept on supporting the work that brings those products to customers: identifying them, handling them consistently and making the remaining selection visible.</p></section>
+<section class="case-section" data-toc-label="Employee prototype"><h2>Make the shelf the organising structure</h2><p>I designed the employee tool around a map of the physical shelf. Each square corresponds to one section, with status colours indicating whether it needs attention. A department view supports moving between shelf units. The intended workflow is to check the physical products, decide how to handle them and update the status for the next employee.</p><p>I envisage the tool running on handheld scanners or internal tools employees already use. A production version would still need to establish how expiry and product status information reaches it; inventory integration is outside this prototype.</p><div class="case-callout"><p><strong>My scope decision:</strong> use the first prototype to explore one repeated shelf-checking task and its handover. The operational workflow needs evidence before investment in custom hardware or a deeper app extension.</p></div><div class="shavikki-prototype-wrap" aria-label="Interactive S-hävikki employee tool prototype">
                 <div class="shavikki-device" data-shavikki-prototype>
                   <div class="shavikki-device-topbar">
                     <button class="shavikki-icon-button" type="button" aria-label="Back" data-shavikki-back>
@@ -249,67 +175,11 @@
                     <li><span class="shavikki-dot is-critical"></span> Red: act now</li>
                   </ul>
                 </div>
-              </div>
-            </section>
-            <section class="case-section case-subsection" id="store-point">
-              <h3><span class="case-step-number">02</span> Branded in-store point</h3>
-              <p>The S-h&auml;vikki point is the customer-facing part of the system: a dedicated cooler, shelf, or display near checkout or another high-traffic area. Its job is to make discounted near-expiry products quick to scan and easy to understand.</p>
-              <p>The customer value should stay concrete: save money, find useful products quickly, and feel confident that choosing them is a normal, practical choice. The concept should not rely on guilt or a dramatic sustainability message.</p>
-              <p>The point should communicate three things immediately:</p>
-              <ul>
-                <li>These products are still good to use.</li>
-                <li>Choosing them saves money and reduces waste.</li>
-                <li>The selection changes often, so it is worth checking regularly.</li>
-              </ul>
-              <p>For the first version, the physical setup should stay lightweight: branded signage, a consistent label system, and a clear product zone. A custom installation can wait until the behaviour change is proven.</p>
-              <figure class="case-section-figure">
-
-                  <img src="../assets/shavikki-kaappikuva.png" alt="S-hävikki branded in-store point concept in a grocery store environment." decoding="async" loading="lazy">
-
-                <figcaption>The branded point turns near-expiry products into a visible, intentional store touchpoint instead of a scattered discount area.</figcaption>
-              </figure>
-            </section>
-            <section class="case-section case-subsection" id="app-extension">
-              <h3><span class="case-step-number">03</span> S-kaupat app extension</h3>
-              <p>The app extension would give S-h&auml;vikki a digital surface without making the app carry the whole concept. The most useful first version would be a simple section for nearby S-h&auml;vikki availability, selected product categories, or store-level reminders.</p>
-              <p>This should stay secondary in the first version. The in-store flow matters more because near-expiry products are still physical, time-sensitive, and dependent on store handling. The app is useful only if it supports that reality instead of promising exact availability the store cannot maintain.</p>
-              <p>To avoid a broken customer promise, the app should avoid exact future claims like "available in three days". A safer model would show live or near-live category signals, such as "S-h&auml;vikki products available today", and hide the section when availability is too low or uncertain.</p>
-            </section>
-          </div>
-          <section class="case-section" id="prototype-scope">
-            <h2>Prototype scope</h2>
-            <p>The prototype is scoped around the employee workflow instead of a new physical device. That keeps the work close to the real store environment: employees already use handheld scanners and internal tools, so the first version should prove the interaction model before adding hardware.</p>
-            <ul>
-              <li><strong>Core prototype:</strong> shelf map, expiry highlights, item status, and simple actions for discount, move, or handled.</li>
-              <li><strong>Physical concept:</strong> a branded shelf or cooler with simple signage and consistent labels.</li>
-              <li><strong>Out of scope for version one:</strong> custom hardware, advanced inventory integrations, personalized app alerts, and complex customer rewards.</li>
-            </ul>
-            <div class="case-callout">
-              <p><strong>Scope principle:</strong> prove the workflow and in-store behaviour first, then decide whether a dedicated device, deeper app integration, or more automation would actually improve the system.</p>
-            </div>
-          </section>
-          <section class="case-section" id="validation">
-            <h2>Validation plan</h2>
-            <p>I would validate the concept through a small pilot before designing a more polished system: one store, one or two product categories, and a short test period of one to two weeks.</p>
-            <ul>
-              <li><strong>Employee test:</strong> compare a normal shelf check against a mapped checklist prototype. Measure time, missed items, and how often employees need to re-check the same area.</li>
-              <li><strong>Customer test:</strong> place the same discounted products in the current location and in a branded S-h&auml;vikki point. Compare noticeability, pickup rate, and shopper understanding of the offer.</li>
-              <li><strong>Availability test:</strong> check whether the app can show useful signals without creating false expectations when only a few products are available.</li>
-            </ul>
-            <p>The important metric is not whether people like the brand idea in theory. The useful signal is whether the system reduces missed products, makes the task feel easier for employees, and increases actual selection without confusing customers.</p>
-            <ul>
-              <li><strong>Operational metrics:</strong> shelf check time, missed near-expiry products, repeated checks, and handover clarity between employees.</li>
-              <li><strong>Customer metrics:</strong> noticeability, pickup rate, perceived clarity, and whether the display feels useful rather than gimmicky.</li>
-              <li><strong>Business and impact metrics:</strong> value recovered from discounted products, reduction in unsold near-expiry items, and whether the process fits normal store routines.</li>
-            </ul>
-          </section>
-          <section class="case-section" id="reflection">
-            <h2>Reflection</h2>
-            <p>The strongest version of S-h&auml;vikki is not a big app idea or a custom hardware pitch. It is a small retail system that connects employee action with customer discovery.</p>
-            <p>The concept still needs evidence. The biggest risk is assuming that branding and placement alone can overcome real operational friction. That is why the prototype should stay narrow: prove the employee flow and the in-store point first, then decide whether the app and hardware deserve more investment.</p>
-          </section>
-        </article>
-      </div>
-      </div>
-</div></article><footer class="standalone-footer"><span>Petteri Helttula · Service design</span><a href="../#work">Back to work</a></footer></main><script src="../case-page.js?v=1"></script></body>
+              </div></section>
+<section class="case-section" data-toc-label="In-store experience"><h2>Make the in-store point easy to recognise</h2><p>The proposed S-hävikki point brings near-expiry products into a consistent cooler, shelf or display near checkout or another high-traffic area. The message is practical: useful food, a clear discount and a changing selection.</p><p>Although I explored a branded installation, the first pilot should use simple signage, consistent labels and an existing product zone. That keeps the setup small enough to find out whether placement and presentation help customers notice and choose the products. S Group is the setting for the concept; the store pilot has not been carried out.</p></section>
+<section class="case-section" data-toc-label="Availability decisions"><h2>Match the digital promise to store reality</h2><p>The proposed S-kaupat section would show broad, current signals about nearby stores and product categories. Near-expiry stock changes quickly: an item may sell or sit in someone’s basket before availability updates.</p><p>I therefore scoped out reservations and exact future availability. A category signal such as “available today” would need to disappear when the selection is too small or uncertain. The app extension depends on a reliable in-store process and remains secondary to it.</p></section>
+<section class="case-section" data-toc-label="Validation plan"><h2>Define what a useful first pilot would show</h2><p>I would begin with one store, one or two product categories and a one-to-two-week pilot. The aim is to assess the employee workflow and customer-facing point before investing in a wider system.</p><ul><li><strong>Employee workflow:</strong> compare ordinary checks with the shelf-map prototype, measuring time, missed items, repeated checks and handover clarity.</li><li><strong>Customer response:</strong> compare the current product location with a branded display, looking at noticeability, pickup and understanding of the offer.</li><li><strong>Operational fit:</strong> track recovered product value, unsold items and whether the process fits normal routines.</li></ul><p>These are planned measures, not results. The central assumption is that the connected workflow and display would improve handling and selection enough to justify the added work. Custom hardware, deeper integrations and personalised alerts would need evidence from that first step.</p></section>
+</div>
+</div></article>
+    <footer class="standalone-footer"><span>Petteri Helttula · Service design</span><a href="../#work">Back to work</a></footer></main><script src="../case-page.js?v=1"></script></body>
 </html>

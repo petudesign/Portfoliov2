@@ -617,22 +617,42 @@ const createDac = (THREE, materials) => {
 
 const createSugarfreeCanTexture = (THREE) => {
   const canvas = document.createElement('canvas');
-  canvas.width = 1024;
-  canvas.height = 512;
+  canvas.width = 1280;
+  canvas.height = 1024;
   const context = canvas.getContext('2d');
-  const gradient = context.createLinearGradient(0, 0, canvas.width, 0);
-  gradient.addColorStop(0, '#dcecf2');gradient.addColorStop(.22, '#4dc9ee');gradient.addColorStop(.48, '#edf4f5');gradient.addColorStop(.72, '#38b9e6');gradient.addColorStop(1, '#dbe9ee');
-  context.fillStyle = gradient;context.fillRect(0, 0, canvas.width, canvas.height);
-  context.fillStyle = 'rgba(255,255,255,.72)';
-  context.beginPath();context.moveTo(180,0);context.lineTo(430,0);context.lineTo(300,512);context.lineTo(40,512);context.closePath();context.fill();
-  context.beginPath();context.moveTo(690,0);context.lineTo(910,0);context.lineTo(800,512);context.lineTo(550,512);context.closePath();context.fill();
-  context.fillStyle = '#e51b42';context.strokeStyle = 'rgba(255,255,255,.82)';context.lineWidth = 5;context.font = '700 94px Arial, sans-serif';context.textAlign = 'center';context.strokeText('Red Bull', 512, 235);context.fillText('Red Bull', 512, 235);
-  context.fillStyle = '#f4cb36';context.beginPath();context.arc(512, 294, 42, 0, Math.PI * 2);context.fill();
-  context.fillStyle = '#d91d3f';
-  [-1,1].forEach((side)=>{context.save();context.translate(512+side*45,294);context.scale(side,1);context.beginPath();context.moveTo(-4,-13);context.lineTo(34,-28);context.lineTo(27,-7);context.lineTo(52,4);context.lineTo(23,10);context.lineTo(7,27);context.lineTo(-3,10);context.closePath();context.fill();context.restore();});
-  context.font = '700 38px Arial, sans-serif';context.letterSpacing = '10px';context.fillText('SUGARFREE', 512, 378);
-  context.fillStyle = 'rgba(26,116,157,.82)';context.font = '600 18px Arial, sans-serif';context.letterSpacing = '0px';context.fillText('250 ml', 512, 456);
-  const texture = new THREE.CanvasTexture(canvas);texture.colorSpace = THREE.SRGBColorSpace;texture.anisotropy = 4;
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.anisotropy = 8;
+  const reference = new Image();
+  const draw = () => {
+    context.fillStyle = '#00a0ca';
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    // The blue and silver sections switch sides below the logo.
+    context.fillStyle = '#e0e5e8';
+    for (const offset of [-640, 0, 640]) {
+      context.beginPath();
+      context.moveTo(offset + 735, 0);
+      context.lineTo(offset + 1060, 0);
+      context.lineTo(offset + 935, 505);
+      context.lineTo(offset + 620, 505);
+      context.closePath();context.fill();
+      context.beginPath();
+      context.moveTo(offset + 315, 505);
+      context.lineTo(offset + 620, 505);
+      context.lineTo(offset + 510, 1024);
+      context.lineTo(offset + 200, 1024);
+      context.closePath();context.fill();
+    }
+    // Preserve the actual label lettering and bull emblem from the reference.
+    // Only the printed body is sampled, excluding the backdrop and metal rims.
+    if (reference.complete && reference.naturalWidth) {
+      context.drawImage(reference, 279, 75, 269, 681, 438, 0, 404, 1024);
+    }
+    texture.needsUpdate = true;
+  };
+  reference.onload = draw;
+  reference.src = 'assets/red-bull-sugarfree-reference.png';
+  draw();
   return texture;
 };
 
@@ -650,9 +670,9 @@ const createDeskDrink = (THREE) => {
     map: canTexture,
     emissive: 0xffffff,
     emissiveMap: canTexture,
-    emissiveIntensity: .2,
-    metalness: .18,
-    roughness: .3,
+    emissiveIntensity: .08,
+    metalness: .35,
+    roughness: .27,
     clearcoat: .5,
     clearcoatRoughness: .2
   });
@@ -1166,7 +1186,80 @@ const createDeskLayers = (THREE, materials) => {
   return group;
 };
 
+// A fixed view of the real portfolio desktop, with no nested page or scroll area.
+const createDesktopScreenTexture = (THREE) => {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1906;
+  canvas.height = 896;
+  const context = canvas.getContext('2d');
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.anisotropy = 4;
+  const desktopImage = new Image();
+  const dateParts = (options) => new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Helsinki', ...options });
+  const clockFormat = dateParts({ hour: '2-digit', minute: '2-digit', hour12: false });
+  const draw = () => {
+    if (!desktopImage.complete || !desktopImage.naturalWidth) return;
+    context.drawImage(desktopImage, 0, 0, canvas.width, canvas.height);
+    const now = new Date();
+    const time = clockFormat.format(now);
+    // The desktop image is fixed; date and time are live canvas content.
+    context.fillStyle = '#f3f7fd';
+    context.beginPath();
+    context.roundRect(1473, 40, 210, 140.344, 20);
+    context.fill();
+    context.textBaseline = 'alphabetic';
+    context.textAlign = 'left';
+    context.fillStyle = '#dc3c55';
+    context.font = '650 10px Arial, sans-serif';
+    context.fillText(dateParts({ weekday: 'long' }).format(now).toUpperCase(), 1494, 68);
+    context.fillStyle = '#24242a';
+    context.font = '300 49px Arial, sans-serif';
+    context.fillText(dateParts({ day: 'numeric' }).format(now), 1494, 117);
+    context.textAlign = 'right';
+    context.fillStyle = '#8e8492';
+    context.font = '12px Arial, sans-serif';
+    context.fillText(dateParts({ month: 'long' }).format(now), 1662, 104);
+    context.strokeStyle = '#e8e3e8';
+    context.lineWidth = 1;
+    context.beginPath();context.moveTo(1494, 137);context.lineTo(1662, 137);context.stroke();
+    context.textAlign = 'left';
+    context.fillStyle = '#7d7484';
+    context.font = '10px Arial, sans-serif';
+    context.fillText('Helsinki, Finland', 1494, 160);
+    context.textAlign = 'right';
+    context.fillStyle = '#3a3340';
+    context.fillText(time, 1662, 160);
+    context.fillStyle = '#0753ae';
+    context.fillRect(1817, 0, 89, 29);
+    context.fillStyle = '#fff';
+    context.font = '11px Arial, sans-serif';
+    context.fillText(`${dateParts({ weekday: 'short' }).format(now)} ${time}`, 1886, 19);
+    texture.needsUpdate = true;
+  };
+  desktopImage.onload = draw;
+  desktopImage.src = 'assets/room-desktop-screen.png?v=2';
+  window.setInterval(draw, 30_000);
+  const dockTargets = [
+    { x: 701.5 / 1906, y: 831 / 896, width: 44 / 1906, height: 44 / 896 },
+    { x: 752.5 / 1906, y: 831 / 896, width: 44 / 1906, height: 44 / 896 },
+  ];
+  texture.userData = {
+    setPlayback() {},
+    setAppOpen() {},
+    setDesktopWindows() {},
+    isPlayerControlAt() { return false; },
+    dockIconAt(uv) {
+      const x = uv.x;
+      const y = 1 - uv.y;
+      return dockTargets.findIndex((target) => x >= target.x && x <= target.x + target.width && y >= target.y && y <= target.y + target.height);
+    },
+  };
+  return texture;
+};
+
 const createScreenTexture = (THREE, variant) => {
+  if (variant === 0) return createDesktopScreenTexture(THREE);
   const canvas = document.createElement('canvas');
   canvas.width = 740;
   canvas.height = 400;
@@ -1181,7 +1274,7 @@ const createScreenTexture = (THREE, variant) => {
   let playback = { ...window.portfolioPlaybackState };
   let appOpen = false;
   let desktopWindows = [];
-  const dockIconFiles = ['spotify.svg', 'chrome.svg', 'figma.svg', 'codex.svg', 'paper.svg', 'obsidian.svg', 'lmstudio.svg', 'vscode.svg'];
+  const dockIconFiles = ['spotify.svg', 'chrome.svg', 'figma.svg', 'codex.svg', 'paper.png', 'audible.png', 'obsidian.svg', 'lmstudio.svg', 'vscode.svg', 'xcode.svg'];
   const dockIcons = [];
 
   const formatScreenTime = (milliseconds) => {
@@ -1289,10 +1382,20 @@ const createScreenTexture = (THREE, variant) => {
     context.font = '600 6.5px Arial, sans-serif';
     context.textBaseline = 'middle';
     context.textAlign = 'left';
-    context.fillText('●', 8, 7);
-    context.fillText('Finder   File   Edit   View   Go   Window   Help', 18, 7);
+    context.fillText('ph', 8, 7);
+    context.fillText('Portfolio    Work    About    Contact', 23, 7);
     context.textAlign = 'right';
     context.fillText(`⌁   ◉   ${helsinkiClock.format(new Date()).replace(',', '')}`, 633, 7);
+
+    if (variant === 1) {
+      // Use only the supplied Paper window, excluding the surrounding backdrop.
+      if (paperWindow.complete && paperWindow.naturalWidth) {
+        context.drawImage(paperWindow, 240, 132, 1440, 816, 28, 30, 584, 331);
+      }
+      context.restore();
+      texture.needsUpdate = true;
+      return;
+    }
 
     drawDesktopDetails();
 
@@ -1370,6 +1473,9 @@ const createScreenTexture = (THREE, variant) => {
     dockIcons.push(icon);
   });
 
+  const paperWindow = new Image();
+  paperWindow.onload = draw;
+  paperWindow.src = 'assets/room-paper-window.png';
   const wallpaper = new Image();
   wallpaper.onload = () => {
     wallpaperReady = true;
@@ -2185,4 +2291,3 @@ exitButton?.addEventListener('click', closeWorkspace);
 addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && view?.classList.contains('is-open')) closeWorkspace();
 });
-

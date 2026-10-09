@@ -1,20 +1,76 @@
 {
   "rewrites": [
-    { "source": "/helsinki-sports-map", "destination": "/index.html" },
-    { "source": "/helsinki-sports-map/:path*", "destination": "/index.html" },
-    { "source": "/korislab", "destination": "/index.html" },
-    { "source": "/korislab/:path*", "destination": "/index.html" },
-    { "source": "/korisiq", "destination": "/index.html" },
-    { "source": "/korisiq/:path*", "destination": "/index.html" },
-    { "source": "/spire-coach-mod", "destination": "/index.html" },
-    { "source": "/spire-coach-mod/:path*", "destination": "/index.html" },
-    { "source": "/brio", "destination": "/index.html" },
-    { "source": "/brio/:path*", "destination": "/index.html" },
-    { "source": "/peluutin", "destination": "/index.html" },
-    { "source": "/peluutin/:path*", "destination": "/index.html" },
-    { "source": "/s-havikki", "destination": "/index.html" },
-    { "source": "/s-havikki/:path*", "destination": "/index.html" },
-    { "source": "/tahti", "destination": "/index.html" },
-    { "source": "/tahti/:path*", "destination": "/index.html" }
+    {
+      "source": "/helsinki-sports-map",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/helsinki-sports-map/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/korislab",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/korislab/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/korisiq",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/korisiq/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spire-coach-mod",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spire-coach-mod/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/brio",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/brio/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/peluutin",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/peluutin/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/s-havikki",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/s-havikki/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/tahti",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/tahti/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/openslot",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/openslot/:path*",
+      "destination": "/index.html"
+    }
   ]
 }

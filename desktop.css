@@ -113,7 +113,13 @@
  .desktop-shortcut-spire>span{white-space:nowrap}
  .portfolio-window{z-index:1}
 }
-@media(max-width:700px){.desktop-side{display:none}}
+@media(max-width:700px){
+ .desktop-side{display:flex;position:absolute;inset:0;z-index:0;width:100%;max-height:100%;overflow-y:auto;overscroll-behavior:contain;align-items:center;gap:24px;padding:18px 18px 24px;box-sizing:border-box}
+ .desktop-side .date-widget{width:210px;flex-shrink:0;box-sizing:border-box}
+ .desktop-side .desktop-shortcuts{width:100%;max-width:340px;gap:20px 12px;flex-shrink:0}
+ .desktop-side .desktop-shortcut{font-size:12px}
+ .desktop-side .room-button{width:100%;max-width:300px;flex-shrink:0;min-height:52px;text-align:center}
+}
 
 /* Give the work list more breathing room without changing its structure. */
 .dock-app.is-running::after{background:#f3f1ef}

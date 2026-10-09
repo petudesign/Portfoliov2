@@ -2,7 +2,7 @@
 if(!document.head.querySelector('base')){const portfolioBase=document.createElement('base');portfolioBase.href=new URL('/',location.href).href;document.head.prepend(portfolioBase);}
 const desktopShortcuts = [
  {name:'My work',href:'#work',icon:'folder',items:['Peluutin','KorisLab','Helsinki Sports Map','Brio']}, {name:'About me',href:'#about',icon:'folder',items:['About me','As a designer']},
- {name:'Sideprojects',href:'#sideprojects',icon:'folder',items:['Spire Coach Mod','OpenSlot']},
+ {name:'Side projects',href:'#sideprojects',icon:'folder',items:['Spire Coach Mod','OpenSlot']},
  {name:'Resume',href:'#resume',icon:'CV'},
  {name:'As a designer.md',href:'#how-i-work',icon:'MD'},
  {name:'Chess',href:'#chess',icon:'chess'},
@@ -55,10 +55,10 @@ function enableArrowNavigation(container,selector,columns=1){
   event.preventDefault();items[nextIndex].focus({preventScroll:true});
  });
 }
-const pageTitles={home:'Portfolio',work:'Selected work',about:'About me','sports-map':'Helsinki Sports Map',korislab:'KorisLab','spire-coach-mod':'Spire Coach Mod',brio:'Brio',peluutin:'Peluutin',shavikki:'S-hävikki',tahti:'Tahti'};
+const pageTitles={home:'Portfolio',work:'Selected work',about:'About me','sports-map':'Helsinki Sports Map',korislab:'KorisLab','spire-coach-mod':'Spire Coach Mod',openslot:'OpenSlot',brio:'Brio',peluutin:'Peluutin',shavikki:'S-hävikki',tahti:'Tahti'};
 const defaultPageDescription='Petteri Helttula is a Helsinki-based product designer and design engineer working across UX/UI, AI, code, data and interactive products.';
-const pageDescriptions={home:defaultPageDescription,work:'Selected product design work by Petteri Helttula, spanning UX/UI, code, data and interactive product experiments.',about:'About Petteri Helttula, a Helsinki-based product designer and design engineer interested in people, technology and how products work.',"sports-map":'Helsinki Sports Map is a work-in-progress product design project for discovering sports, venues and routes across Helsinki.',korislab:'KorisLab is a work-in-progress basketball analysis product for Finland’s men’s and women’s Korisliiga, with season data from 2024–25 onward.',"spire-coach-mod":'Spire Coach Mod is a work-in-progress game coaching experiment that turns gameplay mistakes into useful lessons.',brio:'Brio is a digital wellbeing concept using pose tracking to encourage short movement breaks while scrolling.',peluutin:'Peluutin is built with junior coaches to track playing time, manage football and futsal matches, and create shareable training exercises.',shavikki:'S-hävikki is a service design project exploring how retail teams can reduce food waste and simplify near-expiry checks.',tahti:'Tahti is an interaction design project that presents selected text one word at a time at a controlled pace.'};
-const cleanRoutePaths={'sports-map':'/helsinki-sports-map/','korislab':'/korislab/','spire-coach-mod':'/spire-coach-mod/','brio':'/brio/','peluutin':'/peluutin/','shavikki':'/s-havikki/','tahti':'/tahti/'};
+const pageDescriptions={openslot:'OpenSlot is an early smart-glasses concept for checking calendar availability during a conversation.',home:defaultPageDescription,work:'Selected product design work by Petteri Helttula, spanning UX/UI, code, data and interactive product experiments.',about:'About Petteri Helttula, a Helsinki-based product designer and design engineer interested in people, technology and how products work.',"sports-map":'Helsinki Sports Map is a work-in-progress product design project for discovering sports, venues and routes across Helsinki.',korislab:'KorisLab is a work-in-progress basketball analysis product for Finland’s men’s and women’s Korisliiga, with season data from 2024–25 onward.',"spire-coach-mod":'Spire Coach Mod is a work-in-progress game coaching experiment that turns gameplay mistakes into useful lessons.',brio:'Brio is a digital wellbeing concept using pose tracking to encourage short movement breaks while scrolling.',peluutin:'Peluutin is built with junior coaches to track playing time, manage football and futsal matches, and create shareable training exercises.',shavikki:'S-hävikki is a service design project exploring how retail teams can reduce food waste and simplify near-expiry checks.',tahti:'Tahti is an interaction design project that presents selected text one word at a time at a controlled pace.'};
+const cleanRoutePaths={openslot:'/openslot/','sports-map':'/helsinki-sports-map/','korislab':'/korislab/','spire-coach-mod':'/spire-coach-mod/','brio':'/brio/','peluutin':'/peluutin/','shavikki':'/s-havikki/','tahti':'/tahti/'};
 const cleanPathRoutes=Object.fromEntries(Object.entries(cleanRoutePaths).map(([route,path])=>[path,route]));
 cleanPathRoutes['/korisiq/']='korislab';
 const routeLocations={home:'/',work:'/#work',about:'/#about',...cleanRoutePaths};
@@ -73,14 +73,22 @@ const routeFromLocation=()=>{
 };
 const locationForRoute=route=>routeLocations[route]||`/#${route}`;
 let navigation=['home'];let navigationIndex=0;
+const mobileDesktop=window.matchMedia('(max-width:700px)');
+function syncDesktopShortcuts(){
+ document.querySelector('.desktop-side').inert=mobileDesktop.matches&&!portfolioWindow.classList.contains('is-minimized');
+}
+mobileDesktop.addEventListener('change',syncDesktopShortcuts);
+syncDesktopShortcuts();
 function showPortfolio(){
  rememberLauncher(portfolioWindow);
  portfolioWindow.classList.remove('is-minimized');portfolioWindow.inert=false;
+ syncDesktopShortcuts();
  bringToFront(portfolioWindow);
  document.querySelector('[data-app="Chrome"]').classList.add('is-running');
 }
 function hidePortfolio(){
  portfolioWindow.classList.add('is-minimized');portfolioWindow.inert=true;
+ syncDesktopShortcuts();
  document.querySelector('[data-app="Chrome"]').classList.remove('is-running');
  restoreLauncher(portfolioWindow,'[data-app="Chrome"]');
 }
@@ -445,7 +453,30 @@ portfolioToc?.addEventListener('click',event=>{
  const target=document.getElementById(link.dataset.tocTarget);if(!target)return;
  event.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'});
 });
+// Remember revealed projects for this page load, including internal navigation.
+const revealedProjects=new Set();
+let projectRevealObserver;
+function initializeProjectReveals(){
+ projectRevealObserver?.disconnect();
+ const cards=[...browserPage.querySelectorAll('.desktop-projects>a')];
+ if(!('IntersectionObserver' in window)||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ projectRevealObserver=new IntersectionObserver(entries=>{
+  for(const entry of entries){
+   if(!entry.isIntersecting)continue;
+   const card=entry.target;
+   revealedProjects.add(card.getAttribute('href'));
+   card.classList.remove('is-reveal-pending');
+   projectRevealObserver.unobserve(card);
+  }
+ },{root:browserPage,threshold:.08});
+ for(const card of cards){
+  if(revealedProjects.has(card.getAttribute('href')))continue;
+  card.classList.add('project-reveal','is-reveal-pending');
+  projectRevealObserver.observe(card);
+ }
+}
 function renderPage(route,record=true,focus=true){
+ projectRevealObserver?.disconnect();
  if(!Object.hasOwn(pageTitles,route)) route='home';
  if(record && navigation[navigationIndex]!==route){navigation=navigation.slice(0,navigationIndex+1);navigation.push(route);navigationIndex++;}
  const template=document.querySelector(`#page-${route==='work'?'home':route}`);
@@ -460,7 +491,7 @@ function renderPage(route,record=true,focus=true){
  initializeShavikkiPrototype();
  buildPortfolioToc();
  resetBrowserPageScroll();
- requestAnimationFrame(()=>requestAnimationFrame(()=>{resetBrowserPageScroll();if(route==='work')scrollPortfolioToWork();}));
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{resetBrowserPageScroll();if(route==='work')scrollPortfolioToWork();initializeProjectReveals();}));
  showPortfolio();
  document.querySelector('#browser-location').textContent=`${location.host || 'Portfolio'} / ${pageTitles[route]}`;
  document.title=`${pageTitles[route]} — Petteri Helttula`;

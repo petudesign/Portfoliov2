@@ -8,6 +8,7 @@ const caseRoutes = new Set([
   'korislab',
   'korisiq',
   'spire-coach-mod',
+  'openslot',
   'brio',
   'peluutin',
   's-havikki',

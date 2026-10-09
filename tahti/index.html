@@ -18,101 +18,19 @@
 <div class="case-actions" aria-label="Case options"><div class="case-mode-toggle" role="group" aria-label="Case length"><button type="button" class="is-active" data-case-mode="tldr" aria-pressed="true">TL;DR</button><button type="button" data-case-mode="full" aria-pressed="false">Full case</button></div></div>
 <figure class="case-product-figure case-overview-image"><img src="../assets/tahti-card.webp" alt="Tahti reading experiment visual" decoding="async" fetchpriority="high"><figcaption>A reading-support experiment exploring a controlled one-word rhythm.</figcaption></figure>
 <section class="case-tldr-content" aria-label="Tahti case summary">
-          <article><span>Problem</span><h2>Dense text can be difficult to start and stay with.</h2><p>Tahti tests whether a controlled one-word rhythm can reduce visual load without pretending to replace normal reading.</p></article>
-          <article><span>My contribution</span><h2>Product framing, interaction design and working extension.</h2><p>I shaped the MVP, built the reader flow and tuned pacing, controls and comfort settings around the experiment.</p></article>
-          <article><span>Current state</span><h2>A working experiment that still needs evidence.</h2><p>The next step is testing real reading tasks to understand where the format helps and where it damages comprehension.</p></article>
-        <div class="case-tldr-details"><section>
-              <h2>What I explored</h2>
-              <p>Whether a one-word reading mode can reduce the friction of starting a longer text and help the user stay with a controlled reading rhythm.</p>
-            </section><section>
-              <h2>What is worth preserving</h2>
-              <p>The strongest decision is the narrow MVP: selected text, overlay reader, pace control, pause, rewind, and basic comfort settings.</p>
-            </section><section>
-              <h2>What needs validation</h2>
-              <p>The risk is comprehension. Tahti may help focus, but it can also remove sentence structure, scanning, and context that normal reading depends on.</p>
-            </section></div></section>
+<article><span>Problem</span><h2>Starting dense text can feel demanding.</h2><p>My own reading difficulties led me to explore whether showing less text at once could make reading easier to begin and sustain.</p></article>
+<article><span>My contribution</span><h2>Build and refine a focused reading mode.</h2><p>I scoped and built the selected-text reader, then refined its launch, pacing and controls. My own use informed the iterations; testing with other readers is still ahead.</p></article>
+<article><span>Current state</span><h2>A working reading experiment.</h2><p>The extension reads selected text one word at a time. My own experience is encouraging in some situations; comprehension and usefulness for others remain untested.</p></article>
+<div class="case-tldr-details">
+<section><h2>Keep the first version narrow</h2><p>Selecting text and launching from the right-click menu keeps the reader on the current page. Automatic article extraction, PDFs and accounts are outside the MVP.</p></section>
+<section><h2>Make pace and controls easier to follow</h2><p>The word, progress and controls sit in one central stack. Reading starts slower, then approaches the chosen pace, with extra time for punctuation and longer words. Pause and ten-word navigation let the reader interrupt the stream.</p></section>
+<section><h2>Judge understanding as well as comfort</h2><p>A calmer presentation can still lose sentence structure, scanning and context. Planned reading tasks would compare ease of starting, sustained focus, fatigue and comprehension before expanding the format.</p></section>
+</div>
+</section>
 <div class="case-full-content" hidden>
-      <div class="case-layout">
-
-
-        <article class="case-content">
-          <section class="case-section" id="problem-framing">
-            <h2>Problem framing</h2>
-            <p>Some reading problems start before comprehension. A long block of text can feel heavy before the first sentence is even read. Tahti looks at that starting moment: what if the interface reduced the visible amount of text and gave the user a simple rhythm to follow?</p>
-            <p>The starting point is personal: I have mild astigmatism, and ADD makes sustained reading focus harder for me at times. I am also not a particularly fast reader in the traditional line-by-line format. In my own use, Tahti has helped in some situations by reducing visual load, giving the reading session a clearer pace, and letting me move through text faster than I normally would. That is a useful signal, but not enough evidence on its own.</p>
-            <p>The product should not be framed as a speed-reading promise. Reading one word at a time can remove useful context, make backtracking harder, and flatten the natural rhythm of paragraphs. A more honest direction is reading support: pace, focus, and temporary structure when ordinary reading feels demanding.</p>
-            <div class="case-context-grid" aria-label="Tahti product context">
-              <article>
-                <h3>Who this is for</h3>
-                <p>People who struggle to start or stay with dense text, especially when the barrier is visual load, focus, or reading fatigue rather than lack of interest.</p>
-              </article>
-              <article>
-                <h3>User situation</h3>
-                <p>The user has found a long article, notes, or documentation page and wants to read one selected part without leaving the current page.</p>
-              </article>
-              <article>
-                <h3>Success would mean</h3>
-                <p>The user starts reading faster, stays with the text longer, and still understands enough for the pace tradeoff to be worth it.</p>
-              </article>
-            </div>
-            <div class="case-callout">
-              <p><strong>Product principle:</strong> Tahti should help users control reading pace without pretending that faster reading is automatically better reading.</p>
-            </div>
-          </section>
-
-          <section class="case-section case-subsection" id="why-extension">
-            <h3>Why a Chrome extension first</h3>
-            <p>The first useful test does not need accounts, a mobile app, reading streaks, PDFs, or AI summaries. It needs one core behavior: select text on a web page and read it in a focused overlay.</p>
-            <p>Selected text keeps the MVP technically small and gives the user control. Full article parsing can wait, because web pages contain headings, images, tables, embeds, code blocks, and layout patterns that would quickly turn the first version into a parser project instead of a reading experiment.</p>
-          </section>
-
-          <section class="case-section case-subsection" id="research-context">
-            <h3>Research context</h3>
-            <p>Tahti sits close to a known reading method called Rapid Serial Visual Presentation, or RSVP. The basic idea is not new: words or small chunks are shown sequentially in one fixed visual position, reducing the need for eye movements.</p>
-            <p>The evidence is mixed, which is exactly why I want to keep the product claim careful. A mobile readability study found that RSVP formats increased reading speed for short texts without significant differences in comprehension or task load, but longer texts increased task load. A study of Spritz-style RSVP found weaker literal comprehension and more visual fatigue, likely because users lose rereading, parafoveal preview, and some natural control over pace.</p>
-            <p>There is also a relevant accessibility angle. Research with visually impaired readers has found faster reading with dynamic text presentation, including RSVP, compared with more traditional page-style presentation. That does not prove Tahti works for attention or focus, but it supports the idea that alternative text presentation can be worth testing for specific reading constraints.</p>
-            <ul class="case-source-list">
-              <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0953543803000390" target="_blank" rel="noopener noreferrer">Adaptive RSVP on mobile devices</a></li>
-              <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0747563214007663" target="_blank" rel="noopener noreferrer">Spritz and RSVP reading comprehension</a></li>
-              <li><a href="https://pubmed.ncbi.nlm.nih.gov/7500210/" target="_blank" rel="noopener noreferrer">RSVP and dynamic text for visually impaired readers</a></li>
-              <li><a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0153786" target="_blank" rel="noopener noreferrer">RSVP reading-rate limits and comprehension caveats</a></li>
-            </ul>
-            <div class="case-callout">
-              <p><strong>Design implication:</strong> Tahti should be tested as reading support for specific situations, not positioned as a universal speed-reading tool.</p>
-            </div>
-          </section>
-
-          <section class="case-section" id="mvp">
-            <h2>MVP scope</h2>
-            <p>The first build is a framework-free Chrome extension. The user selects text, launches Tahti from the context menu or extension popup, and reads the selection one word at a time in an overlay.</p>
-            <ul>
-              <li><strong>Core reader:</strong> one-word display, play, pause, reset, back 10, and next 10.</li>
-              <li><strong>Pace control:</strong> WPM starts lower, warms up toward the chosen pace, and pauses slightly longer after punctuation.</li>
-              <li><strong>Comfort settings:</strong> font size, dark/light mode, and a short countdown so the first word is not missed.</li>
-              <li><strong>Out of scope:</strong> accounts, analytics, streaks, mobile app, PDF support, AI features, and automatic article extraction.</li>
-            </ul>
-            <ol class="case-flow" aria-label="Tahti MVP user flow">
-              <li>Select text</li>
-              <li>Right-click</li>
-              <li>Read with Tahti</li>
-              <li>Set pace</li>
-              <li>Read</li>
-              <li>Pause or rewind</li>
-              <li>Return to page</li>
-            </ol>
-          </section>
-
-          <section class="case-section case-subsection" id="pacing">
-            <h3>Design detail: pacing</h3>
-            <p>A fixed WPM setting was not enough. Reading rhythm depends on punctuation, word length, and language.</p>
-            <p>Instead of advancing every word at the exact same interval, Tahti gives slightly more time to sentence endings, soft breaks, and longer words. The first words also start slower, helping the reader settle into the rhythm.</p>
-            <p>This was a small implementation detail, but an important product decision: the goal was not just speed, but a pace that still feels readable.</p>
-          </section>
-
-          <section class="case-section" id="interaction">
-            <h2>Interaction decisions</h2>
-            <p>The reader UI has one main job: reduce eye work. If the user only gets a short countdown before the first word appears, they should not have to scan the edges of the screen to understand controls, progress, or current state.</p>
-            <figure class="case-section-figure">
+<section class="case-section" data-toc-label="Starting point"><h2>Begin with my own reading friction</h2><p>Mild astigmatism and ADD can make sustained reading difficult for me, and I am not a particularly fast line-by-line reader. A long text can feel heavy before I start. Tahti explores whether showing one word at a time can reduce that initial visual load and provide a rhythm to follow.</p><p>In my own use, it has helped in some situations and let me move through text faster. That personal experience shaped the experiment, but it does not establish a benefit for other readers.</p></section>
+<section class="case-section" data-toc-label="MVP scope"><h2>Choose selected text as the first unit</h2><p>I built a framework-free Chrome extension that reads a selected passage in an overlay on the current page. Keeping the selection with the user limited the implementation and made it possible to explore the reading experience directly.</p><div class="case-callout"><p><strong>My scope decision:</strong> start with text the reader selects. That keeps control with the user and lets me explore the reading interaction before solving full article extraction.</p></div><p>Headings, images, tables, embeds and code would need their own handling. I left automatic extraction, PDFs, accounts, analytics and AI features outside the MVP.</p><ol class="case-flow" aria-label="Tahti reading flow"><li>Select text</li><li>Right-click</li><li>Read with Tahti</li><li>Set pace</li><li>Read, pause or rewind</li><li>Return to page</li></ol></section>
+<section class="case-section" data-toc-label="Interface iterations"><h2>Reduce the effort around the reading word</h2><p>The first version required opening the extension after selecting text. I added a right-click launch to remove that step. Within the overlay, the early layout spread settings and controls across several areas; I brought the word, progress and controls into a central stack to keep them close to the reader’s focus.</p><p>I also replaced WPM and font-size steppers with compact sliders to make the settings less visually dominant. Font size, dark/light mode and a short countdown provide basic comfort controls.</p><figure class="case-section-figure">
               <div class="case-image case-media-shell tahti-video-shell">
                 <video controls
                   class="case-video"
@@ -127,9 +45,7 @@
 
               </div>
               <figcaption>The current prototype keeps the reading word, controls, and progress close to the user's central focus.</figcaption>
-            </figure>
-            <p>The current direction keeps the word, controls, and progress in one central reading stack. WPM and font size use compact sliders instead of stepper buttons, because the steppers made the overlay feel too much like a control panel.</p>
-            <div class="tahti-snapshot-grid" aria-label="Tahti prototype screenshots">
+            </figure><div class="tahti-snapshot-grid" aria-label="Tahti prototype screenshots">
               <figure>
 
                   <img src="../assets/tahti_rightclickparannusv1.png" alt="Selected article text with a browser context menu option to read with Tahti." decoding="async" loading="lazy">
@@ -148,25 +64,15 @@
 
                 <figcaption>The later version pulls progress and controls into a tighter reading stack.</figcaption>
               </figure>
-            </div>
-          </section>
-
-          <section class="case-section" id="risks">
-            <h2>Risks</h2>
-            <p>The main UX risk is false usefulness. Tahti may feel calmer while also reducing comprehension. One-word reading removes many things people normally rely on: sentence shape, paragraph rhythm, quick back-scanning, lists, visual grouping, and the ability to slow down naturally when the content gets harder.</p>
-            <p>That is why the project should stay in experiment mode until it is tested with real reading tasks. The useful question is not "can this move words across the screen?" but "does this help the user start, continue, and understand enough to make the tradeoff worth it?"</p>
-          </section>
-
-          <section class="case-section" id="next">
-            <h2>Next step</h2>
-            <p>I would keep the next version narrow: use Tahti on real articles, notes, and documentation, then log where it helps and where it damages understanding. After that, I want to run user testing to understand whether the need exists beyond my own reading habits and whether the interaction helps other people with focus, visual load, or reading fatigue.</p>
-            <p>If that signal is positive, the next feature worth exploring is article mode with pauses for headings, images, tables, and other elements that should not be forced into a one-word stream.</p>
-            <div class="case-callout">
-              <p><strong>Validation questions:</strong> do I start reading more easily, stay focused longer, understand enough, feel less tired, and know which text types are clearly wrong for this mode?</p>
-            </div>
-          </section>
-        </article>
-      </div>
-      </div>
-</div></article><footer class="standalone-footer"><span>Petteri Helttula · Interaction design</span><a href="../#work">Back to work</a></footer></main><script src="../case-page.js?v=1"></script></body>
+            </div></section>
+<section class="case-section" data-toc-label="Pacing decisions"><h2>Give the stream a readable rhythm</h2><p>A uniform words-per-minute interval made every word advance at the same rate. I added extra time for sentence endings, softer punctuation breaks and longer words. The first words start slower and build toward the chosen pace.</p><p>Play, pause, reset and ten-word backward or forward controls let the reader stop or revisit a passage. The purpose of these adjustments is to make the pace manageable; their effect on comprehension still needs testing.</p></section>
+<section class="case-section" data-toc-label="Evaluation and next steps"><h2>Evaluate comprehension before expanding</h2><p>The format is related to Rapid Serial Visual Presentation (RSVP), where words appear sequentially in one position. The research provides context for the experiment, but does not validate Tahti itself. One-word presentation removes paragraph shape, easy scanning and surrounding words that a reader may need.</p><details class="case-research-references"><summary>Research references</summary><ul class="case-source-list">
+              <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0953543803000390" target="_blank" rel="noopener noreferrer">Adaptive RSVP on mobile devices</a></li>
+              <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0747563214007663" target="_blank" rel="noopener noreferrer">Spritz and RSVP reading comprehension</a></li>
+              <li><a href="https://pubmed.ncbi.nlm.nih.gov/7500210/" target="_blank" rel="noopener noreferrer">RSVP and dynamic text for visually impaired readers</a></li>
+              <li><a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0153786" target="_blank" rel="noopener noreferrer">Perceptual and cognitive limits in RSVP reading</a></li>
+            </ul></details><p>My next step is to use real articles, notes and documentation, then test with other readers. I want to assess ease of starting, sustained focus, fatigue and understanding, including which text types are unsuitable for this mode.</p><p>The next expansion depends on that evidence. If it helps other readers while preserving understanding, I would explore an article mode with pauses for headings, images and tables. Tahti remains a reading-support experiment; my own positive experience is not a demonstrated general speed or comprehension improvement.</p></section>
+</div>
+</div></article>
+    <footer class="standalone-footer"><span>Petteri Helttula · Interaction design</span><a href="../#work">Back to work</a></footer></main><script src="../case-page.js?v=1"></script></body>
 </html>
