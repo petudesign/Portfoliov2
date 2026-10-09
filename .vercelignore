@@ -1,0 +1,10 @@
+# Public case URLs use the desktop shell through vercel.json rewrites.
+# Exclude standalone HTML so filesystem routing cannot take precedence.
+peluutin/index.html
+korisiq/index.html
+helsinki-sports-map/index.html
+brio/index.html
+s-havikki/index.html
+tahti/index.html
+spire-coach-mod/index.html
+openslot/index.html

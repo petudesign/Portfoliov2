@@ -34,7 +34,7 @@ Add shortcuts in `desktopShortcuts`, and applications in `desktopApps`, at the t
 - `/tahti/`
 - `/spire-coach-mod/`
 
-The homepage keeps its desktop experience, and clean case URLs render inside the same portfolio browser shell. Vercel rewrites the case routes to `index.html`; the local preview server applies the same mapping. `/korisiq/` remains a legacy alias for KorisLab.
+The homepage keeps its desktop experience, and clean case URLs render inside the same portfolio browser shell. Vercel rewrites the case routes to `index.html`; the local preview server applies the same mapping. `.vercelignore` excludes the standalone case HTML from deployment so Vercel’s filesystem routing cannot override those rewrites. `/korisiq/` remains a legacy alias for KorisLab.
 
 ## Sound and links
 
