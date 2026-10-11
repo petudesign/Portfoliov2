@@ -37,3 +37,5 @@ function setCaseMode(mode,animate=true){
 }
 caseButtons.forEach(button=>button.addEventListener('click',()=>setCaseMode(button.dataset.caseMode)));
 setCaseMode('tldr',false);
+
+window.initializeCaseComparisons?.(document);

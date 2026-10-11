@@ -285,7 +285,7 @@ function initializeCaseImagePreviews(){
  const readingPage=browserPage.querySelector('.reading-page');
  if(!readingPage)return;
  readingPage.querySelectorAll('img').forEach(image=>{
-  if(!image.alt.trim()||image.closest('.hsm-hero-banner,.build-core,.app-store-badge,a,button'))return;
+  if(!image.alt.trim()||image.closest('.hsm-hero-banner,.build-core,.app-store-badge,[data-comparison],a,button'))return;
   const trigger=document.createElement('button');
   trigger.type='button';
   trigger.className='case-image-preview';
@@ -486,6 +486,7 @@ function renderPage(route,record=true,focus=true){
  if(route==='home'||route==='work'){
   const wrapper=document.createElement('div');wrapper.className='portfolio-content';wrapper.append(...browserPage.childNodes);browserPage.append(wrapper);
  }
+ initializeCaseComparisons(browserPage);
  initializeCaseImagePreviews();
  initializeCaseModes();
  initializeShavikkiPrototype();

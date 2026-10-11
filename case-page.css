@@ -245,3 +245,11 @@ a{color:inherit}
 .case-research-references summary{width:fit-content;cursor:pointer;font-weight:650;text-underline-offset:4px}
 .case-research-references summary:hover{text-decoration:underline}
 .case-research-references .case-source-list{margin-top:12px}
+
+/* Give authorship its own reading level across the portfolio cases. */
+.portfolio-case .case-hero-details{align-items:center;gap:20px;margin-top:24px;padding:20px 0;border-top:1px solid #20272035;border-bottom:1px solid #20272035;}
+.portfolio-case .case-project-facts{flex:1;min-width:0;}
+.portfolio-case .case-project-facts>div{display:block;}
+.portfolio-case .case-project-facts dt{margin:0 0 7px;color:#52604c;font-size:12px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;}
+.portfolio-case .case-project-facts dd{max-width:48ch;margin:0;color:#202720;font-size:clamp(18px,1.8vw,22px);font-weight:650;line-height:1.4;letter-spacing:-.02em;}
+@media(max-width:760px){.portfolio-case .case-hero-details{align-items:flex-start;flex-direction:column;gap:14px;padding:18px 0;}.portfolio-case .case-project-facts{width:100%;}}
