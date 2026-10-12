@@ -664,3 +664,5 @@
 .portfolio-case .case-project-facts dt{margin:0 0 7px;color:#52604c;font-size:12px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;}
 .portfolio-case .case-project-facts dd{max-width:48ch;margin:0;color:#202720;font-size:clamp(18px,1.8vw,22px);font-weight:650;line-height:1.4;letter-spacing:-.02em;}
 @media(max-width:760px){.portfolio-case .case-hero-details{align-items:flex-start;flex-direction:column;gap:14px;padding:18px 0;}.portfolio-case .case-project-facts{width:100%;}}
+
+.portfolio-case .case-product-video video{display:block;width:100%;height:auto;max-height:none;margin:0;aspect-ratio:16/9;border-radius:8px;background:#0b0b0b;}
