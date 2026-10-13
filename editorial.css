@@ -668,3 +668,6 @@
 .portfolio-case .case-product-video video{display:block;width:100%;height:auto;max-height:none;margin:0;aspect-ratio:16/9;border-radius:8px;background:#0b0b0b;}
 
 @media(max-width:760px){.portfolio-case .case-section{padding:34px 0}.portfolio-case .case-section:first-child{padding-top:12px}.case-tldr-details{gap:30px}}
+
+.korislab-card-crop{width:100%;height:100%;min-height:0;overflow:hidden;border-radius:5px;}
+.portfolio-content:has(.editorial-title) .desktop-project-image .korislab-card-crop img{object-fit:cover;object-position:center bottom;transform:scale(1.12);transform-origin:center bottom;}
