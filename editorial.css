@@ -559,9 +559,9 @@
 .portfolio-case .case-tldr-content h2{margin:0 0 8px;font:650 19px/1.25 Satoshi,system-ui,sans-serif;letter-spacing:-.015em;}
 .portfolio-case .case-tldr-content p{font-size:14px;line-height:1.6;}
 .portfolio-case .case-full-content{padding-top:0;}
-.portfolio-case .case-section{padding:26px 0;border:0;}
+.portfolio-case .case-section{padding:44px 0;border:0;}
 .portfolio-case .case-section:first-child{padding-top:6px;}
-.portfolio-case .case-section h2{margin:0 0 12px;font:650 clamp(22px,2.1vw,28px)/1.25 Satoshi,system-ui,sans-serif;letter-spacing:-.025em;}
+.portfolio-case .case-section h2{margin:0 0 18px;font:650 clamp(22px,2.1vw,28px)/1.25 Satoshi,system-ui,sans-serif;letter-spacing:-.025em;}
 .portfolio-case .case-section p{max-width:76ch;margin:0 0 12px;font-size:15px;line-height:1.65;}
 .portfolio-case .peluutin-match-decision{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:32px;align-items:start;}
 .portfolio-case .peluutin-match-decision .peluutin-mobile-proof{margin:0;}
@@ -604,8 +604,8 @@
 .peluutin-decisions strong{color:#202720;font-weight:650;}
 
 /* Expanded summary: a compact overview followed by readable decision notes. */
-.case-tldr-details{grid-column:1/-1;display:grid;gap:22px;padding-top:24px;border-top:1px solid #b5baac;}
-.portfolio-case .case-tldr-details h2{margin-bottom:8px;font-size:19px;}
+.case-tldr-details{grid-column:1/-1;display:grid;gap:36px;padding-top:32px;border-top:1px solid #b5baac;}
+.portfolio-case .case-tldr-details h2{margin-bottom:14px;font-size:19px;}
 .portfolio-case .case-tldr-details p{max-width:82ch;margin:0;font-size:14px;line-height:1.65;}
 .portfolio-case .case-tldr-details p+p{margin-top:10px;}
 
@@ -666,3 +666,5 @@
 @media(max-width:760px){.portfolio-case .case-hero-details{align-items:flex-start;flex-direction:column;gap:14px;padding:18px 0;}.portfolio-case .case-project-facts{width:100%;}}
 
 .portfolio-case .case-product-video video{display:block;width:100%;height:auto;max-height:none;margin:0;aspect-ratio:16/9;border-radius:8px;background:#0b0b0b;}
+
+@media(max-width:760px){.portfolio-case .case-section{padding:34px 0}.portfolio-case .case-section:first-child{padding-top:12px}.case-tldr-details{gap:30px}}

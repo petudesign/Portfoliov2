@@ -486,6 +486,7 @@ function renderPage(route,record=true,focus=true){
  if(route==='home'||route==='work'){
   const wrapper=document.createElement('div');wrapper.className='portfolio-content';wrapper.append(...browserPage.childNodes);browserPage.append(wrapper);
  }
+ initializeCaseVideos(browserPage);
  initializeCaseComparisons(browserPage);
  initializeCaseImagePreviews();
  initializeCaseModes();

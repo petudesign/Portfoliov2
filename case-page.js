@@ -39,3 +39,5 @@ caseButtons.forEach(button=>button.addEventListener('click',()=>setCaseMode(butt
 setCaseMode('tldr',false);
 
 window.initializeCaseComparisons?.(document);
+
+window.initializeCaseVideos?.(document);

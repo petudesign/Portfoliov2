@@ -32,3 +32,6 @@
 .portfolio-case .case-external-cta:focus-visible{outline:2px solid #52604c;outline-offset:4px}
 @media(max-width:760px){.portfolio-case .case-mode-toggle button,.case-comparison-controls button{min-height:42px;padding-inline:16px}.case-comparison-controls{gap:10px}.case-comparison-controls>div[role="group"]{flex-wrap:nowrap}}
 @media(prefers-reduced-motion:reduce){.portfolio-case .case-mode-toggle button,.case-comparison-controls button,.portfolio-case .case-external-cta{transition:none}}
+
+.case-video-toggle{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-top:12px;padding:10px 18px;border:0;border-radius:999px;background:#202720;color:#f6f5ee;font:600 14px/1.4 Satoshi,system-ui,sans-serif;cursor:pointer;}
+.case-video-toggle:hover{background:#374331}.case-video-toggle:focus-visible{outline:2px solid #52604c;outline-offset:4px}
