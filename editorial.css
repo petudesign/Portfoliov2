@@ -177,22 +177,29 @@
 }
 
 /* The dark gutter becomes a quiet table-of-contents rail on long pages. */
-.portfolio-toc{position:absolute;z-index:15;top:50%;left:10px;width:22px;transform:translateY(-50%);color:#dfe7da;font-family:Satoshi,sans-serif;transition:width 180ms ease}
-.portfolio-toc-panel{width:100%;overflow:hidden;padding:10px 7px 12px 6px;border:1px solid #dfe7da22;border-radius:999px;background:#171b1acc;box-shadow:0 12px 28px #101e1840;backdrop-filter:blur(10px)}
-.portfolio-toc-kicker{display:block;max-width:0;overflow:hidden;opacity:0;font-size:8px;letter-spacing:.13em;text-transform:uppercase;white-space:nowrap;transition:opacity 160ms ease,max-width 180ms ease}
-.portfolio-toc-items{position:relative;display:grid;gap:13px;padding:6px 0}
-.portfolio-toc-items::before{content:'';position:absolute;top:8px;bottom:8px;left:3px;width:1px;background:#dfe7da45}
-.portfolio-toc-item{position:relative;display:grid;grid-template-columns:8px minmax(0,1fr);gap:8px;align-items:center;min-height:10px;color:#dfe7da88;text-decoration:none;white-space:nowrap}
-.portfolio-toc-item::before{content:'';position:relative;z-index:1;width:7px;height:7px;border:1px solid #dfe7da88;border-radius:50%;background:#171b1a;transition:background-color 160ms ease,border-color 160ms ease,transform 160ms ease}
-.portfolio-toc-item span{display:block;overflow:hidden;max-width:0;opacity:0;font-size:10px;line-height:1.2;transform:translateX(-5px);transition:opacity 160ms ease,max-width 180ms ease,transform 180ms ease}
-.portfolio-toc-item:hover,.portfolio-toc-item:focus-visible,.portfolio-toc-item.is-active{color:#e4eca7}
-.portfolio-toc-item.is-active::before{border-color:#e4eca7;background:#e4eca7;transform:scale(1.18)}
-.portfolio-toc:hover,.portfolio-toc:focus-within{width:178px}
-.portfolio-toc:hover .portfolio-toc-panel,.portfolio-toc:focus-within .portfolio-toc-panel{border-radius:10px;background:#171b1af2}
-.portfolio-toc:hover .portfolio-toc-kicker,.portfolio-toc:focus-within .portfolio-toc-kicker{max-width:130px;opacity:1;margin:0 0 4px 16px}
-.portfolio-toc:hover .portfolio-toc-item span,.portfolio-toc:focus-within .portfolio-toc-item span{max-width:145px;opacity:1;transform:none}
+/* Contents rail: one short line per section. Labels open beside the lines as one motion;
+   a card appears behind them only when the gutter is too narrow and they would cover text. */
+.portfolio-toc{position:absolute;z-index:15;top:50%;left:10px;transform:translateY(-50%);font-family:Satoshi,sans-serif;pointer-events:none}
+.portfolio-toc-panel{position:relative;padding:6px 0;pointer-events:auto}
+.portfolio-toc-panel::before{content:'';position:absolute;top:-4px;bottom:-4px;left:-10px;width:var(--toc-open,178px);border-radius:12px;background:#1d1d1cf5;box-shadow:inset 0 0 0 1px #ffffff14,0 12px 28px #00000059;opacity:0;pointer-events:none;transition:opacity 140ms var(--ease)}
+.portfolio-toc-items{position:relative;display:grid}
+.portfolio-toc-item{position:relative;display:flex;align-items:center;width:32px;height:24px;border-radius:4px;color:#ffffff8c;text-decoration:none;white-space:nowrap}
+.portfolio-toc-item::before{content:'';width:20px;height:2px;border-radius:2px;background:currentColor;opacity:.6;transform:scaleX(.6);transform-origin:left center;transition:transform 200ms var(--ease),opacity 160ms var(--ease),background-color 160ms var(--ease)}
+.portfolio-toc-item span{position:absolute;top:50%;left:32px;max-width:calc(var(--toc-open,178px) - 44px);overflow:hidden;text-overflow:ellipsis;font-size:12.5px;line-height:1.2;opacity:0;pointer-events:none;transform:translate(-6px,-50%);transition:opacity 140ms var(--ease),transform 140ms var(--ease)}
+.portfolio-toc-item:hover,.portfolio-toc-item.is-active{color:#f2f2f0}
+.portfolio-toc-item:hover::before{opacity:.9;transform:scaleX(1)}
+.portfolio-toc-item.is-active::before{background:#e4eca7;opacity:1;transform:scaleX(1)}
+.portfolio-toc-item:focus-visible{outline:2px solid #e4eca7;outline-offset:2px}
+.portfolio-toc:not(.is-roomy):is(:hover,:focus-within) .portfolio-toc-panel::before{opacity:1;transition-duration:200ms}
+.portfolio-toc:is(:hover,:focus-within) .portfolio-toc-item span{opacity:1;pointer-events:auto;transform:translate(0,-50%);transition-duration:200ms,220ms}
+.portfolio-toc:is(:hover,:focus-within) .portfolio-toc-item:nth-child(2) span{transition-delay:25ms}
+.portfolio-toc:is(:hover,:focus-within) .portfolio-toc-item:nth-child(3) span{transition-delay:50ms}
+.portfolio-toc:is(:hover,:focus-within) .portfolio-toc-item:nth-child(4) span{transition-delay:75ms}
+.portfolio-toc:is(:hover,:focus-within) .portfolio-toc-item:nth-child(5) span{transition-delay:100ms}
+.portfolio-toc:is(:hover,:focus-within) .portfolio-toc-item:nth-child(n+6) span{transition-delay:125ms}
 .about-page [data-toc-label],.reading-page [data-toc-label]{scroll-margin-top:28px}
 @media(max-width:760px){.portfolio-toc{display:none}}
+.portfolio-toc.is-cramped{display:none}
 
 /* Case mode changes should feel like one continuous reading surface. */
 .case-mode-toggle button{transition:background-color 180ms var(--ease),color 180ms var(--ease),transform 140ms var(--ease)}
@@ -205,10 +212,10 @@
 .reading-page .case-full-content{transition:opacity 220ms var(--ease),transform 220ms var(--ease);will-change:opacity,transform}
 .reading-page .case-full-content.is-case-entering{opacity:0;transform:translateY(10px)}
 .reading-page .case-full-content.is-case-exiting{opacity:0;transform:translateY(-6px);pointer-events:none}
-.portfolio-toc{transform:translate(0,-50%);transition:width 180ms var(--ease),opacity 180ms var(--ease),transform 220ms var(--ease)}
+.portfolio-toc{transform:translate(0,-50%);transition:opacity 180ms var(--ease),transform 220ms var(--ease)}
 .portfolio-toc.is-toc-entering{opacity:0;transform:translate(-10px,-50%)}
 .portfolio-toc.is-toc-exiting{opacity:0;transform:translate(-6px,-50%);pointer-events:none}
-@media(prefers-reduced-motion:reduce){.case-mode-toggle button,.case-mode-toggle::before,.reading-page .case-full-content,.portfolio-toc{transition:none!important}.case-mode-toggle button:active{transform:none}.reading-page .case-full-content.is-case-entering,.reading-page .case-full-content.is-case-exiting,.portfolio-toc.is-toc-entering,.portfolio-toc.is-toc-exiting{transform:none}}
+@media(prefers-reduced-motion:reduce){.case-mode-toggle button,.case-mode-toggle::before,.reading-page .case-full-content,.portfolio-toc,.portfolio-toc-panel::before,.portfolio-toc-item::before,.portfolio-toc-item span{transition:none!important}.case-mode-toggle button:active{transform:none}.reading-page .case-full-content.is-case-entering,.reading-page .case-full-content.is-case-exiting,.portfolio-toc.is-toc-entering,.portfolio-toc.is-toc-exiting{transform:none}}
 
 /* Personal photos stay grouped as a small visual rhythm instead of becoming a gallery. */
 .about-photo-bento{margin:42px 0 0}

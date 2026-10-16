@@ -312,30 +312,21 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .case-back:active{transform:scale(.97)}
 @media (hover:hover) and (pointer:fine){.case-back:hover{background:#ffffff0c;color:var(--g-fg)!important}.case-back:hover span{transform:translateX(-2px)}}
 
-.reading-page.portfolio-case .case-hero,.reading-page .spire-case-header,.reading-page .case-hero{padding-top:20px}
-.reading-page.portfolio-case .case-hero h1,.reading-page .spire-case h1{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:0 0 18px;font:650 clamp(36px,4.4vw,56px)/1.05 Satoshi,system-ui,sans-serif;letter-spacing:-.04em;color:var(--g-fg)}
-.reading-page .case-year{display:inline-flex;align-items:center;height:24px;padding:0 9px;border-radius:7px;background:#ffffff10;color:var(--g-fg-2);font:600 12px/1 Satoshi,system-ui,sans-serif;letter-spacing:0;vertical-align:middle}
-.reading-page.portfolio-case .case-hero .hero-lede,.reading-page .spire-lede{max-width:720px;margin:0;font:550 clamp(19px,1.8vw,23px)/1.4 Satoshi,system-ui,sans-serif;letter-spacing:-.02em;color:var(--g-fg)}
-.reading-page.portfolio-case .case-intro{max-width:680px;margin:14px 0 0;color:var(--g-muted);font-size:15px;line-height:1.65}
-.reading-page .case-hero-details{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin-top:26px;padding:14px 0;border-top:1px solid var(--g-line);border-bottom:1px solid var(--g-line)}
-.reading-page .case-project-facts dt{color:var(--g-muted);font-weight:550}
-.reading-page .case-project-facts dd{color:var(--g-fg)}
+.reading-page.portfolio-case .case-hero,.reading-page .spire-case-header,.reading-page .case-hero{padding-top:32px}
+.reading-page.portfolio-case .case-hero h1,.reading-page .spire-case h1{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:0 0 16px;font:650 clamp(36px,4.4vw,56px)/1.05 Satoshi,system-ui,sans-serif;letter-spacing:-.04em;color:var(--g-fg)}
+.reading-page.portfolio-case .case-hero .hero-lede,.reading-page .spire-lede{max-width:720px;margin:0;font:500 clamp(20px,1.9vw,24px)/1.35 Satoshi,system-ui,sans-serif;letter-spacing:-.015em;color:var(--g-fg-2);text-wrap:balance}
+.reading-page.portfolio-case .case-intro{max-width:62ch;margin:24px 0 0;color:var(--g-muted);font-size:16px;line-height:1.65}
 .reading-page .case-external-cta,.reading-page .case-external-cta a,.reading-page a.case-external-cta{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border:0;border-radius:10px;background:#f4f4f2;color:#141414!important;font-size:13px;font-weight:650;text-decoration:none;transition:transform 140ms var(--g-out),background-color 160ms var(--g-out)}
 .reading-page .case-external-cta:has(a){height:auto;padding:0;background:none}
 .reading-page .case-external-cta:active,.reading-page .case-external-cta a:active{transform:scale(.97)}
 @media (hover:hover) and (pointer:fine){.reading-page a.case-external-cta:hover,.reading-page .case-external-cta a:hover{background:#fff;color:#141414}}
 
 /* Outcome so far: one line that says what the work has achieved */
-.reading-page .case-outcome{display:flex;align-items:baseline;gap:12px;max-width:var(--g-read);margin:22px 0 0;padding:14px 16px;border-radius:12px;background:#e4eca70d;box-shadow:inset 0 0 0 1px #e4eca726}
-.case-outcome-label{flex-shrink:0;color:var(--g-accent);font-size:11px;font-weight:650;letter-spacing:.06em;text-transform:uppercase}
-.reading-page .case-outcome-text{color:var(--g-fg-2);font-size:15px;line-height:1.55}
-.reading-page .case-outcome-text strong{color:var(--g-fg);font-weight:650}
-@media (max-width:560px){.reading-page .case-outcome{flex-direction:column;gap:6px}}
 
 /* TL;DR / full toggle */
 .reading-page.portfolio-case .case-actions{margin:22px 0 18px}
-.reading-page.portfolio-case .case-mode-toggle{background:#ffffff0a;box-shadow:inset 0 0 0 1px var(--g-line);border-radius:11px}
-.reading-page.portfolio-case .case-mode-toggle button{min-height:34px;padding:0 16px;border-radius:8px;color:var(--g-muted);font-size:13px;transition:background-color 160ms var(--g-out),color 160ms var(--g-out),transform 120ms var(--g-out)}
+.reading-page.portfolio-case .case-mode-toggle{gap:2px;padding:3px;background:#ffffff0a;box-shadow:inset 0 0 0 1px var(--g-line);border-radius:12px}
+.reading-page.portfolio-case .case-mode-toggle button{min-height:34px;padding:0 14px;border-radius:9px;font-weight:600;color:var(--g-muted);font-size:13px;transition:background-color 160ms var(--g-out),color 160ms var(--g-out),transform 120ms var(--g-out)}
 .reading-page.portfolio-case .case-mode-toggle button.is-active{background:#f4f4f2;color:#141414}
 .reading-page.portfolio-case .case-mode-toggle button:not(.is-active):hover{background:#ffffff0c;color:var(--g-fg)}
 .reading-page.portfolio-case .case-mode-toggle button:active{transform:scale(.97)}
@@ -392,9 +383,6 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .browser-page .reading-page .case-comparison-controls button:hover{background:#ffffff0c;color:var(--g-fg)}
 .browser-page .reading-page .case-comparison-controls a{color:var(--g-fg-2);box-shadow:inset 0 -1px #ffffff30}
 .browser-page .reading-page .case-comparison-controls a:hover{color:var(--g-fg);box-shadow:inset 0 -1px var(--g-fg)}
-.browser-page .reading-page.portfolio-case .case-hero-details{border-color:var(--g-line)}
-.browser-page .reading-page.portfolio-case .case-project-facts dt{margin:0 0 6px;color:var(--g-muted);font-size:11px;font-weight:600;letter-spacing:.04em}
-.browser-page .reading-page.portfolio-case .case-project-facts dd{color:var(--g-fg);font-size:16px;font-weight:600;letter-spacing:-.01em}
 .browser-page .reading-page.portfolio-case .case-media-links .case-external-cta:first-child{min-height:40px;padding:0 16px;border:0;border-radius:10px;background:#f4f4f2;color:#141414!important;font-size:13px;font-weight:650;transition:transform 140ms var(--g-out),background-color 160ms var(--g-out)}
 .browser-page .reading-page.portfolio-case .case-media-links .case-external-cta:first-child:hover{background:#fff;color:#141414}
 .browser-page .reading-page.portfolio-case .case-media-links .case-external-cta:first-child:active{transform:scale(.97)}
@@ -469,10 +457,9 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 
 /* Table of contents rail picks up the same neutrals */
 .portfolio-window .portfolio-toc{left:clamp(16px,2.2vw,32px)}
-.portfolio-window:has(.reading-page,.about-page) .portfolio-toc-panel{background:#1b1b1bd9;border-color:var(--g-line)}
+.portfolio-window:has(.reading-page,.about-page) .portfolio-toc-panel::before{background:#2b2b2af7}
 
 @media (max-width:700px){
- .reading-page .case-hero-details{flex-direction:column;align-items:flex-start}
  .reading-page .case-tldr-summary{grid-template-columns:1fr}
  .reading-page.portfolio-case .case-tldr-content article+article{border-left:0;border-top:1px solid var(--g-line)}
 }
@@ -482,3 +469,66 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
  .gallery-thumb,.gallery-home .gallery-thumb img,.gallery-card,.gallery-row,.gallery-row-arrow,.gallery-panel-cta,.gallery-panel-cta span,.case-back,.case-back span{transition:none}
  .gallery-row:active,.gallery-panel-cta:active{transform:none}
 }
+
+/* Layered cases: one text. TL;DR hides .case-extra (inline spans or whole blocks); Full case tints it. */
+.reading-page{--g-extra:#bdb9ff}
+.reading-page.portfolio-case>.case-actions:has(.case-extra-legend){justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:10px 18px}
+.reading-page[data-case-mode="tldr"] .case-extra,.reading-page[data-case-mode="tldr"] .case-extra-legend{display:none}
+.reading-page.portfolio-case .case-section .case-extra{color:var(--g-extra);animation:case-extra-in 260ms var(--g-out)}
+.reading-page.portfolio-case .case-section .case-extra strong{color:inherit}
+.reading-page .case-extra-legend{margin:0;color:var(--g-extra);font-size:12.5px}
+@keyframes case-extra-in{from{opacity:0}}
+@media (prefers-reduced-motion:reduce){.reading-page.portfolio-case .case-section .case-extra{animation:none}}
+
+/* Case hero: one card holds the title, pitch and actions; its footer states the outcome.
+   Inline padding matches the reading column, so text inside the card lines up with the text below it. */
+.reading-page.portfolio-case>.case-hero{--hero-pad:max(20px,min(40px,calc((100% - var(--g-read))/2)));max-width:calc(var(--g-read) + 80px);margin-top:20px;padding:0;overflow:hidden;border-radius:20px;background:var(--g-surface);box-shadow:inset 0 0 0 1px var(--g-line)}
+.reading-page.portfolio-case .case-hero-main{padding:36px var(--hero-pad) 36px}
+.reading-page.portfolio-case .case-meta{display:flex;flex-wrap:wrap;gap:4px 10px;margin:0 0 14px;color:var(--g-muted);font-size:13px;font-weight:550}
+.reading-page.portfolio-case .case-meta span+span::before{content:'·';margin-right:10px}
+.reading-page.portfolio-case .case-media-links{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:8px 20px;margin-top:28px}
+.reading-page.portfolio-case .case-outcome{padding:26px var(--hero-pad) 30px;background:#e4eca70a;box-shadow:inset 0 1px 0 var(--g-line)}
+.reading-page.portfolio-case .case-outcome p{margin:0}
+.reading-page.portfolio-case .case-outcome-label{margin-bottom:10px!important;color:var(--g-accent);font-size:11px;font-weight:650;letter-spacing:.08em;text-transform:uppercase}
+.reading-page.portfolio-case .case-outcome-headline{max-width:var(--g-read);color:var(--g-fg);font:600 clamp(19px,1.7vw,22px)/1.35 Satoshi,system-ui,sans-serif;letter-spacing:-.015em;text-wrap:balance}
+.reading-page.portfolio-case .case-outcome-detail{max-width:62ch;margin-top:8px!important;color:var(--g-fg-2);font-size:15px;line-height:1.6}
+.reading-page.portfolio-case>.case-actions{margin:32px auto 24px}
+.reading-page.portfolio-case .case-tldr-summary{max-width:calc(var(--g-read) + 80px);margin-left:auto;margin-right:auto}
+
+/* Coach quotes inside a case section. */
+.reading-page.portfolio-case .case-section .case-quote{max-width:var(--g-read);margin:28px auto 0;padding:20px 22px;border-radius:12px;background:var(--g-surface);box-shadow:inset 0 0 0 1px var(--g-line)}
+.reading-page.portfolio-case .case-quote blockquote{margin:0}
+.reading-page.portfolio-case .case-quote blockquote p{margin:0;color:var(--g-fg);font-size:17px;line-height:1.6;letter-spacing:-.005em}
+.reading-page.portfolio-case .case-quote figcaption{margin-top:12px;color:var(--g-muted);font-size:12.5px}
+.portfolio-case .peluutin-match-decision>.case-quote{grid-column:1/-1;width:100%;margin-top:4px}
+
+/* Floating case-length toggle: appears once the original toggle has scrolled out of view.
+   On narrow screens it also opens the section list that the side contents shows on desktop. */
+.case-mode-float{position:absolute;z-index:16;left:50%;bottom:20px;display:flex;align-items:center;gap:2px;padding:3px;border-radius:12px;background:#2b2b2ae6;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:inset 0 0 0 1px var(--g-line-strong),0 12px 32px #00000066;transform:translateX(-50%);transition:opacity 180ms var(--g-out),transform 220ms var(--g-out)}
+.case-mode-float.is-hidden{opacity:0;transform:translate(-50%,10px);pointer-events:none}
+.case-mode-float-modes{display:flex;gap:2px}
+.case-mode-float button{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;min-height:34px;padding:0 14px;border:0;border-radius:9px;background:transparent;color:var(--g-muted);font:600 13px/1 Satoshi,system-ui,sans-serif;cursor:pointer;transition:background-color 160ms var(--g-out),color 160ms var(--g-out),transform 120ms var(--g-out)}
+.case-mode-float button.is-active{background:#f4f4f2;color:#141414}
+.case-mode-float button:active{transform:scale(.97)}
+.case-mode-float :is(button,a):focus-visible{outline:2px solid var(--g-accent);outline-offset:2px}
+.case-mode-float .case-mode-time{margin-left:7px;font-size:11.5px;font-weight:500;opacity:.6}
+.case-mode-float .case-float-contents{display:none;width:44px;padding:0;color:var(--g-fg)}
+.case-float-contents svg{width:18px;height:18px}
+.case-float-contents[aria-expanded="true"]{background:#ffffff14}
+.portfolio-window:has(.browser-page.has-portfolio-toc):has(.portfolio-toc.is-cramped) .case-mode-float .case-float-contents{display:inline-flex}
+.case-float-menu{position:absolute;left:0;bottom:calc(100% + 8px);display:grid;min-width:240px;max-width:calc(100vw - 32px);padding:6px;border-radius:12px;background:var(--g-surface);box-shadow:inset 0 0 0 1px var(--g-line-strong),0 12px 32px #00000080;animation:case-float-menu-in 180ms var(--g-out)}
+.case-float-menu[hidden]{display:none}
+.case-float-menu a{display:flex;align-items:center;min-height:44px;padding:0 12px;border-radius:8px;color:var(--g-fg-2);font-size:15px;text-decoration:none}
+.case-float-menu a[aria-current]{color:var(--g-accent);font-weight:600}
+@keyframes case-float-menu-in{from{opacity:0;transform:translateY(6px)}}
+@media (hover:hover) and (pointer:fine){.case-mode-float button:not(.is-active):hover,.case-float-menu a:hover{background:#ffffff10;color:var(--g-fg)}}
+@media (max-width:760px){
+ .case-mode-float{bottom:16px}
+ .case-mode-float button{min-height:44px;padding:0 16px}
+ .portfolio-window:has(.browser-page.has-portfolio-toc) .case-mode-float .case-float-contents{display:inline-flex;padding:0}
+}
+@media (prefers-reduced-motion:reduce){.case-mode-float,.case-mode-float button{transition:none}.case-mode-float.is-hidden{transform:translateX(-50%)}.case-float-menu{animation:none}}
+
+/* Opening image: as wide as the reading column, so tall screenshots stay modest and edges align with the text. */
+.reading-page.portfolio-case .case-overview-image{width:100%;max-width:var(--g-read);margin-left:auto;margin-right:auto}
+.reading-page.portfolio-case .case-overview-image img{width:100%;height:auto}

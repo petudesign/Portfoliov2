@@ -224,7 +224,7 @@ const scrollPortfolioToWork=()=>{
  browserPage.style.scrollBehavior=previousScrollBehavior;
 };
 function getPortfolioTocSections(){
- if(browserPage.querySelector('.reading-page[data-case-mode="tldr"]'))return [];
+ if(browserPage.querySelector('.reading-page[data-case-mode="tldr"] .case-full-content:not([data-case-layered])'))return [];
  const explicit=[...browserPage.querySelectorAll('[data-toc-label]')].filter(section=>!section.closest('[hidden]'));
  if(explicit.length)return explicit;
  const casePages=[...browserPage.querySelectorAll('.reading-page .case-page')];
@@ -245,11 +245,69 @@ function getPortfolioTocSections(){
   return target;
  }).filter(Boolean);
 }
+let caseModeFloat=null,caseModeFloatScrollHandler=null,caseModeFloatOutsideHandler=null;
+// Keep the paragraph being read at the same place on screen when the case length changes.
+function findCaseReadingAnchor(readingPage){
+ const top=browserPage.getBoundingClientRect().top+80;
+ return [...readingPage.querySelectorAll('.case-tldr-content article,.case-full-content :is(h2,p,li,figure,.case-callout)')]
+  .find(element=>!element.closest('.case-extra')&&element.offsetParent&&element.getBoundingClientRect().bottom>top)||null;
+}
 function initializeCaseModes(){
+ if(caseModeFloatScrollHandler)browserPage.removeEventListener('scroll',caseModeFloatScrollHandler);caseModeFloatScrollHandler=null;
+ if(caseModeFloatOutsideHandler)document.removeEventListener('pointerdown',caseModeFloatOutsideHandler);caseModeFloatOutsideHandler=null;
+ caseModeFloat?.remove();caseModeFloat=null;
  const readingPage=browserPage.querySelector('.reading-page');
- const controls=[...(readingPage?.querySelectorAll('button[data-case-mode]')||[])];
- if(!readingPage||!controls.length)return;
- const fullCase=readingPage.querySelector('.case-full-content');
+ const inlineToggle=readingPage?.querySelector('.case-mode-toggle');
+ if(!readingPage||!inlineToggle?.querySelector('button[data-case-mode]'))return;
+ // A floating copy of the toggle follows the reader once the original scrolls out of view.
+ caseModeFloat=document.createElement('div');
+ caseModeFloat.className='case-mode-float is-hidden';
+ caseModeFloat.inert=true;
+ const floatModes=document.createElement('div');
+ floatModes.className='case-mode-float-modes';floatModes.setAttribute('role','group');floatModes.setAttribute('aria-label','Case length');
+ inlineToggle.querySelectorAll('button[data-case-mode]').forEach(button=>floatModes.append(button.cloneNode(true)));
+ // Narrow screens hide the side contents, so the pill also opens a section list.
+ const contentsButton=document.createElement('button');
+ contentsButton.type='button';contentsButton.className='case-float-contents';
+ contentsButton.setAttribute('aria-label','Contents');contentsButton.setAttribute('aria-expanded','false');contentsButton.setAttribute('aria-controls','case-float-menu');
+ contentsButton.innerHTML='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 4.5h10M3 8h10M3 11.5h6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
+ const contentsMenu=document.createElement('nav');
+ contentsMenu.className='case-float-menu';contentsMenu.id='case-float-menu';contentsMenu.setAttribute('aria-label','Case contents');contentsMenu.hidden=true;
+ caseModeFloat.append(contentsButton,floatModes,contentsMenu);
+ (portfolioToc?.parentElement||browserPage.parentElement).append(caseModeFloat);
+ const closeMenu=returnFocus=>{
+  if(contentsMenu.hidden)return;
+  contentsMenu.hidden=true;contentsButton.setAttribute('aria-expanded','false');
+  if(returnFocus)contentsButton.focus();
+ };
+ const openMenu=()=>{
+  contentsMenu.replaceChildren(...[...(portfolioTocItems?.querySelectorAll('.portfolio-toc-item')||[])].map(item=>{
+   const link=document.createElement('a');
+   link.href=item.getAttribute('href');link.dataset.tocTarget=item.dataset.tocTarget;link.textContent=item.textContent;
+   if(item.classList.contains('is-active'))link.setAttribute('aria-current','location');
+   return link;
+  }));
+  contentsMenu.hidden=false;contentsButton.setAttribute('aria-expanded','true');
+  (contentsMenu.querySelector('[aria-current]')||contentsMenu.querySelector('a'))?.focus();
+ };
+ contentsButton.addEventListener('click',()=>contentsMenu.hidden?openMenu():closeMenu(false));
+ contentsMenu.addEventListener('click',event=>{
+  const link=event.target.closest('[data-toc-target]');if(!link)return;
+  event.preventDefault();
+  const target=document.getElementById(link.dataset.tocTarget);
+  closeMenu(false);
+  if(target)scrollToTocTarget(target);
+ });
+ caseModeFloat.addEventListener('keydown',event=>{if(event.key==='Escape')closeMenu(true);});
+ caseModeFloatOutsideHandler=event=>{if(!caseModeFloat.contains(event.target))closeMenu(false);};
+ document.addEventListener('pointerdown',caseModeFloatOutsideHandler);
+ const setFloatVisible=visible=>{caseModeFloat.classList.toggle('is-hidden',!visible);caseModeFloat.inert=!visible;if(!visible)closeMenu(false);};
+ caseModeFloatScrollHandler=()=>setFloatVisible(inlineToggle.getBoundingClientRect().bottom<browserPage.getBoundingClientRect().top);
+ browserPage.addEventListener('scroll',caseModeFloatScrollHandler,{passive:true});
+ const controls=[...readingPage.querySelectorAll('button[data-case-mode]'),...floatModes.querySelectorAll('button')];
+ // Layered cases keep one text: TL;DR hides the .case-extra parts instead of the whole full case.
+ const layered=readingPage.querySelector('.case-full-content[data-case-layered]');
+ const fullCase=layered?null:readingPage.querySelector('.case-full-content');
  let transitionToken=0;
  const setMode=mode=>{
   readingPage.dataset.caseMode=mode;
@@ -275,10 +333,25 @@ function initializeCaseModes(){
   fullCase._caseHideTimer=window.setTimeout(()=>{if(token!==transitionToken)return;fullCase.hidden=true;fullCase.classList.remove('is-case-exiting');},portfolioMotionDuration);
  };
  controls.forEach(control=>control.addEventListener('click',()=>{
-  setMode(control.dataset.caseMode);
-  buildPortfolioToc();
+  const mode=control.dataset.caseMode;
+  if(mode===readingPage.dataset.caseMode)return;
+  const scrolledPast=inlineToggle.getBoundingClientRect().bottom<browserPage.getBoundingClientRect().top;
+  const anchor=layered&&scrolledPast?findCaseReadingAnchor(readingPage):null;
+  const anchorTop=anchor?.getBoundingClientRect().top;
+  setMode(mode);
+  const previousScrollBehavior=browserPage.style.scrollBehavior;
+  browserPage.style.scrollBehavior='auto';
+  if(anchor)browserPage.scrollTop+=anchor.getBoundingClientRect().top-anchorTop;
+  // A separate full case disappears in TL;DR, so return to the summary instead of an empty gap.
+  else if(!layered&&scrolledPast&&mode==='tldr'){
+   const summary=readingPage.querySelector('.case-tldr-content')||inlineToggle;
+   browserPage.scrollTop+=summary.getBoundingClientRect().top-browserPage.getBoundingClientRect().top-24;
+  }
+  browserPage.style.scrollBehavior=previousScrollBehavior;
+  // Layered cases keep the same sections, so only the active item needs updating.
+  if(layered)portfolioTocScrollHandler?.();else buildPortfolioToc();
  }));
- const initialMode=readingPage.dataset.caseMode||'tldr';
+ const initialMode=readingPage.dataset.caseMode||'full';
  readingPage.dataset.caseMode=initialMode;
  controls.forEach(control=>{const active=control.dataset.caseMode===initialMode;control.classList.toggle('is-active',active);control.setAttribute('aria-pressed',String(active));});
  if(fullCase){fullCase.hidden=initialMode!=='full';fullCase.setAttribute('aria-hidden',String(initialMode!=='full'));}
@@ -391,6 +464,25 @@ function initializeShavikkiPrototype(){
  cabinet?.addEventListener('change',updateContext);
  updateContext();
 }
+// Open the contents only as wide as the gutter beside the reading column, so labels don't cover the text.
+function fitPortfolioToc(){
+ if(!portfolioToc||portfolioToc.hidden)return;
+ const column=browserPage.querySelector('.reading-page h1,.about-page h1');
+ if(!column)return;
+ portfolioToc.classList.remove('is-cramped');
+ // Divide by the window's current scale so opening and closing animations don't skew the measurement.
+ const frame=portfolioToc.offsetParent||browserPage;
+ const scale=frame.getBoundingClientRect().width/(frame.offsetWidth||1)||1;
+ const room=Math.floor((column.getBoundingClientRect().left-portfolioToc.getBoundingClientRect().left)/scale-16);
+ // With enough room the labels sit on the empty gutter; otherwise a card keeps them readable over the text.
+ const roomy=room>=136;
+ portfolioToc.classList.toggle('is-roomy',roomy);
+ // No room for the rail beside the text: the floating pill's contents menu takes over.
+ portfolioToc.classList.toggle('is-cramped',room<24);
+ portfolioToc.style.setProperty('--toc-open',`${roomy?Math.min(200,room):178}px`);
+}
+if('ResizeObserver' in window)new ResizeObserver(()=>fitPortfolioToc()).observe(browserPage);
+const scrollToTocTarget=target=>target.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
 function buildPortfolioToc(){
  if(portfolioTocScrollHandler)browserPage.removeEventListener('scroll',portfolioTocScrollHandler);
  portfolioTocItems?.replaceChildren();
@@ -425,7 +517,6 @@ function buildPortfolioToc(){
   const active=link.dataset.tocTarget===section.id;link.classList.toggle('is-active',active);
   if(active)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');
  });
- setActive(sections[0]);
  const updateActive=()=>{
   const atBottom=browserPage.scrollTop>=browserPage.scrollHeight-browserPage.clientHeight-2;
   const marker=atBottom?browserPage.scrollHeight:browserPage.scrollTop+browserPage.clientHeight*.32;
@@ -449,11 +540,12 @@ function buildPortfolioToc(){
  portfolioTocScrollHandler=updateActive;
  browserPage.addEventListener('scroll',portfolioTocScrollHandler,{passive:true});
  updateActive();
+ fitPortfolioToc();
 }
 portfolioToc?.addEventListener('click',event=>{
  const link=event.target.closest('[data-toc-target]');if(!link)return;
  const target=document.getElementById(link.dataset.tocTarget);if(!target)return;
- event.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'});
+ event.preventDefault();scrollToTocTarget(target);
 });
 // Remember revealed projects for this page load, including internal navigation.
 const revealedProjects=new Set();
@@ -482,10 +574,20 @@ const readingMinutes=nodes=>{
  const words=nodes.filter(Boolean).map(node=>node.textContent).join(' ').trim().split(/\s+/).filter(Boolean).length;
  return Math.max(1,Math.round(words/220));
 };
-const caseReadingTimes=root=>({
- tldr:readingMinutes([root.querySelector('.case-hero'),root.querySelector('.case-tldr-content')]),
- full:readingMinutes([root.querySelector('.case-hero'),root.querySelector('.case-full-content')])
-});
+const withoutExtras=node=>{
+ if(!node)return null;
+ const copy=node.cloneNode(true);
+ copy.querySelectorAll('.case-extra').forEach(extra=>extra.remove());
+ return copy;
+};
+const caseReadingTimes=root=>{
+ const full=root.querySelector('.case-full-content');
+ const layered=full?.hasAttribute('data-case-layered');
+ return {
+  tldr:readingMinutes([root.querySelector('.case-hero'),root.querySelector('.case-tldr-content'),layered?withoutExtras(full):null]),
+  full:readingMinutes([root.querySelector('.case-hero'),layered?root.querySelector('.case-tldr-content'):null,full])
+ };
+};
 // Hero conductor: conducts twice when the homepage renders, and once more on hover.
 function initializeConductor(){
  const conductor=browserPage.querySelector('.conductor');
