@@ -17,3 +17,5 @@ body.is-workspace-open { overflow: hidden; }
 .workspace-exit > span:first-child { font-size: 15px; }
 /* The room is the secondary full-screen surface. */
 .workspace-view{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;transition:opacity 480ms ease,visibility 0s 480ms}.workspace-view::before{display:none}.workspace-view.is-open{transition-delay:0s}.workspace-canvas{transform:scale(1.16);transition:transform 650ms cubic-bezier(.22,1,.36,1)}.workspace-view.is-open .workspace-canvas{transform:scale(1)}.workspace-view.is-returning .workspace-canvas{transform:scale(1.65)}.is-workspace-open .desktop{transform:scale(.91);filter:blur(4px)}.workspace-exit:focus-visible{outline:3px solid #68a8ff;outline-offset:4px}.workspace-book-tooltip{color:#fff}.workspace-book-tooltip strong{font-size:11px}.workspace-book-tooltip span{font-size:10px}.workspace-exit{font-family:inherit!important;font-size:12px!important;min-height:44px}
+/* Hidden only after the room covers the screen; removed before the return animation. */
+.is-workspace-settled .desktop{visibility:hidden}

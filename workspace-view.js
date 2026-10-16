@@ -1198,39 +1198,45 @@ const createDesktopScreenTexture = (THREE) => {
   const desktopImage = new Image();
   const dateParts = (options) => new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Helsinki', ...options });
   const clockFormat = dateParts({ hour: '2-digit', minute: '2-digit', hour12: false });
+  let menubarColor;
   const draw = () => {
     if (!desktopImage.complete || !desktopImage.naturalWidth) return;
     context.drawImage(desktopImage, 0, 0, canvas.width, canvas.height);
     const now = new Date();
     const time = clockFormat.format(now);
     // The desktop image is fixed; date and time are live canvas content.
-    context.fillStyle = '#f3f7fd';
+    context.fillStyle = '#1f1f1f';
     context.beginPath();
     context.roundRect(1473, 40, 210, 140.344, 20);
     context.fill();
     context.textBaseline = 'alphabetic';
     context.textAlign = 'left';
-    context.fillStyle = '#dc3c55';
+    context.fillStyle = '#ff5a6e';
     context.font = '650 10px Arial, sans-serif';
     context.fillText(dateParts({ weekday: 'long' }).format(now).toUpperCase(), 1494, 68);
-    context.fillStyle = '#24242a';
+    context.fillStyle = '#f2f2f2';
     context.font = '300 49px Arial, sans-serif';
     context.fillText(dateParts({ day: 'numeric' }).format(now), 1494, 117);
     context.textAlign = 'right';
-    context.fillStyle = '#8e8492';
+    context.fillStyle = '#9a9a9a';
     context.font = '12px Arial, sans-serif';
     context.fillText(dateParts({ month: 'long' }).format(now), 1662, 104);
-    context.strokeStyle = '#e8e3e8';
+    context.strokeStyle = '#333333';
     context.lineWidth = 1;
     context.beginPath();context.moveTo(1494, 137);context.lineTo(1662, 137);context.stroke();
     context.textAlign = 'left';
-    context.fillStyle = '#7d7484';
+    context.fillStyle = '#9a9a9a';
     context.font = '10px Arial, sans-serif';
     context.fillText('Helsinki, Finland', 1494, 160);
     context.textAlign = 'right';
-    context.fillStyle = '#3a3340';
+    context.fillStyle = '#d6d6d6';
     context.fillText(time, 1662, 160);
-    context.fillStyle = '#0753ae';
+    // Cover the captured menubar clock with the menubar's own colour, sampled from the image.
+    if (!menubarColor) {
+      const [r, g, b] = context.getImageData(1812, 3, 1, 1).data;
+      menubarColor = `rgb(${r}, ${g}, ${b})`;
+    }
+    context.fillStyle = menubarColor;
     context.fillRect(1817, 0, 89, 29);
     context.fillStyle = '#fff';
     context.font = '11px Arial, sans-serif';
@@ -1238,7 +1244,7 @@ const createDesktopScreenTexture = (THREE) => {
     texture.needsUpdate = true;
   };
   desktopImage.onload = draw;
-  desktopImage.src = 'assets/room-desktop-screen.png?v=2';
+  desktopImage.src = 'assets/room-desktop-screen.png?v=14';
   window.setInterval(draw, 30_000);
   const dockTargets = [
     { x: 701.5 / 1906, y: 831 / 896, width: 44 / 1906, height: 44 / 896 },
@@ -1274,7 +1280,7 @@ const createScreenTexture = (THREE, variant) => {
   let playback = { ...window.portfolioPlaybackState };
   let appOpen = false;
   let desktopWindows = [];
-  const dockIconFiles = ['spotify.svg', 'chrome.svg', 'figma.svg', 'codex.svg', 'paper.png', 'audible.png', 'obsidian.svg', 'lmstudio.svg', 'vscode.svg', 'xcode.svg'];
+  const dockIconFiles = ['spotify-macos.svg', 'chrome-macos.png', 'figma-macos.png', 'chatgpt-macos.png', 'claude-macos.png', 'paper-macos.png', 'obsidian-macos.png', 'lmstudio-macos.svg', 'vscode-macos.svg', 'xcode-macos.png'];
   const dockIcons = [];
 
   const formatScreenTime = (milliseconds) => {
@@ -1414,11 +1420,18 @@ const createScreenTexture = (THREE, variant) => {
       const gap = 3;
       const total = dockIcons.length * size + (dockIcons.length - 1) * gap;
       const x = 320 - total / 2 + index * (size + gap);
-      context.fillStyle = index === 6 ? 'rgba(255,255,255,.9)' : 'rgba(13,17,28,.78)';
-      context.beginPath();
-      context.roundRect(x, 375, size, size, 4);
-      context.fill();
-      if (icon.complete && icon.naturalWidth) context.drawImage(icon, x + 2, 377, 12, 12);
+      // Real macOS icons include their own tile; the others get a drawn one.
+      const native = /-macos\.(png|svg)$/.test(dockIconFiles[index]);
+      if (!native) {
+        context.fillStyle = 'rgba(13,17,28,.78)';
+        context.beginPath();
+        context.roundRect(x + 1.5, 376.5, size - 3, size - 3, 3.5);
+        context.fill();
+      }
+      if (icon.complete && icon.naturalWidth) {
+        if (native) context.drawImage(icon, x, 375, size, size);
+        else context.drawImage(icon, x + 3, 378, size - 6, size - 6);
+      }
       if (index === 1 || (index === 0 && playback?.isPlaying) || (index === 3 && appOpen)) {
         context.fillStyle = 'rgba(255,255,255,.9)';
         context.beginPath();
@@ -1469,7 +1482,7 @@ const createScreenTexture = (THREE, variant) => {
   dockIconFiles.forEach((file) => {
     const icon = new Image();
     icon.onload = draw;
-    icon.src = `assets/dock/${file}?v=2`;
+    icon.src = `assets/dock/${file}?v=3`;
     dockIcons.push(icon);
   });
 
@@ -1481,7 +1494,7 @@ const createScreenTexture = (THREE, variant) => {
     wallpaperReady = true;
     draw();
   };
-  wallpaper.src = 'assets/desktop-wallpaper.png?v=2';
+  wallpaper.src = 'assets/desktop-wallpaper.svg?v=1';
   window.setInterval(draw, 30_000);
   texture.userData = {
     setPlayback(nextPlayback) {
@@ -2175,14 +2188,40 @@ const buildWorkspace = async () => {
   const audioForward = new THREE.Vector3();
   const audioUp = new THREE.Vector3();
   const audioHeadphones = new THREE.Vector3();
+  // Adaptive resolution: drop the pixel ratio in small steps while frames run long,
+  // and raise it back toward the cap once the device keeps up again.
+  const maxPixelRatio = () => Math.min(devicePixelRatio, 1.5);
+  let pixelRatio = maxPixelRatio();
+  let lastFrameTime = 0;
+  let slowFrames = 0;
+  let fastFrames = 0;
+  const adaptResolution = (delta) => {
+    if (delta > 22) { slowFrames += 1; fastFrames = 0; }
+    else if (delta < 15) { fastFrames += 1; slowFrames = Math.max(0, slowFrames - 1); }
+    if (slowFrames > 24 && pixelRatio > 1) {
+      pixelRatio = Math.max(1, pixelRatio - .25);
+      renderer.setPixelRatio(pixelRatio);
+      slowFrames = 0;
+    } else if (fastFrames > 240 && pixelRatio < maxPixelRatio()) {
+      pixelRatio = Math.min(maxPixelRatio(), pixelRatio + .25);
+      renderer.setPixelRatio(pixelRatio);
+      fastFrames = 0;
+    }
+  };
   const render = (time) => {
     if (!active) return;
+    // Clamp long gaps (tab switches) so the camera never jumps.
+    const delta = lastFrameTime ? Math.min(100, time - lastFrameTime) : 16.7;
+    lastFrameTime = time;
+    if (time - startTime > 1200) adaptResolution(delta);
     keyboard.userData.animate?.(time);
     puppy.userData.animate?.(time);
     const lift = Math.min(1, (time - startTime) / 1050);
     const easedLift = 1 - Math.pow(1 - lift, 3);
-    yaw += (targetYaw - yaw) * .055;
-    pitch += (targetPitch - pitch) * .045;
+    // Same easing feel as before at 60 fps, but independent of the frame rate.
+    const frames = delta / 16.7;
+    yaw += (targetYaw - yaw) * (1 - Math.pow(1 - .055, frames));
+    pitch += (targetPitch - pitch) * (1 - Math.pow(1 - .045, frames));
     camera.position.y = 1.34 + easedLift * .48;
     camera.position.z = 3.18 - easedLift * .36;
     camera.rotation.y = yaw;
@@ -2198,7 +2237,8 @@ const buildWorkspace = async () => {
   const resize = () => {
     camera.aspect = innerWidth / innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+    pixelRatio = Math.min(pixelRatio, maxPixelRatio());
+    renderer.setPixelRatio(pixelRatio);
     renderer.setSize(innerWidth, innerHeight);
   };
 
@@ -2217,6 +2257,7 @@ const buildWorkspace = async () => {
       screenTextures.forEach((screenTexture) => screenTexture.userData.setAppOpen?.(true));
       screenTextures[0]?.userData.setDesktopWindows?.(captureDesktopWindows());
       startTime = performance.now();
+      lastFrameTime = 0;
       yaw = 0;
       targetYaw = 0;
       pitch = minPitch;
@@ -2256,6 +2297,7 @@ const openWorkspace = async () => {
     if (!view.classList.contains('is-open')) return;
     view.classList.add('is-ready');
     workspace.open();
+    settleDesktop(true);
     window.portfolioAudio?.setRoom(true);
   } catch (error) {
     view.querySelector('.workspace-loading').textContent = `The workspace could not be loaded: ${error.message}`;
@@ -2267,9 +2309,31 @@ const openWorkspace = async () => {
   }
 };
 
+// Once the room fully covers the screen, hide the blurred desktop underneath so the
+// browser stops compositing it every frame. Videos pause and resume with the room.
+let settleTimer;
+const pausedVideos = new Set();
+const settleDesktop = (settled) => {
+  window.clearTimeout(settleTimer);
+  if (settled) {
+    settleTimer = window.setTimeout(() => {
+      if (!view.classList.contains('is-open')) return;
+      document.body.classList.add('is-workspace-settled');
+      document.querySelectorAll('.desktop video').forEach((video) => {
+        if (!video.paused) { pausedVideos.add(video); video.pause(); }
+      });
+    }, 700);
+    return;
+  }
+  document.body.classList.remove('is-workspace-settled');
+  pausedVideos.forEach((video) => video.play().catch(() => {}));
+  pausedVideos.clear();
+};
+
 const closeWorkspace = () => {
   if (!view.classList.contains('is-open') || view.classList.contains('is-returning')) return;
   window.portfolioAudio?.setRoom(false);
+  settleDesktop(false);
   view.classList.add('is-returning');
   view.classList.remove('is-open');
   view.setAttribute('aria-hidden', 'true');

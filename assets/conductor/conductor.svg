@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Original pictogram of a conductor in tails; arms are separate groups so they can move.
+       The whole figure uses currentColor. -->
+  
+  <path class="cond-suit-fill" d="M33 70.5 40 71.2 44 100H35.5Z"/>
+  <path class="cond-suit-fill" d="M60 71.2 67 70.5 64.5 100H56Z"/>
+  <path class="cond-suit-fill" d="M42 66.5c0-1.6 1.6-2.6 3-1.8l5 3 5-3c1.4-.8 3 .2 3 1.8v4.2c0 1.6-1.6 2.6-3 1.8l-5-3-5 3c-1.4.8-3-.2-3-1.8Z"/>
+  <ellipse class="cond-head" cx="50" cy="45" rx="14.5" ry="16.5"/>
+  <g class="cond-left" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path class="cond-sleeve" d="M37 72 14 69.5"/>
+    <g class="cond-left-fore"><path class="cond-sleeve" d="M14 69.5 23 44"/></g>
+  </g>
+  <g class="cond-right" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path class="cond-sleeve" d="M63 72 86 75"/>
+    <g class="cond-right-fore">
+      <g class="cond-wrist"><path class="cond-baton" d="M79 44.5 63.5 9"/></g>
+      <path class="cond-sleeve" d="M86 75 80.5 53"/>
+    </g>
+  </g>
+</svg>

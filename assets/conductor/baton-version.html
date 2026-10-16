@@ -1,0 +1,22 @@
+<!-- Saved alternative for the hero: baton only, before the conductor figure.
+To restore: put this span before "orchestrating" inside .conductor-lead in index.html,
+and replace the conductor block in gallery.css with the CSS below. -->
+<span class="conductor" aria-hidden="true"><svg viewBox="0 0 64 64"><path class="conductor-trail" pathLength="1" d="M20 8C17 22 18 30 23 32S16 22 8 26 9 34 30 30 34 16 20 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><g class="conductor-arm"><path d="M51.2 52.6 18.4 12.6c-.5-.6-.2-1.4.5-1.6.4-.1.8 0 1 .3l33.6 39.6Z" fill="currentColor"/><circle cx="53.5" cy="53.5" r="5.2" fill="currentColor"/><circle cx="53.5" cy="53.5" r="2" fill="#232323" opacity=".35"/></g></svg></span>
+
+<style>
+/* Conductor's baton: conducts a 4/4 bar twice on load, again when the headline is hovered */
+.conductor-lead{white-space:nowrap}
+.conductor{display:inline-block;width:1.05em;height:1.05em;margin:0 .16em 0 0;vertical-align:-.1em;overflow:visible;color:var(--g-accent)}
+.conductor svg{display:block;width:100%;height:100%;overflow:visible}
+.conductor-arm{transform-box:view-box;transform-origin:53.5px 53.5px;animation:conduct 1.6s cubic-bezier(.45,0,.55,1) .7s 2 both}
+.conductor-trail{stroke-dasharray:1;stroke-dashoffset:1;opacity:0;animation:conduct-trail 1.6s linear .7s 2 both}
+@keyframes conduct{0%{transform:rotate(0)}14%{transform:rotate(-24deg)}26%{transform:rotate(-5deg)}40%{transform:rotate(14deg)}52%{transform:rotate(1deg)}66%{transform:rotate(-30deg)}80%{transform:rotate(-7deg)}90%{transform:rotate(16deg)}100%{transform:rotate(0)}}
+@keyframes conduct-trail{0%{stroke-dashoffset:1;opacity:.55}85%{stroke-dashoffset:0;opacity:.55}100%{stroke-dashoffset:0;opacity:0}}
+@media (hover:hover) and (pointer:fine){
+ .gallery-hero-copy h1:hover .conductor-arm{animation:conduct-again 1.6s cubic-bezier(.45,0,.55,1) 0s 1 both}
+ .gallery-hero-copy h1:hover .conductor-trail{animation:conduct-trail-again 1.6s linear 0s 1 both}
+}
+@keyframes conduct-again{0%{transform:rotate(0)}14%{transform:rotate(-24deg)}26%{transform:rotate(-5deg)}40%{transform:rotate(14deg)}52%{transform:rotate(1deg)}66%{transform:rotate(-30deg)}80%{transform:rotate(-7deg)}90%{transform:rotate(16deg)}100%{transform:rotate(0)}}
+@keyframes conduct-trail-again{0%{stroke-dashoffset:1;opacity:.55}85%{stroke-dashoffset:0;opacity:.55}100%{stroke-dashoffset:0;opacity:0}}
+@media (prefers-reduced-motion:reduce){.conductor-arm,.conductor-trail,.gallery-hero-copy h1:hover .conductor-arm,.gallery-hero-copy h1:hover .conductor-trail{animation:none}}
+</style>

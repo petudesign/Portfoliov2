@@ -7,12 +7,13 @@ const desktopShortcuts = [
  {name:'As a designer.md',href:'#how-i-work',icon:'MD'},
  {name:'Chess',href:'#chess',icon:'chess'},
 ];
+// Icons named *-macos.* are macOS-style app icons that carry their own tile.
 const desktopApps = [
- ['Spotify','spotify.svg','#spotify'],
- ['Chrome','chrome.svg','#home'], ['Figma','figma.svg',null],
- ['Codex','codex.svg',null], ['Paper Design','paper.png',null], ['Audible','audible.png',null],
- ['Obsidian','obsidian.svg',null], ['LM Lab','lmstudio.svg',null],
- ['VS Code','vscode.svg',null], ['Xcode','xcode.svg',null],
+ ['Spotify','spotify-macos.svg','#spotify'],
+ ['Chrome','chrome-macos.png','#home'], ['Figma','figma-macos.png',null],
+ ['Codex','chatgpt-macos.png',null], ['Claude','claude-macos.png',null], ['Paper Design','paper-macos.png',null],
+ ['Obsidian','obsidian-macos.png',null], ['LM Lab','lmstudio-macos.svg',null],
+ ['VS Code','vscode-macos.svg',null], ['Xcode','xcode-macos.png',null],
 ];
 const portfolioWindow=document.querySelector('#portfolio-window');
 const browserPage=document.querySelector('#browser-page');
@@ -218,7 +219,8 @@ const scrollPortfolioToWork=()=>{
  const target=browserPage.querySelector('.desktop-work-heading');if(!target)return;
  const previousScrollBehavior=browserPage.style.scrollBehavior;
  browserPage.style.scrollBehavior='auto';
- browserPage.scrollTop=target.getBoundingClientRect().top-browserPage.getBoundingClientRect().top+browserPage.scrollTop;
+ // Land with a little breathing room above the filters.
+ browserPage.scrollTop=target.getBoundingClientRect().top-browserPage.getBoundingClientRect().top+browserPage.scrollTop-28;
  browserPage.style.scrollBehavior=previousScrollBehavior;
 };
 function getPortfolioTocSections(){
@@ -475,6 +477,90 @@ function initializeProjectReveals(){
   projectRevealObserver.observe(card);
  }
 }
+// Reading time from the case text itself, about 220 words a minute.
+const readingMinutes=nodes=>{
+ const words=nodes.filter(Boolean).map(node=>node.textContent).join(' ').trim().split(/\s+/).filter(Boolean).length;
+ return Math.max(1,Math.round(words/220));
+};
+const caseReadingTimes=root=>({
+ tldr:readingMinutes([root.querySelector('.case-hero'),root.querySelector('.case-tldr-content')]),
+ full:readingMinutes([root.querySelector('.case-hero'),root.querySelector('.case-full-content')])
+});
+// Hero conductor: conducts twice when the homepage renders, and once more on hover.
+function initializeConductor(){
+ const conductor=browserPage.querySelector('.conductor');
+ const heading=conductor?.closest('h1');
+ if(!conductor||!heading)return;
+ const conduct=bars=>{
+  conductor.classList.remove('is-conducting');
+  conductor.style.setProperty('--bars',bars);
+  void conductor.offsetWidth;
+  conductor.classList.add('is-conducting');
+ };
+ setTimeout(()=>conduct(2),600);
+ heading.addEventListener('pointerenter',event=>{if(event.pointerType==='mouse'&&!conductor.getAnimations({subtree:true}).some(a=>a.playState==='running'))conduct(1);});
+}
+// End each case with the next one, in the homepage order, so reading can continue.
+function addNextCase(route){
+ const page=browserPage.querySelector('.reading-page.portfolio-case');
+ if(!page||page.querySelector('.case-next'))return;
+ const home=document.querySelector('#page-home').content;
+ const entries=[...home.querySelectorAll('.gallery-card[href^="/"],.gallery-row[href^="/"]')];
+ const index=entries.findIndex(entry=>cleanPathRoutes[entry.getAttribute('href')]===route);
+ if(index<0)return;
+ const next=entries[(index+1)%entries.length];
+ const nextRoute=cleanPathRoutes[next.getAttribute('href')];
+ const template=document.querySelector(`#page-${nextRoute}`);
+ const image=next.querySelector('img');
+ const title=next.querySelector('h3,strong').textContent.trim();
+ const description=next.querySelector('p,strong+span')?.textContent.trim()||'';
+ const minutes=template?caseReadingTimes(template.content).full:0;
+ const nav=document.createElement('nav');nav.className='case-next';nav.setAttribute('aria-label','Next case');
+ nav.innerHTML=`<span class="case-next-label">Next case</span><a class="case-next-card" href="${next.getAttribute('href')}"><span class="case-next-thumb" style="--thumb:${next.style.getPropertyValue('--thumb')||'#ececea'}"><img src="${image.getAttribute('src')}" alt="" decoding="async" loading="lazy"></span><span class="case-next-copy"><strong></strong><span class="case-next-description"></span>${minutes?`<span class="case-next-time">${minutes} min read</span>`:''}</span><span class="case-next-arrow" aria-hidden="true">→</span></a>`;
+ nav.querySelector('strong').textContent=title;
+ nav.querySelector('.case-next-description').textContent=description;
+ page.append(nav);
+}
+function addReadingTimes(route){
+ for(const card of browserPage.querySelectorAll('.gallery-card[href^="/"],.gallery-row[href^="/"]')){
+  const template=document.querySelector(`#page-${cleanPathRoutes[new URL(card.href).pathname]}`);
+  if(!template||card.querySelector('.reading-time'))continue;
+  const {full}=caseReadingTimes(template.content);
+  const clock='<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8V8l2.2 1.4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>';
+  const label=`<span class="reading-time">${clock}${full} min read</span>`;
+  // Cards: own line under the description. List rows: under the type and year.
+  if(card.classList.contains('gallery-row'))card.querySelector('.gallery-row-meta')?.insertAdjacentHTML('beforeend',label);
+  else card.insertAdjacentHTML('beforeend',label);
+ }
+ const page=browserPage.querySelector('.portfolio-case');
+ if(!page||route==='home'||route==='work')return;
+ const times=caseReadingTimes(page);
+ for(const button of page.querySelectorAll('[data-case-mode]')){
+  const minutes=times[button.dataset.caseMode];
+  if(!minutes)continue;
+  button.insertAdjacentHTML('beforeend',`<span class="case-mode-time">${minutes} min</span>`);
+ }
+}
+function addCaseBackLink(route){
+ const page=browserPage.querySelector('.reading-page');
+ if(!page||route==='home'||route==='work'||route==='about')return;
+ const back=document.createElement('a');back.className='case-back';back.href='#work';
+ back.innerHTML='<span aria-hidden="true">←</span> All work';
+ page.prepend(back);
+}
+function initializeGalleryFilters(){
+ const buttons=[...browserPage.querySelectorAll('[data-gallery-filter]')];
+ const cards=[...browserPage.querySelectorAll('.gallery-card')];
+ for(const button of buttons)button.addEventListener('click',()=>{
+  const filter=button.dataset.galleryFilter;
+  for(const other of buttons){const active=other===button;other.classList.toggle('is-active',active);other.setAttribute('aria-pressed',String(active));}
+  for(const card of cards){
+   const tags=(card.dataset.tags||'').split(' ');
+   const match=filter==='all'||tags.includes('all')||tags.includes(filter);
+   card.classList.toggle('is-filtered-out',!match);
+  }
+ });
+}
 function renderPage(route,record=true,focus=true){
  projectRevealObserver?.disconnect();
  if(!Object.hasOwn(pageTitles,route)) route='home';
@@ -486,6 +572,11 @@ function renderPage(route,record=true,focus=true){
  if(route==='home'||route==='work'){
   const wrapper=document.createElement('div');wrapper.className='portfolio-content';wrapper.append(...browserPage.childNodes);browserPage.append(wrapper);
  }
+ addCaseBackLink(route);
+ initializeGalleryFilters();
+ addReadingTimes(route);
+ addNextCase(route);
+ initializeConductor();
  initializeCaseVideos(browserPage);
  initializeCaseComparisons(browserPage);
  initializeCaseImagePreviews();
@@ -537,11 +628,11 @@ function renderPage(route,record=true,focus=true){
 }
 enableArrowNavigation(document.querySelector('#desktop-shortcuts'),'.desktop-shortcut',2);
 for(const[name,file,destination]of desktopApps){
- const element=document.createElement(destination?'a':'div');element.className=`dock-app${destination?'':' dock-app-static'}`;element.dataset.app=name;
+ const element=document.createElement(destination?'a':'div');element.className=`dock-app${destination?'':' dock-app-static'}${/-macos\.(png|svg)$/.test(file)?' is-native':''}`;element.dataset.app=name;
  if(destination)element.href=destination;
  element.setAttribute('aria-label',name==='Spotify'?'Spotify — open player':name==='Chrome'?'Chrome — open portfolio':destination?`${name} — opens in a new tab`:name);
  if(destination&&!destination.startsWith('#')){element.target='_blank';element.rel='noopener noreferrer';}
- const icon=document.createElement('img');icon.src=`assets/dock/${file}`;icon.alt='';
+ const icon=document.createElement('img');icon.src=`assets/dock/${file}?v=3`;icon.alt='';
  const label=document.createElement('span');label.textContent=name;element.append(icon,label);document.querySelector('#desktop-dock').append(element);
 }
 enableArrowNavigation(document.querySelector('#desktop-dock'),'.dock-app:not(.dock-app-static)');

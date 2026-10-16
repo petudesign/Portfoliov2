@@ -10,3 +10,4 @@ Thumbs.db
 .img2threejs/
 audit-*/
 *.tmp
+.claude/
