@@ -1,6 +1,6 @@
 # Petteri Helttula
 
-> Portfolio of Petteri Helttula, a Helsinki-based product designer and design engineer.
+> Portfolio of Petteri Helttula, a Helsinki-based product designer and AI design engineer.
 
 Petteri works across product design, UX/UI, AI, code, data and interactive product experiments. The portfolio includes selected case studies, work-in-progress projects, personal experiments and background on his design approach.
 
