@@ -436,8 +436,8 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .reading-page .case-next{max-width:var(--g-read);margin:56px auto 0;padding-top:28px;border-top:1px solid var(--g-line)}
 .case-next-label{display:block;margin-bottom:12px;color:var(--g-muted);font-size:12px;font-weight:600;letter-spacing:.02em}
 .reading-page a.case-next-card{display:grid;grid-template-columns:168px minmax(0,1fr) 24px;align-items:center;gap:20px;padding:10px;border-radius:var(--g-radius);background:var(--g-surface);box-shadow:inset 0 0 0 1px var(--g-line);color:var(--g-fg);text-decoration:none;transition:background-color 180ms var(--g-out),transform 140ms var(--g-out)}
-.case-next-thumb{display:block;overflow:hidden;aspect-ratio:16/10.5;border-radius:9px;background:var(--thumb,#ececea)}
-.case-next-thumb img{display:block;width:100%;height:100%;object-fit:cover}
+.case-next-thumb{position:relative;display:block;overflow:hidden;aspect-ratio:16/10.5;border-radius:9px;background:var(--thumb,#ececea)}
+.reading-page .case-next-thumb img{position:absolute;inset:0;display:block;width:100%;height:100%;max-width:none;margin:0;border-radius:0;object-fit:cover}
 .case-next-copy strong{display:block;font-size:17px;font-weight:650;letter-spacing:-.015em}
 .case-next-description{display:block;margin-top:4px;color:var(--g-fg-2);font-size:13.5px;line-height:1.5}
 .case-next-time{display:block;margin-top:8px;color:var(--g-muted);font-size:12px}
@@ -495,11 +495,14 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .reading-page.portfolio-case>.case-actions{margin:32px auto 24px}
 .reading-page.portfolio-case .case-tldr-summary{max-width:calc(var(--g-read) + 80px);margin-left:auto;margin-right:auto}
 
-/* Bottom dimming: one fixed gradient over the bottom of a case page, so text there shows faded
+/* Bottom dimming: one fixed gradient over the bottom of a case page while reading, so text there shows faded
    and the eye settles on the text above. A single static layer keeps scrolling cheap.
    It fades out at the end of the page so the last lines and the next case read in full. */
 .portfolio-window:has(.browser-page .reading-page.portfolio-case)::after{content:'';position:absolute;z-index:14;left:0;right:14px;bottom:0;height:min(32%,260px);background:linear-gradient(to bottom,#23232300,#232323d9);pointer-events:none;transition:opacity 220ms var(--g-out)}
-.portfolio-window.is-page-end::after{opacity:0}
+.portfolio-window:is(.is-page-start,.is-page-end)::after{opacity:0}
+
+/* A standalone link after body text gets extra room so it reads as its own action. */
+.reading-page.portfolio-case .case-section p.case-link{margin-top:28px}
 
 /* Coach quotes inside a case section. */
 .reading-page.portfolio-case .case-section .case-quote{max-width:var(--g-read);margin:28px auto 0;padding:20px 22px;border-radius:12px;background:var(--g-surface);box-shadow:inset 0 0 0 1px var(--g-line)}

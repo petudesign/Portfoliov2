@@ -254,7 +254,7 @@ function findCaseReadingAnchor(readingPage){
 }
 function initializeCaseModes(){
  if(caseModeFloatScrollHandler)browserPage.removeEventListener('scroll',caseModeFloatScrollHandler);caseModeFloatScrollHandler=null;
- portfolioWindow.classList.remove('is-page-end');
+ portfolioWindow.classList.remove('is-page-start','is-page-end');
  if(caseModeFloatOutsideHandler)document.removeEventListener('pointerdown',caseModeFloatOutsideHandler);caseModeFloatOutsideHandler=null;
  caseModeFloat?.remove();caseModeFloat=null;
  const readingPage=browserPage.querySelector('.reading-page');
@@ -305,9 +305,11 @@ function initializeCaseModes(){
  const setFloatVisible=visible=>{caseModeFloat.classList.toggle('is-hidden',!visible);caseModeFloat.inert=!visible;if(!visible)closeMenu(false);};
  caseModeFloatScrollHandler=()=>{
   setFloatVisible(inlineToggle.getBoundingClientRect().bottom<browserPage.getBoundingClientRect().top);
-  // Lift the bottom dimming once the reader reaches the end of the case.
+  // Dim the bottom only while reading: not over the hero at the top, and not at the end of the case.
+  portfolioWindow.classList.toggle('is-page-start',browserPage.scrollTop<120);
   portfolioWindow.classList.toggle('is-page-end',browserPage.scrollTop>=browserPage.scrollHeight-browserPage.clientHeight-4);
  };
+ caseModeFloatScrollHandler();
  browserPage.addEventListener('scroll',caseModeFloatScrollHandler,{passive:true});
  const controls=[...readingPage.querySelectorAll('button[data-case-mode]'),...floatModes.querySelectorAll('button')];
  // Layered cases keep one text: TL;DR hides the .case-extra parts instead of the whole full case.
