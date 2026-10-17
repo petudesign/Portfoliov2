@@ -495,6 +495,12 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .reading-page.portfolio-case>.case-actions{margin:32px auto 24px}
 .reading-page.portfolio-case .case-tldr-summary{max-width:calc(var(--g-read) + 80px);margin-left:auto;margin-right:auto}
 
+/* Bottom dimming: one fixed gradient over the bottom of a case page, so text there shows faded
+   and the eye settles on the text above. A single static layer keeps scrolling cheap.
+   It fades out at the end of the page so the last lines and the next case read in full. */
+.portfolio-window:has(.browser-page .reading-page.portfolio-case)::after{content:'';position:absolute;z-index:14;left:0;right:14px;bottom:0;height:min(32%,260px);background:linear-gradient(to bottom,#23232300,#232323d9);pointer-events:none;transition:opacity 220ms var(--g-out)}
+.portfolio-window.is-page-end::after{opacity:0}
+
 /* Coach quotes inside a case section. */
 .reading-page.portfolio-case .case-section .case-quote{max-width:var(--g-read);margin:28px auto 0;padding:20px 22px;border-radius:12px;background:var(--g-surface);box-shadow:inset 0 0 0 1px var(--g-line)}
 .reading-page.portfolio-case .case-quote blockquote{margin:0}

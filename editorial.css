@@ -185,7 +185,7 @@
 .portfolio-toc-items{position:relative;display:grid}
 .portfolio-toc-item{position:relative;display:flex;align-items:center;width:32px;height:24px;border-radius:4px;color:#ffffff8c;text-decoration:none;white-space:nowrap}
 .portfolio-toc-item::before{content:'';width:20px;height:2px;border-radius:2px;background:currentColor;opacity:.6;transform:scaleX(.6);transform-origin:left center;transition:transform 200ms var(--ease),opacity 160ms var(--ease),background-color 160ms var(--ease)}
-.portfolio-toc-item span{position:absolute;top:50%;left:32px;max-width:calc(var(--toc-open,178px) - 44px);overflow:hidden;text-overflow:ellipsis;font-size:12.5px;line-height:1.2;opacity:0;pointer-events:none;transform:translate(-6px,-50%);transition:opacity 140ms var(--ease),transform 140ms var(--ease)}
+.portfolio-toc-item span{position:absolute;top:50%;left:32px;width:calc(var(--toc-open,178px) - 44px);height:24px;overflow:hidden;text-overflow:ellipsis;font-size:12.5px;line-height:24px;opacity:0;pointer-events:none;transform:translate(-6px,-50%);transition:opacity 140ms var(--ease),transform 140ms var(--ease)}
 .portfolio-toc-item:hover,.portfolio-toc-item.is-active{color:#f2f2f0}
 .portfolio-toc-item:hover::before{opacity:.9;transform:scaleX(1)}
 .portfolio-toc-item.is-active::before{background:#e4eca7;opacity:1;transform:scaleX(1)}

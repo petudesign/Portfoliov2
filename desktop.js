@@ -254,6 +254,7 @@ function findCaseReadingAnchor(readingPage){
 }
 function initializeCaseModes(){
  if(caseModeFloatScrollHandler)browserPage.removeEventListener('scroll',caseModeFloatScrollHandler);caseModeFloatScrollHandler=null;
+ portfolioWindow.classList.remove('is-page-end');
  if(caseModeFloatOutsideHandler)document.removeEventListener('pointerdown',caseModeFloatOutsideHandler);caseModeFloatOutsideHandler=null;
  caseModeFloat?.remove();caseModeFloat=null;
  const readingPage=browserPage.querySelector('.reading-page');
@@ -302,7 +303,11 @@ function initializeCaseModes(){
  caseModeFloatOutsideHandler=event=>{if(!caseModeFloat.contains(event.target))closeMenu(false);};
  document.addEventListener('pointerdown',caseModeFloatOutsideHandler);
  const setFloatVisible=visible=>{caseModeFloat.classList.toggle('is-hidden',!visible);caseModeFloat.inert=!visible;if(!visible)closeMenu(false);};
- caseModeFloatScrollHandler=()=>setFloatVisible(inlineToggle.getBoundingClientRect().bottom<browserPage.getBoundingClientRect().top);
+ caseModeFloatScrollHandler=()=>{
+  setFloatVisible(inlineToggle.getBoundingClientRect().bottom<browserPage.getBoundingClientRect().top);
+  // Lift the bottom dimming once the reader reaches the end of the case.
+  portfolioWindow.classList.toggle('is-page-end',browserPage.scrollTop>=browserPage.scrollHeight-browserPage.clientHeight-4);
+ };
  browserPage.addEventListener('scroll',caseModeFloatScrollHandler,{passive:true});
  const controls=[...readingPage.querySelectorAll('button[data-case-mode]'),...floatModes.querySelectorAll('button')];
  // Layered cases keep one text: TL;DR hides the .case-extra parts instead of the whole full case.
@@ -510,7 +515,7 @@ function buildPortfolioToc(){
   const label=section.dataset.tocLabel;
   let id=section.id||`portfolio-toc-${index+1}`;
   section.id=id;
-  const link=document.createElement('a');link.className='portfolio-toc-item';link.href=`#${id}`;link.title=label;link.dataset.tocTarget=id;
+  const link=document.createElement('a');link.className='portfolio-toc-item';link.href=`#${id}`;link.dataset.tocTarget=id;
   const text=document.createElement('span');text.textContent=label;link.append(text);portfolioTocItems.append(link);links.push(link);
  });
  const setActive=section=>links.forEach(link=>{
