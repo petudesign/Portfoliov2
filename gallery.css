@@ -19,6 +19,8 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .portfolio-window:has(.gallery-home,.reading-page,.about-page) .portfolio-nav>a>span{color:var(--g-muted)}
 .portfolio-window:has(.gallery-home,.reading-page,.about-page) .portfolio-nav [aria-current=page]{color:var(--g-accent)}
 .browser-page:has(.gallery-home),.browser-page:has(.reading-page),.browser-page:has(.about-page){background:var(--g-bg);color:var(--g-fg);scrollbar-color:#4a4a48 var(--g-bg)}
+/* Grain (test): a faint, static noise in the page background, under all content. */
+.browser-page:has(.gallery-home),.browser-page:has(.reading-page),.browser-page:has(.about-page){background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .11 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px 180px}
 
 
 /* ---------- Browser chrome in Chrome's dark mode, to sit with the dark pages ---------- */
@@ -50,7 +52,7 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .gallery-home{font-family:Satoshi,system-ui,sans-serif}
 
 .gallery-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,440px);gap:clamp(24px,5vw,72px);align-items:start;margin-bottom:clamp(32px,4vw,48px)}
-.gallery-hero-copy h1{margin:8px 0 0;font:650 clamp(30px,3.2vw,42px)/1.12 Satoshi,system-ui,sans-serif;letter-spacing:-.012em;color:var(--g-fg);text-wrap:balance}
+.gallery-hero-copy h1{margin:8px 0 0;font:650 clamp(30px,3.2vw,42px)/1.12 Satoshi,system-ui,sans-serif;letter-spacing:0;color:var(--g-fg);text-wrap:balance}
 /* One accent phrase, set apart by colour only */
 /* The conductor is solid accent green, "AI agents" carries the dot screen, "orchestrating" stays plain headline text */
 .gallery-hero-accent{font-weight:inherit}
@@ -63,7 +65,7 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 /* Conductor matched to how the dithered "AI agents" reads on screen (bright dots on dark = muted lime) */
 .gallery-hero-accent .conductor{color:#b3b985;text-shadow:none}
 /* Third step of the headline hierarchy: the scope, set apart by size and weight only */
-.gallery-hero-tail{display:block;margin-top:.3em;font-size:.62em;font-weight:500;line-height:1.25;letter-spacing:-.02em;color:var(--g-fg)}
+.gallery-hero-tail{display:block;margin-top:.3em;font-size:.62em;font-weight:500;line-height:1.25;letter-spacing:0;color:var(--g-fg)}
 /* Conductor pictogram in the accent colour. The right forearm beats a 4/4 pattern and the
    wrist flicks the baton; the left hand and the head follow the beat more softly.
    Plays two bars on load and one on hover. The baton-only version is in assets/conductor/. */
@@ -106,23 +108,36 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .scramble-char.is-settled{animation:scramble-settle 420ms var(--g-out)}
 @keyframes scramble-settle{from{color:var(--g-accent)}}
 @media (prefers-reduced-motion:reduce){.scramble-char.is-settled{animation:none}}
-/* "AI agents" waits unlit during the decode, then flickers on: three uneven stutters, then steady. */
+/* "AI agents" waits unlit during the decode, then switches on (see agents-light below). */
+/* Light spill: a soft glow behind "AI agents", like a sign lighting the wall. It sits inside the
+   phrase, so it flickers with the light-up and then stays. The heading isolates it above the page. */
+.gallery-hero-copy h1{isolation:isolate}
+.gallery-hero-dither{position:relative}
+.gallery-hero-dither::before{content:'';position:absolute;z-index:-1;inset:-.95em -1.3em;border-radius:50%;background:radial-gradient(closest-side,#e4eca72e,#e4eca70f 55%,#e4eca700);pointer-events:none}
+.gallery-hero-dither.is-unlit::before{opacity:0}
 .gallery-hero-dither.is-unlit{opacity:.28}
-.gallery-hero-dither.is-lighting{animation:agents-light 1600ms linear both}
+.gallery-hero-dither.is-lighting{animation:agents-light 2200ms linear both}
+.gallery-hero-dither.is-lighting::before{animation:agents-glow 2200ms ease-out both}
+/* Like a fluorescent tube: two short, partial blinks and a pause, a stutter, then a smooth warm-up.
+   The glow lags behind the text and only builds once the light holds. */
 @keyframes agents-light{
- 0%{opacity:.28;filter:none}
- 6%{opacity:.85;filter:drop-shadow(0 0 5px #e4eca799)}
- 11%{opacity:.3;filter:none}
- 26%{opacity:.3}
- 30%{opacity:1;filter:drop-shadow(0 0 8px #e4eca7aa)}
- 35%{opacity:.4;filter:none}
- 44%{opacity:.34}
- 52%{opacity:1;filter:drop-shadow(0 0 10px #e4eca799)}
- 100%{opacity:1;filter:drop-shadow(0 0 0 #e4eca700)}
+ 0%{opacity:.28}
+ 3%{opacity:.72}
+ 6%{opacity:.3}
+ 15%{opacity:.28}
+ 18%{opacity:.8}
+ 20%{opacity:.42}
+ 23%{opacity:.86}
+ 26%{opacity:.56}
+ 34%{opacity:.7}
+ 62%{opacity:.94}
+ 100%{opacity:1}
 }
+@keyframes agents-glow{0%,30%{opacity:0}60%{opacity:.55}100%{opacity:1}}
+
 /* Hero refresh (test): a size step between the three lines, a measurement the decode draws
    under the word, in a single-column hero. */
-.gallery-hero-copy h1 .scramble{position:relative;display:block;width:fit-content;margin-bottom:max(.34em,24px);font-size:clamp(34px,10.8cqi,74px);line-height:1;letter-spacing:-.03em}
+.gallery-hero-copy h1 .scramble{position:relative;display:block;width:fit-content;margin-bottom:max(.34em,24px);font-size:clamp(34px,10.8cqi,74px);line-height:1;letter-spacing:-.01em}
 .gallery-hero-copy .gallery-hero-tail{margin-top:.45em;font-size:.58em;color:var(--g-fg-2)}
 .hero-measure{position:absolute;left:0;right:0;top:calc(100% + 6px);height:9px;border-left:1px solid #e4eca766;opacity:0;pointer-events:none;transition:opacity 160ms var(--g-out)}
 .hero-measure::before{content:'';position:absolute;left:0;right:0;top:4px;border-top:1px solid #e4eca74d;transform:scaleX(0);transform-origin:left center;transition:transform 760ms cubic-bezier(.22,1,.36,1)}
@@ -188,6 +203,9 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 /* Portrait card: the centre of the gallery */
 .gallery-home .gallery-card-me .gallery-thumb{background:radial-gradient(circle at 50% 30%,#3a3d39,#1f211f 70%)}
 .gallery-home .gallery-card-me .gallery-thumb img{padding:0;object-fit:cover;object-position:50% 18%;filter:grayscale(1) contrast(1.08)}
+/* ASCII lens (test): drawn over the photo only around the pointer. */
+.ascii-portrait{position:absolute;inset:0;z-index:0;width:100%;height:100%;pointer-events:none}
+}
 
 /* More explorations list */
 .gallery-more{margin-top:clamp(48px,6vw,72px)}
@@ -339,7 +357,48 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .gallery-panel-email svg{color:var(--g-fg-2)}
 .gallery-panel-cta{background:var(--g-accent);color:var(--g-accent-ink);box-shadow:0 6px 22px #e4eca738,inset 0 1px 0 #ffffff80}
 .gallery-filters button{color:var(--g-fg-2)}
-.gallery-filters button.is-active{background:var(--g-violet-soft);color:#d4d1ff;box-shadow:inset 0 0 0 1px #b8b4ff3d,0 4px 14px #b8b4ff1f}
+/* Filter buttons: a small icon per discipline, a case count, and a light active state like the
+   case-length toggle. Each icon plays a short motion once when its filter is selected. */
+.gallery-filters{gap:4px;padding:3px;border-radius:12px;background:#ffffff06;box-shadow:inset 0 0 0 1px var(--g-line)}
+.gallery-filters button{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 11px 0 10px}
+.gallery-filters button.is-active{background:#f4f4f2;color:#141414;box-shadow:0 1px 0 #ffffff80 inset}
+.filter-icon{width:14px;height:14px;flex-shrink:0;overflow:visible;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;opacity:.7;transition:opacity 160ms var(--g-out)}
+.gallery-filters button:is(.is-active,:hover) .filter-icon{opacity:1}
+.filter-icon .fi-dot,.filter-icon rect{fill:currentColor;stroke:none}
+.filter-icon .fi-spark,.filter-icon .fi-spark-small{fill:currentColor;stroke:none}
+.filter-icon *{transform-box:fill-box;transform-origin:center}
+.filter-count{min-width:16px;font-size:11px;font-weight:600;font-variant-numeric:tabular-nums;opacity:.55}
+/* All work: the four tiles pop in turn. */
+.is-active[data-gallery-filter="all"] .filter-icon rect{animation:fi-pop 360ms var(--g-out) both}
+.is-active[data-gallery-filter="all"] .fi-b{animation-delay:60ms}.is-active[data-gallery-filter="all"] .fi-c{animation-delay:120ms}.is-active[data-gallery-filter="all"] .fi-d{animation-delay:180ms}
+/* Product Design: the curve draws between its anchors, then the handles appear. */
+.is-active[data-gallery-filter="product"] .fi-draw{stroke-dasharray:1;animation:fi-draw 520ms var(--g-out) both}
+.is-active[data-gallery-filter="product"] :is(.fi-handle,.fi-dot){animation:fi-fade 260ms var(--g-out) 380ms both}
+/* Design Engineering: brackets spread out and settle back around the slash. */
+.is-active[data-gallery-filter="code"] .fi-left{animation:fi-left 460ms var(--g-out)}
+.is-active[data-gallery-filter="code"] .fi-right{animation:fi-right 460ms var(--g-out)}
+/* Data: the bars grow in turn. */
+.is-active[data-gallery-filter="data"] .fi-bar{transform-origin:50% 100%;animation:fi-grow 420ms var(--g-out) both}
+.is-active[data-gallery-filter="data"] .fi-b{animation-delay:70ms}.is-active[data-gallery-filter="data"] .fi-c{animation-delay:140ms}
+/* AI: the spark flashes and turns, the small one follows. */
+.is-active[data-gallery-filter="ai"] .fi-spark{animation:fi-spark 520ms var(--g-out)}
+.is-active[data-gallery-filter="ai"] .fi-spark-small{animation:fi-pop 360ms var(--g-out) 200ms both}
+/* Service Design: the journey draws from stop to stop. */
+.is-active[data-gallery-filter="service"] .fi-draw{stroke-dasharray:1;animation:fi-draw 560ms var(--g-out) 80ms both}
+.is-active[data-gallery-filter="service"] .fi-dot{animation:fi-pop 300ms var(--g-out) both}
+.is-active[data-gallery-filter="service"] .fi-b{animation-delay:260ms}.is-active[data-gallery-filter="service"] .fi-c{animation-delay:480ms}
+@keyframes fi-pop{from{transform:scale(0);opacity:0}}
+@keyframes fi-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes fi-fade{from{opacity:0}}
+@keyframes fi-left{40%{transform:translateX(-1.6px)}}
+@keyframes fi-right{40%{transform:translateX(1.6px)}}
+@keyframes fi-grow{from{transform:scaleY(0)}}
+@keyframes fi-spark{0%{transform:scale(.4) rotate(-45deg);opacity:0}60%{transform:scale(1.15) rotate(8deg);opacity:1}}
+@media (prefers-reduced-motion:reduce){.filter-icon *{animation:none!important}}
+@media (hover:hover) and (pointer:fine){.gallery-filters button:not(.is-active):hover{background:#ffffff0c}}
+/* The edge fade only appears while the row overflows and scrolls sideways. */
+.gallery-home .gallery-filters{-webkit-mask-image:none;mask-image:none}
+.gallery-home .gallery-filters.is-scrollable{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent)}
 .gallery-count{color:var(--g-fg-2)}
 
 /* ---------- Case pages, same system ---------- */

@@ -619,6 +619,113 @@ function initializeConductor(){
  else setTimeout(start,600);
  heading.addEventListener('pointerenter',event=>{if(event.pointerType==='mouse'&&!conductor.getAnimations({subtree:true}).some(a=>a.playState==='running'))conduct(1);});
 }
+// About card ASCII lens: the photo stays visible; under the pointer a soft round area turns into
+// ASCII on white with colours from the photo, so it seems to resolve into text where you look.
+const asciiRamp=' .:-=+*%#@';
+function initializeAsciiPortrait(){
+ const card=browserPage.querySelector('.gallery-card-me');
+ const thumb=card?.querySelector('.gallery-thumb');
+ const photo=thumb?.querySelector('img');
+ if(!thumb||!photo||!window.matchMedia('(hover: hover) and (pointer: fine)').matches)return;
+ const canvas=document.createElement('canvas');
+ canvas.className='ascii-portrait';canvas.setAttribute('aria-hidden','true');
+ photo.after(canvas);
+ const source=new Image();
+ source.src=photo.currentSrc||photo.src;
+ const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ let cells=[],colors=[],dissolve=[],cols=0,rows=0,cellW=0,cellH=0,ready=false;
+ let pointer=null,radius=0,target=0,frame=0;
+ const layout=()=>{
+  const width=thumb.clientWidth,height=thumb.clientHeight;
+  if(!width||!height||!source.naturalWidth)return false;
+  const ratio=Math.min(2,window.devicePixelRatio||1);
+  canvas.width=Math.round(width*ratio);canvas.height=Math.round(height*ratio);
+  cols=Math.max(48,Math.round(width/4.4));cellW=width/cols;cellH=cellW/.6;rows=Math.ceil(height/cellH);
+  // Sample the photo on the character grid, framed like the card's object-fit: cover at 50% 18%.
+  const grid=document.createElement('canvas');grid.width=cols;grid.height=rows;
+  const g=grid.getContext('2d',{willReadFrequently:true});
+  g.fillStyle='#fff';g.fillRect(0,0,cols,rows);
+  const scale=Math.max(width/source.naturalWidth,height/source.naturalHeight);
+  const drawWidth=source.naturalWidth*scale,drawHeight=source.naturalHeight*scale;
+  g.drawImage(source,(width-drawWidth)*.5/cellW,(height-drawHeight)*.18/cellH,drawWidth/cellW,drawHeight/cellH);
+  const pixels=g.getImageData(0,0,cols,rows).data;
+  const lights=[];
+  for(let i=0;i<cols*rows;i++)lights.push((pixels[i*4]*.299+pixels[i*4+1]*.587+pixels[i*4+2]*.114)/255);
+  // The white backdrop stays empty; the figure's own tones are stretched over the whole ramp,
+  // so folds in the dark clothes and the face keep detail instead of one solid block.
+  const figure=lights.filter(light=>light<.9).sort((a,b)=>a-b);
+  const low=figure[Math.floor(figure.length*.03)]??0,high=figure[Math.floor(figure.length*.97)]??.9;
+  cells=lights.map(light=>{
+   if(light>=.9)return ' ';
+   const density=1-Math.min(1,Math.max(0,(light-low)/((high-low)||1)));
+   return asciiRamp[1+Math.min(asciiRamp.length-2,Math.floor(density*(asciiRamp.length-1)))];
+  });
+  // Colour from the photo: near-black tones become electric blue, lighter ones (hair, skin) keep
+  // their own hue, more saturated and darkened enough to read on white.
+  colors=lights.map((light,i)=>{
+   if(light<.3)return '#2b39d8';
+   const [r,g,b]=[pixels[i*4],pixels[i*4+1],pixels[i*4+2]].map(v=>v/255);
+   const max=Math.max(r,g,b),min=Math.min(r,g,b),l=(max+min)/2,d=max-min;
+   let h=0;
+   if(d){h=max===r?((g-b)/d)%6:max===g?(b-r)/d+2:(r-g)/d+4;h*=60;if(h<0)h+=360;}
+   const s=d?d/(1-Math.abs(2*l-1)):0;
+   return `hsl(${Math.round(h)} ${Math.round(Math.min(1,s*1.8+.25)*100)}% ${Math.round(Math.min(.46,l*.62)*100)}%)`;
+  });
+  // A fixed threshold per cell lets the lens edge dissolve character by character without flicker.
+  dissolve=cells.map(()=>Math.random());
+  return ready=true;
+ };
+ const draw=()=>{
+  const context=canvas.getContext('2d');
+  const ratio=canvas.width/thumb.clientWidth;
+  context.setTransform(ratio,0,0,ratio,0,0);
+  context.clearRect(0,0,thumb.clientWidth,thumb.clientHeight);
+  if(!pointer||radius<1)return;
+  // White disc with a wide feathered edge hides the photo inside the lens.
+  const fill=context.createRadialGradient(pointer.x,pointer.y,radius*.3,pointer.x,pointer.y,radius);
+  fill.addColorStop(0,'#fff');fill.addColorStop(.45,'#ffffffd9');fill.addColorStop(.75,'#ffffff66');fill.addColorStop(1,'#ffffff00');
+  context.fillStyle=fill;context.beginPath();context.arc(pointer.x,pointer.y,radius,0,Math.PI*2);context.fill();
+  context.font=`600 ${cellH*.92}px ui-monospace,SFMono-Regular,Menlo,monospace`;
+  context.textBaseline='top';
+  const c0=Math.max(0,Math.floor((pointer.x-radius)/cellW)),c1=Math.min(cols-1,Math.ceil((pointer.x+radius)/cellW));
+  const r0=Math.max(0,Math.floor((pointer.y-radius)/cellH)),r1=Math.min(rows-1,Math.ceil((pointer.y+radius)/cellH));
+  for(let r=r0;r<=r1;r++)for(let c=c0;c<=c1;c++){
+   const char=cells[r*cols+c];
+   if(char===' ')continue;
+   const x=c*cellW,y=r*cellH,distance=Math.hypot(x+cellW/2-pointer.x,y+cellH/2-pointer.y);
+   // Toward the edge fewer characters remain, so the lens dissolves into the photo.
+   const reach=1-Math.max(0,(distance/radius-.35)/.6);
+   if(reach<=0||dissolve[r*cols+c]>reach)continue;
+   context.globalAlpha=Math.min(1,reach*1.6);
+   context.fillStyle=colors[r*cols+c];
+   context.fillText(char,x,y);
+  }
+  context.globalAlpha=1;
+ };
+ const animate=()=>{
+  frame=0;
+  radius+=(target-radius)*(reduceMotion?1:.22);
+  draw();
+  if(Math.abs(target-radius)>.5)frame=requestAnimationFrame(animate);
+  else{radius=target;draw();}
+ };
+ const schedule=()=>{if(!frame)frame=requestAnimationFrame(animate);};
+ const lensSize=()=>Math.min(thumb.clientWidth,thumb.clientHeight)*.42;
+ card.addEventListener('pointerenter',event=>{
+  if(!ready&&!layout())return;
+  const box=thumb.getBoundingClientRect();
+  pointer={x:event.clientX-box.left,y:event.clientY-box.top};
+  target=lensSize();schedule();
+ });
+ card.addEventListener('pointermove',event=>{
+  if(!ready)return;
+  const box=thumb.getBoundingClientRect();
+  pointer={x:event.clientX-box.left,y:event.clientY-box.top};
+  schedule();
+ });
+ card.addEventListener('pointerleave',()=>{target=0;schedule();});
+ source.decode().then(()=>{if('ResizeObserver' in window)new ResizeObserver(()=>{if(ready)layout();}).observe(thumb);}).catch(()=>canvas.remove());
+}
 // Hero decode: "Product Designer" cycles random glyphs, each boxed with its measured width
 // difference (Δx) to the final letter, then settles left to right. Plays on load; a click replays it.
 const scrambleGlyphs='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*()[]{}<>/\\|!?^~_+=;:';
@@ -775,6 +882,14 @@ function addCaseBackLink(route){
 function initializeGalleryFilters(){
  const buttons=[...browserPage.querySelectorAll('[data-gallery-filter]')];
  const cards=[...browserPage.querySelectorAll('.gallery-card')];
+ const projects=cards.filter(card=>!(card.dataset.tags||'').split(' ').includes('all'));
+ const countFor=filter=>filter==='all'?projects.length:projects.filter(card=>(card.dataset.tags||'').split(' ').includes(filter)).length;
+ const summary=browserPage.querySelector('.gallery-count');
+ const summaryAll=summary?.textContent;
+ const row=browserPage.querySelector('.gallery-filters');
+ if(row&&'ResizeObserver' in window)new ResizeObserver(()=>row.classList.toggle('is-scrollable',row.scrollWidth>row.clientWidth+1)).observe(row);
+ // Each filter shows how many cases it holds; the summary follows the selection.
+ for(const button of buttons){const count=button.querySelector('.filter-count');if(count)count.textContent=countFor(button.dataset.galleryFilter);}
  for(const button of buttons)button.addEventListener('click',()=>{
   const filter=button.dataset.galleryFilter;
   for(const other of buttons){const active=other===button;other.classList.toggle('is-active',active);other.setAttribute('aria-pressed',String(active));}
@@ -783,6 +898,7 @@ function initializeGalleryFilters(){
    const match=filter==='all'||tags.includes('all')||tags.includes(filter);
    card.classList.toggle('is-filtered-out',!match);
   }
+  if(summary){const count=countFor(filter);summary.textContent=filter==='all'?summaryAll:`${count} ${count===1?'case':'cases'}`;}
  });
 }
 function renderPage(route,record=true,focus=true){
@@ -798,6 +914,7 @@ function renderPage(route,record=true,focus=true){
  }
  addCaseBackLink(route);
  initializeGalleryFilters();
+ initializeAsciiPortrait();
  addReadingTimes(route);
  addNextCase(route);
  initializeHeroScramble();
