@@ -1244,7 +1244,7 @@ const createDesktopScreenTexture = (THREE) => {
     texture.needsUpdate = true;
   };
   desktopImage.onload = draw;
-  desktopImage.src = 'assets/room-desktop-screen.png?v=15';
+  desktopImage.src = 'assets/room-desktop-screen.png?v=16';
   window.setInterval(draw, 30_000);
   const dockTargets = [
     { x: 701.5 / 1906, y: 831 / 896, width: 44 / 1906, height: 44 / 896 },
