@@ -50,7 +50,7 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .gallery-home{font-family:Satoshi,system-ui,sans-serif}
 
 .gallery-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,440px);gap:clamp(24px,5vw,72px);align-items:start;margin-bottom:clamp(32px,4vw,48px)}
-.gallery-hero-copy h1{margin:8px 0 0;font:650 clamp(30px,3.2vw,42px)/1.12 Satoshi,system-ui,sans-serif;letter-spacing:-.035em;color:var(--g-fg);text-wrap:balance}
+.gallery-hero-copy h1{margin:8px 0 0;font:650 clamp(30px,3.2vw,42px)/1.12 Satoshi,system-ui,sans-serif;letter-spacing:-.012em;color:var(--g-fg);text-wrap:balance}
 /* One accent phrase, set apart by colour only */
 /* The conductor is solid accent green, "AI agents" carries the dot screen, "orchestrating" stays plain headline text */
 .gallery-hero-accent{font-weight:inherit}
@@ -95,6 +95,43 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 @keyframes cond-left-fore{0%,100%{transform:rotate(0)}26%{transform:rotate(-12deg)}50%{transform:rotate(-4deg)}72%{transform:rotate(-14deg)}92%{transform:rotate(-2deg)}}
 @keyframes cond-head{0%,100%{transform:rotate(0) translateY(0)}20%{transform:rotate(2deg) translateY(1.5px)}45%{transform:rotate(-5deg)}70%{transform:rotate(4deg)}90%{transform:rotate(-1deg) translateY(-.5px)}}
 @media (prefers-reduced-motion:reduce){.conductor.is-conducting *{animation:none!important}}
+/* Hero decode: letters keep their final width; scrambling glyphs get a colour, a thin box
+   and sometimes a Δx label with their measured width difference. */
+.scramble{white-space:nowrap;cursor:default}
+.scramble-char{position:relative;display:inline-block;text-align:center;white-space:pre}
+.scramble-char.is-scrambling{color:var(--scramble-color)}
+/* The box sits 1.5px inside the letter cell, so neighbouring boxes keep a visible gap. */
+.scramble-char.is-scrambling.is-boxed::before{content:'';position:absolute;inset:.08em 1.5px;border-radius:2px;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--scramble-color) 50%,transparent);pointer-events:none}
+.scramble-char[data-dx]::after{content:attr(data-dx);position:absolute;left:50%;top:100%;margin-top:2px;transform:translateX(-50%);color:var(--scramble-color);font:500 9px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:0;white-space:nowrap;opacity:.85;pointer-events:none}
+.scramble-char.is-settled{animation:scramble-settle 420ms var(--g-out)}
+@keyframes scramble-settle{from{color:var(--g-accent)}}
+@media (prefers-reduced-motion:reduce){.scramble-char.is-settled{animation:none}}
+/* "AI agents" waits unlit during the decode, then flickers on: three uneven stutters, then steady. */
+.gallery-hero-dither.is-unlit{opacity:.28}
+.gallery-hero-dither.is-lighting{animation:agents-light 1600ms linear both}
+@keyframes agents-light{
+ 0%{opacity:.28;filter:none}
+ 6%{opacity:.85;filter:drop-shadow(0 0 5px #e4eca799)}
+ 11%{opacity:.3;filter:none}
+ 26%{opacity:.3}
+ 30%{opacity:1;filter:drop-shadow(0 0 8px #e4eca7aa)}
+ 35%{opacity:.4;filter:none}
+ 44%{opacity:.34}
+ 52%{opacity:1;filter:drop-shadow(0 0 10px #e4eca799)}
+ 100%{opacity:1;filter:drop-shadow(0 0 0 #e4eca700)}
+}
+/* Hero refresh (test): a size step between the three lines, a measurement the decode draws
+   under the word, in a single-column hero. */
+.gallery-hero-copy h1 .scramble{position:relative;display:block;width:fit-content;margin-bottom:max(.34em,24px);font-size:clamp(34px,10.8cqi,74px);line-height:1;letter-spacing:-.03em}
+.gallery-hero-copy .gallery-hero-tail{margin-top:.45em;font-size:.58em;color:var(--g-fg-2)}
+.hero-measure{position:absolute;left:0;right:0;top:calc(100% + 6px);height:9px;border-left:1px solid #e4eca766;opacity:0;pointer-events:none;transition:opacity 160ms var(--g-out)}
+.hero-measure::before{content:'';position:absolute;left:0;right:0;top:4px;border-top:1px solid #e4eca74d;transform:scaleX(0);transform-origin:left center;transition:transform 760ms cubic-bezier(.22,1,.36,1)}
+.hero-measure::after{content:'';position:absolute;right:0;top:0;bottom:0;border-right:1px solid #e4eca766;opacity:0;transition:opacity 140ms linear 620ms}
+.hero-measure span{position:absolute;left:50%;top:50%;padding:0 6px;transform:translate(-50%,-50%);background:var(--g-bg);color:#e4eca7b3;font:500 10px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:0;white-space:nowrap}
+.scramble.is-measured .hero-measure,.scramble.is-measured .hero-measure::after{opacity:1}
+.scramble.is-measured .hero-measure::before{transform:scaleX(1)}
+/* The hero is a size container, so the heading scales with the portfolio window, not the screen. */
+.gallery-home .gallery-hero{grid-template-columns:minmax(0,1fr);container-type:inline-size}
 .gallery-hero-copy p{max-width:460px;margin:22px 0 0;color:var(--g-muted);font-size:14px;line-height:1.65}
 
 .gallery-hero-panel{padding:22px;border-radius:var(--g-radius);background:#ffffff06;box-shadow:inset 0 0 0 1px var(--g-line)}
@@ -135,6 +172,9 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .gallery-avatar{display:grid;place-items:center;flex-shrink:0;width:20px;height:20px;border-radius:50%;background:var(--avatar,#555);color:#fff;font-size:10px;font-weight:750;overflow:hidden}
 .gallery-avatar-photo{background:#d9d9d4}
 .gallery-avatar-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 12%}
+/* Project logos keep their own shape (rounded square, map pin) instead of a cropped circle. */
+.gallery-avatar-logo{border-radius:5px;background:none}
+.gallery-avatar-logo img{width:100%;height:100%;object-fit:contain}
 .gallery-home .gallery-card .gallery-meta h3{display:flex;align-items:center;gap:5px;min-width:0;margin:0;font-size:14px;font-weight:650;letter-spacing:-.01em;color:var(--g-fg)}
 .gallery-verified{width:15px;height:15px;color:#3b8cf2;flex-shrink:0}
 .gallery-year{margin-left:auto;flex-shrink:0;color:var(--g-muted);font-size:12px}
@@ -153,7 +193,8 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .gallery-more{margin-top:clamp(48px,6vw,72px)}
 .gallery-more h2{margin:0 0 12px;color:var(--g-muted);font-size:12px;font-weight:600;letter-spacing:.02em}
 .gallery-row{display:grid;grid-template-columns:72px minmax(0,1fr) auto 20px;align-items:center;gap:16px;padding:10px;border-radius:12px;color:var(--g-fg);text-decoration:none;box-shadow:inset 0 0 0 1px var(--g-line);transition:background-color 180ms var(--g-out)}
-.gallery-row>img{width:72px;height:46px;object-fit:cover;border-radius:7px;background:#ececea}
+/* An inner hairline keeps the thumbnail's edge visible when the image itself is dark. */
+.gallery-row>img{width:72px;height:46px;object-fit:cover;border-radius:7px;background:#ececea;outline:1px solid var(--g-line-strong);outline-offset:-1px}
 .gallery-row strong{display:block;font-size:14px;font-weight:650}
 .gallery-row span>span{display:block;margin-top:2px;color:var(--g-muted);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .gallery-row-meta{color:var(--g-muted);font-size:12px;white-space:nowrap}
@@ -334,6 +375,8 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 /* Media frames match the gallery thumbnails */
 .reading-page .case-product-figure,.reading-page .wip-case figure,.reading-page .spire-visual,.reading-page .hero-media{margin:28px 0}
 .reading-page .case-product-figure img,.reading-page .case-product-figure video,.reading-page .spire-visual img{border-radius:12px;background:#ececea;box-shadow:0 0 0 1px #ffffff10}
+/* Dark screenshots and videos share the page colour, so case media get an inner hairline that keeps their edge visible. */
+.reading-page.portfolio-case figure :is(img,video):not(.peluutin-phone-screen img){outline:1px solid #ffffff1f;outline-offset:-1px}
 .reading-page .case-product-figure figcaption,.reading-page figcaption{margin-top:10px;color:var(--g-muted);font-size:12.5px;line-height:1.55}
 
 /* TL;DR: one summary panel, then plain reading text */
@@ -451,7 +494,7 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .reading-time{display:flex;align-items:center;gap:5px;margin:8px 0 0 28px;color:var(--g-muted);font-size:11.5px;white-space:nowrap;opacity:.85}
 .reading-time svg{width:12px;height:12px;flex-shrink:0}
 .gallery-row-meta{display:grid;justify-items:end;gap:3px}
-.gallery-row-meta .reading-time{margin:0}
+.gallery-row-meta .reading-time{display:flex;margin:0;font-size:11.5px}
 @media (max-width:560px){.gallery-row .gallery-row-meta{display:none}}
 .reading-page.portfolio-case .case-mode-toggle button .case-mode-time{margin-left:7px;font-size:11.5px;font-weight:500;opacity:.6}
 

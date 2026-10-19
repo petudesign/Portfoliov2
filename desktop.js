@@ -606,8 +606,123 @@ function initializeConductor(){
   void conductor.offsetWidth;
   conductor.classList.add('is-conducting');
  };
- setTimeout(()=>conduct(2),600);
+ // Sequence: the hero decode settles, the conductor starts, and on its first downbeat
+ // "AI agents" flickers on like a sign. Each step starts after the previous one.
+ const agents=heading.querySelector('.gallery-hero-dither');
+ const lightAgents=()=>{
+  if(!agents?.classList.contains('is-unlit'))return;
+  agents.classList.replace('is-unlit','is-lighting');
+  agents.addEventListener('animationend',()=>agents.classList.remove('is-lighting'),{once:true});
+ };
+ const start=()=>{conduct(2);setTimeout(lightAgents,650);};
+ if(heading.hasAttribute('data-decoding'))heading.addEventListener('hero-decoded',()=>setTimeout(start,250),{once:true});
+ else setTimeout(start,600);
  heading.addEventListener('pointerenter',event=>{if(event.pointerType==='mouse'&&!conductor.getAnimations({subtree:true}).some(a=>a.playState==='running'))conduct(1);});
+}
+// Hero decode: "Product Designer" cycles random glyphs, each boxed with its measured width
+// difference (Δx) to the final letter, then settles left to right. Plays on load; a click replays it.
+const scrambleGlyphs='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*()[]{}<>/\\|!?^~_+=;:';
+const scrambleColors=['#e4eca7','#b8b4ff','#ff9a5c','#f5a7e6','#f7d14a','#8fd16a','#8fb3ff'];
+let scrambleFrame=0;
+function initializeHeroScramble(){
+ const heading=browserPage.querySelector('.gallery-hero-copy h1');
+ const source=heading&&[...heading.childNodes].find(node=>node.nodeType===Node.TEXT_NODE&&node.textContent.trim());
+ if(!source)return;
+ const text=source.textContent.trim();
+ const word=document.createElement('span');
+ word.className='scramble';word.setAttribute('role','text');word.setAttribute('aria-label',text);
+ const letters=[...text].map(char=>{
+  const letter=document.createElement('span');
+  letter.className='scramble-char';letter.setAttribute('aria-hidden','true');letter.textContent=char;
+  letter.dataset.char=char;
+  return letter;
+ });
+ word.append(...letters);
+ // After the decode, a dimension line keeps the measured width of the word as a quiet trace.
+ const trace=document.createElement('span');
+ trace.className='hero-measure';trace.setAttribute('aria-hidden','true');trace.append(document.createElement('span'));
+ word.append(trace);
+ // offsetWidth is the layout width, unaffected by the window's opening scale.
+ const updateTrace=()=>{trace.firstChild.textContent=`${word.offsetWidth} px`;};
+ if('ResizeObserver' in window)new ResizeObserver(updateTrace).observe(word);
+ source.replaceWith(word,document.createTextNode(' '));
+ updateTrace();
+ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){word.classList.add('is-measured');return;}
+ // The line draws left to right while the label counts up to the measured width.
+ const measureWord=()=>{
+  word.classList.remove('is-measured');void word.offsetWidth;word.classList.add('is-measured');
+  const target=word.offsetWidth,begin=performance.now();
+  const count=now=>{
+   const progress=Math.min(1,(now-begin)/760);
+   trace.firstChild.textContent=`${Math.round(target*(1-Math.pow(1-progress,3)))} px`;
+   if(progress<1)requestAnimationFrame(count);
+  };
+  requestAnimationFrame(count);
+ };
+ const measure=document.createElement('canvas').getContext('2d');
+ const play=()=>{
+  cancelAnimationFrame(scrambleFrame);
+  const style=getComputedStyle(word);
+  measure.font=`${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+  // Lock each letter to its final width so the heading never shifts while glyphs change.
+  // Start every run from clean letters, also when a replay interrupts a running decode.
+  letters.forEach(letter=>{
+   letter.style.width='';letter.textContent=letter.dataset.char;
+   letter.classList.remove('is-scrambling','is-settled');letter.style.removeProperty('--scramble-color');delete letter.dataset.dx;
+  });
+  const widths=letters.map(letter=>letter.getBoundingClientRect().width);
+  const start=performance.now();
+  // Every letter scrambles; about a third get the measuring box, and Δx labels sit on boxed
+  // letters at least two letters apart, so neighbouring labels never collide.
+  let lastLabel=-3;
+  const plan=letters.map((letter,index)=>{
+   const space=letter.dataset.char===' ';
+   const boxed=!space&&Math.random()<.35;
+   const labelled=boxed&&index-lastLabel>2&&Math.random()<.7;
+   if(labelled)lastLabel=index;
+   letter.classList.toggle('is-boxed',boxed);
+   return {letter,width:widths[index],space,settle:380+index*60+Math.random()*120,labelled,next:0};
+  });
+  plan.forEach(item=>{item.letter.style.width=`${item.width}px`;});
+  const tick=now=>{
+   const elapsed=now-start;
+   let running=false;
+   plan.forEach(item=>{
+    const {letter}=item;
+    if(item.space)return;
+    if(elapsed>=item.settle){
+     if(!letter.classList.contains('is-settled')){
+      letter.textContent=letter.dataset.char;
+      letter.classList.remove('is-scrambling');letter.classList.add('is-settled');
+      letter.style.removeProperty('--scramble-color');delete letter.dataset.dx;
+     }
+     return;
+    }
+    running=true;
+    // Swap glyphs about 16 times a second, which reads as computation rather than flicker.
+    if(elapsed<item.next)return;
+    item.next=elapsed+55+Math.random()*30;
+    const glyph=scrambleGlyphs[Math.floor(Math.random()*scrambleGlyphs.length)];
+    letter.textContent=glyph;
+    letter.classList.add('is-scrambling');letter.classList.remove('is-settled');
+    letter.style.setProperty('--scramble-color',scrambleColors[Math.floor(Math.random()*scrambleColors.length)]);
+    if(item.labelled)letter.dataset.dx=`Δx=${Math.round(Math.abs(measure.measureText(glyph).width-item.width))}px`;
+   });
+   if(running)scrambleFrame=requestAnimationFrame(tick);
+   else{
+    letters.forEach(letter=>letter.style.width='');
+    measureWord();
+    heading.dispatchEvent(new CustomEvent('hero-decoded'));
+   }
+  };
+  scrambleFrame=requestAnimationFrame(tick);
+ };
+ // Wait for the gallery entrance to finish so the decode is seen. "AI agents" stays unlit
+ // until the conductor switches it on.
+ heading.dataset.decoding='';
+ heading.querySelector('.gallery-hero-dither')?.classList.add('is-unlit');
+ setTimeout(play,350);
+ word.addEventListener('click',play);
 }
 // End each case with the next one, in the homepage order, so reading can continue.
 function addNextCase(route){
@@ -685,6 +800,7 @@ function renderPage(route,record=true,focus=true){
  initializeGalleryFilters();
  addReadingTimes(route);
  addNextCase(route);
+ initializeHeroScramble();
  initializeConductor();
  initializeCaseVideos(browserPage);
  initializeCaseComparisons(browserPage);
