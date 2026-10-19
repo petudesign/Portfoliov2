@@ -12,6 +12,9 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 
 /* Monogram in place of a tagline: the name already sits in the tab and the hero */
 .portfolio-nav>a.portfolio-mark{font-size:18px;font-weight:800;letter-spacing:-1px;line-height:1}
+/* The ph logo is the site navigation's mark; the desktop menu bar starts with the app name. */
+.brand-logo{display:block;width:auto;height:22px}
+.portfolio-nav>a.portfolio-mark{display:inline-flex;align-items:center}
 
 /* Browser chrome around gallery & case pages */
 .portfolio-window:has(.gallery-home,.reading-page,.about-page) .portfolio-nav{background:var(--g-bg);color:var(--g-fg);border-color:var(--g-line);padding-inline:clamp(20px,4vw,48px)}
@@ -19,8 +22,12 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .portfolio-window:has(.gallery-home,.reading-page,.about-page) .portfolio-nav>a>span{color:var(--g-muted)}
 .portfolio-window:has(.gallery-home,.reading-page,.about-page) .portfolio-nav [aria-current=page]{color:var(--g-accent)}
 .browser-page:has(.gallery-home),.browser-page:has(.reading-page),.browser-page:has(.about-page){background:var(--g-bg);color:var(--g-fg);scrollbar-color:#4a4a48 var(--g-bg)}
-/* Grain (test): a faint, static noise in the page background, under all content. */
-.browser-page:has(.gallery-home),.browser-page:has(.reading-page),.browser-page:has(.about-page){background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .11 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px 180px}
+/* Grain: a faint noise tile on the page. It is painted on the scroll container itself (not
+   "local"), so it stays put while the content scrolls over it. That keeps the scrolling content
+   free of images: if the browser falls behind while scrolling fast, it fills not-yet-drawn areas
+   with the page colour instead of leaving holes where the desktop wallpaper shows through. */
+.portfolio-window:has(.browser-page :is(.gallery-home,.reading-page,.about-page)){background:var(--g-bg)}
+.browser-page:has(.gallery-home),.browser-page:has(.reading-page),.browser-page:has(.about-page){background:var(--g-bg) url("assets/grain.png?v=2") 0 0/128px 128px}
 
 
 /* ---------- Browser chrome in Chrome's dark mode, to sit with the dark pages ---------- */
@@ -113,7 +120,7 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
    phrase, so it flickers with the light-up and then stays. The heading isolates it above the page. */
 .gallery-hero-copy h1{isolation:isolate}
 .gallery-hero-dither{position:relative}
-.gallery-hero-dither::before{content:'';position:absolute;z-index:-1;inset:-.95em -1.3em;border-radius:50%;background:radial-gradient(closest-side,#e4eca72e,#e4eca70f 55%,#e4eca700);pointer-events:none}
+.gallery-hero-dither::before{content:'';position:absolute;z-index:-1;inset:-.7em -1em;border-radius:50%;background:radial-gradient(closest-side,#e4eca717,#e4eca707 55%,#e4eca700);pointer-events:none}
 .gallery-hero-dither.is-unlit::before{opacity:0}
 .gallery-hero-dither.is-unlit{opacity:.28}
 .gallery-hero-dither.is-lighting{animation:agents-light 2200ms linear both}
@@ -135,16 +142,9 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 }
 @keyframes agents-glow{0%,30%{opacity:0}60%{opacity:.55}100%{opacity:1}}
 
-/* Hero refresh (test): a size step between the three lines, a measurement the decode draws
-   under the word, in a single-column hero. */
-.gallery-hero-copy h1 .scramble{position:relative;display:block;width:fit-content;margin-bottom:max(.34em,24px);font-size:clamp(34px,10.8cqi,74px);line-height:1;letter-spacing:-.01em}
+/* Hero: a size step between the three lines in a single-column hero. */
+.gallery-hero-copy h1 .scramble{position:relative;display:block;width:fit-content;margin-bottom:.14em;font-size:clamp(34px,10.8cqi,74px);line-height:1;letter-spacing:-.01em}
 .gallery-hero-copy .gallery-hero-tail{margin-top:.45em;font-size:.58em;color:var(--g-fg-2)}
-.hero-measure{position:absolute;left:0;right:0;top:calc(100% + 6px);height:9px;border-left:1px solid #e4eca766;opacity:0;pointer-events:none;transition:opacity 160ms var(--g-out)}
-.hero-measure::before{content:'';position:absolute;left:0;right:0;top:4px;border-top:1px solid #e4eca74d;transform:scaleX(0);transform-origin:left center;transition:transform 760ms cubic-bezier(.22,1,.36,1)}
-.hero-measure::after{content:'';position:absolute;right:0;top:0;bottom:0;border-right:1px solid #e4eca766;opacity:0;transition:opacity 140ms linear 620ms}
-.hero-measure span{position:absolute;left:50%;top:50%;padding:0 6px;transform:translate(-50%,-50%);background:var(--g-bg);color:#e4eca7b3;font:500 10px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:0;white-space:nowrap}
-.scramble.is-measured .hero-measure,.scramble.is-measured .hero-measure::after{opacity:1}
-.scramble.is-measured .hero-measure::before{transform:scaleX(1)}
 /* The hero is a size container, so the heading scales with the portfolio window, not the screen. */
 .gallery-home .gallery-hero{grid-template-columns:minmax(0,1fr);container-type:inline-size}
 .gallery-hero-copy p{max-width:460px;margin:22px 0 0;color:var(--g-muted);font-size:14px;line-height:1.65}
@@ -174,12 +174,20 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 /* Cards */
 .gallery-home .gallery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,2.4vw,32px) clamp(14px,2vw,26px);padding:0}
 .gallery-card{display:block;min-width:0;color:var(--g-fg);text-decoration:none;border-radius:var(--g-radius);transition:opacity 260ms var(--g-out),filter 260ms var(--g-out)}
-.gallery-card.is-filtered-out{opacity:.22;filter:saturate(0)}
+.gallery-card.is-filtered-out{display:none}
 .gallery-thumb{position:relative;aspect-ratio:16/10.5;overflow:hidden;border-radius:12px;background:var(--thumb,#ececea);box-shadow:inset 0 0 0 1px #ffffff10;isolation:isolate}
 .gallery-home .gallery-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:8%;box-sizing:border-box;transform:none;transition:none}
 .gallery-home .gallery-thumb-cover img{object-fit:cover;padding:0}
+/* Project shots: one shared backdrop, a domain pill and a short headline, and the image framed
+   like a window that runs off the bottom edge. Every card reads as one set. */
+.gallery-home .gallery-thumb.gallery-shot{display:flex;flex-direction:column;align-items:center;padding-top:16px;background:linear-gradient(180deg,#76828c 0%,#a9b3ba 46%,#e4e8eb 100%)}
+.gallery-home .gallery-shot::after{display:none}
+.shot-pill{display:inline-flex;align-items:center;height:20px;padding:0 9px;border-radius:999px;box-shadow:inset 0 0 0 1px #ffffffb3;color:#fff;font-size:10.5px;font-weight:600;letter-spacing:.01em}
+.shot-title{max-width:86%;margin:8px 0 0;color:#fff;font-size:15px;font-weight:650;line-height:1.25;letter-spacing:-.01em;text-align:center;text-wrap:balance;text-shadow:0 1px 10px #00000026}
+.gallery-home .gallery-thumb .shot-img{position:relative;inset:auto;flex:none;width:86%;height:auto;margin-top:14px;padding:0;border-radius:8px 8px 0 0;object-fit:cover;object-position:top;box-shadow:0 0 0 1px #00000014,0 14px 34px #0000003d;background:#fff}
+
 .gallery-thumb::after{content:'';position:absolute;inset:auto 0 0;height:42%;z-index:0;background:linear-gradient(transparent,#00000052);pointer-events:none}
-.gallery-chip{position:absolute;z-index:1;left:9px;bottom:9px;display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:7px;background:#1e1e1e99;color:#f4f4f2;font-size:11px;font-weight:600;letter-spacing:-.005em;backdrop-filter:blur(10px) saturate(1.4);-webkit-backdrop-filter:blur(10px) saturate(1.4)}
+.gallery-chip{position:absolute;z-index:1;left:9px;bottom:9px;display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:7px;background:#1e1e1ed9;color:#f4f4f2;font-size:11px;font-weight:600;letter-spacing:-.005em}
 .gallery-chip-end{left:auto;right:9px}
 .gallery-live{width:6px;height:6px;border-radius:50%;background:#7bd88f;box-shadow:0 0 0 3px #7bd88f2e}
 
@@ -235,14 +243,15 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .gallery-row:active,.gallery-panel-cta:active{transform:scale(.985)}
 
 /* Entrance: short, staggered, ease-out; replaces the long scroll reveal */
-@keyframes gallery-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* Entrance is a plain fade: content is already in view when the window opens, so a slide read as a bounce. */
+@keyframes gallery-in{from{opacity:0}to{opacity:1}}
 .gallery-hero-copy,.gallery-hero-panel,.gallery-toolbar,.gallery-card{animation:gallery-in 420ms var(--g-out) both}
 .gallery-hero-panel{animation-delay:60ms}
 .gallery-toolbar{animation-delay:100ms}
 .gallery-card:nth-child(1){animation-delay:140ms}.gallery-card:nth-child(2){animation-delay:180ms}.gallery-card:nth-child(3){animation-delay:220ms}
 .gallery-card:nth-child(4){animation-delay:260ms}.gallery-card:nth-child(5){animation-delay:300ms}.gallery-card:nth-child(6){animation-delay:340ms}
 .gallery-home .desktop-projects>a.project-reveal,.gallery-home .desktop-projects>a.is-reveal-pending{opacity:1;transform:none;transition:opacity 260ms var(--g-out),filter 260ms var(--g-out)}
-.gallery-home .desktop-projects>a.is-filtered-out{opacity:.22}
+.gallery-home .desktop-projects>a.is-filtered-out{display:none}
 
 @media (max-width:900px){
  .gallery-hero{grid-template-columns:1fr}
@@ -598,11 +607,19 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .reading-page.portfolio-case>.case-actions{margin:32px auto 24px}
 .reading-page.portfolio-case .case-tldr-summary{max-width:calc(var(--g-read) + 80px);margin-left:auto;margin-right:auto}
 
-/* Bottom dimming: one fixed gradient over the bottom of a case page while reading, so text there shows faded
+/* Bottom dimming (mobile only): one fixed gradient over the bottom of a case page while reading, so text there shows faded
    and the eye settles on the text above. A single static layer keeps scrolling cheap.
    It fades out at the end of the page so the last lines and the next case read in full. */
-.portfolio-window:has(.browser-page .reading-page.portfolio-case)::after{content:'';position:absolute;z-index:14;left:0;right:14px;bottom:0;height:min(32%,260px);background:linear-gradient(to bottom,#23232300,#232323d9);pointer-events:none;transition:opacity 220ms var(--g-out)}
-.portfolio-window:is(.is-page-start,.is-page-end)::after{opacity:0}
+@media (max-width:760px){
+ .portfolio-window:has(.browser-page .reading-page.portfolio-case)::after{content:'';position:absolute;z-index:14;left:0;right:14px;bottom:0;height:min(32%,260px);background:linear-gradient(to bottom,#23232300,#232323d9);pointer-events:none;transition:opacity 220ms var(--g-out)}
+ .portfolio-window:is(.is-page-start,.is-page-end)::after{opacity:0}
+}
+/* Keep the overlays on permanent layers, so toggling them while scrolling only changes opacity
+   instead of creating and dropping layers, which can make the browser repaint the whole window. */
+.case-mode-float{will-change:opacity}
+@media (max-width:760px){.portfolio-window:has(.browser-page .reading-page.portfolio-case)::after{will-change:opacity}}
+.browser-page{will-change:scroll-position}
+
 
 /* A standalone link after body text gets extra room so it reads as its own action. */
 .reading-page.portfolio-case .case-section p.case-link{margin-top:28px}
@@ -614,9 +631,10 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .reading-page.portfolio-case .case-quote figcaption{margin-top:12px;color:var(--g-muted);font-size:12.5px}
 .portfolio-case .peluutin-match-decision>.case-quote{grid-column:1/-1;width:100%;margin-top:4px}
 
-/* Floating case-length toggle: appears once the original toggle has scrolled out of view.
+/* Floating case-length toggle: appears once the original toggle has scrolled out of view. Solid, with
+   no backdrop blur: blurring the page behind it on every scroll frame can flash the desktop through.
    On narrow screens it also opens the section list that the side contents shows on desktop. */
-.case-mode-float{position:absolute;z-index:16;left:50%;bottom:20px;display:flex;align-items:center;gap:2px;padding:3px;border-radius:12px;background:#2b2b2ae6;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:inset 0 0 0 1px var(--g-line-strong),0 12px 32px #00000066;transform:translateX(-50%);transition:opacity 180ms var(--g-out),transform 220ms var(--g-out)}
+.case-mode-float{position:absolute;z-index:16;left:50%;bottom:20px;display:flex;align-items:center;gap:2px;padding:3px;border-radius:12px;background:#2b2b2a;box-shadow:inset 0 0 0 1px var(--g-line-strong),0 12px 32px #00000066;transform:translateX(-50%);transition:opacity 180ms var(--g-out),transform 220ms var(--g-out)}
 .case-mode-float.is-hidden{opacity:0;transform:translate(-50%,10px);pointer-events:none}
 .case-mode-float-modes{display:flex;gap:2px}
 .case-mode-float button{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;min-height:34px;padding:0 14px;border:0;border-radius:9px;background:transparent;color:var(--g-muted);font:600 13px/1 Satoshi,system-ui,sans-serif;cursor:pointer;transition:background-color 160ms var(--g-out),color 160ms var(--g-out),transform 120ms var(--g-out)}
@@ -644,3 +662,9 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 /* Opening image: as wide as the reading column, so tall screenshots stay modest and edges align with the text. */
 .reading-page.portfolio-case .case-overview-image{width:100%;max-width:var(--g-read);margin-left:auto;margin-right:auto}
 .reading-page.portfolio-case .case-overview-image img{width:100%;height:auto}
+/* Backstop: a plain, composited colour layer filling the window behind its content. The browser
+   draws a layer like this without rasterising it, so if it ever drops or delays the window's
+   painted tiles (fast scrolling, GPU memory pressure), the gap shows the window colour instead of
+   the desktop wallpaper behind the window. */
+.portfolio-window::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;background:var(--chrome-surface);pointer-events:none;will-change:transform}
+.portfolio-window:has(.browser-page :is(.gallery-home,.reading-page,.about-page))::before{background:var(--g-bg)}

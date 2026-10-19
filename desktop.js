@@ -745,27 +745,8 @@ function initializeHeroScramble(){
   return letter;
  });
  word.append(...letters);
- // After the decode, a dimension line keeps the measured width of the word as a quiet trace.
- const trace=document.createElement('span');
- trace.className='hero-measure';trace.setAttribute('aria-hidden','true');trace.append(document.createElement('span'));
- word.append(trace);
- // offsetWidth is the layout width, unaffected by the window's opening scale.
- const updateTrace=()=>{trace.firstChild.textContent=`${word.offsetWidth} px`;};
- if('ResizeObserver' in window)new ResizeObserver(updateTrace).observe(word);
  source.replaceWith(word,document.createTextNode(' '));
- updateTrace();
- if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){word.classList.add('is-measured');return;}
- // The line draws left to right while the label counts up to the measured width.
- const measureWord=()=>{
-  word.classList.remove('is-measured');void word.offsetWidth;word.classList.add('is-measured');
-  const target=word.offsetWidth,begin=performance.now();
-  const count=now=>{
-   const progress=Math.min(1,(now-begin)/760);
-   trace.firstChild.textContent=`${Math.round(target*(1-Math.pow(1-progress,3)))} px`;
-   if(progress<1)requestAnimationFrame(count);
-  };
-  requestAnimationFrame(count);
- };
+ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
  const measure=document.createElement('canvas').getContext('2d');
  const play=()=>{
   cancelAnimationFrame(scrambleFrame);
@@ -818,7 +799,6 @@ function initializeHeroScramble(){
    if(running)scrambleFrame=requestAnimationFrame(tick);
    else{
     letters.forEach(letter=>letter.style.width='');
-    measureWord();
     heading.dispatchEvent(new CustomEvent('hero-decoded'));
    }
   };
@@ -890,14 +870,48 @@ function initializeGalleryFilters(){
  if(row&&'ResizeObserver' in window)new ResizeObserver(()=>row.classList.toggle('is-scrollable',row.scrollWidth>row.clientWidth+1)).observe(row);
  // Each filter shows how many cases it holds; the summary follows the selection.
  for(const button of buttons){const count=button.querySelector('.filter-count');if(count)count.textContent=countFor(button.dataset.galleryFilter);}
+ // Filtering hides the cards that don't match; the rest slide to their new places (FLIP),
+ // and cards coming back fade in. The About card is not a project, so it shows only under All work.
+ const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const ease='cubic-bezier(.22,1,.36,1)';
+ let filterToken=0;
+ const matches=(card,filter)=>{
+  const tags=(card.dataset.tags||'').split(' ');
+  return filter==='all'||(!tags.includes('all')&&tags.includes(filter));
+ };
+ const applyFilter=filter=>{
+  const token=++filterToken;
+  const shown=card=>!card.classList.contains('is-filtered-out');
+  // The page entrance is over: stop it from replaying when a hidden card is shown again.
+  cards.forEach(card=>{card.style.animation='none';card.getAnimations().forEach(animation=>animation.cancel());});
+  const before=new Map(cards.filter(shown).map(card=>[card,card.getBoundingClientRect()]));
+  const leaving=cards.filter(card=>shown(card)&&!matches(card,filter));
+  const settle=()=>{
+   if(token!==filterToken)return;
+   cards.forEach(card=>card.classList.toggle('is-filtered-out',!matches(card,filter)));
+   if(reduceMotion)return;
+   cards.filter(shown).forEach(card=>{
+    const first=before.get(card),last=card.getBoundingClientRect();
+    if(!first){card.animate([{opacity:0,transform:'translateY(8px) scale(.97)'},{opacity:1,transform:'none'}],{duration:340,delay:60,easing:ease,fill:'backwards'});return;}
+    const dx=first.left-last.left,dy=first.top-last.top;
+    // Only real moves animate; sub-pixel rounding would read as a twitch on cards that stay put.
+    if(Math.abs(dx)>1||Math.abs(dy)>1)card.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:'none'}],{duration:440,easing:ease});
+   });
+  };
+  if(reduceMotion||!leaving.length){settle();return;}
+  // Cards that leave fade out quickly first, so the rest move into a clean gap.
+  // A timeout backs up the fade, so the filter still applies if animations are paused (hidden tab).
+  const faded=Promise.all(leaving.map(card=>card.animate([{opacity:1,transform:'none'},{opacity:0,transform:'scale(.97)'}],{duration:140,easing:'ease-in',fill:'forwards'}).finished.catch(()=>{})));
+  Promise.race([faded,new Promise(resolve=>setTimeout(resolve,220))]).then(()=>{
+   if(token!==filterToken)return;
+   leaving.forEach(card=>card.getAnimations().forEach(animation=>animation.cancel()));
+   settle();
+  });
+ };
  for(const button of buttons)button.addEventListener('click',()=>{
   const filter=button.dataset.galleryFilter;
   for(const other of buttons){const active=other===button;other.classList.toggle('is-active',active);other.setAttribute('aria-pressed',String(active));}
-  for(const card of cards){
-   const tags=(card.dataset.tags||'').split(' ');
-   const match=filter==='all'||tags.includes('all')||tags.includes(filter);
-   card.classList.toggle('is-filtered-out',!match);
-  }
+  applyFilter(filter);
   if(summary){const count=countFor(filter);summary.textContent=filter==='all'?summaryAll:`${count} ${count===1?'case':'cases'}`;}
  });
 }
