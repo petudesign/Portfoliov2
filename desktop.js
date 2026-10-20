@@ -915,6 +915,36 @@ function initializeGalleryFilters(){
   if(summary){const count=countFor(filter);summary.textContent=filter==='all'?summaryAll:`${count} ${count===1?'case':'cases'}`;}
  });
 }
+// About page: the boxes and stickers can be dragged around like on an old profile page.
+// Desktop with a fine pointer only; positions reset whenever the page is opened again.
+function initializeAboutHome(){
+ const canvas=browserPage.querySelector('.home-canvas');
+ if(!canvas||!matchMedia('(pointer:fine) and (min-width:981px)').matches)return;
+ canvas.classList.add('is-draggable');
+ let layer=10;
+ canvas.addEventListener('pointerdown',event=>{
+  if(event.button!==0)return;
+  const handle=event.target.closest('.home-bar,.home-sticker');if(!handle)return;
+  const item=handle.classList.contains('home-sticker')?handle:handle.closest('.home-widget');
+  event.preventDefault();
+  canvas.classList.remove('is-tidying');
+  item.style.zIndex=String(++layer);
+  const startX=event.clientX,startY=event.clientY;
+  const baseX=parseFloat(item.style.getPropertyValue('--dx'))||0,baseY=parseFloat(item.style.getPropertyValue('--dy'))||0;
+  item.classList.add('is-dragging');
+  handle.setPointerCapture(event.pointerId);
+  const move=moveEvent=>{
+   item.style.setProperty('--dx',`${baseX+moveEvent.clientX-startX}px`);
+   item.style.setProperty('--dy',`${baseY+moveEvent.clientY-startY}px`);
+  };
+  const end=()=>{item.classList.remove('is-dragging');handle.removeEventListener('pointermove',move);handle.removeEventListener('pointerup',end);handle.removeEventListener('pointercancel',end);};
+  handle.addEventListener('pointermove',move);handle.addEventListener('pointerup',end);handle.addEventListener('pointercancel',end);
+ });
+ canvas.querySelector('.home-tidy')?.addEventListener('click',()=>{
+  canvas.classList.add('is-tidying');
+  canvas.querySelectorAll('.home-widget,.home-sticker').forEach(item=>{item.style.removeProperty('--dx');item.style.removeProperty('--dy');});
+ });
+}
 function renderPage(route,record=true,focus=true){
  projectRevealObserver?.disconnect();
  if(!Object.hasOwn(pageTitles,route)) route='home';
@@ -929,6 +959,7 @@ function renderPage(route,record=true,focus=true){
  addCaseBackLink(route);
  initializeGalleryFilters();
  initializeAsciiPortrait();
+ initializeAboutHome();
  addReadingTimes(route);
  addNextCase(route);
  initializeHeroScramble();
@@ -992,6 +1023,16 @@ for(const[name,file,destination]of desktopApps){
  const label=document.createElement('span');label.textContent=name;element.append(icon,label);document.querySelector('#desktop-dock').append(element);
 }
 enableArrowNavigation(document.querySelector('#desktop-dock'),'.dock-app:not(.dock-app-static)');
+// Phone layout: a home indicator closes the app back to the home screen, by tap or swipe up.
+for(const windowElement of document.querySelectorAll('.portfolio-window,.document-window,.chess-window,.spotify-window')){
+ const homeBar=document.createElement('button');homeBar.type='button';homeBar.className='ios-home-bar';homeBar.setAttribute('aria-label','Go to home screen');
+ const goHome=()=>windowElement.querySelector('[data-window-hide],[data-document-hide],[data-chess-hide],#spotify-hide')?.click();
+ let startY=null;
+ homeBar.addEventListener('pointerdown',event=>{startY=event.clientY;homeBar.setPointerCapture(event.pointerId);});
+ homeBar.addEventListener('pointerup',event=>{if(startY!==null&&startY-event.clientY>24)goHome();startY=null;});
+ homeBar.addEventListener('click',goHome);
+ windowElement.append(homeBar);
+}
 const desktopMenu=document.querySelector('.desktop-menubar');
 const desktopFiles=document.querySelector('#desktop-shortcuts');
 const desktopDock=document.querySelector('#desktop-dock');
@@ -1031,6 +1072,7 @@ document.addEventListener('click',event=>{
   return;
  }
  const link=clickedLink.matches('a[href^="#"]')?clickedLink:null;if(!link)return;
+ if(mobileDesktop.matches&&link.matches('.dock-app[data-app="Chrome"]')&&portfolioWindow.classList.contains('is-minimized')){event.preventDefault();showPortfolio();return;}
  const route=link.hash.slice(1);
  if(route==='spotify'){event.preventDefault();openSpotify();return;}
  if(route==='resume'){event.preventDefault();openDocumentWindow('resume-window');return;}
@@ -1099,7 +1141,7 @@ document.addEventListener('keydown',event=>{
  const closeButton=openWindows.at(-1)?.querySelector('[data-window-hide],[data-document-hide],[data-chess-hide],#spotify-hide');
  if(closeButton){event.preventDefault();closeButton.click();}
 });
-function updateClock(){const date=new Date();const options={timeZone:'Europe/Helsinki'};document.querySelector('#desktop-clock').textContent=date.toLocaleString('en-GB',{...options,weekday:'short',hour:'2-digit',minute:'2-digit'});document.querySelector('#widget-weekday').textContent=date.toLocaleDateString('en-GB',{...options,weekday:'long'});document.querySelector('#widget-day').textContent=date.toLocaleDateString('en-GB',{...options,day:'numeric'});document.querySelector('#widget-month').textContent=date.toLocaleDateString('en-GB',{...options,month:'long'});document.querySelector('#widget-clock').textContent=date.toLocaleTimeString('en-GB',{...options,hour:'2-digit',minute:'2-digit'});}
+function updateClock(){const date=new Date();const options={timeZone:'Europe/Helsinki'};document.querySelector('#desktop-clock').textContent=date.toLocaleString('en-GB',{...options,weekday:'short',hour:'2-digit',minute:'2-digit'});document.querySelector('#widget-weekday').textContent=date.toLocaleDateString('en-GB',{...options,weekday:'long'});document.querySelector('#widget-day').textContent=date.toLocaleDateString('en-GB',{...options,day:'numeric'});document.querySelector('#widget-month').textContent=date.toLocaleDateString('en-GB',{...options,month:'long'});document.querySelector('#widget-clock').textContent=date.toLocaleTimeString('en-GB',{...options,hour:'2-digit',minute:'2-digit'});document.querySelector('#ios-clock').textContent=date.toLocaleTimeString('en-GB',{...options,hour:'2-digit',minute:'2-digit'});}
 updateClock();setInterval(updateClock,60000);
 renderPage(routeFromLocation(),true,false);
 window.addEventListener('load',()=>{

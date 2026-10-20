@@ -1,0 +1,92 @@
+/* About page as a small tribute to the old Habbo home pages: a starry blue canvas with
+   light-blue boxes, pixel stickers and badges. All artwork is drawn for this site
+   (tools/pixel-sprites.py); nothing comes from Habbo itself. */
+.browser-page .about-page.about-home{max-width:none;width:auto;margin:0;padding:0;background:none;color:#10263d;font-family:Verdana,Geneva,Tahoma,sans-serif}
+.about-page.about-home>*{max-width:none}
+.home-canvas{--home-ink:#10263d;--home-frame:#1c3b5c;--home-bar:#5f8fc2;--home-bar-edge:#46719f;--home-body:#a7c7ea;--home-field:#cfe1f4;--home-dash:#5f84ad;
+ position:relative;display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr) minmax(0,1fr);gap:28px;align-items:start;min-height:100%;
+ padding:150px clamp(24px,4vw,56px) 72px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' shape-rendering='crispEdges'%3E%3Crect x='117' y='223' width='1' height='1' fill='%23fff' fill-opacity='.6'/%3E%3Crect x='132' y='220' width='1' height='1' fill='%23fff' fill-opacity='.8'/%3E%3Crect x='123' y='163' width='1' height='1' fill='%23fff' fill-opacity='.45'/%3E%3Crect x='116' y='78' width='1' height='3' fill='%23fff' fill-opacity='.8'/%3E%3Crect x='115' y='79' width='3' height='1' fill='%23fff' fill-opacity='.8'/%3E%3Crect x='139' y='209' width='2' height='2' fill='%23fff' fill-opacity='.45'/%3E%3Crect x='154' y='103' width='2' height='2' fill='%23fff' fill-opacity='.8'/%3E%3Crect x='159' y='167' width='1' height='3' fill='%23fff' fill-opacity='.8'/%3E%3Crect x='158' y='168' width='3' height='1' fill='%23fff' fill-opacity='.8'/%3E%3Crect x='5' y='214' width='1' height='1' fill='%23fff' fill-opacity='.45'/%3E%3Crect x='50' y='226' width='1' height='3' fill='%23fff' fill-opacity='.8'/%3E%3Crect x='49' y='227' width='3' height='1' fill='%23fff' fill-opacity='.8'/%3E%3Crect x='9' y='201' width='1' height='1' fill='%23fff' fill-opacity='.8'/%3E%3Crect x='217' y='52' width='2' height='2' fill='%23fff' fill-opacity='.6'/%3E%3Crect x='129' y='3' width='1' height='1' fill='%23fff' fill-opacity='.8'/%3E%3Crect x='73' y='106' width='1' height='1' fill='%23fff' fill-opacity='.8'/%3E%3Crect x='67' y='82' width='2' height='2' fill='%23fff' fill-opacity='.6'/%3E%3Crect x='9' y='19' width='1' height='1' fill='%23fff' fill-opacity='.6'/%3E%3Crect x='29' y='217' width='1' height='3' fill='%23fff' fill-opacity='.8'/%3E%3Crect x='28' y='218' width='3' height='1' fill='%23fff' fill-opacity='.8'/%3E%3C/svg%3E") 0 0/240px 240px,radial-gradient(ellipse at 50% 0,#1f6aa3 0,#165488 45%,#0f3f6a 100%);box-sizing:border-box}
+.home-col{display:grid;gap:28px;min-width:0}
+.home-hint{position:absolute;top:104px;right:clamp(24px,4vw,56px);margin:0;color:#d9ebff;font-size:11px;display:flex;gap:10px;align-items:center}
+.home-tidy{font:700 10px Verdana,Geneva,sans-serif;color:var(--home-ink);background:#e9f2fb;border:1px solid var(--home-frame);border-radius:3px;padding:3px 8px;box-shadow:inset -1px -1px 0 #9fb8d3,inset 1px 1px 0 #fff;cursor:pointer}
+.home-tidy:active{box-shadow:inset 1px 1px 0 #9fb8d3}
+/* Boxes */
+.home-widget{position:relative;translate:var(--dx,0) var(--dy,0);background:var(--home-body);border:1px solid var(--home-frame);border-radius:3px;box-shadow:4px 4px 0 #0a2a4a8c;min-width:0}
+.home-widget::after{content:'';position:absolute;right:-1px;bottom:-1px;width:14px;height:14px;background:linear-gradient(135deg,var(--home-field) 0 50%,#16466f 50%);border-left:1px solid var(--home-frame);border-top:1px solid var(--home-frame);border-top-left-radius:2px}
+.home-widget.is-dragging{box-shadow:7px 7px 0 #0a2a4a8c}
+.browser-page .about-home .home-bar{position:relative;z-index:1;margin:0;padding:6px 10px;background:var(--home-bar);border-bottom:1px solid var(--home-bar-edge);color:#fff;font:700 11px/1.3 Verdana,Geneva,sans-serif;letter-spacing:.02em;text-transform:uppercase;text-shadow:1px 1px 0 #2f5b88;border-radius:2px 2px 0 0}
+.home-body{padding:12px 14px 18px;font-size:12.5px;line-height:1.62}
+.browser-page .about-home .home-body p{margin:0 0 11px;color:var(--home-ink);font-size:12.5px;line-height:1.62}
+.browser-page .about-home .home-body p:last-child{margin-bottom:0}
+.browser-page .about-home em{color:var(--home-ink);font-style:italic}
+.browser-page .about-home .home-lede{font-size:14px!important;line-height:1.6!important}
+.browser-page .about-home .home-story strong{font-weight:700;color:var(--home-ink)}
+.home-footmark{margin-left:1px;color:#b5462a;font-weight:700}
+.browser-page .about-home .home-aside{color:#2f557d!important;font-size:11px!important}
+/* Profile */
+.home-profile-main{display:flex;justify-content:space-between;gap:10px;padding-bottom:12px;border-bottom:1px dashed var(--home-dash)}
+.home-name{display:block;font-size:14px;text-decoration:underline}
+.home-status{display:inline-flex;align-items:center;gap:5px;margin:6px 0 10px;padding:1px 6px;border:1px solid #2c7a3c;border-radius:2px;background:#d5f5c9;color:#1e5a2a;font-size:9px;font-weight:700;text-transform:uppercase}
+.home-status i{width:5px;height:5px;background:#33b84d;box-shadow:0 0 0 1px #1e7a32}
+.home-facts{margin:0;font-size:11px;line-height:1.5}
+.home-facts div{display:block}
+.home-facts dt{display:inline;color:#2f557d}
+.home-facts dt::after{content:': '}
+.home-facts dd{display:inline;margin:0;font-weight:700}
+.home-avatar{width:114px;height:auto;align-self:flex-end;image-rendering:pixelated;margin:-6px -4px -12px 0;user-select:none}
+.browser-page .about-home .home-motto{margin:10px 0 12px;padding-bottom:12px;border-bottom:1px dashed var(--home-dash);font-size:11.5px}
+.home-motto span{display:block;color:#2f557d;font-size:10px;text-transform:uppercase;letter-spacing:.04em}
+.home-button{display:inline-block;padding:4px 12px;border:1px solid var(--home-frame);border-radius:3px;background:#f2f6fa;color:var(--home-ink)!important;font:700 11px Verdana,Geneva,sans-serif;text-decoration:none;box-shadow:inset -1px -2px 0 #a9bcd0,inset 1px 1px 0 #fff}
+.home-button:hover{background:#fff}
+.home-button:active{box-shadow:inset 1px 1px 0 #a9bcd0}
+.home-button:focus-visible,.home-tidy:focus-visible{outline:2px solid #ffd23f;outline-offset:2px}
+/* Badges */
+.home-badge-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 8px;margin:0;padding:10px;list-style:none;background:var(--home-field);border:1px dashed var(--home-dash)}
+.home-badge-list li{display:grid;justify-items:center;gap:5px;text-align:center;font-size:10px;line-height:1.25;font-weight:700}
+.home-badge-list img{width:40px;height:40px;image-rendering:pixelated}
+/* Photos */
+.home-photo{margin:14px 0 0;padding:6px;background:var(--home-field);border:1px solid var(--home-dash)}
+.home-photo>img,.home-photo-grid img{display:block;width:100%;height:auto;border:1px solid var(--home-frame);border-radius:0}
+.home-photo-small>img{max-width:220px;aspect-ratio:3/4;object-fit:cover}
+.home-photo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.home-photo-grid img{aspect-ratio:1;object-fit:cover}
+.browser-page .about-home .home-photo figcaption{margin:6px 2px 0;color:#2f557d;font-size:10.5px;line-height:1.45}
+/* Stickers */
+.home-sticker{position:absolute;z-index:3;width:var(--size,56px);height:auto;translate:var(--dx,0) var(--dy,0);rotate:var(--r,0deg);image-rendering:pixelated;filter:drop-shadow(2px 2px 0 #0a2a4a66);user-select:none;pointer-events:none}
+.sticker-profile-star{top:-26px;left:calc(50% - 24px);--r:12deg;--size:48px}
+.sticker-profile-glasses{top:58px;right:-30px;--r:8deg;--size:58px}
+.sticker-guestbook-heart{bottom:-20px;right:18px;--r:10deg;--size:48px}
+.sticker-story-magnifier{top:-26px;right:-18px;--r:14deg;--size:58px}
+.sticker-story-computer{bottom:-28px;left:-26px;--r:-6deg;--size:60px}
+.sticker-curious-note{top:-24px;right:22px;--r:-10deg;--size:50px}
+.sticker-away-ball{top:-30px;right:-20px;--r:-8deg;--size:56px}
+.sticker-away-dart{bottom:-22px;right:-18px;--r:12deg;--size:54px}
+/* Leafy hedge along the top of the page, and iron chains the profile box hangs from. */
+.home-canvas::before{content:'';position:absolute;inset:0 0 auto;z-index:4;height:102px;background:url("assets/about-home/hedge.svg") 0 0/384px 102px repeat-x;image-rendering:pixelated;filter:drop-shadow(0 3px 0 #0a2a4a59);pointer-events:none}
+.home-chain{display:block;z-index:0;--size:24px;height:var(--len,128px);top:calc(-1 * var(--len,128px) + 16px);background:url("assets/about-home/chain.svg") 0 100%/24px 32px repeat-y}
+.chain-left{left:26px}
+.chain-right{right:26px}
+/* Dragging: desktop only, by the title bar or the sticker itself. */
+.home-canvas.is-draggable .home-bar{cursor:grab;touch-action:none;user-select:none}
+.home-canvas.is-draggable .home-sticker{pointer-events:auto;cursor:grab;touch-action:none}
+.home-canvas.is-draggable :is(.home-bar,.home-sticker):active{cursor:grabbing}
+.home-canvas:not(.is-draggable) .home-hint{display:none}
+.home-canvas.is-tidying :is(.home-widget,.home-sticker){transition:translate 380ms cubic-bezier(.22,1,.36,1)}
+@media (max-width:980px){
+ .home-canvas{grid-template-columns:minmax(0,600px);justify-content:center;padding:118px 22px 56px;gap:30px}
+ .home-chain{--len:96px}
+ .home-col{display:contents}
+ .home-widget{order:var(--order)}
+ .home-hint{display:none}
+}
+@media (max-width:560px){
+ .home-canvas{padding:108px 16px 48px}
+ .home-canvas::before{height:78px;background-size:294px 78px}
+ .home-chain{--len:88px}
+ .home-avatar{width:96px}
+ .sticker-profile-glasses{right:-8px}
+ .sticker-story-magnifier,.sticker-away-dart{right:-6px}
+ .sticker-story-computer{left:-8px}
+ .sticker-away-ball{right:-6px}
+}
+@media (prefers-reduced-motion:reduce){.home-canvas.is-tidying :is(.home-widget,.home-sticker){transition:none}}

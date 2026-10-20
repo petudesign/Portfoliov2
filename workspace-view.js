@@ -1244,7 +1244,7 @@ const createDesktopScreenTexture = (THREE) => {
     texture.needsUpdate = true;
   };
   desktopImage.onload = draw;
-  desktopImage.src = 'assets/room-desktop-screen.png?v=18';
+  desktopImage.src = 'assets/room-desktop-screen.png?v=19';
   window.setInterval(draw, 30_000);
   const dockTargets = [
     { x: 701.5 / 1906, y: 831 / 896, width: 44 / 1906, height: 44 / 896 },
@@ -1494,7 +1494,7 @@ const createScreenTexture = (THREE, variant) => {
     wallpaperReady = true;
     draw();
   };
-  wallpaper.src = 'assets/desktop-wallpaper.svg?v=1';
+  wallpaper.src = 'assets/desktop-wallpaper-calm.svg?v=1';
   window.setInterval(draw, 30_000);
   texture.userData = {
     setPlayback(nextPlayback) {

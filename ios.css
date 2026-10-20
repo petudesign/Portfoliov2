@@ -1,0 +1,74 @@
+/* Phone layout: on narrow screens the macOS desktop becomes an iOS home screen.
+   The content stays the same; only the shell changes. The browser window turns into a
+   full-screen browser app without an address bar, desktop files become home-screen apps,
+   and the Dock keeps four apps. Desktop styles are untouched outside the media query. */
+.ios-time,.ios-status,.ios-home-bar{display:none}
+
+@media (max-width:700px){
+ :root{--ios-font:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;--ios-top:calc(env(safe-area-inset-top,0px) + 48px)}
+
+ /* Status bar */
+ body.has-desktop .desktop-menubar{position:relative;z-index:10002;height:var(--ios-top);padding:env(safe-area-inset-top,0px) 30px 0;gap:0;background:none;backdrop-filter:none;-webkit-backdrop-filter:none;text-shadow:none;font-family:var(--ios-font);box-sizing:border-box;pointer-events:none}
+ body.has-desktop .desktop-menubar>a,body.has-desktop .desktop-menubar .menubar-right{display:none}
+ .ios-time{display:block;font:600 16px/1 var(--ios-font);letter-spacing:-.01em;color:#fff}
+ .ios-status{display:flex;align-items:center;gap:6px;margin-left:auto;color:#fff}
+ .ios-status svg{height:11px;width:auto;fill:currentColor}
+ .ios-battery{position:relative;width:24px;height:12px;border:1px solid #ffffff8c;border-radius:4px;box-sizing:border-box;padding:1.5px}
+ .ios-battery::after{content:'';position:absolute;right:-3px;top:3.5px;width:1.5px;height:4px;border-radius:0 1px 1px 0;background:#ffffff8c}
+ .ios-battery i{display:block;width:78%;height:100%;border-radius:1.5px;background:#fff}
+
+ /* Home screen: a widget, an app grid and a wide widget, like iOS. */
+ body.has-desktop .desktop-content{inset:0}
+ body.has-desktop .desktop-side{position:absolute;inset:0;z-index:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:min-content;align-content:start;gap:22px 14px;width:auto;max-width:none;max-height:none;margin:0;padding:calc(var(--ios-top) + 14px) 22px 130px;overflow-y:auto;font-family:var(--ios-font);box-sizing:border-box}
+ body.has-desktop .desktop-side .desktop-shortcuts{display:contents}
+ body.has-desktop .desktop-side .date-widget{grid-column:1/3;grid-row:1/3;width:auto;aspect-ratio:1;align-content:start;padding:16px;border:0;border-radius:22px;background:#1b2233b3;backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);box-shadow:none;color:#fff}
+ .desktop-side .date-widget #widget-weekday{color:#ff5b5b;font-size:11px}
+ .desktop-side .date-widget #widget-day{font-size:44px;line-height:1.05;color:#fff}
+ .desktop-side .date-widget #widget-month{grid-column:1/-1;color:#ffffffb3;font-size:13px}
+ .desktop-side .date-widget>div{border-color:#ffffff26;color:#ffffffb3;font-size:10px}
+ .desktop-side .date-widget time{color:#fff}
+
+ /* App icons */
+ body.has-desktop .desktop-side .desktop-shortcut{display:grid;justify-items:center;align-content:start;gap:6px;min-width:0;padding:0;border-radius:0;color:#fff;font:500 11px/1.2 var(--ios-font);text-shadow:0 1px 3px #0008}
+ .desktop-side .desktop-shortcut-label{max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+ .desktop-side .desktop-shortcut :is(.folder-icon,.file-icon,.chess-shortcut-icon){display:block;width:62px;height:62px;margin:0;border:0;border-radius:15px;box-shadow:0 2px 6px #0003;box-sizing:border-box}
+ .desktop-side .desktop-shortcut:active :is(.folder-icon,.file-icon,.chess-shortcut-icon){filter:brightness(.8)}
+ /* Folders look like iOS folders: a frosted tile with small apps inside. */
+ .desktop-side .folder-icon{position:relative;padding:9px;background:#ffffff38;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+ .desktop-side .folder-icon::before,.desktop-side .folder-icon::after,.desktop-side .folder-back::before,.desktop-side .folder-back::after,.desktop-side .folder-front{display:none}
+ .desktop-side .folder-back{position:static;display:grid;grid-template-columns:repeat(3,12px);gap:4px;width:auto;height:auto;margin:0;padding:0;background:none;border:0;transform:none}
+ .desktop-side .folder-paper{position:static;display:block;width:12px;height:12px;margin:0;padding:0;border:0;border-radius:3.5px;font-size:0;opacity:1;transform:none;box-shadow:none;background:#5fa8ff}
+ .desktop-side .folder-paper[data-paper-index="2"]{background:#ffb340}
+ .desktop-side .folder-paper[data-paper-index="3"]{background:#7ad36b}
+ /* Documents become app tiles. */
+ .desktop-side .file-icon{display:grid!important;place-items:center;color:#fff;font:800 19px/1 var(--ios-font);letter-spacing:-.02em;text-shadow:none;background:linear-gradient(160deg,#ff9f45,#f2622d)}
+ .desktop-side a[href="#how-i-work"] .file-icon{color:#3a3320;background:linear-gradient(#ffd54a 0 26%,#fffdf6 26%)}
+ .desktop-side .chess-shortcut-icon{object-fit:cover;background:#241e34}
+
+ /* Wide widget */
+ body.has-desktop .desktop-side .room-button{grid-column:1/-1;width:auto;max-width:none;min-height:0;margin:4px 0 0;border:0;border-radius:22px;background:#1b2233b3;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:none}
+
+ /* Dock: four apps in a frosted tray. */
+ body.has-desktop .desktop-dock{z-index:5;left:10px;right:10px;bottom:max(10px,env(safe-area-inset-bottom));width:auto;transform:none;justify-content:space-around;gap:0;padding:14px 12px;border:0;border-radius:32px;background:#ffffff2e;backdrop-filter:blur(30px) saturate(1.6);-webkit-backdrop-filter:blur(30px) saturate(1.6);box-shadow:none}
+ .desktop-dock .dock-app:not([data-app="Chrome"],[data-app="Spotify"],[data-app="Claude"],[data-app="Figma"]),.desktop-dock .dock-divider{display:none}
+ body.has-desktop .desktop-dock .dock-app{width:62px;height:62px;max-width:none;max-height:none;padding:0;border-radius:15px;background:none;box-shadow:none}
+ .desktop-dock .dock-app>span,.desktop-dock .dock-app.is-running::after{display:none}
+ .desktop-dock .dock-app:active{filter:brightness(.8)}
+
+ /* Apps open full screen, under the status bar, and close with the home indicator. */
+ body.has-desktop :is(.portfolio-window,.document-window,.chess-window,.spotify-window){position:fixed;inset:0;top:0;left:0;right:0;bottom:0;width:auto;height:auto;max-width:none;max-height:none;margin:0;padding-top:var(--ios-top);border:0;border-radius:0;transform:none;box-shadow:none;display:flex;flex-direction:column;transform-origin:50% 60%}
+ body.has-desktop .desktop .portfolio-window:not(.is-expanded){border:0;border-radius:0;box-shadow:none}
+ body.has-desktop .portfolio-window{background:var(--g-bg)}
+ /* The hero glow reaches past the edge; never let it scroll the page sideways. */
+ body.has-desktop .browser-page{overflow-x:hidden}
+ body.has-desktop .portfolio-window .browser-titlebar,body.has-desktop .portfolio-window .browser-toolbar{display:none}
+ body.has-desktop :is(.document-window,.chess-window) .traffic-lights,body.has-desktop #spotify-hide{display:none}
+ body.has-desktop :is(.document-window,.chess-window) .browser-titlebar{justify-content:center;height:44px;padding:0 16px;background:none;border:0}
+ body.has-desktop :is(.document-window,.chess-window) .browser-tab{flex:0 1 auto;width:auto;height:auto;margin:0;padding:0;background:none;border:0;border-radius:0;box-shadow:none;font:600 16px/1 var(--ios-font)}
+ body.has-desktop :is(.document-window,.chess-window) .browser-tab::before,body.has-desktop :is(.document-window,.chess-window) .browser-tab::after{display:none}
+ body.has-desktop :is(.document-window,.chess-window)>:not(header,.ios-home-bar),body.has-desktop .spotify-window>#spotify-host{flex:1;min-height:0;max-height:none;overflow-y:auto}
+ :is(.portfolio-window,.document-window,.chess-window,.spotify-window).is-minimized{opacity:0;scale:.86;pointer-events:none}
+ .ios-home-bar{display:block;flex-shrink:0;position:relative;width:100%;height:30px;padding:0;border:0;background:inherit;cursor:pointer;touch-action:none}
+ .ios-home-bar::before{content:'';position:absolute;left:50%;bottom:9px;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:#fff}
+ .ios-home-bar:focus-visible{outline:2px solid #0a84ff;outline-offset:-4px}
+}
