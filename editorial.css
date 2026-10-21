@@ -547,7 +547,6 @@
 .portfolio-case .case-product-figure{margin:32px 0;}
 .portfolio-case .case-product-figure img{display:block;width:100%;height:auto;max-height:none;object-fit:contain;margin:0;}
 .portfolio-case .case-product-figure figcaption{margin-top:10px;font-size:12px;line-height:1.6;color:#687565;}
-.portfolio-case .peluutin-mobile-proof{max-width:420px;margin-inline:auto;}
 
 /* Shared case layout: product facts first, restrained reading hierarchy. */
 .portfolio-case .case-hero{padding-top:30px;}
@@ -570,16 +569,12 @@
 .portfolio-case .case-section:first-child{padding-top:6px;}
 .portfolio-case .case-section h2{margin:0 0 18px;font:650 clamp(22px,2.1vw,28px)/1.25 Satoshi,system-ui,sans-serif;letter-spacing:-.025em;}
 .portfolio-case .case-section p{max-width:76ch;margin:0 0 12px;font-size:15px;line-height:1.65;}
-.portfolio-case .peluutin-match-decision{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:32px;align-items:start;}
-.portfolio-case .peluutin-match-decision .peluutin-mobile-proof{margin:0;}
 @media(max-width:760px){
  .portfolio-case .case-hero{padding-top:24px;}
  .portfolio-case .case-project-facts{gap:12px 20px;}
  .portfolio-case .case-tldr-content{gap:24px;padding:22px 20px;}
  .portfolio-case .case-media-links{justify-content:flex-start;}
  .portfolio-case .case-media-links .case-external-cta{min-width:0;}
- .portfolio-case .peluutin-match-decision{grid-template-columns:1fr;gap:16px;}
- .portfolio-case .peluutin-match-decision .peluutin-mobile-proof{width:min(100%,280px);margin-inline:auto;}
 }
 
 /* Keep project information, live links and reading controls at distinct levels. */
@@ -599,13 +594,6 @@
  .case-hero-details{align-items:flex-start;gap:14px;margin-top:18px;}
  .portfolio-case .case-actions{margin-top:18px;}
 }
-
-/* Frame the mobile detail without changing the captured product screen. */
-.peluutin-phone-mockup{position:relative;padding:12px 7px 16px;border:2px solid #697074;border-radius:36px;background:#171b1e;box-shadow:0 16px 28px #20272026,0 0 0 1px #171b1e;}
-.peluutin-phone-mockup::before{content:'';position:absolute;z-index:2;top:13px;left:50%;width:64px;height:14px;border-radius:12px;background:#171b1e;transform:translateX(-50%);pointer-events:none;}
-.peluutin-phone-mockup::after{content:'';position:absolute;bottom:7px;left:50%;width:72px;height:3px;border-radius:3px;background:#a8adb0;transform:translateX(-50%);pointer-events:none;}
-.peluutin-phone-screen{overflow:hidden;border-radius:25px;background:#f1f0eb;}
-.portfolio-case .peluutin-mobile-proof figcaption{margin-top:16px;}
 .portfolio-case .peluutin-decisions{display:grid;gap:14px;margin:0;padding:0;list-style:none;}
 .portfolio-case .peluutin-decisions li{max-width:76ch;margin:0;padding-left:16px;border-left:2px solid #9da58d;font-size:15px;line-height:1.65;}
 .peluutin-decisions strong{color:#202720;font-weight:650;}

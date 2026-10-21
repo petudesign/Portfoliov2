@@ -213,7 +213,6 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .gallery-home .gallery-card-me .gallery-thumb img{padding:0;object-fit:cover;object-position:50% 18%;filter:grayscale(1) contrast(1.08)}
 /* ASCII lens (test): drawn over the photo only around the pointer. */
 .ascii-portrait{position:absolute;inset:0;z-index:0;width:100%;height:100%;pointer-events:none}
-}
 
 /* More explorations list */
 .gallery-more{margin-top:clamp(48px,6vw,72px)}
@@ -444,8 +443,6 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 /* Media frames match the gallery thumbnails */
 .reading-page .case-product-figure,.reading-page .wip-case figure,.reading-page .spire-visual,.reading-page .hero-media{margin:28px 0}
 .reading-page .case-product-figure img,.reading-page .case-product-figure video,.reading-page .spire-visual img{border-radius:12px;background:#ececea;box-shadow:0 0 0 1px #ffffff10}
-/* Dark screenshots and videos share the page colour, so case media get an inner hairline that keeps their edge visible. */
-.reading-page.portfolio-case figure :is(img,video):not(.peluutin-phone-screen img){outline:1px solid #ffffff1f;outline-offset:-1px}
 .reading-page .case-product-figure figcaption,.reading-page figcaption{margin-top:10px;color:var(--g-muted);font-size:12.5px;line-height:1.55}
 
 /* TL;DR: one summary panel, then plain reading text */
@@ -629,7 +626,6 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .reading-page.portfolio-case .case-quote blockquote{margin:0}
 .reading-page.portfolio-case .case-quote blockquote p{margin:0;color:var(--g-fg);font-size:17px;line-height:1.6;letter-spacing:-.005em}
 .reading-page.portfolio-case .case-quote figcaption{margin-top:12px;color:var(--g-muted);font-size:12.5px}
-.portfolio-case .peluutin-match-decision>.case-quote{grid-column:1/-1;width:100%;margin-top:4px}
 
 /* Floating case-length toggle: appears once the original toggle has scrolled out of view. Solid, with
    no backdrop blur: blurring the page behind it on every scroll frame can flash the desktop through.
@@ -668,3 +664,35 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
    the desktop wallpaper behind the window. */
 .portfolio-window::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;background:var(--chrome-surface);pointer-events:none;will-change:transform}
 .portfolio-window:has(.browser-page :is(.gallery-home,.reading-page,.about-page))::before{background:var(--g-bg)}
+/* Two screenshots side by side in a case, e.g. map versions or phone views. */
+.reading-page .case-shot-pair>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.reading-page .case-shot-pair img{display:block;width:100%;height:auto;margin:0;border-radius:10px;outline:1px solid #ffffff14;outline-offset:-1px}
+.reading-page .case-shot-pair.is-phone>div{max-width:560px;margin:0 auto}
+.reading-page .case-shot-pair.is-phone img{border-radius:16px}
+@media (max-width:560px){.reading-page .case-shot-pair:not(.is-phone)>div{grid-template-columns:1fr}}
+/* Figures inside case sections run wider than the text; keep their captions on the text column. */
+.reading-page .case-section figure>figcaption{max-width:720px;margin-left:auto;margin-right:auto}
+/* iPhone 17 Pro frame for phone screenshots. Sizes follow the device in points (402 × 874),
+   scaled by --w. The screen's height follows the screenshot: a status bar on top, the image,
+   then room for the home indicator, filled with the app's colours (--screen-top / --screen-bottom). */
+.iphone{--w:260px;--u:calc(var(--w) / 402);--screen-top:#fff;--screen-bottom:#fff;--status-ink:#111;position:relative;flex-shrink:0;width:var(--w);padding:calc(var(--u) * 13);border-radius:calc(var(--u) * 68);background:linear-gradient(140deg,#6a6e75 0%,#2b2d31 14%,#17181b 50%,#2b2d31 86%,#62666d 100%);box-shadow:inset 0 0 0 calc(var(--u) * 1.5) #ffffff33,inset 0 0 0 calc(var(--u) * 4) #0d0e10,0 calc(var(--u) * 40) calc(var(--u) * 70) calc(var(--u) * -24) #000000cc,0 calc(var(--u) * 12) calc(var(--u) * 24) calc(var(--u) * -12) #00000080}
+.iphone::before{content:'';position:absolute;left:calc(var(--u) * -3.5);top:calc(var(--u) * 168);width:calc(var(--u) * 4.5);height:calc(var(--u) * 196);border-radius:calc(var(--u) * 2) 0 0 calc(var(--u) * 2);background:linear-gradient(#45484e 0 15%,transparent 15% 28%,#45484e 28% 58%,transparent 58% 68%,#45484e 68%)}
+.iphone::after{content:'';position:absolute;right:calc(var(--u) * -3.5);top:calc(var(--u) * 250);width:calc(var(--u) * 4.5);height:calc(var(--u) * 100);border-radius:0 calc(var(--u) * 2) calc(var(--u) * 2) 0;background:#45484e}
+.iphone-screen{position:relative;display:flex;flex-direction:column;padding-bottom:calc(var(--u) * 26);overflow:hidden;border-radius:calc(var(--u) * 55);background:var(--screen-bottom);isolation:isolate}
+.iphone-status{display:flex;flex-shrink:0;align-items:center;justify-content:space-between;height:calc(var(--u) * 54);padding:0 calc(var(--u) * 34) 0 calc(var(--u) * 48);background:var(--screen-top);color:var(--status-ink);font:600 calc(var(--u) * 17)/1 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;letter-spacing:-.01em;box-sizing:border-box}
+.iphone-status-icons{display:flex;align-items:center;gap:calc(var(--u) * 6)}
+.iphone-status-icons svg{height:calc(var(--u) * 12);width:auto;fill:currentColor}
+.iphone-battery{position:relative;width:calc(var(--u) * 26);height:calc(var(--u) * 13);padding:calc(var(--u) * 2);border:calc(var(--u) * 1.2) solid color-mix(in srgb,currentColor 45%,transparent);border-radius:calc(var(--u) * 4);box-sizing:border-box}
+.iphone-battery::before{content:'';display:block;width:80%;height:100%;border-radius:calc(var(--u) * 1.5);background:currentColor}
+.reading-page .iphone-screen>img{display:block;width:100%;height:auto;margin:0;border-radius:0;outline:0;flex-shrink:0}
+.iphone-island{position:absolute;z-index:2;top:calc(var(--u) * 11);left:50%;width:calc(var(--u) * 125);height:calc(var(--u) * 37);border-radius:999px;background:#000;transform:translateX(-50%)}
+.iphone-home{position:absolute;z-index:2;bottom:calc(var(--u) * 8);left:50%;width:calc(var(--u) * 140);height:calc(var(--u) * 5);border-radius:999px;background:#111;transform:translateX(-50%)}
+/* Phones side by side in a case. */
+.reading-page .case-phones>div{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(20px,4vw,48px);padding:8px 0 12px}
+@media (max-width:560px){.case-phones .iphone{--w:min(250px,72vw)}}
+/* Comparison frames follow their images' ratio (set per figure as --ratio). */
+.portfolio-case .case-comparison-frame{aspect-ratio:var(--ratio,8/5)}
+/* Screenshots in a comparison can differ by a few pixels; fill the frame so no edge shows. */
+.portfolio-case .case-comparison-frame>img{object-fit:cover}
+/* Dark screenshots and videos share the page colour, so case media get an inner hairline that keeps their edge visible. */
+.reading-page.portfolio-case figure :is(img,video):not(.iphone-screen img){outline:1px solid #ffffff1f;outline-offset:-1px}
