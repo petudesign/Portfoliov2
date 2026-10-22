@@ -714,3 +714,9 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .case-table td{text-align:right;font-variant-numeric:tabular-nums}
 .case-table thead th:last-child{text-align:right}
 .case-table .is-highlight :is(th,td){color:#e4eca7;font-weight:650}
+/* Full-case-only figures keep the normal media colours; the extra colour marks body text only. */
+.reading-page.portfolio-case .case-section figure.case-extra{color:var(--g-fg-2)}
+.reading-page.portfolio-case .case-section figure.case-extra .case-comparison-heading strong{color:var(--g-fg)}
+.reading-page.portfolio-case .case-section figure.case-extra :is(.case-comparison-heading span,figcaption){color:var(--g-muted)}
+/* Give callouts room from the paragraphs around them. */
+.reading-page .case-section>.case-callout{margin-top:28px;margin-bottom:28px}
