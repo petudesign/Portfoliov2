@@ -206,7 +206,7 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 /* Reset the older homepage list layout that targets .desktop-projects>a */
 .gallery-home .desktop-projects>a.gallery-card{display:block;grid-row:auto;grid-template-columns:none;padding:0;border:0}
 .gallery-home .desktop-projects>a.gallery-card p{align-self:auto;padding:0;border:0}
-.gallery-home .desktop-projects a:hover img{transform:none}
+@media (hover:hover) and (pointer:fine){.gallery-home .desktop-projects a:hover img{transform:none}}
 
 /* Portrait card: the centre of the gallery */
 .gallery-home .gallery-card-me .gallery-thumb{background:radial-gradient(circle at 50% 30%,#3a3d39,#1f211f 70%)}
@@ -303,7 +303,7 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .note-body textarea{background:var(--g-surface);color:var(--g-fg);box-shadow:inset 0 0 0 1px var(--g-line)}
 .note-body textarea:focus{box-shadow:inset 0 0 0 2px #e4eca780}
 .sideproject-shortcut{background:var(--g-surface);border-color:var(--g-line);color:var(--g-fg)!important}
-.sideproject-shortcut:hover,.sideproject-shortcut:focus-visible{background:var(--g-surface-2);outline-color:#e4eca780}
+.sideproject-shortcut:focus-visible{background:var(--g-surface-2);outline-color:#e4eca780}@media (hover:hover) and (pointer:fine){.sideproject-shortcut:hover{background:var(--g-surface-2);outline-color:#e4eca780}}
 .sideproject-shortcut small{color:var(--g-muted)}
 .sideproject-preview-placeholder{background:linear-gradient(135deg,#2d2d2d,#383838);color:var(--g-muted)}
 .chess-board{border-color:#111;box-shadow:0 10px 25px #0006}
@@ -311,7 +311,7 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .chess-solution{background:#e4eca714;color:var(--g-fg-2)}
 .chess-solution strong{color:var(--g-accent)}
 .chess-actions button{background:#2d2d2d;border-color:var(--g-line);color:var(--g-fg)}
-.chess-actions button:hover{background:#383838}
+@media (hover:hover) and (pointer:fine){.chess-actions button:hover{background:#383838}}
 
 /* ---------- macOS glass for desktop surfaces: widgets, dock and sound mixer ----------
    Translucent tint + strong blur and saturation, a hairline edge, a top highlight and a
@@ -324,7 +324,7 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
  box-shadow:inset 0 1px 0 #ffffff2e,inset 0 -1px 0 #ffffff0a,0 18px 40px #00000059;
 }
 .desktop-side .date-widget,.desktop-side .room-widget{border-radius:22px}
-.desktop-side .room-widget:hover{background:linear-gradient(160deg,#ffffff26 0%,#ffffff0d 38%,#ffffff05 100%),#16161a5c}
+@media (hover:hover) and (pointer:fine){.desktop-side .room-widget:hover{background:linear-gradient(160deg,#ffffff26 0%,#ffffff0d 38%,#ffffff05 100%),#16161a5c}}
 .sound-mixer{color:#f2f2f2}
 .sound-mixer>p,.sound-mixer output,.sound-mixer .mixer-note,.music-transport{color:#a8a8a8}
 .sound-mixer header button{background:#ffffff1f;color:#f2f2f2}
@@ -372,7 +372,7 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .gallery-filters button{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 11px 0 10px}
 .gallery-filters button.is-active{background:#f4f4f2;color:#141414;box-shadow:0 1px 0 #ffffff80 inset}
 .filter-icon{width:14px;height:14px;flex-shrink:0;overflow:visible;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;opacity:.7;transition:opacity 160ms var(--g-out)}
-.gallery-filters button:is(.is-active,:hover) .filter-icon{opacity:1}
+.gallery-filters button:is(.is-active) .filter-icon{opacity:1}@media (hover:hover) and (pointer:fine){.gallery-filters button:is(.is-active,:hover) .filter-icon{opacity:1}}
 .filter-icon .fi-dot,.filter-icon rect{fill:currentColor;stroke:none}
 .filter-icon .fi-spark,.filter-icon .fi-spark-small{fill:currentColor;stroke:none}
 .filter-icon *{transform-box:fill-box;transform-origin:center}
@@ -437,7 +437,7 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .reading-page.portfolio-case .case-mode-toggle{gap:2px;padding:3px;background:#ffffff0a;box-shadow:inset 0 0 0 1px var(--g-line);border-radius:12px}
 .reading-page.portfolio-case .case-mode-toggle button{min-height:34px;padding:0 14px;border-radius:9px;font-weight:600;color:var(--g-muted);font-size:13px;transition:background-color 160ms var(--g-out),color 160ms var(--g-out),transform 120ms var(--g-out)}
 .reading-page.portfolio-case .case-mode-toggle button.is-active{background:#f4f4f2;color:#141414}
-.reading-page.portfolio-case .case-mode-toggle button:not(.is-active):hover{background:#ffffff0c;color:var(--g-fg)}
+@media (hover:hover) and (pointer:fine){.reading-page.portfolio-case .case-mode-toggle button:not(.is-active):hover{background:#ffffff0c;color:var(--g-fg)}}
 .reading-page.portfolio-case .case-mode-toggle button:active{transform:scale(.97)}
 
 /* Media frames match the gallery thumbnails */
@@ -485,19 +485,19 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 
 
 /* Stronger overrides for the light-surface controls defined in older files */
-.browser-page .reading-page.portfolio-case .case-mode-toggle button.is-active,.browser-page .reading-page.portfolio-case .case-mode-toggle button.is-active:hover{background:#f4f4f2;color:#141414;border-color:transparent;box-shadow:none}
+.browser-page .reading-page.portfolio-case .case-mode-toggle button.is-active{background:#f4f4f2;color:#141414;border-color:transparent;box-shadow:none}@media (hover:hover) and (pointer:fine){.browser-page .reading-page.portfolio-case .case-mode-toggle button.is-active:hover{background:#f4f4f2;color:#141414;border-color:transparent;box-shadow:none}}
 .browser-page .reading-page.portfolio-case .case-mode-toggle button:not(.is-active){color:var(--g-muted);background:transparent}
-.browser-page .reading-page.portfolio-case .case-mode-toggle button:not(.is-active):hover{background:#ffffff0c;color:var(--g-fg)}
-.browser-page .reading-page .case-comparison-controls button[aria-pressed="true"],.browser-page .reading-page .case-comparison-controls button[aria-pressed="true"]:hover{background:#f4f4f2;color:#141414;box-shadow:none}
-.browser-page .reading-page .case-comparison-controls button:hover{background:#ffffff0c;color:var(--g-fg)}
+@media (hover:hover) and (pointer:fine){.browser-page .reading-page.portfolio-case .case-mode-toggle button:not(.is-active):hover{background:#ffffff0c;color:var(--g-fg)}}
+.browser-page .reading-page .case-comparison-controls button[aria-pressed="true"]{background:#f4f4f2;color:#141414;box-shadow:none}@media (hover:hover) and (pointer:fine){.browser-page .reading-page .case-comparison-controls button[aria-pressed="true"]:hover{background:#f4f4f2;color:#141414;box-shadow:none}}
+@media (hover:hover) and (pointer:fine){.browser-page .reading-page .case-comparison-controls button:hover{background:#ffffff0c;color:var(--g-fg)}}
 .browser-page .reading-page .case-comparison-controls a{color:var(--g-fg-2);box-shadow:inset 0 -1px #ffffff30}
-.browser-page .reading-page .case-comparison-controls a:hover{color:var(--g-fg);box-shadow:inset 0 -1px var(--g-fg)}
+@media (hover:hover) and (pointer:fine){.browser-page .reading-page .case-comparison-controls a:hover{color:var(--g-fg);box-shadow:inset 0 -1px var(--g-fg)}}
 .browser-page .reading-page.portfolio-case .case-media-links .case-external-cta:first-child{min-height:40px;padding:0 16px;border:0;border-radius:10px;background:#f4f4f2;color:#141414!important;font-size:13px;font-weight:650;transition:transform 140ms var(--g-out),background-color 160ms var(--g-out)}
-.browser-page .reading-page.portfolio-case .case-media-links .case-external-cta:first-child:hover{background:#fff;color:#141414}
+@media (hover:hover) and (pointer:fine){.browser-page .reading-page.portfolio-case .case-media-links .case-external-cta:first-child:hover{background:#fff;color:#141414}}
 .browser-page .reading-page.portfolio-case .case-media-links .case-external-cta:first-child:active{transform:scale(.97)}
 .browser-page .reading-page.portfolio-case .case-media-links .case-external-cta:not(:first-child){height:auto;padding:10px 0;background:none;color:var(--g-fg-2)!important}
 .browser-page .reading-page .case-video-toggle{background:#f4f4f2;color:#141414;border-radius:10px;min-height:38px;font-size:13px}
-.browser-page .reading-page .case-video-toggle:hover{background:#fff}
+@media (hover:hover) and (pointer:fine){.browser-page .reading-page .case-video-toggle:hover{background:#fff}}
 .browser-page .reading-page :is(a,button):focus-visible{outline:2px solid var(--g-accent);outline-offset:3px}
 
 .reading-page summary,.reading-page details{color:var(--g-fg-2)}

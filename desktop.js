@@ -75,8 +75,12 @@ const routeFromLocation=()=>{
 const locationForRoute=route=>routeLocations[route]||`/#${route}`;
 let navigation=['home'];let navigationIndex=0;
 const mobileDesktop=window.matchMedia('(max-width:700px)');
+// iOS Safari only applies :active styles once the document has a touch listener.
+document.addEventListener('touchstart',()=>{},{passive:true});
 function syncDesktopShortcuts(){
  document.querySelector('.desktop-side').inert=mobileDesktop.matches&&!portfolioWindow.classList.contains('is-minimized');
+ // The browser's status bar takes the colour at the top of the screen: the page, or the wallpaper on the home screen.
+ document.querySelector('meta[name="theme-color"]')?.setAttribute('content',mobileDesktop.matches&&portfolioWindow.classList.contains('is-minimized')?'#04070e':'#232323');
 }
 mobileDesktop.addEventListener('change',syncDesktopShortcuts);
 syncDesktopShortcuts();

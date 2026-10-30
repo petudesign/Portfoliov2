@@ -37,7 +37,7 @@
 .browser-page .about-home .home-motto{margin:10px 0 12px;padding-bottom:12px;border-bottom:1px dashed var(--home-dash);font-size:11.5px}
 .home-motto span{display:block;color:#2f557d;font-size:10px;text-transform:uppercase;letter-spacing:.04em}
 .home-button{display:inline-block;padding:4px 12px;border:1px solid var(--home-frame);border-radius:3px;background:#f2f6fa;color:var(--home-ink)!important;font:700 11px Verdana,Geneva,sans-serif;text-decoration:none;box-shadow:inset -1px -2px 0 #a9bcd0,inset 1px 1px 0 #fff}
-.home-button:hover{background:#fff}
+@media (hover:hover) and (pointer:fine){.home-button:hover{background:#fff}}
 .home-button:active{box-shadow:inset 1px 1px 0 #a9bcd0}
 .home-button:focus-visible,.home-tidy:focus-visible{outline:2px solid #ffd23f;outline-offset:2px}
 /* Badges */

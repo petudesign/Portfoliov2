@@ -12,20 +12,18 @@
 .case-comparison-controls button[aria-pressed="true"]{
  background:#f6f5ee;color:#202720;font-weight:650;box-shadow:0 1px 3px #2027201a,0 0 0 1px #20272008;
 }
-.portfolio-case .case-mode-toggle button:hover,
-.case-comparison-controls button:hover{background:#ffffff40;color:#202720}
-.portfolio-case .case-mode-toggle button.is-active:hover,
-.case-comparison-controls button[aria-pressed="true"]:hover{background:#faf9f3;color:#202720}
+@media (hover:hover) and (pointer:fine){.portfolio-case .case-mode-toggle button:hover,.case-comparison-controls button:hover{background:#ffffff40;color:#202720}}
+@media (hover:hover) and (pointer:fine){.portfolio-case .case-mode-toggle button.is-active:hover,.case-comparison-controls button[aria-pressed="true"]:hover{background:#faf9f3;color:#202720}}
 .portfolio-case .case-mode-toggle button:active{transform:none}
 .portfolio-case .case-media-links .case-external-cta:first-child{
  display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:46px;padding:12px 20px;border:1px solid #202720;border-radius:999px;background:#202720;color:#f6f5ee;font:600 14px/1.4 Satoshi,system-ui,sans-serif;letter-spacing:-.01em;text-decoration:none;transition:background-color 160ms ease;
 }
-.portfolio-case .case-media-links .case-external-cta:first-child:hover{background:#374331;border-color:#374331;color:#fff}
+@media (hover:hover) and (pointer:fine){.portfolio-case .case-media-links .case-external-cta:first-child:hover{background:#374331;border-color:#374331;color:#fff}}
 .portfolio-case .case-media-links .case-external-cta:not(:first-child){min-height:44px;padding:10px 0;font-size:14px;color:#354330}
 .case-comparison-controls{gap:16px 24px;margin-top:18px}
 .case-comparison-controls>div:not([role="group"]){gap:20px}
 .case-comparison-controls a{display:inline-flex;align-items:center;min-height:44px;font:500 13px/1.4 Satoshi,system-ui,sans-serif;color:#46543e;text-decoration:none;box-shadow:inset 0 -1px #46543e40}
-.case-comparison-controls a:hover{color:#202720;box-shadow:inset 0 -1px #202720}
+@media (hover:hover) and (pointer:fine){.case-comparison-controls a:hover{color:#202720;box-shadow:inset 0 -1px #202720}}
 .portfolio-case .case-mode-toggle button:focus-visible,
 .case-comparison-controls button:focus-visible,
 .case-comparison-controls a:focus-visible,
@@ -34,4 +32,4 @@
 @media(prefers-reduced-motion:reduce){.portfolio-case .case-mode-toggle button,.case-comparison-controls button,.portfolio-case .case-external-cta{transition:none}}
 
 .case-video-toggle{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-top:12px;padding:10px 18px;border:0;border-radius:999px;background:#202720;color:#f6f5ee;font:600 14px/1.4 Satoshi,system-ui,sans-serif;cursor:pointer;}
-.case-video-toggle:hover{background:#374331}.case-video-toggle:focus-visible{outline:2px solid #52604c;outline-offset:4px}
+@media (hover:hover) and (pointer:fine){.case-video-toggle:hover{background:#374331}}.case-video-toggle:focus-visible{outline:2px solid #52604c;outline-offset:4px}
