@@ -1,7 +1,7 @@
 // Edit these lists to add shortcuts or Dock applications.
 if(!document.head.querySelector('base')){const portfolioBase=document.createElement('base');portfolioBase.href=new URL('/',location.href).href;document.head.prepend(portfolioBase);}
 const desktopShortcuts = [
- {name:'My work',href:'#work',icon:'folder',items:['Peluutin','KorisLab','Helsinki Sports Map','Brio']}, {name:'About me',href:'#about',icon:'folder',items:['About me','As a designer']},
+ {name:'My work',href:'#work',icon:'folder',items:['KorisLab','Peluutin','Helsinki Sports Map','Brio']}, {name:'About me',href:'#about',icon:'folder',items:['About me','As a designer']},
  {name:'Side projects',href:'#sideprojects',icon:'folder',items:['Spire Coach Mod','OpenSlot']},
  {name:'Resume',href:'#resume',icon:'CV'},
  {name:'As a designer.md',href:'#how-i-work',icon:'MD'},
