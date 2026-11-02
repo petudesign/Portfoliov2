@@ -829,9 +829,9 @@ function addNextCase(route){
  const image=next.querySelector('img');
  const title=next.querySelector('h3,strong').textContent.trim();
  const description=next.querySelector('p,strong+span')?.textContent.trim()||'';
- const minutes=template?caseReadingTimes(template.content).full:0;
+ const minutes=template?caseReadingTimes(template.content).tldr:0;
  const nav=document.createElement('nav');nav.className='case-next';nav.setAttribute('aria-label','Next case');
- nav.innerHTML=`<span class="case-next-label">Next case</span><a class="case-next-card" href="${next.getAttribute('href')}"><span class="case-next-thumb" style="--thumb:${next.style.getPropertyValue('--thumb')||'#ececea'}"><img src="${image.getAttribute('src')}" alt="" decoding="async" loading="lazy"></span><span class="case-next-copy"><strong></strong><span class="case-next-description"></span>${minutes?`<span class="case-next-time">${minutes} min read</span>`:''}</span><span class="case-next-arrow" aria-hidden="true">→</span></a>`;
+ nav.innerHTML=`<span class="case-next-label">Next case</span><a class="case-next-card" href="${next.getAttribute('href')}"><span class="case-next-thumb" style="--thumb:${next.style.getPropertyValue('--thumb')||'#ececea'}"><img src="${image.getAttribute('src')}" alt="" decoding="async" loading="lazy"></span><span class="case-next-copy"><strong></strong><span class="case-next-description"></span>${minutes?`<span class="case-next-time">${minutes} min TL;DR</span>`:''}</span><span class="case-next-arrow" aria-hidden="true">→</span></a>`;
  nav.querySelector('strong').textContent=title;
  nav.querySelector('.case-next-description').textContent=description;
  page.append(nav);
@@ -840,9 +840,9 @@ function addReadingTimes(route){
  for(const card of browserPage.querySelectorAll('.gallery-card[href^="/"],.gallery-row[href^="/"]')){
   const template=document.querySelector(`#page-${cleanPathRoutes[new URL(card.href).pathname]}`);
   if(!template||card.querySelector('.reading-time'))continue;
-  const {full}=caseReadingTimes(template.content);
+  const {tldr}=caseReadingTimes(template.content);
   const clock='<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8V8l2.2 1.4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>';
-  const label=`<span class="reading-time">${clock}${full} min read</span>`;
+  const label=`<span class="reading-time">${clock}${tldr} min TL;DR</span>`;
   // Cards: own line under the description. List rows: under the type and year.
   if(card.classList.contains('gallery-row'))card.querySelector('.gallery-row-meta')?.insertAdjacentHTML('beforeend',label);
   else card.insertAdjacentHTML('beforeend',label);
