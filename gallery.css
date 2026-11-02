@@ -720,3 +720,5 @@ body,button,input,select,textarea,.workspace-view{font-family:Satoshi,system-ui,
 .reading-page.portfolio-case .case-section figure.case-extra :is(.case-comparison-heading span,figcaption){color:var(--g-muted)}
 /* Give callouts room from the paragraphs around them. */
 .reading-page .case-section>.case-callout{margin-top:28px;margin-bottom:28px}
+/* Full-case-only callouts, lists and references carry the marked colour on their text too. */
+.reading-page.portfolio-case .case-section .case-extra :is(p,li,summary){color:inherit}
