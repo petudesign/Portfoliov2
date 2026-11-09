@@ -1,30 +1,24 @@
 # Petteri Helttula
 
-> Portfolio of Petteri Helttula, a Helsinki-based product designer and AI design engineer.
-
-Petteri works across product design, UX/UI, AI, code, data and interactive product experiments. The portfolio includes selected case studies, work-in-progress projects, personal experiments and background on his design approach.
+> Portfolio of Petteri Helttula, a product designer based in Helsinki. He designs products and builds them with AI agents, guided by data and user testing.
 
 ## Main site
 
-- [Portfolio](https://petu.design/): The canonical portfolio homepage and entry point to all work.
-- [About](https://petu.design/#about): Background, interests and the path into product design.
-- [Selected work](https://petu.design/#work): Product design projects and experiments.
-- [Resume](https://petu.design/#resume): Experience, focus areas and contact details.
+- [Portfolio](https://petu.design/): Selected work, other projects and a short about section.
 
-## Selected projects
+## Case studies
 
-- [Peluutin](https://petu.design/peluutin/): Product design and development for junior football match-day coaching and training exercises.
-- [Helsinki Sports Map](https://petu.design/helsinki-sports-map/): Work-in-progress sports discovery product using public data, a custom API and a reusable venue data pipeline.
-- [KorisLab](https://petu.design/korislab/): Work-in-progress basketball analysis product for Finland's men's and women's Korisliiga, with season data from 2024–25 onward.
-- [Brio](https://petu.design/brio/): Digital wellbeing concept using pose tracking to encourage short movement breaks while scrolling.
-- [S-hävikki](https://petu.design/s-havikki/): Service design project exploring retail food waste reduction and near-expiry checks.
-- [Tahti](https://petu.design/tahti/): Interaction design project that presents selected text one word at a time at a controlled pace.
+- [KorisLab](https://petu.design/korislab/): An analytics tool for Finnish basketball that goes past the box score, across both Korisliiga leagues.
+- [Peluutin](https://petu.design/peluutin/): A web app that helps junior coaches keep playing time fair and plan training in 3D, shaped with test coaches.
+- [Helsinki Sports Map](https://petu.design/helsinki-sports-map/): Finding somewhere to exercise in Helsinki, and the easiest way to get there.
+- [S-hävikki](https://petu.design/s-havikki/): A service concept for cutting food waste in grocery stores, starting with the staff who check the shelves.
 
-## Side projects
+## Other projects
 
-- [Spire Coach Mod](https://petu.design/spire-coach-mod/): Work-in-progress game coaching experiment exploring how gameplay data can become useful feedback without taking decisions away from the player.
+- [Tahti](https://petu.design/tahti/): Paces dense text one word at a time.
+- [Brio](https://petu.design/brio/): An iOS app that adds a little friction to social media (paused).
 
-## External profiles
+## Contact
 
+- Email: helttula.petteri@gmail.com
 - [LinkedIn](https://www.linkedin.com/in/petteri-helttula/)
-- [GitHub](https://github.com/petudesign)

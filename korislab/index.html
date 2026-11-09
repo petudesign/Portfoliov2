@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="KorisLab case study: an analytics tool for Finnish basketball that goes past the box score, across both Korisliiga leagues.">
+<meta name="author" content="Petteri Helttula">
+<meta name="theme-color" content="#0e0f11">
+<link rel="canonical" href="https://petu.design/korislab/">
+<link rel="icon" href="/assets/favicon.svg?v=2" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Petteri Helttula">
+<meta property="og:locale" content="en_FI">
+<meta property="og:url" content="https://petu.design/korislab/">
+<meta property="og:title" content="KorisLab case study — Petteri Helttula">
+<meta property="og:description" content="KorisLab case study: an analytics tool for Finnish basketball that goes past the box score, across both Korisliiga leagues.">
+<meta property="og:image" content="https://petu.design/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="KorisLab case study by Petteri Helttula">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="KorisLab case study — Petteri Helttula">
+<meta name="twitter:description" content="KorisLab case study: an analytics tool for Finnish basketball that goes past the box score, across both Korisliiga leagues.">
+<meta name="twitter:image" content="https://petu.design/og.jpg">
+<title>KorisLab case study — Petteri Helttula</title>
+<script>/* the case always opens with its panel: from the portfolio, from a direct link, or on refresh */
+try{const r=document.documentElement,l=sessionStorage.getItem("curtain");if(l!==null)sessionStorage.removeItem("curtain");if(!matchMedia("(prefers-reduced-motion: reduce)").matches){r.classList.add("curtain-in");r.setAttribute("data-curtain",(l&&l.trim())||"KorisLab")}}catch(e){}</script>
+
+<link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Geist is served from the site itself, so no font request leaves the page */
+@font-face{font-family:"Geist";src:url("/fonts/Geist-Variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:block}
+@font-face{font-family:"Geist Mono";src:url("/fonts/GeistMono-Variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+
+/* text for screen readers only */
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+
+/* clips: a frame that holds the video and its pause button */
+.clipbox{position:relative;display:block;overflow:hidden;border-radius:14px;border:1px solid var(--hair);background:var(--raise)}
+.clipbox video{display:block;width:100%;height:auto}
+.wide .clipbox{margin:0}
+@media (min-width:1000px){.wide .clipbox{width:min(1120px,calc(100vw - 96px));max-width:none;margin-left:calc((864px - 48px - min(1120px,calc(100vw - 96px)))/2)}}
+.clip-toggle{position:absolute;z-index:3;right:12px;bottom:12px;display:grid;place-items:center;width:36px;height:36px;padding:0;border:0;border-radius:999px;cursor:pointer;color:#fff;
+  background:rgba(14,15,17,.62);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);opacity:.55;transition:opacity 200ms ease,transform 160ms cubic-bezier(.23,1,.32,1)}
+.clip-toggle svg{width:14px;height:14px;fill:currentColor;stroke:none}
+.clipbox:hover .clip-toggle,.clip-toggle:focus-visible,.clip-toggle[aria-pressed="true"]{opacity:1}
+.clip-toggle:active{transform:scale(.94)}
+@media (hover:none){.clip-toggle{opacity:.85}}
+/* phones: a device frame with a status bar in the app's own colour */
+.phones{align-items:flex-start}
+.device{position:relative;flex:0 1 auto;width:min(270px,44vw);padding:9px;border-radius:44px;background:linear-gradient(150deg,#34353b,#16171a 40%,#0d0e10);
+  box-shadow:inset 0 0 0 1.5px #45464d,inset 0 0 0 3px #0a0a0c,0 30px 60px -24px rgba(0,0,0,.9)}
+.device::after{content:"";position:absolute;right:-2px;top:22%;width:3px;height:64px;border-radius:2px;background:#2b2c31}
+.device .screen{position:relative;overflow:hidden;border-radius:35px;background:var(--sb,#fff)}
+.device .sb{display:flex;align-items:center;justify-content:space-between;height:34px;padding:0 22px 0 26px;background:var(--sb,#fff);color:#111;font:600 12px/1 var(--sans);letter-spacing:-.01em}
+.device .sb i{display:flex;gap:4px;align-items:center}
+.device .sb svg{width:auto;height:10px;fill:#111;stroke:none}
+.device .island{position:absolute;z-index:2;top:8px;left:50%;width:76px;height:22px;margin-left:-38px;border-radius:12px;background:#000}
+.device .clipbox,.device img{border:0;border-radius:0;background:none;max-height:none}
+.device img{display:block;width:100%;height:auto}
+.phones .device img.zoom{max-height:none;border-radius:0;border:0}
+@media (max-width:640px){.device{width:min(220px,44vw);border-radius:34px;padding:7px}.device .screen{border-radius:28px}.device .sb{height:26px;font-size:10px;padding:0 16px 0 20px}.device .island{top:6px;width:58px;height:17px;margin-left:-29px}}
+</style>
+<style>
+/* Case page in the same system as the index: one readable column, wide stills, key numbers up front,
+   then numbered chapters that each read problem → what I did → result. */
+:root{
+  --bg:#0e0f11; --raise:#17181b; --ink:#eeeeeb; --mute:#a3a4a9; --faint:#7c7e86; --hair:#26272b;
+  --accent:#e5173f;--accent-hi:#f0697c; --accent-ink:#ffffff;
+  --sans:"Geist","Helvetica Neue",Arial,sans-serif;
+  --ease:cubic-bezier(.23,1,.32,1);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+::selection{background:#571221;color:inherit}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
+svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.page{max-width:864px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px));padding-block:28px 96px}
+
+/* top bar */
+/* the name bar: in place at the top, then it hides while you read down and slides back in
+   as a floating glass bar as soon as you scroll up, so home is always one tap away */
+.top{position:sticky;top:calc(10px + env(safe-area-inset-top,0px));z-index:30;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  margin:0 -12px;padding:4px 12px;
+  transition:transform 420ms cubic-bezier(.23,1,.32,1)}
+.top::before{content:"";position:absolute;z-index:-1;left:-50vw;right:-50vw;top:calc(-10px - env(safe-area-inset-top,0px));bottom:-22px;
+  background:linear-gradient(180deg,rgba(14,15,17,.82) 0%,rgba(14,15,17,.62) 55%,rgba(14,15,17,0) 100%);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);-webkit-mask-image:linear-gradient(#000 60%,transparent);mask-image:linear-gradient(#000 60%,transparent);opacity:0;transition:opacity 300ms ease;pointer-events:none}
+.top.float::before{opacity:1}
+.top.away{transform:translateY(calc(-100% - 24px))}
+/* while the bar is showing, the reading switch steps down below it */
+.mode-bar{transition:transform 420ms cubic-bezier(.23,1,.32,1)}
+.top-on .mode-bar.stuck{transform:translateY(60px)}
+@media (prefers-reduced-motion: reduce){.top,.mode-bar,.next-media img{transition:none}}
+.home{display:inline-flex;align-items:center;gap:12px;text-decoration:none;min-height:44px}
+.home img{width:33px;height:44px;border-radius:7px;object-fit:cover;background:#f8f4e7}
+.home span{font-weight:430;font-size:17px;letter-spacing:-.01em;transition:color 200ms ease}
+@media (hover:hover) and (pointer:fine){.home:hover span{color:var(--accent-hi)}}
+.acts{display:flex;align-items:center;gap:22px}
+.ghost{display:inline-flex;align-items:center;gap:8px;min-height:44px;color:var(--mute);text-decoration:none;font-size:14px;transition:color 200ms ease}
+.ghost:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 17px;line-height:1;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);cursor:pointer;font-size:14.5px;transition:transform 160ms var(--ease)}
+.btn:active{transform:scale(.97)}
+.swap{display:inline-grid;align-items:center}.swap svg{display:block}.swap>*{grid-area:1/1;transition:opacity 200ms ease,filter 200ms ease,transform 200ms var(--ease)}
+.swap .b{opacity:0;filter:blur(2px);transform:translateY(4px)}
+.is-copied .swap .a{opacity:0;filter:blur(2px);transform:translateY(-4px)}.is-copied .swap .b{opacity:1;filter:none;transform:none}
+
+/* intro: generous space, two short paragraphs, three evenly spaced facts */
+.intro .year{margin:136px 0 0;max-width:none;font-size:14px;letter-spacing:0;color:var(--mute);font-variant-numeric:tabular-nums}
+h1{margin:136px 0 0;font-weight:600;font-size:clamp(52px,7.4vw,80px);line-height:1;letter-spacing:-.055em}
+.intro p{margin:40px 0 0;max-width:34em;font-size:clamp(19px,2.1vw,21px);line-height:1.45;letter-spacing:-.02em;text-wrap:pretty}
+.intro p + p{margin-top:16px}
+.meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin:64px 0 0;padding:0}
+.meta dt{font-size:14px;color:var(--faint)}
+.meta dd{margin:6px 0 0;font-size:17px;line-height:1.45}
+
+/* reading mode */
+/* reading switch: a recessed glass track with a raised pill that slides to the chosen option */
+/* the switch travels with the reader: it sits under the intro, then sticks to the top while scrolling */
+.mode-bar{position:sticky;top:calc(14px + env(safe-area-inset-top,0px));z-index:20;width:max-content;margin-top:56px}
+.mode-bar.stuck .mode{box-shadow:inset 0 1px 3px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.08),0 1px 0 rgba(255,255,255,.05),0 16px 40px -12px rgba(0,0,0,.9)}
+.mode{position:relative;display:inline-flex;gap:4px;padding:4px;border-radius:999px;isolation:isolate;
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),rgba(23,24,27,.72);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.06),0 1px 0 rgba(255,255,255,.05),0 10px 30px -14px rgba(0,0,0,.8)}
+.mode .thumb{position:absolute;z-index:-1;top:4px;bottom:4px;left:0;width:var(--w,0px);transform:translateX(var(--x,4px));border-radius:999px;
+  background:linear-gradient(180deg,#fbfbf8 0%,#e4e4de 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(0,0,0,.14),0 1px 2px rgba(0,0,0,.45),0 8px 18px -8px rgba(0,0,0,.75);
+  transition:transform 420ms var(--ease),width 420ms var(--ease)}
+.mode button{position:relative;border:0;background:none;padding:8px 16px;border-radius:999px;cursor:pointer;font-size:14px;color:var(--mute);transition:color 250ms ease}
+.mode button:hover{color:var(--ink)}
+.mode button[aria-pressed="true"]{color:#0e0f11}
+.mode button:active{transform:scale(.97);transition:transform 160ms var(--ease),color 250ms ease}
+@media (prefers-reduced-motion: reduce){.mode .thumb{transition:none}}
+.mode small{color:inherit;opacity:.65;margin-left:6px}
+body.tldr .full{display:none!important}
+
+/* stills */
+figure{margin:0}
+.wide{margin-top:48px}
+.wide img,.pair img{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--hair);background:var(--raise)}
+@media (min-width:1000px){.wide img{width:min(1120px,calc(100vw - 96px));max-width:none;margin-left:calc((864px - 48px - min(1120px,calc(100vw - 96px)))/2)}}
+figcaption{margin-top:12px;max-width:44em;font-size:14px;line-height:1.5;color:var(--faint)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+.pair figcaption{grid-column:1/-1;margin-top:0}
+
+/* key numbers */
+.key{margin-top:96px}
+.label{margin:0 0 20px;font-size:14px;color:var(--faint)}
+.scope{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin:0;padding:0;list-style:none}
+.scope-note{margin:14px 0 28px;font-size:14px;line-height:1.5;color:var(--faint)}
+[data-count]{font-variant-numeric:tabular-nums}
+.scope b{display:block;font-weight:500;font-size:clamp(30px,4.2vw,44px);line-height:1.05;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.scope span{display:block;margin-top:6px;font-size:15px;line-height:1.4;color:var(--mute)}
+.feat{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:28px;padding:28px;border:1px solid var(--hair);border-radius:16px;background:linear-gradient(180deg,#15161a,#111215);text-decoration:none;transition:border-color 250ms ease}
+.feat-k{font-weight:500;font-size:clamp(48px,7vw,72px);line-height:.9;letter-spacing:-.025em;font-variant-numeric:tabular-nums;color:var(--ink)}
+.feat-k small{font-size:.45em;margin-left:2px;color:var(--faint);letter-spacing:0}
+.feat-c b{display:block;font-weight:500;font-size:20px;letter-spacing:-.02em}
+.feat-c span{display:block;margin-top:6px;max-width:52ch;font-size:15px;line-height:1.5;color:var(--mute)}
+.feat>svg,.feats svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.5;color:var(--faint);transition:transform 240ms var(--ease),color 200ms ease}
+.feats{display:grid;grid-template-columns:1fr 1fr;margin:12px 0 0;padding:0;list-style:none;border-top:1px solid var(--hair)}
+.feats li{border-bottom:1px solid var(--hair)}
+.feats li:nth-child(even){border-left:1px solid var(--hair)}
+.feats a,.feats li>div{display:grid;grid-template-columns:1fr auto;column-gap:12px;height:100%;padding:20px 20px 22px;text-decoration:none}
+.feats span{grid-column:1/-1}.feats svg{grid-row:1;grid-column:2;margin-top:2px}
+.feats li:nth-child(odd) a,.feats li:nth-child(odd)>div{padding-left:0}
+.feats b{display:block;font-weight:500;font-size:16px;color:var(--ink)}
+.feats span{display:block;margin-top:6px;font-size:14px;line-height:1.45;color:var(--mute)}
+@media (hover:hover) and (pointer:fine){.feat:hover{border-color:#34353b}.feat:hover>svg,.feats a:hover svg{transform:translateX(4px);color:var(--ink)}.feats a:hover b{color:var(--accent-hi)}}
+.feat:active{transform:scale(.99);transition:transform 160ms var(--ease)}
+@media (max-width:720px){.scope{grid-template-columns:1fr 1fr;gap:22px 16px}
+  .feat{grid-template-columns:1fr auto;gap:14px 16px;padding:22px}.feat-k{grid-column:1/-1}.feat>svg{grid-row:2;grid-column:2;align-self:start;margin-top:4px}
+  .feats{grid-template-columns:1fr}.feats li:nth-child(even){border-left:0}.feats a,.feats li>div{padding-left:0!important;padding-right:0}}
+
+
+/* chapters: number, title, then a two-by-two grid of short blocks */
+.ch{margin-top:144px}
+.ch .no{font-size:14px;color:var(--faint);font-variant-numeric:tabular-nums}
+.ch h2{margin:6px 0 0;font-weight:600;font-size:clamp(34px,4.6vw,48px);line-height:1.04;letter-spacing:-.045em;text-wrap:balance}
+.blocks{display:grid;grid-template-columns:1fr 1fr;gap:44px 48px;margin:48px 0 0}
+.blocks h3{margin:0;font-weight:500;font-size:20px;letter-spacing:-.02em}
+.blocks p{margin:12px 0 0;font-size:17px;line-height:1.6;color:var(--mute);text-wrap:pretty}
+.blocks p strong{color:var(--ink);font-weight:500}
+.blocks .wide-b{grid-column:1/-1}
+.outcome{margin:12px 0 0;padding:0 0 0 18px;font-size:17px;line-height:1.9;color:var(--mute)}
+.outcome b{color:var(--ink);font-weight:500}
+.note{margin:40px 0 0;padding:18px 20px;border-radius:12px;background:var(--raise);font-size:16px;line-height:1.5;color:var(--mute)}
+.note b{color:var(--ink);font-weight:500}
+.todo{margin-top:16px;font-size:14px;color:var(--faint)}
+
+/* lightbox */
+.zoom{cursor:zoom-in}
+.lb{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:24px;background:rgba(8,8,10,.92);cursor:zoom-out;opacity:0;transition:opacity 200ms ease}
+.lb.open{opacity:1}
+.lb img{max-width:min(1600px,100%);max-height:100%;width:auto;height:auto;border-radius:10px;transform:scale(.97);transition:transform 260ms var(--ease)}
+.lb.open img{transform:none}
+.lb button{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--hair);background:var(--raise);cursor:pointer;font-size:14px}
+
+/* reveal */
+.reveal{clip-path:inset(5% 4% 5% 4% round 14px);transform:translateY(28px);transition:clip-path 900ms var(--ease),transform 900ms var(--ease)}
+.reveal.is-in{clip-path:inset(0 0 0 0 round 14px);transform:none}
+
+/* next */
+.next{display:block;margin-top:140px;padding:28px 0 0;border-top:1px solid var(--hair);text-decoration:none}
+.next-row{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.next-desc{display:block;margin-top:8px;max-width:46ch;font-style:normal;font-size:16px;line-height:1.45;color:var(--mute);text-wrap:pretty}
+.next-media{display:block;margin-top:24px;overflow:hidden;border-radius:14px;border:1px solid var(--hair);background:#16171a;aspect-ratio:16/8}
+.next-media img,.next-media video{display:block;width:100%;height:100%;object-fit:cover;transition:filter 300ms ease}
+.next small{display:block;font-size:14px;color:var(--faint)}
+.next b{display:block;margin-top:4px;font-weight:500;font-size:28px;letter-spacing:-.03em;transition:color 200ms ease}
+.next svg{width:22px;height:22px;color:var(--faint);transition:transform 240ms var(--ease),color 200ms ease}
+@media (hover:hover) and (pointer:fine){.next:hover b{color:var(--accent-hi)}.next:hover svg{transform:translateX(4px);color:var(--ink)}.next:hover .next-media img,.next:hover .next-media video{filter:brightness(1.06)}}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:14px}
+
+@media (max-width:640px){
+  .page{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 64px}
+  h1{margin-top:72px;font-size:48px}
+  .intro p{font-size:18px;margin-top:28px}
+  .meta{grid-template-columns:1fr;gap:18px;margin-top:40px}
+  .acts .ghost{display:none}
+  .blocks{grid-template-columns:1fr;gap:32px;margin-top:32px}
+  .ch h2{font-size:32px}
+  .ch{margin-top:104px}
+  .pair{grid-template-columns:1fr}
+  .btn .t{display:none}
+}
+@media (prefers-reduced-motion: reduce){.reveal{transform:none!important;transition:clip-path 1ms}.btn,.swap>*{transition:none}}
+
+/* Moving between the index and a case: a dark panel slides up over the page with the project's name,
+   the next page loads underneath, and the panel slides away upward as the content settles in.
+   Plain transforms, so it runs the same in every browser; skipped with reduced motion. */
+.curtain{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#17181b;transform:translateY(100%);transition:transform 620ms cubic-bezier(.77,0,.175,1);pointer-events:none}
+.curtain.on{transform:none;pointer-events:auto}
+.curtain span{font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;color:#eeeeeb;opacity:0;transform:translateY(24px);transition:opacity 360ms ease 180ms,transform 620ms cubic-bezier(.23,1,.32,1) 180ms}
+.curtain.on span{opacity:1;transform:none}
+html.curtain-in::after{content:attr(data-curtain);position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#17181b;color:#eeeeeb;font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;transition:transform 720ms cubic-bezier(.77,0,.175,1)}
+html.curtain-in main{transform:translateY(32px);opacity:.001;transition:transform 900ms cubic-bezier(.23,1,.32,1) 180ms,opacity 500ms ease 180ms}
+html.curtain-out::after{transform:translateY(-100%)}
+html.curtain-out main{transform:none;opacity:1}
+
+/* transition panel mark: one crisp stroke, drawn in */
+.curtain .sq{position:absolute;height:auto;overflow:visible;fill:none;opacity:.92;stroke:#e5173f;stroke-linecap:round;stroke-linejoin:round}
+.curtain .sq path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset var(--t) cubic-bezier(.45,0,.2,1) var(--d)}
+.curtain.on .sq path{stroke-dashoffset:0}
+.curtain span{position:relative}
+html.curtain-in::after{background:#17181b url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20240%20110%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23e5173f%22%20stroke-width%3D%2213%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.9%22%3E%3Cpath%20d%3D%22M14%2074%20C%2052%2010%2C%2096%206%2C%20104%2044%20C%20112%2082%2C%2074%20100%2C%2062%2074%20C%2050%2048%2C%20116%2018%2C%20150%2040%20C%20184%2062%2C%20166%20102%2C%20140%2086%20C%20114%2070%2C%20170%2022%2C%20226%2030%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center/min(620px,80vw) auto no-repeat}
+html.curtain-in[data-curtain="KorisLab"]::after{background:#17181b url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23e5173f%22%20stroke-width%3D%224.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.9%22%3E%3Cpath%20d%3D%22M50%208%20C%2073%208%2C%2092%2027%2C%2092%2050%20C%2092%2073%2C%2073%2092%2C%2050%2092%20C%2027%2092%2C%208%2073%2C%208%2050%20C%208%2027%2C%2027%208%2C%2050%208%22%2F%3E%3Cpath%20d%3D%22M50%209%20C%2051%2036%2C%2049%2064%2C%2050%2091%22%2F%3E%3Cpath%20d%3D%22M9%2050%20C%2036%2049%2C%2064%2051%2C%2091%2050%22%2F%3E%3Cpath%20d%3D%22M23%2018%20C%2038%2036%2C%2038%2064%2C%2023%2082%22%2F%3E%3Cpath%20d%3D%22M77%2018%20C%2062%2036%2C%2062%2064%2C%2077%2082%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center/min(380px,62vw) auto no-repeat}
+
+/* the case's own mark, a basketball, drawn stroke by stroke beside the title once the page settles */
+.title-sq{display:inline-block;width:.62em;height:auto;margin-left:.16em;vertical-align:.12em;overflow:visible;fill:none;stroke:#e5173f;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.title-sq path{stroke-dasharray:1;stroke-dashoffset:1;animation:sq-draw var(--t) cubic-bezier(.45,0,.2,1) calc(700ms + var(--d) * 1.25) forwards;will-change:stroke-dashoffset}
+@keyframes sq-draw{to{stroke-dashoffset:0}}
+html.curtain-in .title-sq path{animation-delay:calc(1150ms + var(--d) * 1.25)}
+@media (prefers-reduced-motion: reduce){.title-sq path{animation:none;stroke-dashoffset:0}}
+
+/* Full case additions are marked in the accent blue, so it's clear at a glance what the longer read adds.
+   They also fade in when the switch is flipped. */
+:root{--full:var(--mute);--full-hi:#dccaa2}
+.blocks .full h3{color:var(--full-hi)}
+.blocks .full p{color:var(--full)}
+div.full .ch h2::before{content:"Full case";display:block;margin-bottom:10px;font-size:14px;font-weight:400;letter-spacing:0;color:var(--full-hi)}
+div.full .ch h2{color:var(--ink)}
+div.full .blocks h3{color:var(--full-hi)}
+div.full .blocks p{color:var(--full)}
+@keyframes full-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+body:not(.tldr) .full{animation:full-in 520ms cubic-bezier(.23,1,.32,1) both}
+@media (prefers-reduced-motion: reduce){body:not(.tldr) .full{animation-name:none}}
+
+/* contents: a rail of small dots at the left edge, the halftone dot again. The current chapter
+   stretches into a short pill. Hovering the rail opens a glass card with the chapter titles. */
+.toc{position:fixed;z-index:25;top:50%;left:24px;width:40px;padding:14px 0;transform:translateY(-50%);opacity:0;pointer-events:none;transition:opacity 300ms ease}
+.toc.on{opacity:1;pointer-events:auto}
+.toc::before{content:"";position:absolute;z-index:-1;left:-10px;top:0;bottom:0;width:var(--cw,312px);border-radius:16px;
+  background:rgba(20,21,24,.78);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 22px 50px -18px rgba(0,0,0,.9);
+  clip-path:inset(0 100% 0 0 round 16px);transition:clip-path 420ms cubic-bezier(.23,1,.32,1)}
+.toc:hover::before,.toc:focus-within::before{clip-path:inset(0 0 0 0 round 16px)}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.toc a{position:relative;display:flex;align-items:center;height:26px;padding-left:2px;text-decoration:none}
+/* every marker is a short line; its length says how close it is: current ---, neighbours --, the rest - */
+.toc .dot{flex:none;width:var(--w,6px);height:3px;border-radius:999px;background:var(--faint);
+  transition:width 300ms cubic-bezier(.23,1,.32,1),background-color 250ms ease}
+.toc li.near1 .dot{--w:11px;background:var(--mute)}
+.toc li.active .dot{--w:18px;background:var(--ink)}
+.toc .full .dot{background:#6b6250}
+.toc li.full.active .dot{background:var(--full-hi)}
+.toc li.full.near1 .dot{background:#9a8d6e}
+.toc .t{position:absolute;left:30px;white-space:nowrap;font-size:13px;letter-spacing:-.005em;color:var(--mute);opacity:0;transform:translateX(-6px);pointer-events:none;
+  transition:opacity 220ms ease,transform 320ms cubic-bezier(.23,1,.32,1),color 200ms ease}
+.toc:hover .t,.toc:focus-within .t{opacity:1;transform:none;pointer-events:auto;transition-delay:calc(var(--k) * 22ms)}
+.toc li.active .t{color:var(--ink)}
+.toc .full .t{color:#a8997a}.toc li.full.active .t,.toc .full a:hover .t{color:var(--full-hi)}
+.toc a:hover .t{color:var(--ink)}
+.toc a:hover .dot{background:var(--mute)}
+.toc .full a:hover .dot{background:var(--full-hi)}
+body.tldr .toc .full{display:none}
+@media (max-width:1023px){.toc{display:none}}
+@media (prefers-reduced-motion: reduce){.toc::before,.toc .t,.toc .dot{transition:none}}
+
+/* on load the rail shows itself for a moment: the lines run through --- one after another, then it
+   steps back until the chapters start, so the reader knows it's there */
+@keyframes toc-wave{0%{width:var(--w,6px)}45%{width:18px}100%{width:var(--w,6px)}}
+.toc.peek .dot{animation:toc-wave 700ms cubic-bezier(.45,0,.2,1) calc(260ms + var(--k) * 55ms) both}
+@media (prefers-reduced-motion: reduce){.toc.peek .dot{animation:none}}
+.game{--home:#4f7fd9;--away:#f2c230;position:relative;display:block;margin-top:16px;padding:18px 20px 20px;border:1px solid var(--hair);border-radius:16px;text-decoration:none;color:var(--ink);overflow:hidden;
+  background:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1.3px) 0 0/9px 9px,linear-gradient(180deg,#141519,#101114);transition:border-color 250ms ease,transform 160ms cubic-bezier(.23,1,.32,1)}
+.game-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.game-k{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.game-go{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--mute);white-space:nowrap;transition:color 200ms ease}
+.game-go svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.7;transition:transform 240ms cubic-bezier(.23,1,.32,1)}
+.game-s{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin-top:16px}
+.sw{width:10px;height:10px;border-radius:3px;flex:none}.sw.h{background:var(--home)}.sw.a{background:var(--away)}
+.tm{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:500;min-width:0}.tm.r{justify-content:flex-end}
+.sc{font-weight:600;font-size:clamp(30px,4vw,40px);letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.sc i{font-style:normal;margin:0 8px;color:var(--faint);font-weight:400}.sc .lo{color:var(--mute)}
+.game-mw{position:relative;display:block;margin-top:20px}
+.game-mw em{position:absolute;left:4px;font-style:normal;font-size:11px;color:var(--faint);pointer-events:none;z-index:1}.game-mw .up{top:2px}.game-mw .dn{bottom:2px}
+.game-m{display:block;width:100%;height:64px;border-radius:4px}
+.game-m .z{stroke:rgba(255,255,255,.14);stroke-width:1;stroke-dasharray:3 3;vector-effect:non-scaling-stroke}
+.game-m .q{stroke:rgba(255,255,255,.07);stroke-width:1;vector-effect:non-scaling-stroke}
+.game-m .home{fill:var(--home);fill-opacity:.42}
+.game-m .away{fill:var(--away);fill-opacity:.32}
+.game-m .l{fill:none;stroke:rgba(238,238,235,.55);stroke-width:1;vector-effect:non-scaling-stroke}
+.game-m .now{stroke:var(--ink);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.game-q{display:grid;grid-template-columns:repeat(4,1fr);margin-top:6px;font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums}
+.game-q span{padding-left:2px}.game-q b{font-weight:500;color:var(--mute)}
+.game-t{display:block;margin-top:14px;font-size:15px;line-height:1.5;color:var(--mute);max-width:60ch}
+@media (hover:hover) and (pointer:fine){.game:hover{border-color:#34353b}.game:hover .game-go{color:var(--ink)}.game:hover .game-go svg{transform:translate(2px,-2px)}}
+.game:active{transform:scale(.99)}
+@media (max-width:640px){.game{padding:16px}.game-go{font-size:13px}.tm{font-size:14px}.game-s{gap:10px}}
+
+/* coach quotes, phone stills and links out, shared by the new cases */
+.quote{position:relative;margin:56px 0 0;padding:34px 32px 30px;border-radius:18px;border:1px solid var(--hair);background:linear-gradient(180deg,#16171a,#111215)}
+.quote::before{content:"\201C";position:absolute;top:-6px;left:26px;font:600 96px/1 var(--sans);color:var(--accent);letter-spacing:0;pointer-events:none}
+.quote p{margin:22px 0 0;max-width:34em;font-size:clamp(21px,2.5vw,26px);line-height:1.38;font-weight:500;letter-spacing:-.025em;color:var(--ink);text-wrap:pretty}
+.quote cite{display:flex;align-items:center;gap:10px;margin-top:22px;font-style:normal;font-size:14px;color:var(--mute)}
+.quote cite::before{content:"";width:20px;height:1px;background:var(--faint)}
+@media (max-width:640px){.quote{padding:28px 20px 22px}.quote::before{left:18px;font-size:80px}.quote p{margin-top:16px;font-size:20px}}
+.phones{display:flex;justify-content:center;gap:20px;margin-top:48px}
+.phones img{display:block;width:auto;max-width:100%;height:auto;max-height:560px;border-radius:22px;border:1px solid var(--hair);background:var(--raise)}
+.phones + figcaption,.phones figcaption{text-align:center;margin-left:auto;margin-right:auto}
+.phones-fig figcaption{text-align:center;margin:12px auto 0}
+.ext{display:inline-flex;align-items:center;gap:8px;margin-top:24px;min-height:40px;padding:0 16px;border:1px solid var(--hair);border-radius:999px;font-size:14.5px;text-decoration:none;transition:border-color 200ms ease}
+.ext svg{width:14px;height:14px;transition:transform 240ms var(--ease)}
+@media (hover:hover) and (pointer:fine){.ext:hover{border-color:#3a3b41}.ext:hover svg{transform:translate(2px,-2px)}}
+.ext:active{transform:scale(.97)}
+.meta dd a{text-decoration:none;border-bottom:1px solid var(--hair);transition:border-color 200ms ease}
+.meta dd a:hover{border-color:var(--ink)}
+.scope b.rng{font-variant-numeric:tabular-nums}
+.scope:has(> li:nth-child(3):last-child){grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:720px){.scope:has(> li:nth-child(3):last-child){grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.phones{gap:12px}.phones img{max-height:420px;border-radius:16px}}
+
+/* project marks on the arrival panel */
+html.curtain-in[data-curtain="Peluutin"]::after{background:#17181b url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20140%20100%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23e5173f%22%20stroke-width%3D%224.4%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.9%22%3E%3Cpath%20d%3D%22M12%2014%20C%2050%2012%2C%2092%2015%2C%20128%2013%20C%20129%2040%2C%20127%2062%2C%20128%2087%20C%2090%2089%2C%2050%2086%2C%2012%2088%20C%2011%2062%2C%2013%2040%2C%2012%2014%22%2F%3E%3Cpath%20d%3D%22M70%2014%20C%2069%2040%2C%2071%2062%2C%2070%2087%22%2F%3E%3Cpath%20d%3D%22M70%2036%20C%2079%2036%2C%2084%2043%2C%2084%2050%20C%2084%2059%2C%2077%2064%2C%2070%2064%20C%2061%2064%2C%2056%2057%2C%2056%2050%20C%2056%2041%2C%2063%2036%2C%2070%2036%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center/min(460px,72vw) auto no-repeat}
+html.curtain-in[data-curtain="Helsinki Sports Map"]::after{background:#17181b url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23e5173f%22%20stroke-width%3D%224.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.9%22%3E%3Cpath%20d%3D%22M50%2090%20C%2036%2070%2C%2024%2058%2C%2024%2041%20C%2024%2024%2C%2036%2012%2C%2050%2012%20C%2064%2012%2C%2076%2024%2C%2076%2041%20C%2076%2058%2C%2064%2070%2C%2050%2090%22%2F%3E%3Cpath%20d%3D%22M50%2030%20C%2057%2030%2C%2061%2035%2C%2061%2041%20C%2061%2047%2C%2056%2052%2C%2050%2052%20C%2043%2052%2C%2039%2047%2C%2039%2041%20C%2039%2035%2C%2044%2030%2C%2050%2030%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center/min(340px,56vw) auto no-repeat}
+html.curtain-in[data-curtain="S-hävikki"]::after{background:#17181b url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%20100%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23e5173f%22%20stroke-width%3D%224.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.9%22%3E%3Cpath%20d%3D%22M12%2050%20C%2022%2040%2C%2032%2030%2C%2042%2020%20C%2062%2021%2C%2086%2019%2C%20106%2020%20C%20107%2040%2C%20105%2060%2C%20106%2080%20C%2086%2081%2C%2062%2079%2C%2042%2080%20C%2032%2070%2C%2022%2060%2C%2012%2050%22%2F%3E%3Cpath%20d%3D%22M59%2033%20C%2063%2033%2C%2065%2036%2C%2065%2039%20C%2065%2043%2C%2062%2045%2C%2059%2045%20C%2055%2045%2C%2053%2042%2C%2053%2039%20C%2053%2035%2C%2056%2033%2C%2059%2033%20M81%2055%20C%2085%2055%2C%2087%2058%2C%2087%2061%20C%2087%2065%2C%2084%2067%2C%2081%2067%20C%2077%2067%2C%2075%2064%2C%2075%2061%20C%2075%2057%2C%2078%2055%2C%2081%2055%22%2F%3E%3Cpath%20d%3D%22M56%2068%20C%2065%2056%2C%2074%2044%2C%2084%2032%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center/min(400px,64vw) auto no-repeat}
+
+/* the scrollbar's space is always reserved, so the transition panel and the page never shift sideways while a page loads */
+html{overflow-y:scroll;scrollbar-gutter:stable}
+</style>
+</head>
+<body class="tldr">
+<main class="page">
+  <header class="top">
+    <a class="home" href="/" data-curtain="Petteri Helttula" aria-label="Back to Petteri Helttula’s portfolio"><img src="/avatar.jpg" alt="" width="33" height="44"><span>Petteri Helttula</span></a>
+    <div class="acts">
+      
+      <button class="btn" id="copyEmail" type="button"><span class="swap" aria-hidden="true"><span class="a"><svg viewBox="0 0 16 16"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 3.5v-.5a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h.5"/></svg></span><span class="b"><svg viewBox="0 0 16 16"><path d="M3.5 8.5 6.5 11.5 12.5 4.5"/></svg></span></span><span class="swap t"><span class="a">Copy email</span><span class="b" aria-hidden="true">Copied</span></span></button>
+    </div>
+  </header>
+
+  <section class="intro" aria-labelledby="caseT">
+    <h1 id="caseT">KorisLab<svg class="title-sq" viewBox="0 0 100 100" aria-hidden="true"><path pathLength="1" d="M50 8 C 73 8, 92 27, 92 50 C 92 73, 73 92, 50 92 C 27 92, 8 73, 8 50 C 8 27, 27 8, 50 8" style="--d:80ms;--t:950ms"/><path pathLength="1" d="M50 9 C 51 36, 49 64, 50 91" style="--d:520ms;--t:750ms"/><path pathLength="1" d="M9 50 C 36 49, 64 51, 91 50" style="--d:660ms;--t:750ms"/><path pathLength="1" d="M23 18 C 38 36, 38 64, 23 82" style="--d:800ms;--t:720ms"/><path pathLength="1" d="M77 18 C 62 36, 62 64, 77 82" style="--d:900ms;--t:720ms"/></svg></h1>
+    <p>Finnish basketball had no good way to compare teams and players across games. I built one, starting with the women’s Korisliiga to give it more visibility before adding the men’s league.</p>
+    <p>I designed the product, directed the coding agents that built it and checked the data and models myself.</p>
+    <dl class="meta">
+      <div><dt>My role</dt><dd>Product designer and developer</dd></div>
+      <div><dt>Timeline</dt><dd>2026, ongoing</dd></div>
+      <div><dt>Data</dt><dd>Basket.fi, both leagues from 2024–25</dd></div>
+    </dl>
+  </section>
+
+  <div class="mode-bar"><div class="mode" role="group" aria-label="Reading length"><span class="thumb" aria-hidden="true"></span><button type="button" data-mode="tldr" aria-pressed="true" aria-label="Short version, 3 minute read">TL;DR<small>3 min</small></button><button type="button" data-mode="full" aria-pressed="false" aria-label="Full case, 9 minute read">Full case<small>9 min</small></button></div></div>
+
+  <figure class="wide"><span class="clipbox"><video class="clip" muted loop playsinline preload="auto" poster="/v2/k-home.jpg" width="1920" height="1200" aria-label="KorisLab home page in English, scrolling from the hero down through the overview"><source src="/v2/k-home.webm" type="video/webm"></video></span><figcaption>The home page brings two headline figures, search and a working overview into one introduction.</figcaption></figure>
+
+  <section class="key" aria-labelledby="keyT">
+    <h2 class="label" id="keyT">What’s inside</h2>
+    <ul class="scope">
+      <li><b data-count="692">692</b><span>games</span></li>
+      <li><b data-count="566">566</b><span>players</span></li>
+      <li><b data-count="24">24</b><span>teams</span></li>
+      <li><b data-count="96019">96,019</b><span>shot attempts</span></li>
+    </ul>
+    <p class="scope-note">Women’s and men’s Korisliiga from October 2024 to November 2026, every game rebuilt from official play-by-play.</p>
+    <a class="feat" href="#c5"><span class="feat-k"><span data-count="1000">1,000</span><small>×</small></span> <span class="feat-c"><b>Sim Studio</b> <span>Plays an upcoming game a thousand times, possession by possession: win probability, the spread of the margin, the chance of overtime and each player’s likely points.</span></span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5"/></svg></a>
+    <ul class="feats">
+      <li><a href="#c3"><b>Game replay</b> <span>Any game, event by event, with real shot locations and a win probability curve as the timeline.</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5"/></svg></a></li>
+      <li><a href="#c2"><b>Matchup Lab</b> <span>Teams and players compared across opponents, seasons, recent form and on/off-court minutes.</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5"/></svg></a></li>
+      <li><a href="#c4"><b>Player ratings</b> <span>Six areas on a 1–99 scale, each shown with the real statistic and a confidence level.</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5"/></svg></a></li>
+      <li><a href="#c1"><b>Season search</b> <span>Ask who had the most assists and get the ranking, tied to verified games.</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5"/></svg></a></li>
+      <li><div><b>Similar players</b> <span>Finds players whose statistical profile resembles the one you’re looking at.</span></div></li>
+      <li><div><b>Transfers</b> <span>Player moves between clubs, worked out from who played where and when.</span></div></li>
+    </ul>
+  </section>
+
+  <section class="ch" aria-labelledby="c1">
+    <h2 id="c1">Let a question lead into the data</h2>
+    <div class="blocks"><div class=""><h3>Problem</h3><p>People had to know which view held an answer before they could find it.</p></div><div class=""><h3>What I did</h3><p>Search finds teams and players, and answers supported season questions with a route into the right profile. Asking who had the most assists in 2025–26 returns player and team rankings, with Jeanae Terry leading on 213, tied to the season and to verified games.</p></div><div class="full"><h3>Why it matters</h3><p>The answer gives people a starting point and a next step into the detail, without first learning how the app is organised.</p></div><div class=""><h3>Next</h3><p>Widen the range of questions, so an answer can return a figure, open a view or both.</p></div></div>
+    <figure class="wide"><span class="clipbox reveal"><video class="clip" muted loop playsinline preload="auto" poster="/v2/k-search.jpg" width="1920" height="1200" aria-label="Typing a season question into KorisLab search and getting player and team rankings"><source src="/v2/k-search.webm" type="video/webm"></video></span><figcaption>Asking who had the most assists in 2025–26 returns player and team rankings from verified games, with totals and game counts visible.</figcaption></figure>
+  </section>
+
+  <section class="ch" aria-labelledby="c2">
+    <h2 id="c2">Give every comparison its context</h2>
+    <div class="blocks"><div class=""><h3>Problem</h3><p>A comparison without its sample size or units invites the wrong conclusion.</p></div><div class=""><h3>What I did</h3><p>Matchup Lab compares teams and players across opponents, seasons, recent form and on/off-court periods. A radar chart gives the quick read and a table keeps the original values beside it.</p></div><div class="full"><h3>Every comparison type</h3><p>Team against team, the same team across seasons, the last five games against earlier ones, whole games with a player present or absent, and periods with a player on or off court. For players: player against player, seasons, recent form, and regular season against playoffs.</p></div><div class=""><h3>Principle</h3><p><strong>Keep the sample, the units and the chart scale visible next to every comparison.</strong> The radar’s 0–100 shows league ranks, and its dashed line marks the middle of that scale, not the league average.</p></div><div class="full wide-b"><h3>What the chart doesn’t say</h3><p>The profiles describe the available games. A larger radar area doesn’t explain why a team performed differently, and a small sample needs more context before drawing conclusions. Lower defensive ratings and turnover rates are better, so the table keeps the original values and explains their units.</p></div></div>
+    <figure class="wide"><img class="reveal zoom" src="/k/matchup.jpg" alt="Matchup Lab radar and table comparing BC Nokia and Espoo Basket Team" width="1600" height="753"><figcaption>Women’s Korisliiga 2026–27: BC Nokia (3 games) against Espoo Basket Team (2 games).</figcaption></figure>
+  </section>
+
+  <section class="ch" aria-labelledby="c3">
+    <h2 id="c3">Replay a game, not just its box score</h2>
+    <div class="blocks"><div class=""><h3>Problem</h3><p>A box score tells you the final numbers, not how the game turned.</p></div><div class=""><h3>What I did</h3><p>Game pages replay a game event by event: real shot locations, the running score, player lines and a win probability curve as the timeline, with jumps to the turning points.</p></div><div class="wide-b"><h3>Honesty</h3><p>There is no player tracking, so only shots sit where they were taken. The win probability model was tuned on 2024–25, locked and tested once on 2025–26. It was too confident about home teams in the men’s league, and the page says so below the chart.</p></div></div>
+    <figure class="wide"><span class="clipbox reveal"><video class="clip" muted loop playsinline preload="auto" poster="/v2/k-replay.jpg" width="1430" height="1226" aria-label="Game story replaying HBA-Märsky against ToPo shot by shot, with the win probability line moving"><source src="/v2/k-replay.webm" type="video/webm"></video></span><figcaption>HBA-Märsky against ToPo, replayed at 16×: each shot lands where it was taken, and the win probability line moves with the score.</figcaption></figure>
+    <a class="game" href="https://korislab.vercel.app/matches/1006237/?season=2026-27" target="_blank" rel="noopener" aria-label="Open the HBA-Märsky against ToPo game story in KorisLab">
+      <span class="game-top"><span class="game-k">Game story · 25 Oct 2026</span><span class="game-go">Watch the replay<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg></span></span>
+      <span class="game-s"><span class="tm"><i class="sw h" aria-hidden="true"></i>HBA-Märsky</span><span class="sc"><b class="lo">69</b><i>–</i><b>83</b></span><span class="tm r">ToPo<i class="sw a" aria-hidden="true"></i></span></span>
+      <span class="game-mw"><svg class="game-m" viewBox="0 0 600 64" preserveAspectRatio="none" aria-hidden="true"><defs><clipPath id="wpTop"><rect x="0" y="0" width="600" height="32.0"/></clipPath><clipPath id="wpBot"><rect x="0" y="32.0" width="600" height="32.0"/></clipPath></defs><line x1="150" y1="0" x2="150" y2="64" class="q"/><line x1="300" y1="0" x2="300" y2="64" class="q"/><line x1="450" y1="0" x2="450" y2="64" class="q"/><line x1="0" y1="32.0" x2="600" y2="32.0" class="z"/><path d="M0.0,12.4H2.8V12.4H3.8V10.4H9.0V10.5H9.4V10.5H11.2V10.5H12.0V12.5H16.5V12.6H16.9V12.6H18.8V10.6H24.8V10.6H26.0V8.8H31.5V10.8H37.2V10.8H38.8V14.0H44.8V14.1H45.1V14.1H46.2V16.5H50.0V14.1H55.0V14.2H57.5V14.3H62.2V12.1H67.0V12.2H67.4V12.2H68.5V12.2H68.9V12.2H70.8V12.2H72.2V14.5H74.0V14.5H75.5V12.2H79.5V14.7H81.5V14.7H85.0V14.7H86.2V14.7H86.6V14.7H87.0V16.0H89.5V13.6H94.2V13.6H94.6V13.6H95.0V13.6H95.4V14.8H95.8V14.8H96.1V14.8H98.0V14.9H98.5V14.9H101.2V15.0H101.6V15.0H104.2V15.0H104.6V16.3H105.0V16.3H105.4V16.3H106.5V16.4H106.9V16.4H108.8V16.4H109.1V16.4H115.2V16.6H115.6V16.6H117.0V20.9H121.0V21.0H124.8V21.1H127.0V21.2H130.5V21.2H130.9V21.2H132.5V16.9H136.5V19.9H143.2V17.1H149.5V21.8H150.0V21.8H153.8V21.9H154.1V21.9H156.5V22.0H158.0V22.0H158.4V22.0H163.5V27.3H165.0V27.3H166.2V27.3H168.2V27.5H169.8V24.1H173.2V24.2H177.0V24.3H177.4V24.3H178.8V29.6H183.0V26.2H187.8V26.4H188.1V26.4H188.5V26.4H190.0V30.1H192.5V30.2H192.9V30.2H193.2V30.2H194.5V30.3H194.9V30.3H195.5V30.3H198.0V34.0H201.8V34.2H202.1V34.2H202.5V34.2H203.2V38.0H206.2V34.5H209.0V34.6H210.0V30.9H211.8V31.0H213.5V31.1H213.9V31.1H215.5V31.2H220.0V37.0H222.2V37.1H225.0V37.2H225.4V37.2H227.5V33.7H231.5V33.9H231.9V33.9H234.8V34.0H235.1V32.1H235.5V30.1H239.5V34.2H242.8V30.5H243.1V30.5H243.5V28.5H245.8V28.7H246.1V28.7H246.5V28.7H247.8V23.1H253.5V23.3H253.9V23.3H257.5V23.4H257.9V23.4H262.8V27.5H264.5V27.5H269.2V27.7H269.6V27.7H271.8V22.0H274.2V22.1H277.0V22.1H277.4V22.1H278.5V22.2H278.9V22.2H281.5V22.3H281.9V22.3H283.5V22.4H283.9V22.4H289.8V17.1H296.8V17.2H297.1V17.2H297.5V17.2H297.9V17.2H299.5V17.3H299.9V17.3H300.2V17.3H300.6V17.3H303.2V17.3H306.8V17.4H307.1V17.4H308.2V21.2H310.2V21.3H315.2V21.4H316.0V21.4H316.4V21.4H316.8V19.5H320.5V19.6H320.9V19.6H322.0V19.6H322.4V19.6H324.8V16.0H331.7V16.1H332.1V16.1H337.2V16.3H337.6V16.3H338.0V16.3H338.5V16.3H338.9V16.3H340.3V20.2H341.2V20.2H344.8V20.3H345.1V20.3H348.8V20.4H353.8V20.6H354.1V22.7H354.5V25.0H356.8V25.1H357.1V25.1H357.5V27.4H357.9V29.7H360.7V30.0H361.1V30.0H361.5V30.0H363.0V30.1H365.2V30.1H365.6V30.1H367.5V30.3H367.9V30.3H372.2V30.6H372.6V30.6H373.0V35.5H376.0V35.7H376.4V35.7H377.0V42.8H381.0V43.1H381.4V43.1H386.2V43.5H386.6V43.5H389.8V36.7H396.5V42.0H400.2V42.4H403.5V42.6H403.9V42.6H405.5V42.8H405.9V42.8H408.0V43.0H409.2V47.7H411.2V43.3H418.3V43.9H418.6V43.9H420.8V44.2H421.1V44.2H423.8V44.4H424.1V46.8H424.5V49.0H427.2V49.3H428.0V53.3H428.4V53.3H428.8V53.3H429.1V53.3H429.5V56.6H432.7V53.7H438.0V57.2H442.0V54.5H447.5V55.0H449.2V55.2H449.8V55.2H450.1V55.3H456.0V52.2H460.2V56.2H460.6V56.2H461.0V56.3H461.4V57.7H462.2V57.9H462.6V57.9H463.0V57.9H464.3V54.9H467.3V58.2H469.5V58.4H474.8V60.9H476.2V61.0H476.6V61.0H480.0V61.2H480.4V61.2H482.5V61.4H482.9V61.4H483.2V63.0H495.5V63.4H496.5V63.4H496.9V63.4H498.0V62.8H502.2V62.9H502.6V62.9H505.0V62.0H509.0V62.3H509.4V62.3H515.2V62.6H515.6V62.6H519.8V62.8H520.1V62.8H521.5V62.9H523.0V63.0H524.2V63.0H525.5V63.1H526.5V63.2H526.9V63.2H530.2V63.3H531.8V63.4H532.1V63.4H537.2V63.6H539.8V63.6H540.1V63.6H540.5V63.6H540.9V63.6H541.8V63.1H546.8V63.4H548.0V62.3H553.0V62.8H557.2V63.1H563.2V63.5H563.6V63.5H567.0V63.7H567.4V63.7H570.8V64.0H573.5V64.0H577.0V64.0H577.4V64.0H581.2V64.0H582.8V64.0H585.0V64.0H586.5V64.0H586.9V64.0H587.2V64.0H593.8V64.0H594.1V64.0H598.2V64.0H598.6V64.0H600V32.0H0Z" class="home" clip-path="url(#wpTop)"/><path d="M0.0,12.4H2.8V12.4H3.8V10.4H9.0V10.5H9.4V10.5H11.2V10.5H12.0V12.5H16.5V12.6H16.9V12.6H18.8V10.6H24.8V10.6H26.0V8.8H31.5V10.8H37.2V10.8H38.8V14.0H44.8V14.1H45.1V14.1H46.2V16.5H50.0V14.1H55.0V14.2H57.5V14.3H62.2V12.1H67.0V12.2H67.4V12.2H68.5V12.2H68.9V12.2H70.8V12.2H72.2V14.5H74.0V14.5H75.5V12.2H79.5V14.7H81.5V14.7H85.0V14.7H86.2V14.7H86.6V14.7H87.0V16.0H89.5V13.6H94.2V13.6H94.6V13.6H95.0V13.6H95.4V14.8H95.8V14.8H96.1V14.8H98.0V14.9H98.5V14.9H101.2V15.0H101.6V15.0H104.2V15.0H104.6V16.3H105.0V16.3H105.4V16.3H106.5V16.4H106.9V16.4H108.8V16.4H109.1V16.4H115.2V16.6H115.6V16.6H117.0V20.9H121.0V21.0H124.8V21.1H127.0V21.2H130.5V21.2H130.9V21.2H132.5V16.9H136.5V19.9H143.2V17.1H149.5V21.8H150.0V21.8H153.8V21.9H154.1V21.9H156.5V22.0H158.0V22.0H158.4V22.0H163.5V27.3H165.0V27.3H166.2V27.3H168.2V27.5H169.8V24.1H173.2V24.2H177.0V24.3H177.4V24.3H178.8V29.6H183.0V26.2H187.8V26.4H188.1V26.4H188.5V26.4H190.0V30.1H192.5V30.2H192.9V30.2H193.2V30.2H194.5V30.3H194.9V30.3H195.5V30.3H198.0V34.0H201.8V34.2H202.1V34.2H202.5V34.2H203.2V38.0H206.2V34.5H209.0V34.6H210.0V30.9H211.8V31.0H213.5V31.1H213.9V31.1H215.5V31.2H220.0V37.0H222.2V37.1H225.0V37.2H225.4V37.2H227.5V33.7H231.5V33.9H231.9V33.9H234.8V34.0H235.1V32.1H235.5V30.1H239.5V34.2H242.8V30.5H243.1V30.5H243.5V28.5H245.8V28.7H246.1V28.7H246.5V28.7H247.8V23.1H253.5V23.3H253.9V23.3H257.5V23.4H257.9V23.4H262.8V27.5H264.5V27.5H269.2V27.7H269.6V27.7H271.8V22.0H274.2V22.1H277.0V22.1H277.4V22.1H278.5V22.2H278.9V22.2H281.5V22.3H281.9V22.3H283.5V22.4H283.9V22.4H289.8V17.1H296.8V17.2H297.1V17.2H297.5V17.2H297.9V17.2H299.5V17.3H299.9V17.3H300.2V17.3H300.6V17.3H303.2V17.3H306.8V17.4H307.1V17.4H308.2V21.2H310.2V21.3H315.2V21.4H316.0V21.4H316.4V21.4H316.8V19.5H320.5V19.6H320.9V19.6H322.0V19.6H322.4V19.6H324.8V16.0H331.7V16.1H332.1V16.1H337.2V16.3H337.6V16.3H338.0V16.3H338.5V16.3H338.9V16.3H340.3V20.2H341.2V20.2H344.8V20.3H345.1V20.3H348.8V20.4H353.8V20.6H354.1V22.7H354.5V25.0H356.8V25.1H357.1V25.1H357.5V27.4H357.9V29.7H360.7V30.0H361.1V30.0H361.5V30.0H363.0V30.1H365.2V30.1H365.6V30.1H367.5V30.3H367.9V30.3H372.2V30.6H372.6V30.6H373.0V35.5H376.0V35.7H376.4V35.7H377.0V42.8H381.0V43.1H381.4V43.1H386.2V43.5H386.6V43.5H389.8V36.7H396.5V42.0H400.2V42.4H403.5V42.6H403.9V42.6H405.5V42.8H405.9V42.8H408.0V43.0H409.2V47.7H411.2V43.3H418.3V43.9H418.6V43.9H420.8V44.2H421.1V44.2H423.8V44.4H424.1V46.8H424.5V49.0H427.2V49.3H428.0V53.3H428.4V53.3H428.8V53.3H429.1V53.3H429.5V56.6H432.7V53.7H438.0V57.2H442.0V54.5H447.5V55.0H449.2V55.2H449.8V55.2H450.1V55.3H456.0V52.2H460.2V56.2H460.6V56.2H461.0V56.3H461.4V57.7H462.2V57.9H462.6V57.9H463.0V57.9H464.3V54.9H467.3V58.2H469.5V58.4H474.8V60.9H476.2V61.0H476.6V61.0H480.0V61.2H480.4V61.2H482.5V61.4H482.9V61.4H483.2V63.0H495.5V63.4H496.5V63.4H496.9V63.4H498.0V62.8H502.2V62.9H502.6V62.9H505.0V62.0H509.0V62.3H509.4V62.3H515.2V62.6H515.6V62.6H519.8V62.8H520.1V62.8H521.5V62.9H523.0V63.0H524.2V63.0H525.5V63.1H526.5V63.2H526.9V63.2H530.2V63.3H531.8V63.4H532.1V63.4H537.2V63.6H539.8V63.6H540.1V63.6H540.5V63.6H540.9V63.6H541.8V63.1H546.8V63.4H548.0V62.3H553.0V62.8H557.2V63.1H563.2V63.5H563.6V63.5H567.0V63.7H567.4V63.7H570.8V64.0H573.5V64.0H577.0V64.0H577.4V64.0H581.2V64.0H582.8V64.0H585.0V64.0H586.5V64.0H586.9V64.0H587.2V64.0H593.8V64.0H594.1V64.0H598.2V64.0H598.6V64.0H600V32.0H0Z" class="away" clip-path="url(#wpBot)"/><path d="M0.0,12.4H2.8V12.4H3.8V10.4H9.0V10.5H9.4V10.5H11.2V10.5H12.0V12.5H16.5V12.6H16.9V12.6H18.8V10.6H24.8V10.6H26.0V8.8H31.5V10.8H37.2V10.8H38.8V14.0H44.8V14.1H45.1V14.1H46.2V16.5H50.0V14.1H55.0V14.2H57.5V14.3H62.2V12.1H67.0V12.2H67.4V12.2H68.5V12.2H68.9V12.2H70.8V12.2H72.2V14.5H74.0V14.5H75.5V12.2H79.5V14.7H81.5V14.7H85.0V14.7H86.2V14.7H86.6V14.7H87.0V16.0H89.5V13.6H94.2V13.6H94.6V13.6H95.0V13.6H95.4V14.8H95.8V14.8H96.1V14.8H98.0V14.9H98.5V14.9H101.2V15.0H101.6V15.0H104.2V15.0H104.6V16.3H105.0V16.3H105.4V16.3H106.5V16.4H106.9V16.4H108.8V16.4H109.1V16.4H115.2V16.6H115.6V16.6H117.0V20.9H121.0V21.0H124.8V21.1H127.0V21.2H130.5V21.2H130.9V21.2H132.5V16.9H136.5V19.9H143.2V17.1H149.5V21.8H150.0V21.8H153.8V21.9H154.1V21.9H156.5V22.0H158.0V22.0H158.4V22.0H163.5V27.3H165.0V27.3H166.2V27.3H168.2V27.5H169.8V24.1H173.2V24.2H177.0V24.3H177.4V24.3H178.8V29.6H183.0V26.2H187.8V26.4H188.1V26.4H188.5V26.4H190.0V30.1H192.5V30.2H192.9V30.2H193.2V30.2H194.5V30.3H194.9V30.3H195.5V30.3H198.0V34.0H201.8V34.2H202.1V34.2H202.5V34.2H203.2V38.0H206.2V34.5H209.0V34.6H210.0V30.9H211.8V31.0H213.5V31.1H213.9V31.1H215.5V31.2H220.0V37.0H222.2V37.1H225.0V37.2H225.4V37.2H227.5V33.7H231.5V33.9H231.9V33.9H234.8V34.0H235.1V32.1H235.5V30.1H239.5V34.2H242.8V30.5H243.1V30.5H243.5V28.5H245.8V28.7H246.1V28.7H246.5V28.7H247.8V23.1H253.5V23.3H253.9V23.3H257.5V23.4H257.9V23.4H262.8V27.5H264.5V27.5H269.2V27.7H269.6V27.7H271.8V22.0H274.2V22.1H277.0V22.1H277.4V22.1H278.5V22.2H278.9V22.2H281.5V22.3H281.9V22.3H283.5V22.4H283.9V22.4H289.8V17.1H296.8V17.2H297.1V17.2H297.5V17.2H297.9V17.2H299.5V17.3H299.9V17.3H300.2V17.3H300.6V17.3H303.2V17.3H306.8V17.4H307.1V17.4H308.2V21.2H310.2V21.3H315.2V21.4H316.0V21.4H316.4V21.4H316.8V19.5H320.5V19.6H320.9V19.6H322.0V19.6H322.4V19.6H324.8V16.0H331.7V16.1H332.1V16.1H337.2V16.3H337.6V16.3H338.0V16.3H338.5V16.3H338.9V16.3H340.3V20.2H341.2V20.2H344.8V20.3H345.1V20.3H348.8V20.4H353.8V20.6H354.1V22.7H354.5V25.0H356.8V25.1H357.1V25.1H357.5V27.4H357.9V29.7H360.7V30.0H361.1V30.0H361.5V30.0H363.0V30.1H365.2V30.1H365.6V30.1H367.5V30.3H367.9V30.3H372.2V30.6H372.6V30.6H373.0V35.5H376.0V35.7H376.4V35.7H377.0V42.8H381.0V43.1H381.4V43.1H386.2V43.5H386.6V43.5H389.8V36.7H396.5V42.0H400.2V42.4H403.5V42.6H403.9V42.6H405.5V42.8H405.9V42.8H408.0V43.0H409.2V47.7H411.2V43.3H418.3V43.9H418.6V43.9H420.8V44.2H421.1V44.2H423.8V44.4H424.1V46.8H424.5V49.0H427.2V49.3H428.0V53.3H428.4V53.3H428.8V53.3H429.1V53.3H429.5V56.6H432.7V53.7H438.0V57.2H442.0V54.5H447.5V55.0H449.2V55.2H449.8V55.2H450.1V55.3H456.0V52.2H460.2V56.2H460.6V56.2H461.0V56.3H461.4V57.7H462.2V57.9H462.6V57.9H463.0V57.9H464.3V54.9H467.3V58.2H469.5V58.4H474.8V60.9H476.2V61.0H476.6V61.0H480.0V61.2H480.4V61.2H482.5V61.4H482.9V61.4H483.2V63.0H495.5V63.4H496.5V63.4H496.9V63.4H498.0V62.8H502.2V62.9H502.6V62.9H505.0V62.0H509.0V62.3H509.4V62.3H515.2V62.6H515.6V62.6H519.8V62.8H520.1V62.8H521.5V62.9H523.0V63.0H524.2V63.0H525.5V63.1H526.5V63.2H526.9V63.2H530.2V63.3H531.8V63.4H532.1V63.4H537.2V63.6H539.8V63.6H540.1V63.6H540.5V63.6H540.9V63.6H541.8V63.1H546.8V63.4H548.0V62.3H553.0V62.8H557.2V63.1H563.2V63.5H563.6V63.5H567.0V63.7H567.4V63.7H570.8V64.0H573.5V64.0H577.0V64.0H577.4V64.0H581.2V64.0H582.8V64.0H585.0V64.0H586.5V64.0H586.9V64.0H587.2V64.0H593.8V64.0H594.1V64.0H598.2V64.0H598.6V64.0H600" class="l"/></svg></span>
+      <span class="game-q"><span>Q1 <b>19–24</b></span><span>Q2 <b>24–19</b></span><span>Q3 <b>12–25</b></span><span>Q4 <b>14–15</b></span></span>
+      <span class="game-t">HBA-Märsky started at 81% and were still favourites at half-time, 43–43 at home. ToPo’s 25–12 third quarter turned it. The curve is KorisLab’s win probability for the whole game.</span>
+    </a>
+  </section>
+
+  <section class="ch" aria-labelledby="c4">
+    <h2 id="c4">Player ratings that show their working</h2>
+    <div class="blocks"><div class=""><h3>Problem</h3><p>Per-40 numbers flatter short minutes: 7 points in 5 minutes works out at 56 per 40. My first version also flattened the top, rating players more than 20% apart as 98 and 96.</p></div><div class=""><h3>What I did</h3><p>Six areas on a 1–99 scale and no overall score, each shown with its real statistic. Short samples are pulled towards a typical regular, and the card shows minutes and a confidence level.</p></div><div class="full"><h3>Small samples</h3><p>The pull grows the shorter a player’s minutes are, up to three times as strong, with 28 minutes a game counting as full. My first version pulled towards the league’s minute-weighted average, which starters dominate, so even a one-minute player rated about 60. It now pulls towards the median regular.</p></div><div class="full"><h3>Distance, not rank</h3><p>Ratings use a fixed scale built from past seasons’ regulars and measure distance from a typical level, with the rank shown separately. 20 rating points equal one standard deviation, so about one regular in 40 reaches 90 in a single area.</p></div><div class="wide-b"><h3>Principle</h3><p><strong>A number is published only with its context, and uncertainty is shown rather than hidden.</strong> The box score only records steals and blocks, so that area is called exactly that, not “Defence”.</p></div></div>
+    <figure class="pair"><img class="reveal zoom" src="/v2/k-rating-settled-still.jpg" alt="Player profile for De’Vion Harmon: settled sample, scoring rated 99" width="1896" height="1658"><img class="reveal zoom" src="/v2/k-rating-preliminary-still.jpg" alt="Player profile for Lisa Camara: early sample, scoring rated 71" width="1896" height="1658"><figcaption>Harmon (652 minutes) scores 36.3 per 40 and rates 99. Camara scores 28.5 per 40 in only 91 minutes, so her scoring rating stays at 71, and the card marks the sample as early.</figcaption></figure>
+  </section>
+
+  <section class="ch" aria-labelledby="c5">
+    <h2 id="c5">Sim Studio: play the next game a thousand times</h2>
+    <div class="blocks"><div class=""><h3>Problem</h3><p>Statistics pages tell you what happened. I wanted to show how an upcoming game is likely to go, not just who wins.</p></div><div class=""><h3>What I did</h3><p>Sim Studio plays an upcoming game 1,000 times from official play-by-play, possession by possession: win probability, the spread of the margin, the chance of overtime, each player’s likely points and one simulated game on a 3D court.</p></div><div class="full"><h3>How it works</h3><p>About 600 games over three seasons are rebuilt from play-by-play, and a game is kept only if its points match the official box score. Each game is split into about 80 possessions per team, and player profiles pull small samples towards league level. Python for the simulator, React and three.js for the interface.</p></div><div class=""><h3>How I tested it</h3><p>Every game of the men’s 2025–26 season was forecast from earlier data only, with settings locked on the previous season. Predicted and actual player points correlate at 0.65, with an average error of about 4.6 points.</p></div><div class="full"><h3>What didn’t ship</h3><p>Tuned priors scored worse (Brier 0.2400 against 0.2382). Game-to-game form made player ranges more honest, lifting 80% range coverage from 73% to 78%, but worsened game forecasts. Neither went into production. The women’s model beats chance but not the simple models (0.210 against 0.195).</p></div><div class=""><h3>Result</h3><p>The more complex model didn’t beat the simple margin model, and I reported it as it is.</p></div></div>
+    <p class="note"><b>My rule:</b> lock every model version before testing it and report the result, even when a simpler model wins.</p>
+    <figure class="wide"><span class="clipbox reveal"><video class="clip" muted loop playsinline preload="auto" poster="/v2/k-sim.jpg" width="1430" height="736" aria-label="Sim Studio playing a simulated game on a 3D court, switching from the broadcast camera to the tactical view"><source src="/v2/k-sim.webm" type="video/webm"></video></span><figcaption>Espoo Basket Team against Kouvottaret, simulated 1,000 times, switching from the broadcast camera to the tactical view. Player movement on the court is an illustration, not tracking data.</figcaption></figure>
+  </section>
+
+  <section class="ch" aria-labelledby="c6">
+    <h2 id="c6">From a generic dashboard to its own identity</h2>
+    <div class="blocks"><div class=""><h3>Problem</h3><p>The first interface felt like a generic AI-generated dashboard. Competing card colours made the analysis harder to read.</p></div><div class=""><h3>What I did</h3><p>Green carries the brand and orange guides comparisons. Headline figures, units and context got clear roles, and the home page now uses the same working overview component as the app.</p></div><div class="full"><h3>Rights</h3><p>Real player photos looked good, but they carried rights belonging to photographers, players and clubs. I removed them and drew dot-matrix figures in code instead.</p></div><div class=""><h3>Design system</h3><p>The first design system lives in Paper with matching tokens and components in code, so the coding agent can read my designs through Paper MCP and build against them.</p></div></div>
+    <figure class="pair"><img class="reveal zoom" src="/k/before.webp" alt="KorisLab home page before the redesign" width="1440" height="900"><img class="reveal zoom" src="/k/ds.webp" alt="KorisLab design system overview in Paper" width="1629" height="908"><figcaption>Left: the home page before the redesign. Right: part of the first design system in Paper.</figcaption></figure>
+  </section>
+
+  <section class="ch" aria-labelledby="c7">
+    <h2 id="c7">Performance people feel on real phones</h2>
+    <div class="blocks"><div class=""><h3>Problem</h3><p>PageSpeed scored the mobile home page 38, with 20 seconds of blocking time.</p></div><div class=""><h3>What I did</h3><p>The agent removed one visual effect at a time and measured again. Its first report led with no-GPU figures; I pushed back and ranked the work by what readers feel on real phones. A 730 kB shader drawing almost invisible fog was the real cost, so phones now get a static haze.</p></div><div class="full"><h3>Process</h3><p>Each fix went into its own pull request with before and after figures and a note on what it didn’t fix. Comparing screenshots of 13 page types at both widths caught a desktop fix that had broken the phone layout. The 3.8 s LCP is still above the 2.5 s target, and that is the next ticket.</p></div><div class=""><h3>Outcome</h3><ul class="outcome"><li><b>38 → 71</b> mobile score</li><li><b>10.4 s → 3.8 s</b> Largest Contentful Paint</li><li><b>20.4 s → 480 ms</b> blocking time</li><li><b>91 → 100</b> accessibility</li></ul></div></div>
+  </section>
+
+<div class="full">  <section class="ch" aria-labelledby="c8">
+    <h2 id="c8">Make the content findable beyond the app</h2>
+    <div class="blocks"><div class=""><h3>What I did</h3><p>Page-specific metadata, canonical URLs, a sitemap and pre-rendered summaries. Player and game pages carry their statistics, source links and Schema.org data in the HTML itself, so a search result can show real numbers rather than an empty app shell.</p></div><div class=""><h3>Next</h3><p>Google has indexed the site. Next I want to see which searches lead to it, and whether AI answers cite it at all. I haven’t measured that yet.</p></div></div>
+  </section>
+
+  <section class="ch" aria-labelledby="c9">
+    <h2 id="c9">From a tool to an argument</h2>
+    <div class="blocks"><div class=""><h3>Question</h3><p>Statistics pages answer questions people already have. I wanted to test whether the data could say something a fan might disagree with: what do five games tell you?</p></div><div class=""><h3>Finding</h3><p>A team’s margin in its first five games correlated at 0.83 with the rest of the season in the women’s league, and at 0.28 in the men’s. With 43 team seasons, that is an observation, not a rule, and tests check the written claims against the data.</p></div></div>
+  </section>
+
+</div>  <section class="ch" aria-labelledby="c0">
+    <h2 id="c0">How I worked with agents</h2>
+    <div class="blocks"><div class=""><h3>Split</h3><p>Agents mapped which data was available and on what terms, then built the views. My part was deciding what good looks like and checking the result.</p></div><div class=""><h3>Memory</h3><p>When I reject something, such as green scores on the match cards, the reason goes into an instruction file the next agent reads, so the idea doesn’t come back.</p></div><div class="full wide-b"><h3>Understanding the code</h3><p>I direct most of the code rather than write it, and I want to be able to explain it. So I had an agent build me a practice site around KorisLab for SQL, Python and spotting AI-written queries that run but give the wrong answer.</p></div></div>
+  </section>
+
+  <a class="next" href="/peluutin/" data-curtain="Peluutin"><span class="next-row"><span><small>Next project</small> <b>Peluutin</b> <em class="next-desc">A web app for junior coaches to keep playing time fair and plan training.</em></span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5"/></svg></span><span class="next-media"><img src="/p/peluutin-planner-light.webp" alt="" width="1913" height="887" decoding="async"></span></a>
+</main>
+<div class="toast" id="toast" role="status" hidden></div>
+<script>
+const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const EMAIL="helttula.petteri@gmail.com",toast=document.getElementById("toast"),copyBtn=document.getElementById("copyEmail");let ct,tt;
+copyBtn.addEventListener("click",()=>{(navigator.clipboard?navigator.clipboard.writeText(EMAIL):Promise.reject()).then(()=>{copyBtn.classList.add("is-copied");clearTimeout(ct);ct=setTimeout(()=>copyBtn.classList.remove("is-copied"),1800)},()=>{toast.textContent=EMAIL;toast.hidden=false;clearTimeout(tt);tt=setTimeout(()=>toast.hidden=true,2600)})});
+/* TL;DR shows the short case; Full case adds the detail back. The choice is remembered per viewer. */
+(function(){
+  const btns=[...document.querySelectorAll(".mode button")];
+  const thumb=document.querySelector(".mode .thumb");
+  const place=()=>{const b=btns.find(x=>x.getAttribute("aria-pressed")==="true");if(!b||!thumb)return;thumb.style.setProperty("--x",b.offsetLeft+"px");thumb.style.setProperty("--w",b.offsetWidth+"px")};
+  /* keep the reader's place: remember the chapter at the top of the screen and put it back after the switch */
+  const anchor=()=>{const chs=[...document.querySelectorAll(".ch")].filter(c=>c.offsetParent!==null);let a=null;for(const c of chs){if(c.getBoundingClientRect().top<=120)a=c}return a};
+  const set=(m,save)=>{const a=save&&anchor(),before=a&&a.getBoundingClientRect().top;
+    document.body.classList.toggle("tldr",m==="tldr");
+    if(a){const vis=a.offsetParent!==null?a:[...document.querySelectorAll(".ch")].filter(c=>c.offsetParent!==null&&c.compareDocumentPosition(a)&Node.DOCUMENT_POSITION_FOLLOWING).pop();if(vis){const se=document.scrollingElement||document.documentElement;se.scrollTop+=vis.getBoundingClientRect().top-(vis===a?before:120)}}btns.forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.mode===m)));place();if(save)try{localStorage.setItem("case-mode",m)}catch(e){}};
+  /* first placement without animation, so the pill does not grow in on load */
+  const still=()=>{if(!thumb)return;thumb.style.transition="none";place();thumb.getBoundingClientRect();thumb.style.transition=""};
+  still();document.fonts&&document.fonts.ready.then(still);addEventListener("resize",still);
+  /* a deeper shadow once the bar is floating over the content */
+  const bar=document.querySelector(".mode-bar");
+  if(bar&&"IntersectionObserver" in window){const s=document.createElement("div");s.style.cssText="height:1px;margin-top:-1px";bar.before(s);new IntersectionObserver(([e])=>bar.classList.toggle("stuck",!e.isIntersecting&&e.boundingClientRect.top<0)).observe(s)}
+  let saved=null;try{saved=localStorage.getItem("case-mode")}catch(e){}
+  if(saved==="full")set("full");
+  btns.forEach(b=>b.addEventListener("click",()=>set(b.dataset.mode,true)));
+})();
+/* any still opens larger; click, Escape or the button closes it */
+(function(){
+  let lb=null,last=null;
+  const close=()=>{if(!lb)return;const el=lb;lb=null;el.classList.remove("open");setTimeout(()=>el.remove(),reduceMotion?0:200);last&&last.focus({preventScroll:true})};
+  document.querySelectorAll("img.zoom").forEach(img=>{
+    img.tabIndex=0;img.setAttribute("role","button");img.setAttribute("aria-label","Open larger: "+img.alt);
+    const open=()=>{last=img;lb=document.createElement("div");lb.className="lb";lb.setAttribute("role","dialog");lb.setAttribute("aria-modal","true");lb.setAttribute("aria-label",img.alt);
+      lb.innerHTML='<img alt=""><button type="button">Close</button>';lb.querySelector("img").src=img.currentSrc||img.src;lb.querySelector("img").alt=img.alt;
+      lb.addEventListener("click",close);document.body.append(lb);setTimeout(()=>lb&&lb.classList.add("open"),16);lb.querySelector("button").focus()};
+    img.addEventListener("click",open);img.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();open()}});
+  });
+  addEventListener("keydown",e=>{if(e.key==="Escape")close();else if(e.key==="Tab"&&lb){e.preventDefault();lb.querySelector("button").focus()}});
+})();
+/* stills open up as they enter the viewport; anything already on screen stays as it is */
+(function(){
+  const els=[...document.querySelectorAll(".reveal")];
+  if(reduceMotion||!("IntersectionObserver" in window)){els.forEach(e=>e.classList.add("is-in"));return}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("is-in");io.unobserve(e.target)}}),{rootMargin:"0px 0px -10% 0px"});
+  els.forEach(e=>{if(e.getBoundingClientRect().top<innerHeight)e.classList.add("is-in");else io.observe(e)});
+})();
+/* mouse-wheel smoothing, same as the index; switches itself off if it can't scroll */
+(function(){
+  if(reduceMotion||!matchMedia("(pointer: fine)").matches)return;
+  const se=()=>document.scrollingElement||document.documentElement;let target=null,raf=0,off=false;
+  const stop=()=>{target=null;cancelAnimationFrame(raf);raf=0};
+  const step=()=>{const el=se(),cur=el.scrollTop,next=cur+(target-cur)*.2;el.scrollTop=Math.abs(target-next)<.5?target:next;
+    if(el.scrollTop===cur&&Math.abs(target-cur)>1){off=true;const t=target;stop();window.scrollBy(0,t-cur);return}
+    if(Math.abs(target-el.scrollTop)>.5)raf=requestAnimationFrame(step);else stop()};
+  addEventListener("wheel",e=>{if(off||e.ctrlKey||e.metaKey||e.shiftKey||e.deltaX)return;
+    const d=e.deltaMode===1?e.deltaY*18:e.deltaMode===2?e.deltaY*innerHeight:e.deltaY;
+    if(!(e.deltaMode!==0||(Math.abs(d)>=50&&Number.isInteger(e.deltaY)))){stop();return}
+    const el=se(),max=el.scrollHeight-el.clientHeight;if(max<=0)return;e.preventDefault();
+    if(target===null)target=el.scrollTop;target=Math.max(0,Math.min(max,target+d));if(!raf)raf=requestAnimationFrame(step)},{passive:false});
+  ["keydown","pointerdown","touchstart"].forEach(ev=>addEventListener(ev,stop,{passive:true}));
+})();
+</script>
+<script>
+/* Leaving: same-site links to a case or back home raise the panel first, then navigate. */
+(function(){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const internal=a=>a&&!a.target&&a.origin===location.origin&&/^\/(korislab\/|peluutin\/|helsinki-sports-map\/|s-havikki\/)?$/.test(a.pathname)&&a.pathname!==location.pathname;
+    const MARKS={"KorisLab": {"vb": "0 0 100 100", "w": "min(380px,62vw)", "sw": 4.6, "paths": ["M50 8 C 73 8, 92 27, 92 50 C 92 73, 73 92, 50 92 C 27 92, 8 73, 8 50 C 8 27, 27 8, 50 8", "M50 9 C 51 36, 49 64, 50 91", "M9 50 C 36 49, 64 51, 91 50", "M23 18 C 38 36, 38 64, 23 82", "M77 18 C 62 36, 62 64, 77 82"], "t": [[80, 700], [520, 500], [660, 500], [800, 470], [900, 470]]}, "_": {"vb": "0 0 240 110", "w": "min(620px,80vw)", "sw": 13, "paths": ["M14 74 C 52 10, 96 6, 104 44 C 112 82, 74 100, 62 74 C 50 48, 116 18, 150 40 C 184 62, 166 102, 140 86 C 114 70, 170 22, 226 30"], "t": [[80, 900]]}, "Peluutin": {"vb": "0 0 140 100", "w": "min(460px,72vw)", "sw": 4.4, "paths": ["M12 14 C 50 12, 92 15, 128 13 C 129 40, 127 62, 128 87 C 90 89, 50 86, 12 88 C 11 62, 13 40, 12 14", "M70 14 C 69 40, 71 62, 70 87", "M70 36 C 79 36, 84 43, 84 50 C 84 59, 77 64, 70 64 C 61 64, 56 57, 56 50 C 56 41, 63 36, 70 36"], "t": [[80, 820], [700, 420], [860, 520]]}, "Helsinki Sports Map": {"vb": "0 0 100 100", "w": "min(340px,56vw)", "sw": 4.6, "paths": ["M50 90 C 36 70, 24 58, 24 41 C 24 24, 36 12, 50 12 C 64 12, 76 24, 76 41 C 76 58, 64 70, 50 90", "M50 30 C 57 30, 61 35, 61 41 C 61 47, 56 52, 50 52 C 43 52, 39 47, 39 41 C 39 35, 44 30, 50 30"], "t": [[80, 900], [760, 520]]}, "S-hävikki": {"vb": "0 0 120 100", "w": "min(400px,64vw)", "sw": 4.6, "paths": ["M12 50 C 22 40, 32 30, 42 20 C 62 21, 86 19, 106 20 C 107 40, 105 60, 106 80 C 86 81, 62 79, 42 80 C 32 70, 22 60, 12 50", "M59 33 C 63 33, 65 36, 65 39 C 65 43, 62 45, 59 45 C 55 45, 53 42, 53 39 C 53 35, 56 33, 59 33 M81 55 C 85 55, 87 58, 87 61 C 87 65, 84 67, 81 67 C 77 67, 75 64, 75 61 C 75 57, 78 55, 81 55", "M56 68 C 65 56, 74 44, 84 32"], "t": [[80, 900], [760, 420], [940, 380]]}};
+    /* each project has its own mark, drawn in as one crisp stroke */
+    const markSVG=(label)=>{const m=MARKS[label]||MARKS._;
+      const p=m.paths.map((d,i)=>`<path pathLength="1" d="${d}" style="--d:${m.t[i][0]}ms;--t:${m.t[i][1]}ms"/>`).join("");
+      return `<svg class="sq" viewBox="${m.vb}" style="width:${m.w};stroke-width:${m.sw}" aria-hidden="true"><g>${p}</g></svg>`};
+  document.addEventListener("click",e=>{
+    const a=e.target.closest("a");
+    if(!internal(a)||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0)return;
+    e.preventDefault();
+    const label=a.dataset.curtain||"";
+    const c=document.createElement("div");c.className="curtain";c.innerHTML=markSVG(label)+"<span></span>";c.querySelector("span").textContent=label;document.body.append(c);
+    try{sessionStorage.setItem("curtain",label||" ")}catch(err){}
+    c.getBoundingClientRect();c.classList.add("on");
+    let gone=false;const go=()=>{if(!gone){gone=true;location.href=a.href}};
+    const mk=MARKS[label]||MARKS._,done=Math.max(...mk.t.map(([d,t])=>d+t));setTimeout(go,Math.max(650,done-120));
+  });
+  const pre=new Set();
+  document.addEventListener("pointerover",e=>{const a=e.target.closest&&e.target.closest("a");if(!internal(a)||pre.has(a.href))return;pre.add(a.href);const l=document.createElement("link");l.rel="prefetch";l.href=a.href;document.head.append(l)},{passive:true});
+  /* coming back through the browser's back button: drop any panel left on the restored page */
+  addEventListener("pageshow",e=>{if(e.persisted)document.querySelectorAll(".curtain").forEach(n=>n.remove())});
+})();
+/* Arriving: if a panel was raised on the previous page, slide it away and let the content settle in. */
+(function(){
+  const r=document.documentElement;if(!r.classList.contains("curtain-in"))return;
+  /* a page opened through the panel starts at its top, or at the linked section, never at the old scroll position */
+  try{history.scrollRestoration="manual"}catch(e){}
+  const place=()=>{const t=location.hash&&document.getElementById(decodeURIComponent(location.hash.slice(1)));if(t)t.scrollIntoView({block:"start"});else{(document.scrollingElement||document.documentElement).scrollTop=0;window.scrollTo(0,0)}};
+  place();addEventListener("DOMContentLoaded",place,{once:true});addEventListener("load",place,{once:true});
+  let done=false;const out=()=>{if(done)return;done=true;r.classList.add("curtain-out");setTimeout(()=>r.classList.remove("curtain-in","curtain-out"),1400)};
+  if(document.readyState!=="loading")setTimeout(out,30);else addEventListener("DOMContentLoaded",()=>setTimeout(out,30),{once:true});
+  setTimeout(out,1200);
+})();
+</script>
+<script>
+/* name bar: hide on the way down, show on the way up */
+(function(){
+  const bar=document.querySelector(".top");if(!bar)return;
+  let last=scrollY;
+  const update=()=>{const y=scrollY,dy=y-last;
+    if(y<80){bar.classList.remove("float","away");document.documentElement.classList.remove("top-on")}
+    else if(dy>6){bar.classList.add("away");document.documentElement.classList.remove("top-on")}
+    else if(dy<-6){bar.classList.add("float");bar.classList.remove("away");document.documentElement.classList.add("top-on")}
+    if(Math.abs(dy)>6||y<80)last=y};
+  addEventListener("scroll",update,{passive:true});
+  bar.addEventListener("focusin",()=>{bar.classList.remove("away");bar.classList.add("float");document.documentElement.classList.add("top-on")});
+  if(matchMedia("(hover: hover) and (pointer: fine)").matches){
+    /* shown by hovering the top edge, hidden again once the cursor moves away from the bar */
+    let byHover=false;
+    const hide=()=>{byHover=false;bar.classList.add("away");document.documentElement.classList.remove("top-on")};
+    /* only the very top edge counts, and only after a short pause there, so moving to the
+       reading switch never pulls the bar down under the cursor */
+    let dwell=0;
+    addEventListener("mousemove",e=>{
+      const inZone=e.clientY<=16&&!(e.target.closest&&e.target.closest(".mode-bar"));
+      if(inZone&&scrollY>=80&&bar.classList.contains("away")){if(!dwell)dwell=setTimeout(()=>{dwell=0;byHover=true;bar.classList.add("float");bar.classList.remove("away");document.documentElement.classList.add("top-on");last=scrollY},260)}
+      else{clearTimeout(dwell);dwell=0;if(byHover&&e.clientY>bar.getBoundingClientRect().bottom+48)hide()}},{passive:true});
+    document.documentElement.addEventListener("mouseleave",()=>{if(byHover)hide()});
+    /* scrolling up means the reader asked for the bar, so it stays */
+    let py=scrollY;addEventListener("scroll",()=>{if(scrollY<py-6)byHover=false;py=scrollY},{passive:true});
+  }
+})();
+</script>
+<script>
+/* contents list built from the chapter titles; highlights the chapter you're in */
+(function(){
+  const chs=[...document.querySelectorAll(".ch")];if(!chs.length)return;
+  const nav=document.createElement("nav");nav.className="toc";nav.setAttribute("aria-label","Contents");
+  const ol=document.createElement("ol");nav.append(ol);
+  const items=chs.map(ch=>{const h=ch.querySelector("h2");const li=document.createElement("li");if(ch.closest(".full"))li.className="full";
+    const a=document.createElement("a");a.href="#"+h.id;a.setAttribute("aria-label",h.textContent);
+    const k=ol.children.length;a.innerHTML='<span class="dot"></span><span class="t"></span>';a.querySelector(".t").textContent=h.textContent;li.style.setProperty("--k",k);li.append(a);ol.append(li);
+    a.addEventListener("click",e=>{e.preventDefault();const y=ch.getBoundingClientRect().top+scrollY-40;scrollTo({top:y,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})});
+    return {ch,a,li}});
+  const mb=document.querySelector(".mode-bar");if(mb)mb.after(nav);else document.body.append(nav);
+  const end=document.querySelector(".next");
+  const spy=()=>{const mid=innerHeight*.35;let cur=null;
+    for(const it of items){if(it.ch.offsetParent===null)continue;if(it.ch.getBoundingClientRect().top<=mid)cur=it}
+    items.forEach(it=>{it.li.classList.toggle("active",it===cur);it.a.toggleAttribute("aria-current",it===cur)});near();
+    const first=items.find(it=>it.ch.offsetParent!==null);
+    const show=first&&first.ch.getBoundingClientRect().top<innerHeight*.6&&(!end||end.getBoundingClientRect().top>innerHeight*.5);
+    nav.classList.toggle("on",!!show||nav.classList.contains("peek")||nav.matches(":hover,:focus-within"))};
+
+  /* neighbours of the current chapter, and magnification that follows the cursor */
+  const near=()=>{const vis=items.filter(it=>it.ch.offsetParent!==null);const i=vis.findIndex(it=>it.li.classList.contains("active"));
+    items.forEach(it=>it.li.classList.remove("near1","near2"));if(i<0)return;
+    [[i-1,"near1"],[i+1,"near1"]].forEach(([j,c])=>{if(vis[j])vis[j].li.classList.add(c)})};
+  const fit=()=>{if(nav.offsetParent===null&&getComputedStyle(nav).display==="none")return;const w=Math.max(...items.map(it=>it.a.querySelector(".t").scrollWidth));nav.style.setProperty("--cw",Math.ceil(w+30+30)+"px")};
+  nav.addEventListener("mousemove",e=>{items.forEach(it=>{const d=it.a.querySelector(".dot");
+    if(it.li.classList.contains("active")){d.style.removeProperty("--w");return}
+    const r=d.getBoundingClientRect(),rows=(r.top+r.height/2-e.clientY)/28;
+    d.style.setProperty("--w",(6+12*Math.exp(-rows*rows)).toFixed(1)+"px")})});
+  nav.addEventListener("mouseleave",()=>{items.forEach(it=>it.a.querySelector(".dot").style.removeProperty("--w"));spy()});
+  /* a reader who reaches the rail while it is still showing itself keeps it open until they move away */
+  nav.addEventListener("focusout",()=>setTimeout(spy,0));
+  const peek=()=>{if(getComputedStyle(nav).display==="none")return;nav.classList.add("peek","on");
+    const n=items.filter(it=>it.ch.offsetParent!==null).length;setTimeout(()=>{nav.classList.remove("peek");spy()},260+n*55+700+500)};
+  setTimeout(peek,document.documentElement.classList.contains("curtain-in")?1100:500);
+  addEventListener("scroll",spy,{passive:true});addEventListener("resize",()=>{spy();fit()});document.querySelectorAll(".mode button").forEach(b=>b.addEventListener("click",()=>setTimeout(spy,0)));spy();fit();document.fonts&&document.fonts.ready.then(fit);
+})();
+</script>
+<script>(()=>{const els=[...document.querySelectorAll("[data-count]")];if(!els.length)return;
+if(matchMedia("(prefers-reduced-motion: reduce)").matches||!("IntersectionObserver" in window))return;
+const fmt=n=>n.toLocaleString("en-US");
+els.forEach(el=>{const t=document.createElement("span");t.className="sr-only";t.textContent=el.textContent;el.before(t);el.setAttribute("aria-hidden","true")});
+els.forEach(el=>{el.style.display=getComputedStyle(el).display==="inline"?"inline-block":"";el.style.minWidth=el.getBoundingClientRect().width+"px";el.textContent="0"});
+const run=el=>{const to=+el.dataset.count,dur=1400+Math.min(600,Math.log10(to+1)*120),t0=performance.now();
+  const step=t=>{const k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,4);el.textContent=fmt(Math.round(to*e));if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)};
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const el=e.target;io.unobserve(el);setTimeout(()=>run(el),+(el.closest("li")?[...el.closest("ul").children].indexOf(el.closest("li")):0)*90)}}),{rootMargin:"0px 0px -12% 0px"});
+els.forEach(el=>io.observe(el))})();</script>
+<p class="sr-only" id="srLive" aria-live="polite"></p>
+<script>
+/* tell screen readers when the email has been copied */
+(function(){const b=document.getElementById("copyEmail"),live=document.getElementById("srLive");if(!b||!live)return;
+  b.addEventListener("click",()=>setTimeout(()=>{live.textContent="";setTimeout(()=>{live.textContent=b.classList.contains("is-copied")?"Email address copied":"Email: helttula.petteri@gmail.com"},30)},60))})();
+</script>
+<script>
+/* clips play while on screen; the corner button pauses and resumes them, and a paused clip stays paused */
+(function(){
+  const clips=[...document.querySelectorAll("video.clip")];if(!clips.length)return;
+  const still=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const icon={pause:'<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="2.5" width="3" height="11" rx="1"/><rect x="9.5" y="2.5" width="3" height="11" rx="1"/></svg>',
+    play:'<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 2.8v10.4a.8.8 0 0 0 1.2.7l8.4-5.2a.8.8 0 0 0 0-1.4L5.7 2.1a.8.8 0 0 0-1.2.7z"/></svg>'};
+  clips.forEach(v=>{
+    const box=v.closest(".clipbox");if(!box)return;
+    const b=document.createElement("button");b.type="button";b.className="clip-toggle";box.append(b);
+    const draw=()=>{const p=v.paused;b.innerHTML=p?icon.play:icon.pause;b.setAttribute("aria-label",p?"Play video":"Pause video");b.setAttribute("aria-pressed",String(p&&v.dataset.user==="paused"))};
+    b.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();if(v.paused){v.dataset.user="";const p=v.play();p&&p.catch(()=>{})}else{v.dataset.user="paused";v.pause()}});
+    v.addEventListener("play",draw);v.addEventListener("pause",draw);draw();
+    if(still)v.dataset.user="paused";
+  });
+  if(still)return;
+  const io=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){if(v.dataset.user!=="paused"){const p=v.play();p&&p.catch(()=>{})}}else v.pause()}),{threshold:.35});
+  clips.forEach(v=>io.observe(v));
+})();
+</script>
+</body>
+</html>
