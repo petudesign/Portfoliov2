@@ -24,7 +24,14 @@
 <meta name="twitter:description" content="Product designer based in Helsinki. I design products and build them with AI agents, guided by data and user testing.">
 <meta name="twitter:image" content="https://www.petu.design/og.jpg">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Petteri Helttula", "url": "https://www.petu.design/", "jobTitle": "Product designer", "email": "mailto:helttula.petteri@gmail.com", "homeLocation": {"@type": "Place", "name": "Helsinki, Finland"}, "sameAs": ["https://www.linkedin.com/in/petteri-helttula/"]}</script>
-<script>try{const r=document.documentElement;if(sessionStorage.getItem("entrance-seen")||sessionStorage.getItem("curtain")!==null)r.classList.add("no-entrance");sessionStorage.setItem("entrance-seen","1")}catch(e){document.documentElement.classList.add("no-entrance")}</script>
+<script>try{const r=document.documentElement;if(sessionStorage.getItem("entrance-seen")||sessionStorage.getItem("curtain")!==null)r.classList.add("no-entrance")}catch(e){document.documentElement.classList.add("no-entrance")}</script>
+<script>
+/* the opening animation waits until the font is in and the page has painted, so it is actually seen;
+   only then does it count as seen for this visit */
+(function(){const r=document.documentElement;if(r.classList.contains("no-entrance"))return;let on=false;
+  const start=()=>{if(on)return;on=true;requestAnimationFrame(()=>requestAnimationFrame(()=>{r.classList.add("entrance-go");try{sessionStorage.setItem("entrance-seen","1")}catch(e){}}))};
+  (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(start);setTimeout(start,1500)})();
+</script>
 <script>try{const l=sessionStorage.getItem("curtain");if(l!==null&&!matchMedia("(prefers-reduced-motion: reduce)").matches){sessionStorage.removeItem("curtain");document.documentElement.classList.add("curtain-in");document.documentElement.setAttribute("data-curtain",l.trim())}}catch(e){}</script>
 
 <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
@@ -206,7 +213,8 @@ html.curtain-out main{transform:none;opacity:1}
 /* First load: the intro settles in, piece by piece, then the first project. Short, small movement,
    nothing waits on it. Plays once per visit: not when coming back from a case or reloading. */
 @keyframes settle{from{opacity:0;transform:translateY(12px);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}
-html:not(.no-entrance) .intro > *,html:not(.no-entrance) .cases > .case:first-child{animation:settle 760ms cubic-bezier(.23,1,.32,1) both}
+html:not(.no-entrance):not(.entrance-go) .intro > *,html:not(.no-entrance):not(.entrance-go) .cases > .case:first-child{opacity:0}
+html.entrance-go:not(.no-entrance) .intro > *,html.entrance-go:not(.no-entrance) .cases > .case:first-child{animation:settle 760ms cubic-bezier(.23,1,.32,1) both}
 html:not(.no-entrance) .intro > .who{animation-delay:40ms}
 html:not(.no-entrance) .intro > h1{animation-delay:120ms}
 html:not(.no-entrance) .intro > .now{animation-delay:200ms}
