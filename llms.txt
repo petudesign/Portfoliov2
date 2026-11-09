@@ -4,19 +4,19 @@
 
 ## Main site
 
-- [Portfolio](https://petu.design/): Selected work, other projects and a short about section.
+- [Portfolio](https://www.petu.design/): Selected work, other projects and a short about section.
 
 ## Case studies
 
-- [KorisLab](https://petu.design/korislab/): An analytics tool for Finnish basketball that goes past the box score, across both Korisliiga leagues.
-- [Peluutin](https://petu.design/peluutin/): A web app that helps junior coaches keep playing time fair and plan training in 3D, shaped with test coaches.
-- [Helsinki Sports Map](https://petu.design/helsinki-sports-map/): Finding somewhere to exercise in Helsinki, and the easiest way to get there.
-- [S-hävikki](https://petu.design/s-havikki/): A service concept for cutting food waste in grocery stores, starting with the staff who check the shelves.
+- [KorisLab](https://www.petu.design/korislab/): An analytics tool for Finnish basketball that goes past the box score, across both Korisliiga leagues.
+- [Peluutin](https://www.petu.design/peluutin/): A web app that helps junior coaches keep playing time fair and plan training in 3D, shaped with test coaches.
+- [Helsinki Sports Map](https://www.petu.design/helsinki-sports-map/): Finding somewhere to exercise in Helsinki, and the easiest way to get there.
+- [S-hävikki](https://www.petu.design/s-havikki/): A service concept for cutting food waste in grocery stores, starting with the staff who check the shelves.
 
 ## Other projects
 
-- [Tahti](https://petu.design/tahti/): Paces dense text one word at a time.
-- [Brio](https://petu.design/brio/): An iOS app that adds a little friction to social media (paused).
+- [Tahti](https://www.petu.design/tahti/): Paces dense text one word at a time.
+- [Brio](https://www.petu.design/brio/): An iOS app that adds a little friction to social media (paused).
 
 ## Contact
 
