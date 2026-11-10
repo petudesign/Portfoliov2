@@ -16,7 +16,6 @@
 ## Other projects
 
 - [Tahti](https://www.petu.design/tahti/): Paces dense text one word at a time.
-- [Brio](https://www.petu.design/brio/): An iOS app that adds a little friction to social media (paused).
 
 ## Contact
 
