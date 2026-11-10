@@ -360,7 +360,7 @@ html{overflow-y:scroll;scrollbar-gutter:stable}
 
   <div class="mode-bar"><div class="mode" role="group" aria-label="Reading length"><span class="thumb" aria-hidden="true"></span><button type="button" data-mode="tldr" aria-pressed="true" aria-label="Short version, 2 minute read">TL;DR<small>2 min</small></button><button type="button" data-mode="full" aria-pressed="false" aria-label="Full case, 4 minute read">Full case<small>4 min</small></button></div></div>
 
-  <figure class="wide"><img class="zoom" src="/kk/ui-v3-en-aikajana.jpg" alt="Kelikamera map of Finland in English, with road condition counts and a 24-hour timeline" width="1920" height="1200"><figcaption>Every camera on one map, coloured by the measured road condition, with the last 24 hours on the timeline.</figcaption></figure>
+  <figure class="wide"><span class="clipbox"><video class="clip" muted loop playsinline preload="auto" poster="/kk/kk-map.jpg" width="1920" height="1200" aria-label="Kelikamera map flying into southern Finland and opening a road weather camera"><source src="/kk/kk-map.webm" type="video/webm"></video></span><figcaption>Flying into southern Finland and opening a camera: its latest image beside the nearest station’s measured friction and temperatures.</figcaption></figure>
 
   <section class="key" aria-labelledby="keyT">
     <h2 class="label" id="keyT">Starting point</h2>
@@ -376,7 +376,7 @@ html{overflow-y:scroll;scrollbar-gutter:stable}
   <section class="ch" aria-labelledby="c1">
     <h2 id="c1">Let the weather stations label the images</h2>
     <div class="blocks"><div class=""><h3>Problem</h3><p>Labelling thousands of camera images by hand doesn’t scale, and it would be my guess rather than a measurement.</p></div><div class=""><h3>What I did</h3><p>Each image is paired with the nearest road weather station’s sensor readings from within 30 minutes: road surface condition, friction, and water, snow and ice on the surface.</p></div><div class="full"><h3>Decoding the sensors</h3><p>Fintraffic doesn’t publish what the sensor codes mean, and other projects disagree. I checked one code set against measured values on the same station: code 7 came with 1.8 mm of ice and friction 0.11, so it means ice.</p></div><div class="full"><h3>The known risk</h3><p>A camera and its station aren’t in the same place: the median distance is 3.5 km, but one in ten is over 21 km away. The distance limit is still an open question.</p></div></div>
-<figure class="wide"><img class="reveal zoom" src="/kk/ui-v2-desktop-jaa.jpg" alt="An icy camera opened on the map, with its image and the station’s surface readings" width="1920" height="1200"><figcaption>An icy camera opened: the image beside the station’s measured friction, ice and temperatures.</figcaption></figure>
+<figure class="wide"><img class="reveal zoom" src="/kk/kk-camera.jpg" alt="A road weather camera opened on the map, with its image and the station’s friction, water, snow and ice readings" width="1920" height="1200"><figcaption>A camera opened: the latest image beside the station’s measured friction, water, snow and ice, and the last 24 hours.</figcaption></figure>
   </section>
 
   <section class="ch" aria-labelledby="c2">
