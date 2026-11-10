@@ -356,7 +356,7 @@ html{overflow-y:scroll;scrollbar-gutter:stable}
   <section class="intro" aria-labelledby="caseT">
     <h1 id="caseT">Kelikamera AI<svg class="title-sq" viewBox="0 0 120 100" aria-hidden="true" style="width:.74em"><path pathLength="1" d="M18 33 C 18 28, 22 24, 27 24 L 42 24 L 48 14 L 72 14 L 78 24 L 93 24 C 98 24, 102 28, 102 33 L 102 75 C 102 80, 98 84, 93 84 L 27 84 C 22 84, 18 80, 18 75 Z" style="--d:80ms;--t:1016ms"/><path pathLength="1" d="M60 36 C 70 36, 78 44, 78 54 C 78 64, 70 72, 60 72 C 50 72, 42 64, 42 54 C 42 44, 50 36, 60 36" style="--d:760ms;--t:663ms"/><path pathLength="1" d="M60 46 C 64.4 46, 68 49.6, 68 54 C 68 58.4, 64.4 62, 60 62 C 55.6 62, 52 58.4, 52 54 C 52 49.6, 55.6 46, 60 46" style="--d:1120ms;--t:470ms"/></svg></h1>
     <p>Six in ten of Fintraffic’s 797 road weather cameras have no surface sensor nearby, so nobody can say whether their stretch of road is slippery. I’m training a local model to estimate the road surface and its friction straight from the camera image, for the cameras no sensor covers.</p>
-    <p>It’s in progress. The data for winter 2026–27 is collected every three hours, and the live map already shows the measured conditions.</p>
+    <p>It’s in progress. The data for winter 2026–27 is collected every hour, and the live map already shows the measured conditions.</p>
     <dl class="meta"><div><dt>My role</dt><dd>Product design, data and development</dd></div><div><dt>Timeline</dt><dd>2026, in progress</dd></div><div><dt>Live</dt><dd><a href="https://petudesign.github.io/kelikamera/" target="_blank" rel="noopener">Open the map ↗</a></dd></div></dl>
   </section>
 
@@ -370,7 +370,7 @@ html{overflow-y:scroll;scrollbar-gutter:stable}
       <li><b data-count="797">797</b><span>road weather cameras on the map</span></li>
       <li><b data-count="323">323</b><span>with a measured road condition</span></li>
       <li><b data-count="474">474</b><span>with no information at all</span></li>
-      <li><b data-count="3">3</b><span>hours between data collections</span></li>
+      <li><b data-count="24">24</b><span>data collections a day</span></li>
     </ul>
     <p class="scope-note">Baseline on 9 November 2026, before any model. The aim is to turn the grey points into estimates.</p>
   </section>
@@ -396,7 +396,7 @@ html{overflow-y:scroll;scrollbar-gutter:stable}
 
   <section class="ch" aria-labelledby="c4">
     <h2 id="c4">Collect the winter first</h2>
-    <div class="blocks"><div class=""><h3>Where it stands</h3><p>In early November the winter classes are nearly empty: ice or frost on 2 cameras and snow on 3. Training starts when each class has at least 30 different cameras.</p></div><div class="full"><h3>Free to run</h3><p>Collection runs on GitHub Actions every three hours and the data goes to a Hugging Face dataset, so it costs nothing. Weather forecasts are archived alongside.</p></div></div>
+    <div class="blocks"><div class=""><h3>Where it stands</h3><p>In early November the winter classes are nearly empty: ice or frost on 2 cameras and snow on 3. Training starts when each class has at least 30 different cameras.</p></div><div class="full"><h3>Free to run</h3><p>Collection runs on GitHub Actions every hour and the data goes to a Hugging Face dataset, so it costs nothing. It started every three hours, but that left most of a night with a single snapshot, so it moved to hourly. Weather forecasts are archived alongside.</p></div></div>
   </section>
 
   <section class="ch" aria-labelledby="c0">
