@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Havain case study: computer vision that turns grocery shelves into data, starting with expiry and waste. Concept, simulation and phone prototype.">
+<meta name="description" content="Havain case study: computer vision that turns grocery shelves into data, starting with expiry and waste. Simulation, phone prototype and a maintenance centre demo.">
 <meta name="author" content="Petteri Helttula">
 <meta name="theme-color" content="#0e0f11">
 <link rel="canonical" href="https://www.petu.design/havain/">
@@ -13,14 +13,14 @@
 <meta property="og:locale" content="en_FI">
 <meta property="og:url" content="https://www.petu.design/havain/">
 <meta property="og:title" content="Havain case study — Petteri Helttula">
-<meta property="og:description" content="Havain case study: computer vision that turns grocery shelves into data, starting with expiry and waste. Concept, simulation and phone prototype.">
+<meta property="og:description" content="Havain case study: computer vision that turns grocery shelves into data, starting with expiry and waste. Simulation, phone prototype and a maintenance centre demo.">
 <meta property="og:image" content="https://www.petu.design/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Helsinki Sports Map case study by Petteri Helttula">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Havain case study — Petteri Helttula">
-<meta name="twitter:description" content="Havain case study: computer vision that turns grocery shelves into data, starting with expiry and waste. Concept, simulation and phone prototype.">
+<meta name="twitter:description" content="Havain case study: computer vision that turns grocery shelves into data, starting with expiry and waste. Simulation, phone prototype and a maintenance centre demo.">
 <meta name="twitter:image" content="https://www.petu.design/og.jpg">
 <title>Havain case study — Petteri Helttula</title>
 <script>/* the case always opens with its panel: from the portfolio, from a direct link, or on refresh */
@@ -358,12 +358,12 @@ html{overflow-y:scroll;scrollbar-gutter:stable}
     <h1 id="caseT">Havain<svg class="title-sq" viewBox="0 0 120 100" aria-hidden="true" style="width:.74em"><path pathLength="1" d="M20 34 L20 20 L34 20" style="--d:80ms;--t:385ms"/><path pathLength="1" d="M86 20 L100 20 L100 34" style="--d:300ms;--t:385ms"/><path pathLength="1" d="M100 66 L100 80 L86 80" style="--d:520ms;--t:385ms"/><path pathLength="1" d="M34 80 L20 80 L20 66" style="--d:740ms;--t:385ms"/><path pathLength="1" d="M34 58 L86 58" style="--d:1000ms;--t:449ms"/><path pathLength="1" d="M52 58 L52 67 L68 67 L68 58" style="--d:1300ms;--t:406ms"/></svg></h1>
     <p>Havain turns grocery shelves into structured data. An employee sweeps a shelf with a phone, computer vision builds a model of it from the shelf-edge labels and what sits above them, and GS1 2D barcodes add batches and expiry dates.</p>
     <p>2D codes tell what and when. Vision tells where. Scans make it true. The first use case is expiry and waste in fresh departments.</p>
-    <dl class="meta"><div><dt>My role</dt><dd>Product design, research and development</dd></div><div><dt>Timeline</dt><dd>2026, in progress</dd></div><div><dt>Status</dt><dd>Concept, simulation and phone prototype; computer vision in progress</dd></div></dl>
+    <dl class="meta"><div><dt>My role</dt><dd>Product design, research and development</dd></div><div><dt>Timeline</dt><dd>2026, in progress</dd></div><div><dt>Status</dt><dd>Simulation, phone prototype and maintenance centre demo on a simulated store; computer vision in progress</dd></div></dl>
   </section>
 
   <div class="mode-bar"><div class="mode" role="group" aria-label="Reading length"><span class="thumb" aria-hidden="true"></span><button type="button" data-mode="tldr" aria-pressed="true" aria-label="Short version, 3 minute read">TL;DR<small>3 min</small></button><button type="button" data-mode="full" aria-pressed="false" aria-label="Full case, 5 minute read">Full case<small>5 min</small></button></div></div>
 
-  <figure class="wide"><img class="zoom" src="/hv/havain-hover.webp" alt="Illustration of a dairy shelf seen from the front with detection overlays: shelf-edge labels linked to products, a gap, a near-expiry batch marked as inferred and a section that needs facing" width="1600" height="1000"><figcaption>Illustration, not real data: a dairy shelf as the vision pipeline would see it. Labels linked to products, a gap, a near-expiry batch marked as inferred, and a section that needs facing.</figcaption></figure>
+  <figure class="wide"><img class="zoom" src="/hv/havain-centre.jpg" alt="Havain maintenance centre demo on a simulated dairy department: summary figures, a department map with each fixture’s most urgent status, details of a near-date yoghurt with batches marked inferred and observed, alerts and the front of the yoghurt cooler with vision overlays" width="1920" height="1200"><figcaption>The maintenance centre demo on a simulated store: each fixture’s most urgent status and when it was last captured, a near-date yoghurt with its batches marked inferred and observed, and the alerts.</figcaption></figure>
 
   <section class="ch" aria-labelledby="c1">
     <h2 id="c1">Start from S-hävikki’s gap</h2>
@@ -393,7 +393,7 @@ html{overflow-y:scroll;scrollbar-gutter:stable}
 
   <section class="ch" aria-labelledby="c6">
     <h2 id="c6">From expiry tool to platform</h2>
-    <div class="blocks"><div class=""><h3>The assumption</h3><p>The simulation assumed a shelf map exists and stays correct. In a real store someone has to build it and keep it up to date as the assortment changes, and that is the job for computer vision.</p></div><div class=""><h3>Key idea</h3><p><strong>Identity comes from the shelf-edge label; vision only checks what is above it.</strong> Identifying any of thousands of products becomes checking whether this is the product the label says.</p></div><div class="full wide-b"><h3>Two products, one data</h3><p>A maintenance centre on the desktop, with the store map, shelf front views and a review queue for what vision is unsure about, and a field app on the phone for scans, tasks and guided capture. Both are designed, not built.</p></div></div>
+    <div class="blocks"><div class=""><h3>The assumption</h3><p>The simulation assumed a shelf map exists and stays correct. In a real store someone has to build it and keep it up to date as the assortment changes, and that is the job for computer vision.</p></div><div class=""><h3>Key idea</h3><p><strong>Identity comes from the shelf-edge label; vision only checks what is above it.</strong> Identifying any of thousands of products becomes checking whether this is the product the label says.</p></div><div class="full wide-b"><h3>Two products, one data</h3><p>A maintenance centre on the desktop, with the store map, shelf front views and a review queue for what vision is unsure about, and a field app on the phone for scans, tasks and guided capture. The maintenance centre runs as a demo on a simulated store; it isn’t on real store data yet.</p></div></div>
   </section>
 
   <section class="ch" aria-labelledby="c7">
