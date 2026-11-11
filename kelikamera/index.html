@@ -357,7 +357,7 @@ html{overflow-y:scroll;scrollbar-gutter:stable}
 
   <section class="intro" aria-labelledby="caseT">
     <h1 id="caseT">Kelikamera AI<svg class="title-sq" viewBox="0 0 120 100" aria-hidden="true" style="width:.74em"><path pathLength="1" d="M18 33 C 18 28, 22 24, 27 24 L 42 24 L 48 14 L 72 14 L 78 24 L 93 24 C 98 24, 102 28, 102 33 L 102 75 C 102 80, 98 84, 93 84 L 27 84 C 22 84, 18 80, 18 75 Z" style="--d:80ms;--t:1016ms"/><path pathLength="1" d="M60 36 C 70 36, 78 44, 78 54 C 78 64, 70 72, 60 72 C 50 72, 42 64, 42 54 C 42 44, 50 36, 60 36" style="--d:760ms;--t:663ms"/><path pathLength="1" d="M60 46 C 64.4 46, 68 49.6, 68 54 C 68 58.4, 64.4 62, 60 62 C 55.6 62, 52 58.4, 52 54 C 52 49.6, 55.6 46, 60 46" style="--d:1120ms;--t:470ms"/></svg></h1>
-    <p>Six in ten of Fintraffic’s 797 road weather cameras have no surface sensor nearby, so nobody can say whether their stretch of road is slippery. I’m training a local model to estimate the road surface and its friction straight from the camera image, for the cameras no sensor covers.</p>
+    <p>Six in ten of Fintraffic’s 800 road weather cameras have no surface sensor nearby, so nobody can say whether their stretch of road is slippery. I’m training a local model to estimate the road surface and its friction straight from the camera image, for the cameras no sensor covers.</p>
     <p>It’s in progress. Images and sensor readings for winter 2026–27 are collected about every three hours, and the live map refreshes every hour with the measured conditions.</p>
     <dl class="meta"><div><dt>My role</dt><dd>Product design, data and development</dd></div><div><dt>Timeline</dt><dd>2026, in progress</dd></div><div><dt>Live</dt><dd><a href="https://petudesign.github.io/kelikamera/" target="_blank" rel="noopener">Open the map ↗</a></dd></div></dl>
   </section>
@@ -369,12 +369,12 @@ html{overflow-y:scroll;scrollbar-gutter:stable}
   <section class="key" aria-labelledby="keyT">
     <h2 class="label" id="keyT">Starting point</h2>
     <ul class="scope">
-      <li><b data-count="797">797</b><span>road weather cameras on the map</span></li>
-      <li><b data-count="323">323</b><span>with a measured road condition</span></li>
-      <li><b data-count="474">474</b><span>with no information at all</span></li>
+      <li><b data-count="800">800</b><span>road weather cameras on the map</span></li>
+      <li><b data-count="325">325</b><span>with a measured road condition</span></li>
+      <li><b data-count="475">475</b><span>with no information at all</span></li>
       <li><b data-count="8">8</b><span>data collections a day</span></li>
     </ul>
-    <p class="scope-note">Baseline on 9 November 2026, before any model. The aim is to turn the grey points into estimates.</p>
+    <p class="scope-note">Baseline on 11 November 2026, before any model. The aim is to turn the grey points into estimates.</p>
   </section>
 
   <section class="ch" aria-labelledby="c1">
@@ -398,7 +398,7 @@ html{overflow-y:scroll;scrollbar-gutter:stable}
 
   <section class="ch" aria-labelledby="c3">
     <h2 id="c3">Measure the claim, not just the coverage</h2>
-    <div class="blocks"><div class=""><h3>Rule</h3><p>Coverage alone proves nothing: a model that guesses “dry” everywhere would cover every camera. Coverage is always reported together with accuracy.</p></div><div class=""><h3>How it will be measured</h3><p>On cameras the model has never seen: how many slippery roads it catches, and how often a “slippery” warning is right.</p></div><div class="wide-b"><h3>The headline I’m aiming for</h3><p>“Road conditions for 797 cameras instead of 323, with slippery roads recognised X% of the time on cameras the model has never seen.” X stays empty until it’s measured.</p></div></div>
+    <div class="blocks"><div class=""><h3>Rule</h3><p>Coverage alone proves nothing: a model that guesses “dry” everywhere would cover every camera. Coverage is always reported together with accuracy.</p></div><div class=""><h3>How it will be measured</h3><p>On cameras the model has never seen: how many slippery roads it catches, and how often a “slippery” warning is right.</p></div><div class="wide-b"><h3>The headline I’m aiming for</h3><p>“Road conditions for 800 cameras instead of 325, with slippery roads recognised X% of the time on cameras the model has never seen.” X stays empty until it’s measured.</p></div></div>
 <figure class="wide"><img class="reveal zoom" src="/kk/kartta-desktop.jpg" alt="The baseline map before any model, with most cameras grey" width="1920" height="1200"><figcaption>The baseline: six in ten cameras grey, with no road condition.</figcaption></figure>
   </section>
 
