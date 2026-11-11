@@ -188,6 +188,25 @@ figcaption{margin-top:12px;max-width:44em;font-size:14px;line-height:1.5;color:v
 .ch .no{font-size:14px;color:var(--faint);font-variant-numeric:tabular-nums}
 .ch h2{margin:6px 0 0;font-weight:600;font-size:clamp(34px,4.6vw,48px);line-height:1.04;letter-spacing:-.045em;text-wrap:balance}
 .ch .lead{margin:20px 0 0;font-size:19px;line-height:1.5;color:var(--mute);text-wrap:pretty}
+.personas{list-style:none;margin:28px 0 0;padding:0;border-top:1px solid var(--hair)}
+.personas>li{display:grid;grid-template-columns:200px 1fr;gap:10px 40px;padding:28px 0;border-bottom:1px solid var(--hair)}
+.personas .who b{display:block;font-weight:500;font-size:17px;line-height:1.35;letter-spacing:-.01em;color:var(--ink)}
+.personas .who span{display:block;margin-top:6px;font-size:14px;line-height:1.45;color:var(--faint)}
+.blocks .personas p{margin:0}
+.blocks .personas .found{color:var(--ink)}
+.blocks .personas .fix{margin-top:12px}
+.personas .fix span{display:block;margin-bottom:2px;font-size:14px;color:var(--faint)}
+.personas li.full .who b{color:var(--full-hi)}
+.blocks .personas li.full .found{color:var(--full-hi)}
+.personas figure{margin:20px 0 0}
+.personas figure img{display:block;width:100%;max-width:300px;height:auto;border-radius:12px;box-shadow:0 0 0 1px var(--hair)}
+.personas .cb{display:block;width:100%;max-width:440px;height:auto;font-family:inherit;overflow:visible}
+.cb text{fill:var(--faint);stroke:none;font-weight:400}
+.cb rect{fill:#121315;stroke:var(--hair);stroke-width:1}
+.cb .d circle{stroke:#0a0a0a;stroke-width:1.5}
+.cb .r circle{stroke:#fff;stroke-width:3}
+.personas figcaption{text-align:left;margin:10px 0 0}
+@media (max-width:720px){.personas>li{grid-template-columns:1fr;gap:12px;padding:24px 0}}
 .blocks{display:grid;grid-template-columns:1fr 1fr;gap:44px 48px;margin:48px 0 0}
 .blocks h3{margin:0;font-weight:500;font-size:20px;letter-spacing:-.02em}
 .blocks p{margin:12px 0 0;font-size:17px;line-height:1.6;color:var(--mute);text-wrap:pretty}
@@ -393,7 +412,20 @@ html{overflow-y:scroll;scrollbar-gutter:stable}
   <section class="ch" aria-labelledby="c2b">
     <h2 id="c2b">Making the interface hold up</h2>
     <p class="lead">I ran three rounds on the interface, each with a measurable end.</p>
-    <div class="blocks"><div class="full wide-b"><h3>Break it</h3><p>I rebuilt the page with worst-case data: overlong place names, 30 warnings, 169 cameras turning icy at once, no measurements at all, and broken images. I tested it at 320 px, the narrowest phone width. Six things broke. The update time wrapped onto three lines on an ordinary phone, and one long name filled the whole list.</p></div><div class=""><h3>Test with simulated users</h3><p>Five independent agents each used the map as one person: a commuter with 60 seconds, a dispatcher planning night routes, a road maintenance duty officer at 3 am, a hiring design lead, and a low-vision driver.</p><p>Three of them noticed that opening a camera didn’t move the map to it. The dispatcher found that the route summary counted Saturday’s warnings as “on your route” today. The accessibility review found that ice and dry looked almost the same with red-green colour blindness, so ice now has a white ring. The maintenance officer found an icy camera with good friction. That turned out to be the sensor itself: 0.02 mm of ice. The panel now says so.</p></div><div class=""><h3>Measure it</h3><p>I ran Lighthouse, fixed what it found, and measured again. Moving the map library out of the first paint brought mobile performance from 82 to 100, with the first paint going from 3.6 to 0.8 s. Accessibility went from 90 to 100.</p></div></div>
+    <div class="blocks"><div class="full wide-b"><h3>Break it</h3><p>I rebuilt the page with worst-case data: overlong place names, 30 warnings, 169 cameras turning icy at once, no measurements at all, and broken images. I tested it at 320 px, the narrowest phone width. Six things broke. The update time wrapped onto three lines on an ordinary phone, and one long name filled the whole list.</p></div><div class="wide-b"><h3>Test with simulated users</h3><p>Five agents each used the map as one person, with a device, a task and a time limit, and reported where they got stuck. They aren’t real users, so this is early feedback, not user testing. One finding from each:</p>
+<ol class="personas">
+<li><div class="who"><b>Road maintenance duty officer</b><span>Desktop · Vaasa–Seinäjoki at 3 am</span></div><div class="what"><p class="found">A camera marked icy, with good friction. The page was right: the station’s optical sensor reported ice, but only 0.02 mm of it.</p><p class="fix"><span>What changed</span>The panel now says the sensor sees a thin layer and friction is still good. It also left an open question for training: should the ice class need friction to drop too, so the model doesn’t learn ice from dry-looking roads?</p></div></li>
+<li><div class="who"><b>Low-vision driver</b><span>200 % zoom · VoiceOver · red-green colour blind</span></div><div class="what"><p class="found">With deuteranopia, ice and dry came out almost the same colour. Opening a camera also left the screen reader silent.</p><p class="fix"><span>What changed</span>Ice points have a white ring, so ice no longer depends on colour alone. Opening a panel moves focus to its heading, and closing it returns focus to where it was.</p><figure><svg class="cb" viewBox="0 0 440 214" role="img" aria-label="Ice and dry points before and after the white ring, as designed and with deuteranopia simulated">
+<g font-size="15" fill="var(--faint)"><text x="96" y="16">As designed</text><text x="276" y="16">Deuteranopia, simulated</text><text x="0" y="78">Before</text><text x="0" y="168">Now</text></g>
+<g><rect x="80" y="30" width="170" height="80" rx="12" fill="#111214"/><rect x="262" y="30" width="170" height="80" rx="12" fill="#111214"/><rect x="80" y="120" width="170" height="80" rx="12" fill="#111214"/><rect x="262" y="120" width="170" height="80" rx="12" fill="#111214"/></g>
+<g class="d"><circle cx="135" cy="64" r="10" fill="#ff4766"/><circle cx="195" cy="64" r="10" fill="#34c77b"/><circle cx="317" cy="64" r="10" fill="#a89b61"/><circle cx="377" cy="64" r="10" fill="#b4aa80"/><circle cx="195" cy="154" r="10" fill="#34c77b"/><circle cx="377" cy="154" r="10" fill="#b4aa80"/></g>
+<g class="r"><circle cx="135" cy="154" r="10" fill="#ff4766"/><circle cx="317" cy="154" r="10" fill="#a89b61"/></g>
+<g font-size="14" fill="var(--faint)" text-anchor="middle"><text x="135" y="95">Ice</text><text x="195" y="95">Dry</text><text x="317" y="95">Ice</text><text x="377" y="95">Dry</text><text x="135" y="185">Ice</text><text x="195" y="185">Dry</text><text x="317" y="185">Ice</text><text x="377" y="185">Dry</text></g>
+</svg><figcaption>The app’s ice and dry colours, with red-green colour blindness simulated. Before the ring, both turned olive.</figcaption></figure></div></li>
+<li><div class="who"><b>Hiring design lead</b><span>Desktop · 2 minutes, in English</span></div><div class="what"><p class="found">Couldn’t tell what the project was for. A grey camera’s “AI estimate coming” read as unfinished.</p><p class="fix"><span>What changed</span>The map panel opens with why six in ten cameras are grey: “I’m training an AI to estimate their conditions from the image.” A grey camera now says “No sensor nearby · see the camera image”.</p></div></li>
+<li class="full"><div class="who"><b>Dispatcher</b><span>Desktop · planning night routes</span></div><div class="what"><p class="found">The route summary counted warnings starting on Saturday as being on the route today.</p><p class="fix"><span>What changed</span>Warnings in force now or within 12 hours are counted apart from ones that start later.</p><figure><img class="reveal zoom" src="/kk/persona-route.jpg" alt="Route summary from Turku to Oulu: 2 traffic weather warnings in force on the route now or within 12 hours" width="702" height="796" loading="lazy"></figure></div></li>
+<li class="full"><div class="who"><b>Commuter</b><span>Phone · 60 seconds before leaving</span></div><div class="what"><p class="found">Opening a camera didn’t move the map to it. Two other personas ran into the same thing.</p><p class="fix"><span>What changed</span>The map glides to the camera, and on a phone it stops above the panel.</p></div></li>
+</ol></div><div class="wide-b"><h3>Measure it</h3><p>I ran Lighthouse, fixed what it found, and measured again. Moving the map library out of the first paint brought mobile performance from 82 to 100, with the first paint going from 3.6 to 0.8 s. Accessibility went from 90 to 100.</p></div></div>
   </section>
 
   <section class="ch" aria-labelledby="c3">

@@ -11,3 +11,5 @@ Thumbs.db
 audit-*/
 *.tmp
 .claude/
+
+tools/rec/out/
