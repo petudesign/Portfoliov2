@@ -262,15 +262,15 @@ figcaption{margin-top:12px;max-width:44em;font-size:14px;line-height:1.5;color:v
    Plain transforms, so it runs the same in every browser; skipped with reduced motion. */
 .curtain{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#17181b;transform:translateY(100%);transition:transform 620ms cubic-bezier(.77,0,.175,1);pointer-events:none}
 .curtain.on{transform:none;pointer-events:auto}
-.curtain span{font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;color:#eeeeeb;opacity:0;transform:translateY(24px);transition:opacity 360ms ease 180ms,transform 620ms cubic-bezier(.23,1,.32,1) 180ms}
+.curtain span{text-align:center;max-width:calc(100vw - 48px);font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;color:#eeeeeb;opacity:0;transform:translateY(24px);transition:opacity 360ms ease 180ms,transform 620ms cubic-bezier(.23,1,.32,1) 180ms}
 .curtain.on span{opacity:1;transform:none}
-html.curtain-in::after{content:attr(data-curtain);position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#17181b;color:#eeeeeb;font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;transition:transform 720ms cubic-bezier(.77,0,.175,1)}
+html.curtain-in::after{content:attr(data-curtain);position:fixed;inset:0;text-align:center;padding:0 24px;z-index:100;display:grid;place-items:center;background:#17181b;color:#eeeeeb;font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;transition:transform 720ms cubic-bezier(.77,0,.175,1)}
 html.curtain-in main{transform:translateY(32px);opacity:.001;transition:transform 900ms cubic-bezier(.23,1,.32,1) 180ms,opacity 500ms ease 180ms}
 html.curtain-out::after{transform:translateY(-100%)}
 html.curtain-out main{transform:none;opacity:1}
 
 /* transition panel mark: one crisp stroke, drawn in */
-.curtain .sq{position:absolute;height:auto;overflow:visible;fill:none;opacity:.92;stroke:#e5173f;stroke-linecap:round;stroke-linejoin:round}
+.curtain .sq{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:auto;overflow:visible;fill:none;opacity:.92;stroke:#e5173f;stroke-linecap:round;stroke-linejoin:round}
 .curtain .sq path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset var(--t) cubic-bezier(.45,0,.2,1) var(--d)}
 .curtain.on .sq path{stroke-dashoffset:0}
 .curtain span{position:relative}
