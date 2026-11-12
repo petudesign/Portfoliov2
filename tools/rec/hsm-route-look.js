@@ -1,0 +1,20 @@
+const { launch, OUT } = require('./lib'); const path = require('path');
+(async () => {
+  const { browser, page } = await launch({ width: 390, height: 844, scale: 2, mobile: true });
+  const s = (n) => page.screenshot({ path: path.join(OUT, 'hr-' + n + '.png') });
+  await page.goto('https://helsinki-sports-map.vercel.app/', { waitUntil: 'networkidle' }); await page.waitForTimeout(2500);
+  await page.getByRole('button', { name: 'Only necessary' }).click(); await page.waitForTimeout(800);
+  await page.getByPlaceholder(/Search/).fill('Aleksis Kiven peruskoulu'); await page.waitForTimeout(1500); await s(1);
+  await page.touchscreen.tap(179, 444); await page.waitForTimeout(2500); await s(2);
+  await page.getByRole('button', { name: 'Directions' }).first().click(); await page.waitForTimeout(1500); await s(3);
+  const st = page.getByPlaceholder('Address or place in Helsinki'); await st.click(); await st.pressSequentially('Helsinginkatu 2', { delay: 60 }); await page.waitForTimeout(2000); await s(4);
+  console.log('opts', (await page.getByRole('option').allInnerTexts()).slice(0, 5));
+  await page.getByRole('option').first().click(); await page.waitForTimeout(800);
+  await page.getByRole('button', { name: 'Find route' }).click(); await page.waitForTimeout(3500); await s(5);
+  await page.getByRole('button', { name: /6 min/ }).first().click(); await page.waitForTimeout(3000); await s(6);
+  await page.getByRole('button', { name: 'Expand panel' }).first().click().catch(()=>{}); await page.waitForTimeout(1500); await s(7);
+  console.log((await page.getByRole('button').evaluateAll(es => es.map(e => (e.innerText || e.getAttribute('aria-label') || '').replace(/\s+/g, ' ')))).join(' | ').slice(0, 900));
+  console.log((await page.getByRole('button').allInnerTexts()).join(' | ').slice(0, 800));
+  console.log((await page.locator('input').evaluateAll(es => es.map(e => e.placeholder + '/' + e.getAttribute('aria-label')))).join(' | '));
+  await browser.close();
+})().catch((e) => { console.error(e); process.exit(1); });
