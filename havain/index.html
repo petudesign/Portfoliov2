@@ -202,7 +202,7 @@ figcaption{margin-top:12px;max-width:44em;font-size:14px;line-height:1.5;color:v
 .zoom{cursor:zoom-in}
 .lb{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:24px;background:rgba(8,8,10,.92);cursor:zoom-out;opacity:0;transition:opacity 200ms ease}
 .lb.open{opacity:1}
-.lb img{max-width:min(1600px,100%);max-height:100%;width:auto;height:auto;border-radius:10px;transform:scale(.97);transition:transform 260ms var(--ease)}
+.lb img{max-width:min(1600px,100%);max-height:calc(100vh - 48px);max-height:calc(100dvh - 48px);width:auto;height:auto;border-radius:10px;transform:scale(.97);transition:transform 260ms var(--ease)}
 .lb.open img{transform:none}
 .lb button{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--hair);background:var(--raise);cursor:pointer;font-size:14px}
 
