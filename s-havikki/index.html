@@ -34,9 +34,6 @@ try{const r=document.documentElement,l=sessionStorage.getItem("curtain");if(l!==
 
 /* text for screen readers only */
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-html.curtain-in[data-curtain="Kelikamera AI"]::after{background:#17181b url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%20100%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23e5173f%22%20stroke-width%3D%224.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.9%22%3E%3Cpath%20d%3D%22M18%2033%20C%2018%2028%2C%2022%2024%2C%2027%2024%20L%2042%2024%20L%2048%2014%20L%2072%2014%20L%2078%2024%20L%2093%2024%20C%2098%2024%2C%20102%2028%2C%20102%2033%20L%20102%2075%20C%20102%2080%2C%2098%2084%2C%2093%2084%20L%2027%2084%20C%2022%2084%2C%2018%2080%2C%2018%2075%20Z%22%2F%3E%3Cpath%20d%3D%22M60%2036%20C%2070%2036%2C%2078%2044%2C%2078%2054%20C%2078%2064%2C%2070%2072%2C%2060%2072%20C%2050%2072%2C%2042%2064%2C%2042%2054%20C%2042%2044%2C%2050%2036%2C%2060%2036%22%2F%3E%3Cpath%20d%3D%22M60%2046%20C%2064.4%2046%2C%2068%2049.6%2C%2068%2054%20C%2068%2058.4%2C%2064.4%2062%2C%2060%2062%20C%2055.6%2062%2C%2052%2058.4%2C%2052%2054%20C%2052%2049.6%2C%2055.6%2046%2C%2060%2046%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center/min(400px,64vw) auto no-repeat}
-html.curtain-in[data-curtain="Tahti"]::after{background:#17181b url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%20100%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23e5173f%22%20stroke-width%3D%224.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.9%22%3E%3Cpath%20d%3D%22M60%2027%20C%2048%2019%2C%2030%2017%2C%2014%2021%20L%2014%2081%20C%2030%2077%2C%2048%2079%2C%2060%2087%22%2F%3E%3Cpath%20d%3D%22M60%2027%20C%2072%2019%2C%2090%2017%2C%20106%2021%20L%20106%2081%20C%2090%2077%2C%2072%2079%2C%2060%2087%22%2F%3E%3Cpath%20d%3D%22M60%2027%20L%2060%2087%22%2F%3E%3Cpath%20d%3D%22M72%2047%20C%2080%2046%2C%2088%2046%2C%2096%2047%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center/min(400px,64vw) auto no-repeat}
-html.curtain-in[data-curtain="Havain"]::after{background:#17181b url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%20100%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23e5173f%22%20stroke-width%3D%224.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.9%22%3E%3Cpath%20d%3D%22M20%2034%20L20%2020%20L34%2020%22%2F%3E%3Cpath%20d%3D%22M86%2020%20L100%2020%20L100%2034%22%2F%3E%3Cpath%20d%3D%22M100%2066%20L100%2080%20L86%2080%22%2F%3E%3Cpath%20d%3D%22M34%2080%20L20%2080%20L20%2066%22%2F%3E%3Cpath%20d%3D%22M34%2058%20L86%2058%22%2F%3E%3Cpath%20d%3D%22M52%2058%20L52%2067%20L68%2067%20L68%2058%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center/min(400px,64vw) auto no-repeat}
 .intro p.revisit{margin-top:20px;font-size:16px}.revisit a{color:var(--accent-hi);text-decoration:none;border-bottom:1px solid currentColor}
 </style>
 <style>
@@ -54,7 +51,7 @@ html.curtain-in[data-curtain="Havain"]::after{background:#17181b url("data:image
 ::selection{background:#571221;color:inherit}
 html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html,body{overflow-x:clip}
-body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+body{margin:0;background:transparent;color:var(--ink);font:17px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
 a{color:inherit}
 button{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
@@ -217,7 +214,7 @@ figcaption{margin-top:12px;max-width:44em;font-size:14px;line-height:1.5;color:v
 .curtain.on{transform:none;pointer-events:auto}
 .curtain span{text-align:center;max-width:calc(100vw - 48px);font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;color:#eeeeeb;opacity:0;transform:translateY(24px);transition:opacity 360ms ease 180ms,transform 620ms cubic-bezier(.23,1,.32,1) 180ms}
 .curtain.on span{opacity:1;transform:none}
-html.curtain-in::after{content:attr(data-curtain);position:fixed;inset:0;text-align:center;padding:0 24px;z-index:100;display:grid;place-items:center;background:#17181b;color:#eeeeeb;font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;transition:transform 720ms cubic-bezier(.77,0,.175,1)}
+html.curtain-in::after{content:attr(data-curtain);background:#101114!important;position:fixed;inset:0;text-align:center;padding:0 24px;z-index:100;display:grid;place-items:center;background:#17181b;color:#eeeeeb;font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;transition:transform 720ms cubic-bezier(.77,0,.175,1)}
 html.curtain-in main{transform:translateY(32px);opacity:.001;transition:transform 900ms cubic-bezier(.23,1,.32,1) 180ms,opacity 500ms ease 180ms}
 html.curtain-out::after{transform:translateY(-100%)}
 html.curtain-out main{transform:none;opacity:1}
@@ -227,8 +224,6 @@ html.curtain-out main{transform:none;opacity:1}
 .curtain .sq path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset var(--t) cubic-bezier(.45,0,.2,1) var(--d)}
 .curtain.on .sq path{stroke-dashoffset:0}
 .curtain span{position:relative}
-html.curtain-in::after{background:#17181b url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20240%20110%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23e5173f%22%20stroke-width%3D%2213%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.9%22%3E%3Cpath%20d%3D%22M14%2074%20C%2052%2010%2C%2096%206%2C%20104%2044%20C%20112%2082%2C%2074%20100%2C%2062%2074%20C%2050%2048%2C%20116%2018%2C%20150%2040%20C%20184%2062%2C%20166%20102%2C%20140%2086%20C%20114%2070%2C%20170%2022%2C%20226%2030%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center/min(620px,80vw) auto no-repeat}
-html.curtain-in[data-curtain="KorisLab"]::after{background:#17181b url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23e5173f%22%20stroke-width%3D%224.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.9%22%3E%3Cpath%20d%3D%22M50%208%20C%2073%208%2C%2092%2027%2C%2092%2050%20C%2092%2073%2C%2073%2092%2C%2050%2092%20C%2027%2092%2C%208%2073%2C%208%2050%20C%208%2027%2C%2027%208%2C%2050%208%22%2F%3E%3Cpath%20d%3D%22M50%209%20C%2051%2036%2C%2049%2064%2C%2050%2091%22%2F%3E%3Cpath%20d%3D%22M9%2050%20C%2036%2049%2C%2064%2051%2C%2091%2050%22%2F%3E%3Cpath%20d%3D%22M23%2018%20C%2038%2036%2C%2038%2064%2C%2023%2082%22%2F%3E%3Cpath%20d%3D%22M77%2018%20C%2062%2036%2C%2062%2064%2C%2077%2082%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center/min(380px,62vw) auto no-repeat}
 
 /* the case's own mark, a basketball, drawn stroke by stroke beside the title once the page settles */
 .title-sq{display:inline-block;width:.62em;height:auto;margin-left:.16em;vertical-align:.12em;overflow:visible;fill:none;stroke:#e5173f;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
@@ -310,12 +305,9 @@ body.tldr .toc .full{display:none}
 @media (max-width:640px){.phones{gap:12px}.phones img{max-height:420px;border-radius:16px}}
 
 /* project marks on the arrival panel */
-html.curtain-in[data-curtain="Peluutin"]::after{background:#17181b url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20140%20100%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23e5173f%22%20stroke-width%3D%224.4%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.9%22%3E%3Cpath%20d%3D%22M12%2014%20C%2050%2012%2C%2092%2015%2C%20128%2013%20C%20129%2040%2C%20127%2062%2C%20128%2087%20C%2090%2089%2C%2050%2086%2C%2012%2088%20C%2011%2062%2C%2013%2040%2C%2012%2014%22%2F%3E%3Cpath%20d%3D%22M70%2014%20C%2069%2040%2C%2071%2062%2C%2070%2087%22%2F%3E%3Cpath%20d%3D%22M70%2036%20C%2079%2036%2C%2084%2043%2C%2084%2050%20C%2084%2059%2C%2077%2064%2C%2070%2064%20C%2061%2064%2C%2056%2057%2C%2056%2050%20C%2056%2041%2C%2063%2036%2C%2070%2036%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center/min(460px,72vw) auto no-repeat}
-html.curtain-in[data-curtain="Helsinki Sports Map"]::after{background:#17181b url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23e5173f%22%20stroke-width%3D%224.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.9%22%3E%3Cpath%20d%3D%22M50%2090%20C%2036%2070%2C%2024%2058%2C%2024%2041%20C%2024%2024%2C%2036%2012%2C%2050%2012%20C%2064%2012%2C%2076%2024%2C%2076%2041%20C%2076%2058%2C%2064%2070%2C%2050%2090%22%2F%3E%3Cpath%20d%3D%22M50%2030%20C%2057%2030%2C%2061%2035%2C%2061%2041%20C%2061%2047%2C%2056%2052%2C%2050%2052%20C%2043%2052%2C%2039%2047%2C%2039%2041%20C%2039%2035%2C%2044%2030%2C%2050%2030%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center/min(340px,56vw) auto no-repeat}
-html.curtain-in[data-curtain="S-hävikki"]::after{background:#17181b url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%20100%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23e5173f%22%20stroke-width%3D%224.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.9%22%3E%3Cpath%20d%3D%22M12%2050%20C%2022%2040%2C%2032%2030%2C%2042%2020%20C%2062%2021%2C%2086%2019%2C%20106%2020%20C%20107%2040%2C%20105%2060%2C%20106%2080%20C%2086%2081%2C%2062%2079%2C%2042%2080%20C%2032%2070%2C%2022%2060%2C%2012%2050%22%2F%3E%3Cpath%20d%3D%22M59%2033%20C%2063%2033%2C%2065%2036%2C%2065%2039%20C%2065%2043%2C%2062%2045%2C%2059%2045%20C%2055%2045%2C%2053%2042%2C%2053%2039%20C%2053%2035%2C%2056%2033%2C%2059%2033%20M81%2055%20C%2085%2055%2C%2087%2058%2C%2087%2061%20C%2087%2065%2C%2084%2067%2C%2081%2067%20C%2077%2067%2C%2075%2064%2C%2075%2061%20C%2075%2057%2C%2078%2055%2C%2081%2055%22%2F%3E%3Cpath%20d%3D%22M56%2068%20C%2065%2056%2C%2074%2044%2C%2084%2032%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center/min(400px,64vw) auto no-repeat}
 
 /* the scrollbar's space is always reserved, so the transition panel and the page never shift sideways while a page loads */
-html{overflow-y:scroll;scrollbar-gutter:stable}
+html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
 </style>
 </head>
 <body class="tldr">
@@ -431,42 +423,38 @@ copyBtn.addEventListener("click",()=>{(navigator.clipboard?navigator.clipboard.w
   ["keydown","pointerdown","touchstart"].forEach(ev=>addEventListener(ev,stop,{passive:true}));
 })();
 </script>
+<script src="/pixel-curtain.js"></script>
 <script>
 /* Leaving: same-site links to a case or back home raise the panel first, then navigate. */
 (function(){
   if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
   const internal=a=>a&&!a.target&&a.origin===location.origin&&/^\/(korislab\/|peluutin\/|helsinki-sports-map\/|s-havikki\/|kelikamera\/|tahti\/|havain\/)?$/.test(a.pathname)&&a.pathname!==location.pathname;
-    const MARKS={"KorisLab": {"vb": "0 0 100 100", "w": "min(380px,62vw)", "sw": 4.6, "paths": ["M50 8 C 73 8, 92 27, 92 50 C 92 73, 73 92, 50 92 C 27 92, 8 73, 8 50 C 8 27, 27 8, 50 8", "M50 9 C 51 36, 49 64, 50 91", "M9 50 C 36 49, 64 51, 91 50", "M23 18 C 38 36, 38 64, 23 82", "M77 18 C 62 36, 62 64, 77 82"], "t": [[80, 700], [520, 500], [660, 500], [800, 470], [900, 470]]}, "_": {"vb": "0 0 240 110", "w": "min(620px,80vw)", "sw": 13, "paths": ["M14 74 C 52 10, 96 6, 104 44 C 112 82, 74 100, 62 74 C 50 48, 116 18, 150 40 C 184 62, 166 102, 140 86 C 114 70, 170 22, 226 30"], "t": [[80, 900]]}, "Peluutin": {"vb": "0 0 140 100", "w": "min(460px,72vw)", "sw": 4.4, "paths": ["M12 14 C 50 12, 92 15, 128 13 C 129 40, 127 62, 128 87 C 90 89, 50 86, 12 88 C 11 62, 13 40, 12 14", "M70 14 C 69 40, 71 62, 70 87", "M70 36 C 79 36, 84 43, 84 50 C 84 59, 77 64, 70 64 C 61 64, 56 57, 56 50 C 56 41, 63 36, 70 36"], "t": [[80, 820], [700, 420], [860, 520]]}, "Helsinki Sports Map": {"vb": "0 0 100 100", "w": "min(340px,56vw)", "sw": 4.6, "paths": ["M50 90 C 36 70, 24 58, 24 41 C 24 24, 36 12, 50 12 C 64 12, 76 24, 76 41 C 76 58, 64 70, 50 90", "M50 30 C 57 30, 61 35, 61 41 C 61 47, 56 52, 50 52 C 43 52, 39 47, 39 41 C 39 35, 44 30, 50 30"], "t": [[80, 900], [760, 520]]}, "S-hävikki": {"vb": "0 0 120 100", "w": "min(400px,64vw)", "sw": 4.6, "paths": ["M12 50 C 22 40, 32 30, 42 20 C 62 21, 86 19, 106 20 C 107 40, 105 60, 106 80 C 86 81, 62 79, 42 80 C 32 70, 22 60, 12 50", "M59 33 C 63 33, 65 36, 65 39 C 65 43, 62 45, 59 45 C 55 45, 53 42, 53 39 C 53 35, 56 33, 59 33 M81 55 C 85 55, 87 58, 87 61 C 87 65, 84 67, 81 67 C 77 67, 75 64, 75 61 C 75 57, 78 55, 81 55", "M56 68 C 65 56, 74 44, 84 32"], "t": [[80, 900], [760, 420], [940, 380]]}, "Kelikamera AI": {"vb": "0 0 120 100", "w": "min(400px,64vw)", "sw": 4.6, "paths": ["M18 33 C 18 28, 22 24, 27 24 L 42 24 L 48 14 L 72 14 L 78 24 L 93 24 C 98 24, 102 28, 102 33 L 102 75 C 102 80, 98 84, 93 84 L 27 84 C 22 84, 18 80, 18 75 Z", "M60 36 C 70 36, 78 44, 78 54 C 78 64, 70 72, 60 72 C 50 72, 42 64, 42 54 C 42 44, 50 36, 60 36", "M60 46 C 64.4 46, 68 49.6, 68 54 C 68 58.4, 64.4 62, 60 62 C 55.6 62, 52 58.4, 52 54 C 52 49.6, 55.6 46, 60 46"], "t": [[80, 950], [760, 620], [1120, 440]]}, "Tahti": {"vb": "0 0 120 100", "w": "min(400px,64vw)", "sw": 4.6, "paths": ["M60 27 C 48 19, 30 17, 14 21 L 14 81 C 30 77, 48 79, 60 87", "M60 27 C 72 19, 90 17, 106 21 L 106 81 C 90 77, 72 79, 60 87", "M60 27 L 60 87", "M72 47 C 80 46, 88 46, 96 47"], "t": [[80, 820], [320, 820], [1000, 360], [1240, 300]]}, "Havain": {"vb": "0 0 120 100", "w": "min(400px,64vw)", "sw": 4.6, "paths": ["M20 34 L20 20 L34 20", "M86 20 L100 20 L100 34", "M100 66 L100 80 L86 80", "M34 80 L20 80 L20 66", "M34 58 L86 58", "M52 58 L52 67 L68 67 L68 58"], "t": [[80, 360], [300, 360], [520, 360], [740, 360], [1000, 420], [1300, 380]]}};
-    /* each project has its own mark, drawn in as one crisp stroke */
-    const markSVG=(label)=>{const m=MARKS[label]||MARKS._;
-      const p=m.paths.map((d,i)=>`<path pathLength="1" d="${d}" style="--d:${m.t[i][0]}ms;--t:${m.t[i][1]}ms"/>`).join("");
-      return `<svg class="sq" viewBox="${m.vb}" style="width:${m.w};stroke-width:${m.sw}" aria-hidden="true"><g>${p}</g></svg>`};
   document.addEventListener("click",e=>{
     const a=e.target.closest("a");
     if(!internal(a)||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0)return;
     e.preventDefault();
     const label=a.dataset.curtain||"";
-    const c=document.createElement("div");c.className="curtain";c.innerHTML=markSVG(label)+"<span></span>";c.querySelector("span").textContent=label;document.body.append(c);
     try{sessionStorage.setItem("curtain",label||" ")}catch(err){}
-    c.getBoundingClientRect();c.classList.add("on");
-    let gone=false;const go=()=>{if(!gone){gone=true;location.href=a.href}};
-    const mk=MARKS[label]||MARKS._,done=Math.max(...mk.t.map(([d,t])=>d+t));setTimeout(go,Math.max(650,done-120));
+    if(window.PixelCurtain)PixelCurtain.leave(label,a.href);else location.href=a.href;
   });
   const pre=new Set();
   document.addEventListener("pointerover",e=>{const a=e.target.closest&&e.target.closest("a");if(!internal(a)||pre.has(a.href))return;pre.add(a.href);const l=document.createElement("link");l.rel="prefetch";l.href=a.href;document.head.append(l)},{passive:true});
   /* coming back through the browser's back button: drop any panel left on the restored page */
   addEventListener("pageshow",e=>{if(e.persisted)document.querySelectorAll(".curtain").forEach(n=>n.remove())});
 })();
-/* Arriving: if a panel was raised on the previous page, slide it away and let the content settle in. */
+/* Arriving: if the previous page raised the curtain, cover this one until the pixel curtain takes over. */
 (function(){
   const r=document.documentElement;if(!r.classList.contains("curtain-in"))return;
   /* a page opened through the panel starts at its top, or at the linked section, never at the old scroll position */
   try{history.scrollRestoration="manual"}catch(e){}
   const place=()=>{const t=location.hash&&document.getElementById(decodeURIComponent(location.hash.slice(1)));if(t)t.scrollIntoView({block:"start"});else{(document.scrollingElement||document.documentElement).scrollTop=0;window.scrollTo(0,0)}};
   place();addEventListener("DOMContentLoaded",place,{once:true});addEventListener("load",place,{once:true});
-  let done=false;const out=()=>{if(done)return;done=true;r.classList.add("curtain-out");setTimeout(()=>r.classList.remove("curtain-in","curtain-out"),1400)};
-  if(document.readyState!=="loading")setTimeout(out,30);else addEventListener("DOMContentLoaded",()=>setTimeout(out,30),{once:true});
-  setTimeout(out,1200);
+  /* the pixel curtain covers the page whole, then breaks apart to show it */
+  const label=(r.getAttribute("data-curtain")||"").trim();let shown=false;
+  const reveal=()=>{if(shown)return;shown=true;r.classList.remove("curtain-in","curtain-out")};
+  const start=()=>{if(window.PixelCurtain)PixelCurtain.arrive(label,reveal);else reveal()};
+  if(document.readyState!=="loading")start();else addEventListener("DOMContentLoaded",start,{once:true});
+  setTimeout(reveal,2500);
 })();
 </script>
 <script>

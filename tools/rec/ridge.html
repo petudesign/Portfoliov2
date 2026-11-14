@@ -1,0 +1,67 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>html,body{margin:0;background:#0e0f11}canvas{display:block}</style></head>
+<body>
+<canvas id="c"></canvas>
+<script>
+// Glowing ridgelines: a height map drawn as horizontal dotted lines that rise where the source is bright.
+window.ridge = async function (o) {
+  const W = o.w, H = o.h, dpr = 2, c = document.getElementById('c');
+  c.width = W * dpr; c.height = H * dpr; c.style.width = W + 'px'; c.style.height = H + 'px';
+  // height map at half resolution
+  const hw = Math.round(W / 2), hh = Math.round(H / 2), src = document.createElement('canvas'); src.width = hw; src.height = hh;
+  const s = src.getContext('2d'); s.fillStyle = '#000'; s.fillRect(0, 0, hw, hh);
+  if (o.mark) {
+    const [vx, vy, vw, vh] = o.mark.vb.split(' ').map(Number), k = Math.min(hw * o.scale / vw, hh * o.scale / vh);
+    s.save(); s.translate(hw * o.cx - vw * k / 2, hh * o.cy - vh * k / 2); s.scale(k, k);
+    s.strokeStyle = '#fff'; s.lineCap = 'round'; s.lineJoin = 'round'; s.lineWidth = o.mark.sw * 2.2;
+    s.filter = `blur(${o.blur / k}px)`; o.mark.paths.forEach((d) => s.stroke(new Path2D(d)));
+    s.filter = 'none'; s.lineWidth = o.mark.sw * 1.1; o.mark.paths.forEach((d) => s.stroke(new Path2D(d))); s.restore();
+  }
+  if (o.img) {
+    const im = await new Promise((r) => { const i = new Image(); i.onload = () => r(i); i.src = o.img; });
+    const sc = Math.min(hw * o.scale / im.width, hh * o.scale / im.height), w = im.width * sc, h = im.height * sc;
+    s.drawImage(im, hw * o.cx - w / 2, hh * o.cy - h / 2, w, h);
+    if (o.key) { // drop the paper-coloured background so only the person rises
+      const id = s.getImageData(0, 0, hw, hh), d = id.data, [kr, kg, kb] = o.key;
+      for (let i = 0; i < d.length; i += 4) { const dist = Math.hypot(d[i] - kr, d[i + 1] - kg, d[i + 2] - kb), m = Math.min(1, Math.max(0, (dist - 40) / 60));
+        const L = (0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]) / 255, v = L < .04 ? 0 : Math.round(255 * m * (.35 + .65 * L)); d[i] = d[i + 1] = d[i + 2] = v; }
+      s.putImageData(id, 0, 0); s.filter = 'blur(1px)'; s.drawImage(src, 0, 0); s.filter = 'none';
+    } else { s.filter = 'grayscale(1) contrast(1.3)'; s.drawImage(src, 0, 0); s.filter = 'none'; }
+    // fade the edges of the photo so it rises out of the flat lines
+    const g = s.createRadialGradient(hw * o.cx, hh * o.cy, Math.min(w, h) * .25, hw * o.cx, hh * o.cy, Math.max(w, h) * .62);
+    g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,1)'); s.fillStyle = g; s.fillRect(0, 0, hw, hh);
+  }
+  const hm = s.getImageData(0, 0, hw, hh).data, H_ = (x, y) => { const i = (Math.max(0, Math.min(hh - 1, y | 0)) * hw + Math.max(0, Math.min(hw - 1, x | 0))) * 4; return hm[i] / 255; };
+
+  // palette: dim amber on the flat lines, then orange, pink, lilac and white on the peaks
+  const stops = [[0, [255, 128, 28]], [.3, [255, 96, 48]], [.55, [255, 58, 160]], [.8, [168, 112, 255]], [1, [214, 196, 255]]];
+  const col = (t) => { for (let i = 1; i < stops.length; i++) if (t <= stops[i][0]) { const [a, ca] = stops[i - 1], [b, cb] = stops[i], k = (t - a) / (b - a); return ca.map((v, j) => Math.round(v + (cb[j] - v) * k)); } return stops.at(-1)[1]; };
+
+  const sharp = document.createElement('canvas'); sharp.width = W * dpr; sharp.height = H * dpr; const x = sharp.getContext('2d'); x.scale(dpr, dpr);
+  let seed = 9; const rnd = () => (seed = Math.imul(seed ^ (seed >>> 15), 2246822507) >>> 0, seed / 4294967296);
+  for (let y0 = o.sp, li = 0; y0 < H + o.amp; y0 += o.sp, li++) {
+    const bg = li % (o.every || 9) === 0, pts = [];
+    for (let px = 0; px <= W; px += 1.4) { const h = H_(px / 2, y0 / 2); pts.push([px, y0 - h * o.amp + (rnd() - .5) * (1.2 + h * 2), h]); }
+    if (!bg && !pts.some((p) => p[2] > .05)) continue;
+    // hide the lines behind this one, so the relief reads as solid
+    x.globalCompositeOperation = 'destination-out'; x.fillStyle = 'rgba(0,0,0,.92)'; x.beginPath(); x.moveTo(0, H);
+    pts.forEach(([px, py]) => x.lineTo(px, py + 1.2)); x.lineTo(W, H); x.fill();
+    x.globalCompositeOperation = 'source-over';
+    for (const [px, py, h] of pts) {
+      if (h < .05 && (!bg || rnd() < .3)) continue;         // between subject lines only the sparse background lines run
+      const [r, g, b] = col(Math.min(1, h * 1.05)), a = h < .05 ? .5 : .45 + Math.min(.4, h * .5);
+      x.fillStyle = `rgba(${r},${g},${b},${a})`; x.fillRect(px, py, .95 + h * .6, .95 + h * .6);
+      if (h > .25 && rnd() < h * .9) { x.fillStyle = `rgba(${r},${g},${b},${a * .5})`; x.fillRect(px + (rnd() - .5) * 3, py + 2 + rnd() * h * o.sp, .9, .9); } // dither spill under bright lines
+    }
+  }
+  const ctx = c.getContext('2d'); ctx.fillStyle = '#0e0f11'; ctx.fillRect(0, 0, c.width, c.height);
+  ctx.globalCompositeOperation = 'lighter';
+  ctx.filter = `blur(${9 * dpr}px)`; ctx.globalAlpha = .55; ctx.drawImage(sharp, 0, 0);
+  ctx.filter = `blur(${2.5 * dpr}px)`; ctx.globalAlpha = .35; ctx.drawImage(sharp, 0, 0);
+  ctx.filter = 'none'; ctx.globalAlpha = 1; ctx.drawImage(sharp, 0, 0);
+  ctx.globalAlpha = .18; ctx.drawImage(sharp, 1.5 * dpr, 0);  // slight chromatic smear
+  return true;
+};
+</script>
+</body></html>
