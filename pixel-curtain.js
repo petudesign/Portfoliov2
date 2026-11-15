@@ -139,6 +139,9 @@
     }
     return out;
   }
+  /* The picture is rendered once: lit cells on a transparent canvas, plus each cell's place in the dissolve order
+     (an 8x8 Bayer pattern, nudged so the picture develops from the middle out). */
+  const BAYER = [0,32,8,40,2,34,10,42,48,16,56,24,50,18,58,26,12,44,4,36,14,46,6,38,60,28,52,20,62,30,54,22,3,35,11,43,1,33,9,41,51,19,59,27,49,17,57,25,15,47,7,39,13,45,5,37,63,31,55,23,61,29,53,21];
   function picture(label, W, H, dpr, lr) {
     const key = label in DRAW ? label : '', src = document.createElement('canvas'); src.width = 640; src.height = Math.round(640 * H / W);
     if (H > W * .8) {   // tall screens: draw the subject landscape and set it in the middle, slightly cropped at the sides
@@ -148,19 +151,20 @@
     } else DRAW[key](src.getContext('2d'), src.width, src.height);
     const CELL = cellFor(W), cols = Math.ceil(W / CELL), rows = Math.ceil(H / CELL), bits = dither(src, cols, rows);
     const pic = document.createElement('canvas'); pic.width = W * dpr; pic.height = H * dpr; const p = pic.getContext('2d'); p.setTransform(dpr, 0, 0, dpr, 0, 0);
-    p.fillStyle = BG; p.fillRect(0, 0, W, H); p.fillStyle = TONE[key];
-    const r = rng(11);
+    p.fillStyle = TONE[key];
+    const order = new Float32Array(cols * rows), r = rng(11);
     for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
-      if (!bits[j * cols + i]) continue;
-      const px = i * CELL + CELL / 2, py = j * CELL + CELL / 2;
+      const k = j * cols + i, px = i * CELL + CELL / 2, py = j * CELL + CELL / 2;
+      const rad = Math.min(1, Math.hypot((px / W - .5) * 1.25, py / H - .5) / .75);
+      order[k] = .55 * (BAYER[(j % 8) * 8 + (i % 8)] + .5) / 64 + .4 * rad + .05 * r();
+      if (!bits[k]) continue;
       const ex = Math.hypot((px / W - .5) * 1.25, py / H - .5), edge = Math.min(1, Math.max(0, (.62 - ex) / .22));          // thins out towards the edges
       const dx = Math.max(lr.left - px, 0, px - lr.right), dy = Math.max(lr.top - py, 0, py - lr.bottom);
       const clear = Math.min(1, Math.max(0, (Math.hypot(dx, dy) - 6) / 46));                                                // and around the title
       if (r() > edge * clear) continue;
       p.globalAlpha = .55 + .4 * edge; p.fillRect(i * CELL, j * CELL, CELL - 1.2, CELL - 1.2);
     }
-    p.globalAlpha = 1;
-    return { pic, tone: TONE[key] };
+    return { pic, order, cols, rows, CELL };
   }
 
   /* ---------- the overlay ---------- */
@@ -179,42 +183,42 @@
     el.innerHTML = '<canvas></canvas><span></span>'; el.querySelector('span').textContent = label || 'Petteri Helttula';
     document.body.append(el);
     const dpr = Math.min(2, devicePixelRatio || 1), W = innerWidth, H = innerHeight, cv = el.querySelector('canvas'), cx = cv.getContext('2d');
-    cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const { pic, tone } = picture(label, W, H, dpr, el.querySelector('span').getBoundingClientRect());
-    const bc = Math.ceil(W / BLOCK), br = Math.ceil(H / BLOCK), blocks = [];
-    for (let j = 0; j < br; j++) for (let i = 0; i < bc; i++) blocks.push([i, j, Math.random()]);
-    const put = ([i, j]) => cx.drawImage(pic, i * BLOCK * dpr, j * BLOCK * dpr, BLOCK * dpr, BLOCK * dpr, i * BLOCK, j * BLOCK, BLOCK, BLOCK);
-    return { el, cx, pic, W, H, dpr, blocks, put, tone };
+    cv.width = W * dpr; cv.height = H * dpr;
+    const P = picture(label, W, H, dpr, el.querySelector('span').getBoundingClientRect());
+    const mask = document.createElement('canvas'); mask.width = P.cols; mask.height = P.rows; const mx = mask.getContext('2d'), md = mx.createImageData(P.cols, P.rows);
+    const work = document.createElement('canvas'); work.width = cv.width; work.height = cv.height; const wx = work.getContext('2d');
+    /* one frame: the dark ground at bgA, and the cells whose order is below k */
+    const frame = (k, bgA) => {
+      const d = md.data, o = P.order; for (let n = 0; n < o.length; n++) d[n * 4 + 3] = o[n] < k ? 255 : 0;
+      mx.putImageData(md, 0, 0);
+      wx.globalCompositeOperation = 'copy'; wx.drawImage(P.pic, 0, 0);
+      wx.globalCompositeOperation = 'destination-in'; wx.imageSmoothingEnabled = false; wx.drawImage(mask, 0, 0, P.cols * P.CELL * dpr, P.rows * P.CELL * dpr);
+      cx.clearRect(0, 0, cv.width, cv.height);
+      if (bgA > 0) { cx.globalAlpha = bgA; cx.fillStyle = BG; cx.fillRect(0, 0, cv.width, cv.height); cx.globalAlpha = 1; }
+      cx.drawImage(work, 0, 0);
+    };
+    return { el, span: el.querySelector('span'), frame };
   }
-  const run = (ms, step) => new Promise((res) => { const t0 = performance.now(); let last = 0;
-    const f = (t) => { const k = Math.max(0, Math.min(1, (t - t0) / ms)); step(k, last); last = k; k < 1 ? requestAnimationFrame(f) : res(); }; requestAnimationFrame(f); });
+  const ease = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const run = (ms, step) => new Promise((res) => { const t0 = performance.now();
+    const f = (t) => { const k = Math.max(0, Math.min(1, (t - t0) / ms)); step(ease(k)); k < 1 ? requestAnimationFrame(f) : res(); }; requestAnimationFrame(f); });
 
-  /* leaving: blocks land over the current page (a few flash first), then the browser moves on */
+  /* leaving: the ground fades in while the picture develops from the middle out, then the browser moves on */
   async function leave(label, href) {
     if (reduce) { location.href = href; return; }
-    const o = overlay(label), flashed = [];
-    o.el.querySelector('span').classList.add('off');
-    o.blocks.sort((a, b) => a[2] - b[2]);
-    await run(560, (k, last) => {
-      flashed.splice(0).forEach(o.put);
-      const a = Math.floor(last * o.blocks.length), b = Math.floor(k * o.blocks.length);
-      for (let n = a; n < b; n++) { const bl = o.blocks[n];
-        if (Math.random() < .07) { o.cx.fillStyle = Math.random() < .6 ? '#e5173f' : o.tone; o.cx.fillRect(bl[0] * BLOCK, bl[1] * BLOCK, BLOCK, BLOCK); flashed.push(bl); } else o.put(bl); }
-      if (k > .55 && k < .7) { const y = (o.H * (.3 + Math.random() * .4)) | 0; o.cx.drawImage(o.pic, 0, y * o.dpr, o.W * o.dpr, 10 * o.dpr, 18, y, o.W, 10); }
-    });
-    o.blocks.forEach(o.put); o.el.querySelector('span').classList.remove('off');
-    setTimeout(() => { location.href = href; }, 140);
+    const o = overlay(label); o.span.classList.add('off'); o.frame(0, 0);
+    await run(460, (k) => { o.frame(k * 1.04, Math.min(1, k * 1.5)); if (k > .55) o.span.classList.remove('off'); });
+    o.frame(2, 1); o.span.classList.remove('off');
+    setTimeout(() => { location.href = href; }, 90);
   }
 
-  /* arriving: the picture is already whole, holds for a moment with the title, then breaks apart */
+  /* arriving: the picture is whole, holds for a moment, then dissolves from the edges in while the ground fades out */
   async function arrive(label, reveal) {
-    const o = overlay(label); o.blocks.forEach(o.put); reveal();
+    const o = overlay(label); o.frame(2, 1); reveal();
     if (reduce) { setTimeout(() => o.el.remove(), 250); return; }
-    await new Promise((r) => setTimeout(r, 380));
-    o.el.querySelector('span').classList.add('off');
-    o.blocks.sort(() => Math.random() - .5);
-    await run(420, (k, last) => { const a = Math.floor(last * o.blocks.length), b = Math.floor(k * o.blocks.length);
-      for (let n = a; n < b; n++) { const [i, j] = o.blocks[n]; o.cx.clearRect(i * BLOCK, j * BLOCK, BLOCK, BLOCK); } });
+    await new Promise((r) => setTimeout(r, 240));
+    o.span.classList.add('off');
+    await run(520, (k) => { const t = 1 - k; o.frame(t * 1.04, Math.min(1, t * 1.6)); });
     o.el.remove();
   }
   addEventListener('pageshow', (e) => { if (e.persisted) document.querySelectorAll('.pxc').forEach((n) => n.remove()); });
