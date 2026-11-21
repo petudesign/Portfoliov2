@@ -1,0 +1,81 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Geist;src:url("/fonts/Geist-Variable.woff2") format("woff2");font-weight:100 900}
+@font-face{font-family:"Geist Mono";src:url("/fonts/GeistMono-Variable.woff2") format("woff2");font-weight:100 900}
+body{margin:0;background:#222}
+</style></head><body>
+<span style="font-family:Geist">.</span><span style="font-family:'Geist Mono'">.</span>
+<script src="/tools/readme/pc.js"></script>
+<script src="/tools/readme/icons.js"></script>
+<script>
+// Images for the GitHub profile README, drawn with the portfolio's own pixel curtain.
+const INK = '#eeeeeb', MUTE = '#a3a4a9', FAINT = '#7c7e86', BG = '#0e0f11', HAIR = '#26272b', S = 2;
+const canvas = (w, h) => { const c = document.createElement('canvas'); c.width = w * S; c.height = h * S; const x = c.getContext('2d'); x.scale(S, S); return [c, x]; };
+const card = (x, w, h, r = 22) => { x.beginPath(); x.roundRect(0, 0, w, h, r); x.fillStyle = BG; x.fill(); x.save(); x.clip(); };
+const frame = (x, w, h, r = 22) => { x.restore(); x.beginPath(); x.roundRect(.5, .5, w - 1, h - 1, r); x.strokeStyle = HAIR; x.lineWidth = 1; x.stroke(); };
+const text = (x, s, px, y, size, weight, color, font = 'Geist', ls = -.03) => { x.font = `${weight} ${size}px "${font}"`; x.letterSpacing = `${ls * size}px`; x.fillStyle = color; x.fillText(s, px, y); return x.measureText(s).width; };
+
+window.header = () => {
+  const W = 1600, H = 420, [c, x] = canvas(W, H); card(x, W, H, 26);
+  const art = { left: 0, right: 0, top: -999, bottom: -999 }, AW = 720, P = PixelCurtain.picture('', AW, H, S, art);
+  x.drawImage(P.pic, W - AW + 10, 0, AW, H);
+  const fade = x.createLinearGradient(W - AW, 0, W - AW + 200, 0); fade.addColorStop(0, BG); fade.addColorStop(1, 'rgba(14,15,17,0)'); x.fillStyle = fade; x.fillRect(W - AW, 0, 210, H);
+  text(x, 'Petteri Helttula', 72, 150, 76, 600, INK, 'Geist', -.05);
+  text(x, 'Product designer in Helsinki. I design products and', 74, 214, 28, 400, MUTE, 'Geist', -.02);
+  text(x, 'build them with AI agents, guided by data and user testing.', 74, 254, 28, 400, MUTE, 'Geist', -.02);
+  text(x, 'petu.design', 74, 346, 18, 400, INK, 'Geist Mono', 0); text(x, '·  Helsinki, Finland', 206, 346, 18, 400, FAINT, 'Geist Mono', 0);
+  frame(x, W, H, 26); return c.toDataURL('image/png');
+};
+
+window.tile = (label, line, meta) => {
+  const M = 7, W = 800, H = 500, [c, x] = canvas(W + 2 * M, H + 2 * M); x.translate(M, M); card(x, W, H);
+  x.font = '600 44px Geist'; const tw = x.measureText(label).width;
+  const P = PixelCurtain.picture(label, W, H, S, { left: 36, right: 36 + Math.max(tw, 420), top: H - 140, bottom: H - 30 });
+  x.drawImage(P.pic, 0, 0, W, H);
+  const sh = x.createLinearGradient(0, H - 190, 0, H); sh.addColorStop(0, 'rgba(14,15,17,0)'); sh.addColorStop(1, 'rgba(14,15,17,.92)'); x.fillStyle = sh; x.fillRect(0, H - 190, W, 190);
+  const tp = x.createLinearGradient(0, 0, 0, 96); tp.addColorStop(0, 'rgba(14,15,17,.9)'); tp.addColorStop(1, 'rgba(14,15,17,0)'); x.fillStyle = tp; x.fillRect(0, 0, W, 96);
+  text(x, meta, 36, 52, 16, 400, FAINT, 'Geist Mono', 0);
+  text(x, label, 36, H - 82, 44, 600, INK, 'Geist', -.045);
+  text(x, line, 37, H - 42, 21, 400, MUTE, 'Geist', -.015);
+  frame(x, W, H); return c.toDataURL('image/png');
+};
+
+/* a brand icon from Simple Icons in its own colour (too-dark brands use ink), or a small glyph for tools without one */
+const lum = (h) => { const [r, g, b] = [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16) / 255); return .2126 * r + .7152 * g + .0722 * b; };
+const IMG = {}; ['paper', 'herdr'].forEach((k) => { IMG[k] = new Image(); IMG[k].src = `/tools/readme/icons/${k}.png`; });
+function icon(x, key, cx, cy, sz) {
+  if (IMG[key]) { x.save(); x.beginPath(); x.roundRect(cx - sz / 2, cy - sz / 2, sz, sz, 5); x.clip(); x.drawImage(IMG[key], cx - sz / 2, cy - sz / 2, sz, sz); x.restore(); return; }
+  if (key && ICONS[key]) { const ic = ICONS[key]; x.save(); x.translate(cx - sz / 2, cy - sz / 2); x.scale(sz / 24, sz / 24);
+    x.fillStyle = lum(ic.hex) < .22 ? INK : '#' + ic.hex; x.fill(new Path2D(ic.d)); x.restore(); return; }
+  if (key === 'db') { x.save(); x.strokeStyle = INK; x.lineWidth = 1.8; const w = sz * .78, h = sz * .9, l = cx - w / 2, t = cy - h / 2, ry = sz * .16;
+    x.beginPath(); x.ellipse(cx, t + ry, w / 2, ry, 0, 0, 7); x.stroke();
+    x.beginPath(); x.moveTo(l, t + ry); x.lineTo(l, t + h - ry); x.ellipse(cx, t + h - ry, w / 2, ry, 0, Math.PI, 0, true); x.lineTo(l + w, t + ry); x.stroke();
+    x.beginPath(); x.ellipse(cx, cy, w / 2, ry, 0, 0, Math.PI); x.stroke(); x.restore(); return; }
+  // monogram for a tool without a public icon
+  x.save(); x.beginPath(); x.roundRect(cx - sz / 2, cy - sz / 2, sz, sz, 5); x.fillStyle = INK; x.fill();
+  x.fillStyle = BG; x.font = `700 ${sz * .62}px Geist`; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(key.slice(1), cx, cy + 1); x.restore();
+}
+window.stack = (rows) => {
+  // each item is a tag with its icon; rows wrap, so the card grows with its content
+  const W = 1600, L = 60, X0 = 300, R = W - 60, TH = 48, GX = 10, GY = 10, PAD = 16, IS = 22, x0 = document.createElement('canvas').getContext('2d');
+  x0.font = '500 22px Geist'; x0.letterSpacing = '-0.3px';
+  const layout = rows.map(([k, items]) => { let px = X0, line = 0; const tags = items.map(([it, ic]) => { const w = x0.measureText(it).width + PAD * 2 + IS + 12;
+    if (px + w > R) { px = X0; line++; } const t = { it, ic, x: px, line, w }; px += w + GX; return t; }); return { k, tags, lines: line + 1 }; });
+  const TOP = 118, rowH = (r) => r.lines * TH + (r.lines - 1) * GY + 34, H = TOP + layout.reduce((a, r) => a + rowH(r), 0) + 20;
+  const [c, x] = canvas(W, H); card(x, W, H, 26);
+  text(x, 'What I build with', L, 70, 18, 400, FAINT, 'Geist Mono', 0);
+  let y = TOP;
+  layout.forEach((r, i) => {
+    if (i) { x.fillStyle = HAIR; x.fillRect(L, y - 17, W - 2 * L, 1); }
+    text(x, r.k, L, y + TH / 2 + 6, 17, 400, MUTE, 'Geist Mono', 0);
+    const soft = r.k === 'learning';
+    r.tags.forEach((t) => { const ty = y + t.line * (TH + GY);
+      x.beginPath(); x.roundRect(t.x, ty, t.w, TH, 12); if (!soft) { x.fillStyle = '#17181b'; x.fill(); }
+      x.setLineDash(soft ? [5, 5] : []); x.strokeStyle = soft ? '#4a4b52' : '#33343a'; x.lineWidth = 1; x.stroke(); x.setLineDash([]);
+      x.globalAlpha = soft ? .75 : 1; icon(x, t.ic, t.x + PAD + IS / 2, ty + TH / 2, IS);
+      text(x, t.it, t.x + PAD + IS + 12, ty + TH / 2 + 8, 22, 500, soft ? MUTE : INK, 'Geist', -.014); x.globalAlpha = 1; });
+    y += rowH(r);
+  });
+  frame(x, W, H, 26); return c.toDataURL('image/png');
+};
+</script></body></html>
