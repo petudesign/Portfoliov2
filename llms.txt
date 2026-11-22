@@ -1,23 +1,36 @@
 # Petteri Helttula
 
-> Portfolio of Petteri Helttula, a product designer based in Helsinki. He designs products and builds them with AI agents, guided by data and user testing.
+> Portfolio of Petteri Helttula ("Petu"), a Helsinki-based product, data and AI builder (B.Eng. in ICT Engineering, Metropolia UAS). He bridges data analytics, AI tools and user experience — turning complex data into usable products, validating assumptions with domain knowledge and users, and building working prototypes with AI agents.
+
+For a complete, single-file Markdown summary of background, skills, target roles and all case studies, see [llms-full.txt](https://www.petu.design/llms-full.txt).
 
 ## Main site
 
-- [Portfolio](https://www.petu.design/): Selected work, other projects and a short about section.
+- [Portfolio](https://www.petu.design/): Selected work, other projects and about section.
+- [Full LLMs Dossier](https://www.petu.design/llms-full.txt): Background, education, target roles, core skills and detailed case study summaries.
 
-## Case studies
+## Currently building
 
-- [KorisLab](https://www.petu.design/korislab/): An analytics tool for Finnish basketball that goes past the box score, across both Korisliiga leagues.
-- [Peluutin](https://www.petu.design/peluutin/): A web app that helps junior coaches keep playing time fair and plan training in 3D, shaped with test coaches.
-- [Helsinki Sports Map](https://www.petu.design/helsinki-sports-map/): Finding somewhere to exercise in Helsinki, and the easiest way to get there.
-- [S-hävikki](https://www.petu.design/s-havikki/): A service concept for cutting food waste in grocery stores, starting with the staff who check the shelves.
+- [Havain](https://www.petu.design/havain/): Computer vision and GS1 2D barcode system turning grocery shelves into structured data, starting with expiry and food waste. Includes a day-by-day shelf simulation, phone prototype and maintenance centre demo.
+
+## Selected case studies
+
+- [Kelikamera AI](https://www.petu.design/kelikamera/): Live map of Finland's 800 Fintraffic road weather cameras, collecting winter 2026–27 image and sensor pairs to train a local road-condition and friction estimation model for the 475 cameras with no surface sensor.
+- [KorisLab](https://www.petu.design/korislab/): Basketball analytics platform for women's and men's Korisliiga (692 games, 566 players, 96,019 shot attempts), featuring 1,000x Monte Carlo game simulation, play-by-play replay, matchup comparisons and natural-language season search.
+- [Peluutin](https://www.petu.design/peluutin/): Mobile playing-time tracker and 2D/3D training exercise planner built with two junior football coaches, used across 4+ months and 20+ matches in football and futsal.
+- [Helsinki Sports Map](https://www.petu.design/helsinki-sports-map/): Mobile-first map uniting 1,368 Helsinki sports venues from 3 open data sources (LIPAS, Helsinki Service Map, Paikkatietohaku) with walking, cycling, driving and HSL public transport routing, backed by a manual data-review queue.
 
 ## Other projects
 
-- [Tahti](https://www.petu.design/tahti/): Paces dense text one word at a time.
+- [Tahti](https://www.petu.design/tahti/): Chrome extension that paces selected text one word at a time to reduce visual load when reading dense text.
+- [S-hävikki](https://www.petu.design/s-havikki/): Grocery food-waste service concept shaped by four years on a hypermarket dairy shop floor (predecessor to Havain).
+- Vilt (in progress): Maps wildlife collisions in Finland and Norway, forecasts risk and identifies where new wildlife fences would save the most.
 
-## Contact
+## Background & Contact
 
+- Location: Helsinki, Finland
+- Education: B.Eng. in Information and Communications Technology (ICT Engineering), Metropolia University of Applied Sciences
+- Languages: Finnish (native), English (fluent)
+- Target roles: Product Design, Data & AI Analytics, Product Analytics, UX & Decision-Support Tools, AI-Assisted Product Building
 - Email: helttula.petteri@gmail.com
 - [LinkedIn](https://www.linkedin.com/in/petteri-helttula/)

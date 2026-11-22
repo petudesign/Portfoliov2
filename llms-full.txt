@@ -1,0 +1,113 @@
+# Petteri Helttula — Full Portfolio & Candidate Dossier
+
+> Helsinki-based product, data and AI builder (B.Eng. in ICT Engineering, Metropolia University of Applied Sciences). Works at the intersection of data analytics, AI tools and user experience: turning messy or complex data into usable decision-support tools, validating models and assumptions against real-world domain knowledge and user feedback, and shipping working prototypes with AI agents.
+
+- Website: https://www.petu.design/
+- Summary index: https://www.petu.design/llms.txt
+- LinkedIn: https://www.linkedin.com/in/petteri-helttula/
+- Email: helttula.petteri@gmail.com
+- Location: Helsinki, Finland
+- Languages: Finnish (native), English (fluent)
+
+---
+
+## Target Roles & Positioning
+
+Petteri is looking for roles that combine **data, AI and user/product understanding** — including hybrid **AI + UX/Product Design + Data** roles as well as **Data & AI Analyst / Product Analyst** roles focused on decision support, analytics tools, data validation and user-facing adoption (rather than pure backend data engineering).
+
+Strongest fit for:
+- Data & AI Analyst / Customer & Product Analyst (supporting teams with analytics tools, dashboards, AI analytics adoption, data validation and turning user feedback into tool improvements)
+- Product Designer / UX Designer for data-heavy or AI-enabled products
+- AI Product Builder / Design & Data Hybrid
+
+## Education & Domain Background
+
+- **Education:** B.Eng. in Information and Communications Technology (ICT Engineering), Metropolia University of Applied Sciences, Helsinki.
+- **Retail operations experience:** 4+ years working in a hypermarket dairy department — directly informed the S-hävikki service concept and corrected faulty model assumptions in the Havain retail shelf simulation.
+- **Accessibility perspective:** Red-green colourblind (deuteranopia), which informs practical accessibility choices (never relying on colour alone, high-contrast status indicators, keyboard navigation).
+
+## Core Strengths & Methods
+
+- **Data analysis & validation:** Checking sensor/API semantics against raw measurements, building rule-based review queues, flagging missing/uncertain data honestly instead of hiding gaps, and stress-testing model assumptions against domain reality.
+- **Decision-support UX & visualization:** Making complex datasets approachable through question-led search, contextual comparisons (visible sample sizes, units and scales), and clear separation between measured facts and model estimates.
+- **User feedback & iterative product development:** Building directly with real test users (coaches, retail staff workflows), running structured edge-case and simulated-user reviews, and scoping narrow first versions to test core value.
+- **AI-assisted prototyping & workflows:** Directing AI coding agents to build working web apps, simulations, prototypes and data pipelines rapidly so ideas can be tested as working software rather than static slides.
+
+---
+
+## Currently Building
+
+### Havain — Computer Vision & Structured Data for Grocery Shelves
+- URL: https://www.petu.design/havain/
+- Role: Product design, research and development
+- Timeline: Nov 2026 – in progress
+- Status: Shelf simulation, phone prototype and maintenance centre demo on a simulated store; computer vision in progress.
+- Summary: Turns grocery shelves into structured data by combining shelf-edge label detection, computer vision for what sits above each label, and GS1 2D barcodes (batches and expiry dates). First use case is expiry and food waste in fresh departments.
+- Key data & validation insight: Built a day-by-day dairy shelf simulation comparing four workflows. The first simulation predicted labelling every near-expiry item would hurt margin — four years of shop-floor dairy experience revealed the simulated shelf was unrealistic (fast sellers hit the label window on 15–19% of days instead of ~2%). Correcting the model showed today's manual routine missed 5–14 near-expiry units per shelf per week across new-employee skill levels, whereas the data map missed none and cut simulated waste by ~1/3.
+- UX principles: Designed for the newest person on the shift (high retail turnover) — one task at a time, plain language, never colour alone, undo everywhere, and "I can't find these" as a valid answer.
+
+---
+
+## Selected Case Studies
+
+### Kelikamera AI — Finland Road Weather Map & Local Friction Model
+- URL: https://www.petu.design/kelikamera/
+- Role: Product design, data and development
+- Timeline: Nov 2026 – in progress
+- Summary: Six in ten of Fintraffic's 800 road weather cameras (475 of 800) have no nearby surface sensor. Kelikamera AI pairs live Digitraffic sensor readings (fetched every 5 minutes) with 8 full daily winter 2026–27 collections to train a local model estimating road surface condition and friction straight from camera images.
+- Data validation & engineering judgement:
+  - Decoded undocumented Fintraffic optical sensor codes by cross-checking them against measured ice/snow/water depth and friction at the same station (e.g., code 7 paired with 1.8 mm ice and 0.11 friction = ice).
+  - Deliberately excluded a second sensor type (419 stations) whose undocumented codes did not match any known scheme, avoiding corrupted training labels.
+  - Fixed a 30-minute timestamp matching rule that discarded 449 of 815 images in one morning run by matching each hourly camera photo to the closest reading in the station's 5-minute history; capped displayed station readings at 5 km distance.
+  - Caught "thin ice/snow layer with good friction" cases (7 of 8 snow cameras in one morning) and separated thin layers into their own non-slippery class while training on friction directly.
+- Interface & accessibility: Clearly separates official FMI traffic weather warnings from custom estimates; filled dots for measurements vs. rings + confidence for estimates; tested at 320 px with worst-case data and simulated user personas (duty officer, low-vision/deuteranopia driver using 200% zoom and VoiceOver).
+
+### KorisLab — Finnish Basketball Analytics Platform
+- URL: https://www.petu.design/korislab/
+- Role: Product design & data (designed the product, directed coding agents, checked data and models personally)
+- Timeline: Oct 2026 – ongoing
+- Scale: 692 games, 566 players, 24 teams, 96,019 shot attempts across women's and men's Korisliiga (Oct 2024 – Nov 2026), rebuilt from official play-by-play data.
+- Key features:
+  - **Sim Studio:** 1,000x possession-by-possession Monte Carlo simulation of upcoming games (win probability, margin spread, overtime odds, projected player points).
+  - **Matchup Lab:** Compares teams and players across opponents, seasons, recent form and on/off-court splits, pairing a 0–100 league-rank radar chart with raw values, units and sample sizes so users don't misread small samples.
+  - **Game Replay:** Event-by-event game replay with real shot locations and a win probability timeline.
+  - **Season Search & Player Ratings:** Question-led search into verified game totals, 6-area 1–99 ratings with confidence levels, similar-player discovery and inferred player transfers.
+
+### Peluutin — Playing-Time Tracker & 3D Training Planner for Junior Coaches
+- URL: https://www.petu.design/peluutin/
+- Role: Product design & prototyping
+- Timeline: Jul 2026 – ongoing
+- Real-world usage: 2 junior football coaches testing from day one, 4+ months in real use, 20+ matches tracked across football and futsal.
+- User-driven iterations:
+  - Put minutes directly on each player's shirt with a visual relative-minutes indicator (above/below/near active average) so coaches keep playing time fair without mental maths.
+  - Moved the on-field substitution grid directly below the bench on mobile so coaches don't jump between pitch and bench mid-game; added saved lineup groups and Excel export for sharing stats with parents.
+  - Turned the score display itself into a large tap/long-press target after small +/- buttons proved hard to hit during a live match.
+  - Built a 2D/3D timeline-based exercise planner that creates drills on desktop/tablet and replays cleanly on any phone.
+
+### Helsinki Sports Map — Citywide Venue Discovery & Multimodal Routing
+- URL: https://www.petu.design/helsinki-sports-map/
+- Role: Product design, development and data integration
+- Timeline: Sep 2026 – ongoing
+- Scale: 1,368 sports areas across Helsinki joining 3 open data sources (LIPAS, Helsinki Service Map, Helsinki Paikkatietohaku) with walking, cycling, driving and HSL Digitransit public transport routes (including fare zones).
+- Data quality & pragmatic trade-offs:
+  - Built a manual review queue with a rule-based evidence score (recognised price format, LIPAS match, source freshness) so unverified or missing price/accessibility fields are never presented as "free" or confirmed fact.
+  - Replaced a custom-built map renderer with MapLibre GL JS + OpenFreeMap Positron to stop spending engineering time on tile optimisation and focus on user discovery and data quality.
+  - Includes a linked text list for full keyboard and screen-reader browsing without relying on map markers.
+
+---
+
+## Other Projects
+
+### Tahti — One-Word-at-a-Time Reading Chrome Extension
+- URL: https://www.petu.design/tahti/
+- Role: Product, UX and interaction design | Timeline: Jun 2026
+- Summary: Working Chrome extension built from personal reading friction (mild astigmatism and ADD). Launches from the right-click menu on selected text, ramping smoothly to target reading speed with extra pauses for punctuation and longer words. Deliberately scoped narrow (no accounts, AI or PDFs) to test core comfort and comprehension first.
+
+### S-hävikki — Grocery Food-Waste Service Concept
+- URL: https://www.petu.design/s-havikki/
+- Role: Product, UX and service design | Timeline: Dec 2025
+- Summary: Interactive service concept based on 4+ years in grocery retail, connecting a shelf-map handover tool for store staff, a consistent in-store discount point, and honest availability signals in the S-kaupat app (scoping out brittle item reservations). Evolved into Havain in 2026.
+
+### Vilt — Wildlife Collision Mapping & Fence Impact Forecasting (In Progress)
+- Status: In progress (listed on https://www.petu.design/)
+- Summary: Maps wildlife collisions in Finland and Norway, forecasts collision risk and identifies where new wildlife fences would save the most.
