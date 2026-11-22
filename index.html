@@ -199,23 +199,17 @@ footer a:hover{color:var(--ink)}
 .top .home img{width:33px;height:44px;border-radius:7px;object-fit:cover;background:#f8f4e7}
 .top .home span{font-weight:430;font-size:17px;letter-spacing:-.01em;transition:color 200ms ease}
 .top .acts{display:flex;align-items:center;gap:18px}
-.top .ghost{display:inline-flex;align-items:center;gap:6px;min-height:40px;color:var(--mute);text-decoration:none;font-size:14px;transition:color 200ms ease}
-.top .ghost svg{width:14px;height:14px;transition:transform 240ms var(--ease)}
 .top .bar-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 17px;line-height:1;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);cursor:pointer;font-size:14.5px;transition:transform 160ms var(--ease),background-color 200ms ease}
 .top .bar-btn:active{transform:scale(.97)}
 @media (hover:hover) and (pointer:fine){
   .top .home:hover span{color:var(--accent-hi)}
-  .top .ghost:hover{color:var(--ink)}
-  .top .ghost:hover svg{transform:translateY(-2px)}
   .top .bar-btn:hover{background:#fff}
 }
 @media (max-width:600px){
   .top-in{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-  .top .acts{gap:12px}
-  .top .ghost span{display:none}
   .top .bar-btn{padding:0 14px;font-size:14px}
 }
-@media (prefers-reduced-motion: reduce){.top,.top .ghost svg,.to-top svg{transition:none}}
+@media (prefers-reduced-motion: reduce){.top,.to-top svg{transition:none}}
 
 @media (max-width:600px){
   .tile{width:51px;height:68px}
@@ -322,7 +316,6 @@ html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
   <div class="top-in">
     <a class="home" href="#top" data-to-top aria-label="Back to top"><img src="/avatar.jpg" alt="" width="33" height="44"><span>Petteri Helttula</span></a>
     <div class="acts">
-      <a class="ghost" href="#top" data-to-top aria-label="Back to top"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 13V3.5M3.5 7.5 8 3l4.5 4.5"/></svg><span>Top</span></a>
       <button class="bar-btn" type="button" data-copy-email><span class="swap" aria-hidden="true"><span class="a"><svg viewBox="0 0 16 16"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 3.5v-.5a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h.5"/></svg></span><span class="b"><svg viewBox="0 0 16 16"><path d="M3.5 8.5 6.5 11.5 12.5 4.5"/></svg></span></span><span class="swap"><span class="a">Copy email</span><span class="b" aria-hidden="true">Copied</span></span></button>
     </div>
   </div>
