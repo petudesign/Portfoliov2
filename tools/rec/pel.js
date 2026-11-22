@@ -64,9 +64,9 @@ async function open({ sport = 'football', theme = 'dark', side, phone, url = URL
     const o = await open(); const page = o.page; await planner(page); await page.waitForTimeout(600);
     await run(page, 'p-exercise', async () => {
       await page.waitForTimeout(700); await page.getByRole('button', { name: 'Aikajana' }).click(); await page.waitForTimeout(900);
-      await page.getByRole('button', { name: 'Toista' }).click(); await page.waitForTimeout(6500);
+      await page.getByRole('button', { name: 'Toista' }).click(); await page.waitForTimeout(5100);
       await page.getByRole('button', { name: 'Sulje aikajana' }).click(); await page.waitForTimeout(700);
-      await page.getByRole('button', { name: 'Toista' }).click(); await page.waitForTimeout(6500);
+      await page.getByRole('button', { name: 'Toista' }).click(); await page.waitForTimeout(5100);
     });
     await o.browser.close();
   }

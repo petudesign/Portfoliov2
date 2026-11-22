@@ -18,16 +18,15 @@ module.exports = ({ sport = 'football', match = true, theme = 'dark' } = {}) => 
     { id: 'b3', kind: 'player', team: 'blue', role: 'attacker', name: 'Sofia', number: 9, x: 1.4, z: 1.4 },
     { id: 'r1', kind: 'player', team: 'red', role: 'midfielder', name: 'Miro', number: 5, x: -0.6, z: 0.6 },
     { id: 'r2', kind: 'player', team: 'red', role: 'defender', name: 'Eeli', number: 3, x: 3.2, z: -0.4 },
-    { id: 'ball', kind: 'ball', name: 'Pallo', x: -3.5, z: 1.5 },
     { id: 'c1', kind: 'cone', name: 'Tötsä', x: -2.4, z: 3 }, { id: 'c2', kind: 'cone', name: 'Tötsä', x: 0, z: 3 }, { id: 'c3', kind: 'cone', name: 'Tötsä', x: 2.4, z: 3 },
     { id: 'c4', kind: 'cone', name: 'Tötsä', x: -2.4, z: -3 }, { id: 'c5', kind: 'cone', name: 'Tötsä', x: 0, z: -3 }, { id: 'c6', kind: 'cone', name: 'Tötsä', x: 2.4, z: -3 },
   ];
   const paths = [
-    { id: 'path-1', kind: 'pass', fromId: 'b1', toId: 'b2', startMs: 0 },
-    { id: 'path-2', kind: 'run', fromId: 'b3', toPoint: { x: 3.6, z: 2.2 }, startMs: 600 },
-    { id: 'path-3', kind: 'dribble', fromId: 'b2', toPoint: { x: 1.2, z: -1.8 }, startMs: 1500 },
-    { id: 'path-4', kind: 'pass', fromId: 'b2', toId: 'b3', startMs: 2900 },
-    { id: 'path-5', kind: 'shot', fromId: 'b3', toPoint: { x: 5.6, z: 0.3 }, startMs: 4100 },
+    { id: 'path-1', kind: 'pass', fromId: 'b1', toId: 'b2', startMs: 0, durationMs: 950, timelineLane: 0 },
+    { id: 'path-3', kind: 'dribble', fromId: 'b2', toPoint: { x: 1.2, z: -1.8 }, startMs: 1000, durationMs: 1650, timelineLane: 0 },
+    { id: 'path-2', kind: 'run', fromId: 'b3', toPoint: { x: 3.6, z: 2.2 }, startMs: 1400, durationMs: 2250, timelineLane: 1 },
+    { id: 'path-4', kind: 'pass', fromId: 'b2', toId: 'b3', startMs: 2700, durationMs: 950, timelineLane: 0 },
+    { id: 'path-5', kind: 'shot', fromId: 'b3', toPoint: { x: 5.6, z: 0.3 }, startMs: 3750, durationMs: 800, timelineLane: 0 },
   ];
   const draft = { name: 'Kolmen pelaajan hyökkäys', notes: '', exerciseTheme: 'Syöttö ja liike', coachingPoints: '', keyQuestions: '', markers, paths, annotations: [], goalSize: 'youth', pitchPreset: 'training', pitchOrientation: 'landscape', pitchStyle: theme === 'dark' ? 'dark' : 'grass', updatedAt: new Date().toISOString() };
   return { teams, active: match ? active : null, draft, sport, theme };
