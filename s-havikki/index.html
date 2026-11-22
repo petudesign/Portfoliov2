@@ -24,7 +24,7 @@
 <meta name="twitter:image" content="https://www.petu.design/og/home-v1.jpg">
 <title>S-hävikki case study — Petteri Helttula</title>
 <script>/* the case always opens with its panel: from the portfolio, from a direct link, or on refresh */
-try{const r=document.documentElement,l=sessionStorage.getItem("curtain");if(l!==null)sessionStorage.removeItem("curtain");if(!matchMedia("(prefers-reduced-motion: reduce)").matches){r.classList.add("curtain-in");r.setAttribute("data-curtain",(l&&l.trim())||"S-hävikki")}}catch(e){}</script>
+try{const r=document.documentElement,l=sessionStorage.getItem("curtain"),img=sessionStorage.getItem("curtain-img");if(l!==null)sessionStorage.removeItem("curtain");if(img!==null)sessionStorage.removeItem("curtain-img");if(!matchMedia("(prefers-reduced-motion: reduce)").matches){r.classList.add("curtain-in");r.setAttribute("data-curtain",(l&&l.trim())||"S-hävikki");if(img)r.style.setProperty("--curtain-img","url("+img+")")}}catch(e){}</script>
 
 <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <style>
@@ -94,6 +94,7 @@ h1{margin:136px 0 0;font-weight:600;font-size:clamp(52px,7.4vw,80px);line-height
 .meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin:64px 0 0;padding:0}
 .meta dt{font-size:14px;color:var(--faint)}
 .meta dd{margin:6px 0 0;font-size:17px;line-height:1.45}
+.meta > div:first-child dd{max-width:22ch}
 
 /* reading mode */
 /* reading switch: a recessed glass track with a raised pill that slides to the chosen option */
@@ -214,7 +215,7 @@ figcaption{margin-top:12px;max-width:44em;font-size:14px;line-height:1.5;color:v
 .curtain.on{transform:none;pointer-events:auto}
 .curtain span{text-align:center;max-width:calc(100vw - 48px);font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;color:#eeeeeb;opacity:0;transform:translateY(24px);transition:opacity 360ms ease 180ms,transform 620ms cubic-bezier(.23,1,.32,1) 180ms}
 .curtain.on span{opacity:1;transform:none}
-html.curtain-in::after{content:attr(data-curtain);background:#101114!important;position:fixed;inset:0;text-align:center;padding:0 24px;z-index:100;display:grid;place-items:center;background:#17181b;color:#eeeeeb;font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;transition:transform 720ms cubic-bezier(.77,0,.175,1)}
+html.curtain-in::after{content:attr(data-curtain);background:var(--curtain-img,none) 0 0/100% 100% no-repeat,#101114!important;position:fixed;inset:0;text-align:center;padding:0 24px;z-index:100;display:grid;place-items:center;color:#eeeeeb;font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;transition:transform 720ms cubic-bezier(.77,0,.175,1)}
 html.curtain-in main{transform:translateY(32px);opacity:.001;transition:transform 900ms cubic-bezier(.23,1,.32,1) 180ms,opacity 500ms ease 180ms}
 html.curtain-out::after{transform:translateY(-100%)}
 html.curtain-out main{transform:none;opacity:1}
@@ -310,7 +311,7 @@ body.tldr .toc .full{display:none}
 html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
 </style>
 </head>
-<body class="tldr">
+<body>
 <main class="page">
   <header class="top">
     <a class="home" href="/" data-curtain="Petteri Helttula" aria-label="Back to Petteri Helttula’s portfolio"><img src="/avatar.jpg" alt="" width="33" height="44"><span>Petteri Helttula</span></a>
@@ -328,18 +329,16 @@ html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
     <dl class="meta"><div><dt>My role</dt><dd>Product, UX and service design</dd></div><div><dt>Timeline</dt><dd>Dec 2025</dd></div><div><dt>Status</dt><dd>Concept with an interactive prototype</dd></div></dl>
   </section>
 
-  <div class="mode-bar"><div class="mode" role="group" aria-label="Reading length"><span class="thumb" aria-hidden="true"></span><button type="button" data-mode="tldr" aria-pressed="true" aria-label="Short version, 2 minute read">TL;DR<small>2 min</small></button><button type="button" data-mode="full" aria-pressed="false" aria-label="Full case, 2 minute read">Full case<small>2 min</small></button></div></div>
-
     <figure class="wide"><img class="zoom" src="/s/shavikki-kaappikuva.webp" alt="S-hävikki branded food waste cabinet concept in a grocery store" width="1219" height="816"><figcaption>The proposed in-store point, one part of a connected service concept.</figcaption></figure>
 
   <section class="ch" aria-labelledby="c1">
     <h2 id="c1">Start from the work I knew</h2>
-    <div class="blocks"><div class=""><h3>Problem</h3><p>In more than four years in grocery retail, I saw expiry checks rely on manual inspection, memory, shelf familiarity and local routines.</p></div><div class=""><h3>Focus</h3><p>Discounted products already sell well in many stores. I focused on the work that gets them to customers: finding them, handling them consistently and making the remaining selection visible.</p></div><div class="full wide-b"><h3>The frustration</h3><p>The same shelves could need checking again later, and keeping track of what was done was hard when the store was busy.</p></div></div>
+    <div class="blocks"><div class=""><h3>Problem</h3><p>In more than four years in grocery retail, I saw expiry checks rely on manual inspection, memory, shelf familiarity and local routines.</p></div><div class=""><h3>Focus</h3><p>Discounted products already sell well in many stores. I focused on the work that gets them to customers: finding them, handling them consistently and making the remaining selection visible.</p></div><div class="wide-b"><h3>The frustration</h3><p>The same shelves could need checking again later, and keeping track of what was done was hard when the store was busy.</p></div></div>
   </section>
 
   <section class="ch" aria-labelledby="c2">
     <h2 id="c2">Make the shelf the organising structure</h2>
-    <div class="blocks"><div class=""><h3>What I did</h3><p>The employee tool is a map of the physical shelf. Each square is one shelf section, and its colour shows whether it needs attention, so the next employee sees what’s already done.</p></div><div class=""><h3>Where it runs</h3><p>On the handheld scanners or internal tools employees already use. How expiry data reaches it would still need solving; inventory integration is outside this prototype.</p></div><div class="full"><h3>The workflow</h3><p>Check the physical products, decide how to handle them and update the status for the next shift. A department view moves between shelf units.</p></div></div>
+    <div class="blocks"><div class=""><h3>What I did</h3><p>The employee tool is a map of the physical shelf. Each square is one shelf section, and its colour shows whether it needs attention, so the next employee sees what’s already done.</p></div><div class=""><h3>Where it runs</h3><p>On the handheld scanners or internal tools employees already use. How expiry data reaches it would still need solving; inventory integration is outside this prototype.</p></div><div class=""><h3>The workflow</h3><p>Check the physical products, decide how to handle them and update the status for the next shift. A department view moves between shelf units.</p></div></div>
     <p class="note"><b>My scope decision:</b> use the first prototype to explore one repeated shelf-checking task and its handover, before any custom hardware or deeper app work.</p>
     <figure class="phones-fig"><div class="phones"><img class="reveal zoom" src="/s/shavikki-shelflogic.webp" alt="Physical grocery shelf with coloured rectangles showing how digital shelf map squares correspond to shelf sections" width="944" height="1024"></div><figcaption>Each square in the tool maps to one physical shelf section. Green: no action needed. Brown: 2–3 days left. Red: act now.</figcaption></figure>
   </section>
@@ -351,7 +350,7 @@ html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
 
   <section class="ch" aria-labelledby="c4">
     <h2 id="c4">Match the digital promise to store reality</h2>
-    <div class="blocks"><div class=""><h3>Problem</h3><p>Near-expiry stock changes fast: an item may sell or sit in someone’s basket before the app updates.</p></div><div class=""><h3>Decision</h3><p>The S-kaupat section would show broad signals about nearby stores and categories. I scoped out reservations and exact future availability.</p></div><div class="full wide-b"><h3>Honest signals</h3><p>A signal like “available today” disappears when the selection is too small or uncertain. The app extension depends on a reliable in-store process and stays secondary to it.</p></div></div>
+    <div class="blocks"><div class=""><h3>Problem</h3><p>Near-expiry stock changes fast: an item may sell or sit in someone’s basket before the app updates.</p></div><div class=""><h3>Decision</h3><p>The S-kaupat section would show broad signals about nearby stores and categories. I scoped out reservations and exact future availability.</p></div><div class="wide-b"><h3>Honest signals</h3><p>A signal like “available today” disappears when the selection is too small or uncertain. The app extension depends on a reliable in-store process and stays secondary to it.</p></div></div>
   </section>
 
   <section class="ch" aria-labelledby="c5">
@@ -360,33 +359,13 @@ html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
     <p class="note"><b>These are planned measures, not results.</b> Custom hardware, deeper integrations and personalised alerts would need evidence from that first step.</p>
   </section>
 
-  <a class="next" href="/korislab/" data-curtain="KorisLab"><span class="next-row"><span><small>Next project</small> <b>KorisLab</b> <em class="next-desc">An analytics site for Finnish basketball leagues.</em></span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5"/></svg></span><span class="next-media"><video class="clip" autoplay muted loop playsinline preload="metadata" poster="/v2/k-home.jpg" width="1920" height="1200" aria-hidden="true"><source src="/v2/k-home.webm" type="video/webm"></video></span></a>
+  <a class="next" href="/kelikamera/" data-curtain="Kelikamera AI"><span class="next-row"><span><small>Next project</small> <b>Kelikamera AI</b> <em class="next-desc">A live road weather map, and a local model for the cameras no sensor covers.</em></span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5"/></svg></span><span class="next-media"><video class="clip" autoplay muted loop playsinline preload="metadata" poster="/kk/kk-map.jpg" width="1920" height="1200" aria-hidden="true"><source src="/kk/kk-map.webm" type="video/webm"></video></span></a>
 </main>
 <div class="toast" id="toast" role="status" hidden></div>
 <script>
 const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const EMAIL="helttula.petteri@gmail.com",toast=document.getElementById("toast"),copyBtn=document.getElementById("copyEmail");let ct,tt;
 copyBtn.addEventListener("click",()=>{(navigator.clipboard?navigator.clipboard.writeText(EMAIL):Promise.reject()).then(()=>{copyBtn.classList.add("is-copied");clearTimeout(ct);ct=setTimeout(()=>copyBtn.classList.remove("is-copied"),1800)},()=>{toast.textContent=EMAIL;toast.hidden=false;clearTimeout(tt);tt=setTimeout(()=>toast.hidden=true,2600)})});
-/* TL;DR shows the short case; Full case adds the detail back. The choice is remembered per viewer. */
-(function(){
-  const btns=[...document.querySelectorAll(".mode button")];
-  const thumb=document.querySelector(".mode .thumb");
-  const place=()=>{const b=btns.find(x=>x.getAttribute("aria-pressed")==="true");if(!b||!thumb)return;thumb.style.setProperty("--x",b.offsetLeft+"px");thumb.style.setProperty("--w",b.offsetWidth+"px")};
-  /* keep the reader's place: remember the chapter at the top of the screen and put it back after the switch */
-  const anchor=()=>{const chs=[...document.querySelectorAll(".ch")].filter(c=>c.offsetParent!==null);let a=null;for(const c of chs){if(c.getBoundingClientRect().top<=120)a=c}return a};
-  const set=(m,save)=>{const a=save&&anchor(),before=a&&a.getBoundingClientRect().top;
-    document.body.classList.toggle("tldr",m==="tldr");
-    if(a){const vis=a.offsetParent!==null?a:[...document.querySelectorAll(".ch")].filter(c=>c.offsetParent!==null&&c.compareDocumentPosition(a)&Node.DOCUMENT_POSITION_FOLLOWING).pop();if(vis){const se=document.scrollingElement||document.documentElement;se.scrollTop+=vis.getBoundingClientRect().top-(vis===a?before:120)}}btns.forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.mode===m)));place();if(save)try{localStorage.setItem("case-mode",m)}catch(e){}};
-  /* first placement without animation, so the pill does not grow in on load */
-  const still=()=>{if(!thumb)return;thumb.style.transition="none";place();thumb.getBoundingClientRect();thumb.style.transition=""};
-  still();document.fonts&&document.fonts.ready.then(still);addEventListener("resize",still);
-  /* a deeper shadow once the bar is floating over the content */
-  const bar=document.querySelector(".mode-bar");
-  if(bar&&"IntersectionObserver" in window){const s=document.createElement("div");s.style.cssText="height:1px;margin-top:-1px";bar.before(s);new IntersectionObserver(([e])=>bar.classList.toggle("stuck",!e.isIntersecting&&e.boundingClientRect.top<0)).observe(s)}
-  let saved=null;try{saved=localStorage.getItem("case-mode")}catch(e){}
-  if(saved==="full")set("full");
-  btns.forEach(b=>b.addEventListener("click",()=>set(b.dataset.mode,true)));
-})();
 /* any still opens larger; click, Escape or the button closes it */
 (function(){
   let lb=null,last=null;

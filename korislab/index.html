@@ -24,7 +24,7 @@
 <meta name="twitter:image" content="https://www.petu.design/og/home-v1.jpg">
 <title>KorisLab case study — Petteri Helttula</title>
 <script>/* the case always opens with its panel: from the portfolio, from a direct link, or on refresh */
-try{const r=document.documentElement,l=sessionStorage.getItem("curtain");if(l!==null)sessionStorage.removeItem("curtain");if(!matchMedia("(prefers-reduced-motion: reduce)").matches){r.classList.add("curtain-in");r.setAttribute("data-curtain",(l&&l.trim())||"KorisLab")}}catch(e){}</script>
+try{const r=document.documentElement,l=sessionStorage.getItem("curtain"),img=sessionStorage.getItem("curtain-img");if(l!==null)sessionStorage.removeItem("curtain");if(img!==null)sessionStorage.removeItem("curtain-img");if(!matchMedia("(prefers-reduced-motion: reduce)").matches){r.classList.add("curtain-in");r.setAttribute("data-curtain",(l&&l.trim())||"KorisLab");if(img)r.style.setProperty("--curtain-img","url("+img+")")}}catch(e){}</script>
 
 <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <style>
@@ -120,6 +120,7 @@ h1{margin:136px 0 0;font-weight:600;font-size:clamp(52px,7.4vw,80px);line-height
 .meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin:64px 0 0;padding:0}
 .meta dt{font-size:14px;color:var(--faint)}
 .meta dd{margin:6px 0 0;font-size:17px;line-height:1.45}
+.meta > div:first-child dd{max-width:22ch}
 
 /* reading mode */
 /* reading switch: a recessed glass track with a raised pill that slides to the chosen option */
@@ -127,19 +128,20 @@ h1{margin:136px 0 0;font-weight:600;font-size:clamp(52px,7.4vw,80px);line-height
 .mode-bar{position:sticky;top:calc(14px + env(safe-area-inset-top,0px));z-index:20;width:max-content;margin-top:56px}
 .mode-bar.stuck .mode{box-shadow:inset 0 1px 3px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.08),0 1px 0 rgba(255,255,255,.05),0 16px 40px -12px rgba(0,0,0,.9)}
 .mode{position:relative;display:inline-flex;gap:4px;padding:4px;border-radius:999px;isolation:isolate;
-  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),rgba(23,24,27,.72);
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018)),rgba(23,24,27,.8);
   -webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);
-  box-shadow:inset 0 1px 3px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.06),0 1px 0 rgba(255,255,255,.05),0 10px 30px -14px rgba(0,0,0,.8)}
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.11),0 1px 0 rgba(255,255,255,.06),0 10px 30px -14px rgba(0,0,0,.8)}
 .mode .thumb{position:absolute;z-index:-1;top:4px;bottom:4px;left:0;width:var(--w,0px);transform:translateX(var(--x,4px));border-radius:999px;
   background:linear-gradient(180deg,#fbfbf8 0%,#e4e4de 100%);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(0,0,0,.14),0 1px 2px rgba(0,0,0,.45),0 8px 18px -8px rgba(0,0,0,.75);
   transition:transform 420ms var(--ease),width 420ms var(--ease)}
-.mode button{position:relative;border:0;background:none;padding:8px 16px;border-radius:999px;cursor:pointer;font-size:14px;color:var(--mute);transition:color 250ms ease}
-.mode button:hover{color:var(--ink)}
+.mode button{position:relative;border:0;background:none;padding:8px 16px;border-radius:999px;cursor:pointer;font-size:14px;color:#e4e5e9;transition:color 250ms ease}
+.mode button:hover{color:#ffffff}
 .mode button[aria-pressed="true"]{color:#0e0f11}
 .mode button:active{transform:scale(.97);transition:transform 160ms var(--ease),color 250ms ease}
 @media (prefers-reduced-motion: reduce){.mode .thumb{transition:none}}
-.mode small{color:inherit;opacity:.65;margin-left:6px}
+.mode small{color:inherit;opacity:.84;margin-left:6px}
+.mode button[aria-pressed="true"] small{opacity:.72}
 body.tldr .full{display:none!important}
 
 /* stills */
@@ -240,7 +242,7 @@ figcaption{margin-top:12px;max-width:44em;font-size:14px;line-height:1.5;color:v
 .curtain.on{transform:none;pointer-events:auto}
 .curtain span{text-align:center;max-width:calc(100vw - 48px);font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;color:#eeeeeb;opacity:0;transform:translateY(24px);transition:opacity 360ms ease 180ms,transform 620ms cubic-bezier(.23,1,.32,1) 180ms}
 .curtain.on span{opacity:1;transform:none}
-html.curtain-in::after{content:attr(data-curtain);background:#101114!important;position:fixed;inset:0;text-align:center;padding:0 24px;z-index:100;display:grid;place-items:center;background:#17181b;color:#eeeeeb;font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;transition:transform 720ms cubic-bezier(.77,0,.175,1)}
+html.curtain-in::after{content:attr(data-curtain);background:var(--curtain-img,none) 0 0/100% 100% no-repeat,#101114!important;position:fixed;inset:0;text-align:center;padding:0 24px;z-index:100;display:grid;place-items:center;color:#eeeeeb;font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;transition:transform 720ms cubic-bezier(.77,0,.175,1)}
 html.curtain-in main{transform:translateY(32px);opacity:.001;transition:transform 900ms cubic-bezier(.23,1,.32,1) 180ms,opacity 500ms ease 180ms}
 html.curtain-out::after{transform:translateY(-100%)}
 html.curtain-out main{transform:none;opacity:1}
@@ -260,7 +262,7 @@ html.curtain-in .title-sq path{animation-delay:calc(1150ms + var(--d) * 1.25)}
 
 /* Full case additions are marked in the accent blue, so it's clear at a glance what the longer read adds.
    They also fade in when the switch is flipped. */
-:root{--full:var(--mute);--full-hi:#dccaa2}
+:root{--full:#aba495;--full-hi:#dccaa2}
 .blocks .full h3{color:var(--full-hi)}
 .blocks .full p{color:var(--full)}
 div.full .ch h2::before{content:"Full case";display:block;margin-bottom:10px;font-size:14px;font-weight:400;letter-spacing:0;color:var(--full-hi)}
@@ -377,13 +379,13 @@ html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
     <p>Finnish basketball had no good way to compare teams and players across games. I built one, starting with the women’s Korisliiga to give it more visibility before adding the men’s league.</p>
     <p>I designed the product, directed the coding agents that built it and checked the data and models myself.</p>
     <dl class="meta">
-      <div><dt>My role</dt><dd>Product designer and developer</dd></div>
+      <div><dt>My role</dt><dd>Product design &amp; data</dd></div>
       <div><dt>Timeline</dt><dd>Oct 2026 – ongoing</dd></div>
-      <div><dt>Data</dt><dd>Basket.fi, both leagues from 2024–25</dd></div>
+      <div><dt>Live</dt><dd><a href="https://korislab.vercel.app/" target="_blank" rel="noopener">Open KorisLab ↗</a></dd></div>
     </dl>
   </section>
 
-  <div class="mode-bar"><div class="mode" role="group" aria-label="Reading length"><span class="thumb" aria-hidden="true"></span><button type="button" data-mode="tldr" aria-pressed="true" aria-label="Short version, 4 minute read">TL;DR<small>4 min</small></button><button type="button" data-mode="full" aria-pressed="false" aria-label="Full case, 6 minute read">Full case<small>6 min</small></button></div></div>
+  <div class="mode-bar"><div class="mode" role="group" aria-label="Reading length"><span class="thumb" aria-hidden="true"></span><button type="button" data-mode="tldr" aria-pressed="true" aria-label="Short version, 2 minute read">TL;DR<small>2 min</small></button><button type="button" data-mode="full" aria-pressed="false" aria-label="Full case, 6 minute read">Full case<small>6 min</small></button></div></div>
 
   <figure class="wide"><span class="clipbox"><video class="clip" muted loop playsinline preload="auto" poster="/v2/k-home.jpg" width="1920" height="1200" aria-label="KorisLab home page in English, scrolling from the hero down through the overview"><source src="/v2/k-home.webm" type="video/webm"></video></span><figcaption>The home page brings two headline figures, search and a working overview into one introduction.</figcaption></figure>
 
@@ -409,19 +411,19 @@ html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
 
   <section class="ch" aria-labelledby="c1">
     <h2 id="c1">Let a question lead into the data</h2>
-    <div class="blocks"><div class=""><h3>Problem</h3><p>People had to know which view held an answer before they could find it.</p></div><div class=""><h3>What I did</h3><p>Search finds teams and players, and answers supported season questions with a route into the right profile. Asking who had the most assists in 2025–26 returns player and team rankings, with Jeanae Terry leading on 213, tied to the season and to verified games.</p></div><div class="full"><h3>Why it matters</h3><p>The answer gives people a starting point and a next step into the detail, without first learning how the app is organised.</p></div><div class=""><h3>Next</h3><p>Widen the range of questions, so an answer can return a figure, open a view or both.</p></div></div>
+    <div class="blocks"><div class=""><h3>Problem</h3><p>People had to know which view held an answer before they could find it.</p></div><div class=""><h3>What I did</h3><p>Search finds teams and players, and answers supported season questions with a route into the right profile. Asking who had the most assists in 2025–26 returns player and team rankings, with Jeanae Terry leading on 213, tied to the season and to verified games.</p></div><div class="full"><h3>Why it matters</h3><p>The answer gives people a starting point and a next step into the detail, without first learning how the app is organised.</p></div><div class="full"><h3>Next</h3><p>Widen the range of questions, so an answer can return a figure, open a view or both.</p></div></div>
     <figure class="wide"><span class="clipbox reveal"><video class="clip" muted loop playsinline preload="auto" poster="/v2/k-search.jpg" width="1920" height="1200" aria-label="Typing a season question into KorisLab search and getting player and team rankings"><source src="/v2/k-search.webm" type="video/webm"></video></span><figcaption>Asking who had the most assists in 2025–26 returns player and team rankings from verified games, with totals and game counts visible.</figcaption></figure>
   </section>
 
-  <section class="ch" aria-labelledby="c2">
+<div class="full">  <section class="ch" aria-labelledby="c2">
     <h2 id="c2">Give every comparison its context</h2>
-    <div class="blocks"><div class=""><h3>Problem</h3><p>A comparison without its sample size or units invites the wrong conclusion.</p></div><div class=""><h3>What I did</h3><p>Matchup Lab compares teams and players across opponents, seasons, recent form and on/off-court periods. A radar chart gives the quick read and a table keeps the original values beside it.</p></div><div class="full"><h3>Every comparison type</h3><p>Team against team, the same team across seasons, the last five games against earlier ones, whole games with a player present or absent, and periods with a player on or off court. For players: player against player, seasons, recent form, and regular season against playoffs.</p></div><div class=""><h3>Principle</h3><p><strong>Keep the sample, the units and the chart scale visible next to every comparison.</strong> The radar’s 0–100 shows league ranks, and its dashed line marks the middle of that scale, not the league average.</p></div><div class="full wide-b"><h3>What the chart doesn’t say</h3><p>The profiles describe the available games. A larger radar area doesn’t explain why a team performed differently, and a small sample needs more context before drawing conclusions. Lower defensive ratings and turnover rates are better, so the table keeps the original values and explains their units.</p></div></div>
+    <div class="blocks"><div class=""><h3>Problem</h3><p>A comparison without its sample size or units invites the wrong conclusion.</p></div><div class=""><h3>What I did</h3><p>Matchup Lab compares teams and players across opponents, seasons, recent form and on/off-court periods. A radar chart gives the quick read and a table keeps the original values beside it.</p></div><div class=""><h3>Every comparison type</h3><p>Team against team, the same team across seasons, the last five games against earlier ones, whole games with a player present or absent, and periods with a player on or off court. For players: player against player, seasons, recent form, and regular season against playoffs.</p></div><div class=""><h3>Principle</h3><p><strong>Keep the sample, the units and the chart scale visible next to every comparison.</strong> The radar’s 0–100 shows league ranks, and its dashed line marks the middle of that scale, not the league average.</p></div><div class="wide-b"><h3>What the chart doesn’t say</h3><p>The profiles describe the available games. A larger radar area doesn’t explain why a team performed differently, and a small sample needs more context before drawing conclusions. Lower defensive ratings and turnover rates are better, so the table keeps the original values and explains their units.</p></div></div>
     <figure class="wide"><img class="reveal zoom" src="/k/matchup.jpg" alt="Matchup Lab radar and table comparing BC Nokia and Espoo Basket Team" width="1600" height="753"><figcaption>Women’s Korisliiga 2026–27: BC Nokia (3 games) against Espoo Basket Team (2 games).</figcaption></figure>
   </section>
-
+</div>
   <section class="ch" aria-labelledby="c3">
     <h2 id="c3">Replay a game, not just its box score</h2>
-    <div class="blocks"><div class=""><h3>Problem</h3><p>A box score tells you the final numbers, not how the game turned.</p></div><div class=""><h3>What I did</h3><p>Game pages replay a game event by event: real shot locations, the running score, player lines and a win probability curve as the timeline, with jumps to the turning points.</p></div><div class="wide-b"><h3>Honesty</h3><p>There is no player tracking, so only shots sit where they were taken. The win probability model was tuned on 2024–25, locked and tested once on 2025–26. It was too confident about home teams in the men’s league, and the page says so below the chart.</p></div></div>
+    <div class="blocks"><div class=""><h3>Problem</h3><p>A box score tells you the final numbers, not how the game turned.</p></div><div class=""><h3>What I did</h3><p>Game pages replay a game event by event: real shot locations, the running score, player lines and a win probability curve as the timeline, with jumps to the turning points.</p></div><div class="full wide-b"><h3>Honesty</h3><p>There is no player tracking, so only shots sit where they were taken. The win probability model was tuned on 2024–25, locked and tested once on 2025–26. It was too confident about home teams in the men’s league, and the page says so below the chart.</p></div></div>
     <figure class="wide"><span class="clipbox reveal"><video class="clip" muted loop playsinline preload="auto" poster="/v2/k-replay.jpg" width="1430" height="1226" aria-label="Game story replaying HBA-Märsky against ToPo shot by shot, with the win probability line moving"><source src="/v2/k-replay.webm" type="video/webm"></video></span><figcaption>HBA-Märsky against ToPo, replayed at 16×: each shot lands where it was taken, and the win probability line moves with the score.</figcaption></figure>
     <a class="game" href="https://korislab.vercel.app/matches/1006237/?season=2026-27" target="_blank" rel="noopener" aria-label="Open the HBA-Märsky against ToPo game story in KorisLab">
       <span class="game-top"><span class="game-k">Game story · 25 Oct 2026</span><span class="game-go">Watch the replay<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg></span></span>
@@ -432,15 +434,15 @@ html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
     </a>
   </section>
 
-  <section class="ch" aria-labelledby="c4">
+<div class="full">  <section class="ch" aria-labelledby="c4">
     <h2 id="c4">Player ratings that show their working</h2>
-    <div class="blocks"><div class=""><h3>Problem</h3><p>Per-40 numbers flatter short minutes: 7 points in 5 minutes works out at 56 per 40. My first version also flattened the top, rating players more than 20% apart as 98 and 96.</p></div><div class=""><h3>What I did</h3><p>Six areas on a 1–99 scale and no overall score, each shown with its real statistic. Short samples are pulled towards a typical regular, and the card shows minutes and a confidence level.</p></div><div class="full"><h3>Small samples</h3><p>The pull grows the shorter a player’s minutes are, up to three times as strong, with 28 minutes a game counting as full. My first version pulled towards the league’s minute-weighted average, which starters dominate, so even a one-minute player rated about 60. It now pulls towards the median regular.</p></div><div class="full"><h3>Distance, not rank</h3><p>Ratings use a fixed scale built from past seasons’ regulars and measure distance from a typical level, with the rank shown separately. 20 rating points equal one standard deviation, so about one regular in 40 reaches 90 in a single area.</p></div><div class="wide-b"><h3>Principle</h3><p><strong>A number is published only with its context, and uncertainty is shown rather than hidden.</strong> The box score only records steals and blocks, so that area is called exactly that, not “Defence”.</p></div></div>
+    <div class="blocks"><div class=""><h3>Problem</h3><p>Per-40 numbers flatter short minutes: 7 points in 5 minutes works out at 56 per 40. My first version also flattened the top, rating players more than 20% apart as 98 and 96.</p></div><div class=""><h3>What I did</h3><p>Six areas on a 1–99 scale and no overall score, each shown with its real statistic. Short samples are pulled towards a typical regular, and the card shows minutes and a confidence level.</p></div><div class=""><h3>Small samples</h3><p>The pull grows the shorter a player’s minutes are, up to three times as strong, with 28 minutes a game counting as full. My first version pulled towards the league’s minute-weighted average, which starters dominate, so even a one-minute player rated about 60. It now pulls towards the median regular.</p></div><div class=""><h3>Distance, not rank</h3><p>Ratings use a fixed scale built from past seasons’ regulars and measure distance from a typical level, with the rank shown separately. 20 rating points equal one standard deviation, so about one regular in 40 reaches 90 in a single area.</p></div><div class="wide-b"><h3>Principle</h3><p><strong>A number is published only with its context, and uncertainty is shown rather than hidden.</strong> The box score only records steals and blocks, so that area is called exactly that, not “Defence”.</p></div></div>
     <figure class="pair"><img class="reveal zoom" src="/v2/k-rating-settled-still.jpg" alt="Player profile for De’Vion Harmon: settled sample, scoring rated 99" width="1896" height="1658"><img class="reveal zoom" src="/v2/k-rating-preliminary-still.jpg" alt="Player profile for Lisa Camara: early sample, scoring rated 71" width="1896" height="1658"><figcaption>Harmon (652 minutes) scores 36.3 per 40 and rates 99. Camara scores 28.5 per 40 in only 91 minutes, so her scoring rating stays at 71, and the card marks the sample as early.</figcaption></figure>
   </section>
-
+</div>
   <section class="ch" aria-labelledby="c5">
     <h2 id="c5">Sim Studio: play the next game a thousand times</h2>
-    <div class="blocks"><div class=""><h3>Problem</h3><p>Statistics pages tell you what happened. I wanted to show how an upcoming game is likely to go, not just who wins.</p></div><div class=""><h3>What I did</h3><p>Sim Studio plays an upcoming game 1,000 times from official play-by-play, possession by possession: win probability, the spread of the margin, the chance of overtime, each player’s likely points and one simulated game on a 3D court.</p></div><div class="full"><h3>How it works</h3><p>About 600 games over three seasons are rebuilt from play-by-play, and a game is kept only if its points match the official box score. Each game is split into about 80 possessions per team, and player profiles pull small samples towards league level. Python for the simulator, React and three.js for the interface.</p></div><div class=""><h3>How I tested it</h3><p>Every game of the men’s 2025–26 season was forecast from earlier data only, with settings locked on the previous season. Predicted and actual player points correlate at 0.65, with an average error of about 4.6 points.</p></div><div class="full"><h3>What didn’t ship</h3><p>Tuned priors scored worse (Brier 0.2400 against 0.2382). Game-to-game form made player ranges more honest, lifting 80% range coverage from 73% to 78%, but worsened game forecasts. Neither went into production. The women’s model beats chance but not the simple models (0.210 against 0.195).</p></div><div class=""><h3>Result</h3><p>The more complex model didn’t beat the simple margin model, and I reported it as it is.</p></div></div>
+    <div class="blocks"><div class=""><h3>Problem</h3><p>Statistics pages tell you what happened. I wanted to show how an upcoming game is likely to go, not just who wins.</p></div><div class=""><h3>What I did</h3><p>Sim Studio plays an upcoming game 1,000 times from official play-by-play, possession by possession: win probability, the spread of the margin, the chance of overtime, each player’s likely points and one simulated game on a 3D court.</p></div><div class="full"><h3>How it works</h3><p>About 600 games over three seasons are rebuilt from play-by-play, and a game is kept only if its points match the official box score. Each game is split into about 80 possessions per team, and player profiles pull small samples towards league level. Python for the simulator, React and three.js for the interface.</p></div><div class="full"><h3>How I tested it</h3><p>Every game of the men’s 2025–26 season was forecast from earlier data only, with settings locked on the previous season. Predicted and actual player points correlate at 0.65, with an average error of about 4.6 points.</p></div><div class="full"><h3>What didn’t ship</h3><p>Tuned priors scored worse (Brier 0.2400 against 0.2382). Game-to-game form made player ranges more honest, lifting 80% range coverage from 73% to 78%, but worsened game forecasts. Neither went into production. The women’s model beats chance but not the simple models (0.210 against 0.195).</p></div><div class=""><h3>Result</h3><p>The more complex model didn’t beat the simple margin model, and I reported it as it is.</p></div></div>
     <p class="note"><b>My rule:</b> lock every model version before testing it and report the result, even when a simpler model wins.</p>
     <figure class="wide"><span class="clipbox reveal"><video class="clip" muted loop playsinline preload="auto" poster="/v2/k-sim.jpg" width="1430" height="736" aria-label="Sim Studio playing a simulated game on a 3D court, switching from the broadcast camera to the tactical view"><source src="/v2/k-sim.webm" type="video/webm"></video></span><figcaption>Espoo Basket Team against Kouvottaret, simulated 1,000 times, switching from the broadcast camera to the tactical view. Player movement on the court is an illustration, not tracking data.</figcaption></figure>
   </section>
@@ -497,6 +499,7 @@ copyBtn.addEventListener("click",()=>{(navigator.clipboard?navigator.clipboard.w
   let saved=null;try{saved=localStorage.getItem("case-mode")}catch(e){}
   if(saved==="full")set("full");
   btns.forEach(b=>b.addEventListener("click",()=>set(b.dataset.mode,true)));
+  document.querySelectorAll('.key a[href^="#"]').forEach(a=>a.addEventListener("click",()=>{const t=document.getElementById(a.getAttribute("href").slice(1));if(t&&t.closest(".full"))set("full",true)}));
 })();
 /* any still opens larger; click, Escape or the button closes it */
 (function(){

@@ -197,7 +197,7 @@
       if (bgA > 0) { cx.globalAlpha = bgA; cx.fillStyle = BG; cx.fillRect(0, 0, cv.width, cv.height); cx.globalAlpha = 1; }
       cx.drawImage(work, 0, 0);
     };
-    return { el, span: el.querySelector('span'), frame };
+    return { el, span: el.querySelector('span'), frame, cv };
   }
   const ease = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
   const run = (ms, step) => new Promise((res) => { const t0 = performance.now();
@@ -209,14 +209,21 @@
     const o = overlay(label); o.span.classList.add('off'); o.frame(0, 0);
     await run(460, (k) => { o.frame(k * 1.04, Math.min(1, k * 1.5)); if (k > .55) o.span.classList.remove('off'); });
     o.frame(2, 1); o.span.classList.remove('off');
-    setTimeout(() => { location.href = href; }, 90);
+    /* carry the exact finished frame across the page load so the picture never disappears and pops back in */
+    try { sessionStorage.setItem('curtain-img', o.cv.toDataURL('image/png')); } catch (e) {}
+    requestAnimationFrame(() => { location.href = href; });
   }
 
-  /* arriving: the picture is whole, holds for a moment, then dissolves from the edges in while the ground fades out */
+  /* arriving: the picture is already on screen from the previous page, holds briefly, then dissolves away */
   async function arrive(label, reveal) {
-    const o = overlay(label); o.frame(2, 1); reveal();
+    const carried = Boolean(document.documentElement.style.getPropertyValue('--curtain-img'));
+    const o = overlay(label); o.frame(2, 1);
+    /* wait one paint so the live canvas is on top before removing the CSS handoff layer */
+    await new Promise((r) => requestAnimationFrame(r));
+    reveal();
+    document.documentElement.style.removeProperty('--curtain-img');
     if (reduce) { setTimeout(() => o.el.remove(), 250); return; }
-    await new Promise((r) => setTimeout(r, 240));
+    await new Promise((r) => setTimeout(r, carried ? 120 : 220));
     o.span.classList.add('off');
     await run(520, (k) => { const t = 1 - k; o.frame(t * 1.04, Math.min(1, t * 1.6)); });
     o.el.remove();

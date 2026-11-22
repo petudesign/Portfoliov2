@@ -17,14 +17,14 @@
 <meta property="og:image" content="https://www.petu.design/og/home-v1.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Helsinki Sports Map case study by Petteri Helttula">
+<meta property="og:image:alt" content="Kelikamera AI case study by Petteri Helttula">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Kelikamera AI case study — Petteri Helttula">
 <meta name="twitter:description" content="Kelikamera AI case study: a live map of Finland’s road weather cameras, and a local model trained to estimate conditions where no sensor covers them. In progress.">
 <meta name="twitter:image" content="https://www.petu.design/og/home-v1.jpg">
 <title>Kelikamera AI case study — Petteri Helttula</title>
 <script>/* the case always opens with its panel: from the portfolio, from a direct link, or on refresh */
-try{const r=document.documentElement,l=sessionStorage.getItem("curtain");if(l!==null)sessionStorage.removeItem("curtain");if(!matchMedia("(prefers-reduced-motion: reduce)").matches){r.classList.add("curtain-in");r.setAttribute("data-curtain",(l&&l.trim())||"Kelikamera AI")}}catch(e){}</script>
+try{const r=document.documentElement,l=sessionStorage.getItem("curtain"),img=sessionStorage.getItem("curtain-img");if(l!==null)sessionStorage.removeItem("curtain");if(img!==null)sessionStorage.removeItem("curtain-img");if(!matchMedia("(prefers-reduced-motion: reduce)").matches){r.classList.add("curtain-in");r.setAttribute("data-curtain",(l&&l.trim())||"Kelikamera AI");if(img)r.style.setProperty("--curtain-img","url("+img+")")}}catch(e){}</script>
 
 <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <style>
@@ -120,6 +120,7 @@ h1{margin:136px 0 0;font-weight:600;font-size:clamp(52px,7.4vw,80px);line-height
 .meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin:64px 0 0;padding:0}
 .meta dt{font-size:14px;color:var(--faint)}
 .meta dd{margin:6px 0 0;font-size:17px;line-height:1.45}
+.meta > div:first-child dd{max-width:22ch}
 
 /* reading mode */
 /* reading switch: a recessed glass track with a raised pill that slides to the chosen option */
@@ -127,19 +128,20 @@ h1{margin:136px 0 0;font-weight:600;font-size:clamp(52px,7.4vw,80px);line-height
 .mode-bar{position:sticky;top:calc(14px + env(safe-area-inset-top,0px));z-index:20;width:max-content;margin-top:56px}
 .mode-bar.stuck .mode{box-shadow:inset 0 1px 3px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.08),0 1px 0 rgba(255,255,255,.05),0 16px 40px -12px rgba(0,0,0,.9)}
 .mode{position:relative;display:inline-flex;gap:4px;padding:4px;border-radius:999px;isolation:isolate;
-  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),rgba(23,24,27,.72);
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018)),rgba(23,24,27,.8);
   -webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);
-  box-shadow:inset 0 1px 3px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.06),0 1px 0 rgba(255,255,255,.05),0 10px 30px -14px rgba(0,0,0,.8)}
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.11),0 1px 0 rgba(255,255,255,.06),0 10px 30px -14px rgba(0,0,0,.8)}
 .mode .thumb{position:absolute;z-index:-1;top:4px;bottom:4px;left:0;width:var(--w,0px);transform:translateX(var(--x,4px));border-radius:999px;
   background:linear-gradient(180deg,#fbfbf8 0%,#e4e4de 100%);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(0,0,0,.14),0 1px 2px rgba(0,0,0,.45),0 8px 18px -8px rgba(0,0,0,.75);
   transition:transform 420ms var(--ease),width 420ms var(--ease)}
-.mode button{position:relative;border:0;background:none;padding:8px 16px;border-radius:999px;cursor:pointer;font-size:14px;color:var(--mute);transition:color 250ms ease}
-.mode button:hover{color:var(--ink)}
+.mode button{position:relative;border:0;background:none;padding:8px 16px;border-radius:999px;cursor:pointer;font-size:14px;color:#e4e5e9;transition:color 250ms ease}
+.mode button:hover{color:#ffffff}
 .mode button[aria-pressed="true"]{color:#0e0f11}
 .mode button:active{transform:scale(.97);transition:transform 160ms var(--ease),color 250ms ease}
 @media (prefers-reduced-motion: reduce){.mode .thumb{transition:none}}
-.mode small{color:inherit;opacity:.65;margin-left:6px}
+.mode small{color:inherit;opacity:.84;margin-left:6px}
+.mode button[aria-pressed="true"] small{opacity:.72}
 body.tldr .full{display:none!important}
 
 /* stills */
@@ -260,7 +262,7 @@ figcaption{margin-top:12px;max-width:44em;font-size:14px;line-height:1.5;color:v
 .curtain.on{transform:none;pointer-events:auto}
 .curtain span{text-align:center;max-width:calc(100vw - 48px);font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;color:#eeeeeb;opacity:0;transform:translateY(24px);transition:opacity 360ms ease 180ms,transform 620ms cubic-bezier(.23,1,.32,1) 180ms}
 .curtain.on span{opacity:1;transform:none}
-html.curtain-in::after{content:attr(data-curtain);background:#101114!important;position:fixed;inset:0;text-align:center;padding:0 24px;z-index:100;display:grid;place-items:center;background:#17181b;color:#eeeeeb;font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;transition:transform 720ms cubic-bezier(.77,0,.175,1)}
+html.curtain-in::after{content:attr(data-curtain);background:var(--curtain-img,none) 0 0/100% 100% no-repeat,#101114!important;position:fixed;inset:0;text-align:center;padding:0 24px;z-index:100;display:grid;place-items:center;color:#eeeeeb;font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;transition:transform 720ms cubic-bezier(.77,0,.175,1)}
 html.curtain-in main{transform:translateY(32px);opacity:.001;transition:transform 900ms cubic-bezier(.23,1,.32,1) 180ms,opacity 500ms ease 180ms}
 html.curtain-out::after{transform:translateY(-100%)}
 html.curtain-out main{transform:none;opacity:1}
@@ -280,7 +282,7 @@ html.curtain-in .title-sq path{animation-delay:calc(1150ms + var(--d) * 1.25)}
 
 /* Full case additions are marked in the accent blue, so it's clear at a glance what the longer read adds.
    They also fade in when the switch is flipped. */
-:root{--full:var(--mute);--full-hi:#dccaa2}
+:root{--full:#aba495;--full-hi:#dccaa2}
 .blocks .full h3{color:var(--full-hi)}
 .blocks .full p{color:var(--full)}
 div.full .ch h2::before{content:"Full case";display:block;margin-bottom:10px;font-size:14px;font-weight:400;letter-spacing:0;color:var(--full-hi)}

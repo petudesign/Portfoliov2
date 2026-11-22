@@ -24,7 +24,7 @@
 <meta name="twitter:image" content="https://www.petu.design/og/home-v1.jpg">
 <title>Helsinki Sports Map case study — Petteri Helttula</title>
 <script>/* the case always opens with its panel: from the portfolio, from a direct link, or on refresh */
-try{const r=document.documentElement,l=sessionStorage.getItem("curtain");if(l!==null)sessionStorage.removeItem("curtain");if(!matchMedia("(prefers-reduced-motion: reduce)").matches){r.classList.add("curtain-in");r.setAttribute("data-curtain",(l&&l.trim())||"Helsinki Sports Map")}}catch(e){}</script>
+try{const r=document.documentElement,l=sessionStorage.getItem("curtain"),img=sessionStorage.getItem("curtain-img");if(l!==null)sessionStorage.removeItem("curtain");if(img!==null)sessionStorage.removeItem("curtain-img");if(!matchMedia("(prefers-reduced-motion: reduce)").matches){r.classList.add("curtain-in");r.setAttribute("data-curtain",(l&&l.trim())||"Helsinki Sports Map");if(img)r.style.setProperty("--curtain-img","url("+img+")")}}catch(e){}</script>
 
 <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <style>
@@ -120,6 +120,7 @@ h1{margin:136px 0 0;font-weight:600;font-size:clamp(52px,7.4vw,80px);line-height
 .meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin:64px 0 0;padding:0}
 .meta dt{font-size:14px;color:var(--faint)}
 .meta dd{margin:6px 0 0;font-size:17px;line-height:1.45}
+.meta > div:first-child dd{max-width:22ch}
 
 /* reading mode */
 /* reading switch: a recessed glass track with a raised pill that slides to the chosen option */
@@ -127,19 +128,20 @@ h1{margin:136px 0 0;font-weight:600;font-size:clamp(52px,7.4vw,80px);line-height
 .mode-bar{position:sticky;top:calc(14px + env(safe-area-inset-top,0px));z-index:20;width:max-content;margin-top:56px}
 .mode-bar.stuck .mode{box-shadow:inset 0 1px 3px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.08),0 1px 0 rgba(255,255,255,.05),0 16px 40px -12px rgba(0,0,0,.9)}
 .mode{position:relative;display:inline-flex;gap:4px;padding:4px;border-radius:999px;isolation:isolate;
-  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),rgba(23,24,27,.72);
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018)),rgba(23,24,27,.8);
   -webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);
-  box-shadow:inset 0 1px 3px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.06),0 1px 0 rgba(255,255,255,.05),0 10px 30px -14px rgba(0,0,0,.8)}
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.11),0 1px 0 rgba(255,255,255,.06),0 10px 30px -14px rgba(0,0,0,.8)}
 .mode .thumb{position:absolute;z-index:-1;top:4px;bottom:4px;left:0;width:var(--w,0px);transform:translateX(var(--x,4px));border-radius:999px;
   background:linear-gradient(180deg,#fbfbf8 0%,#e4e4de 100%);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(0,0,0,.14),0 1px 2px rgba(0,0,0,.45),0 8px 18px -8px rgba(0,0,0,.75);
   transition:transform 420ms var(--ease),width 420ms var(--ease)}
-.mode button{position:relative;border:0;background:none;padding:8px 16px;border-radius:999px;cursor:pointer;font-size:14px;color:var(--mute);transition:color 250ms ease}
-.mode button:hover{color:var(--ink)}
+.mode button{position:relative;border:0;background:none;padding:8px 16px;border-radius:999px;cursor:pointer;font-size:14px;color:#e4e5e9;transition:color 250ms ease}
+.mode button:hover{color:#ffffff}
 .mode button[aria-pressed="true"]{color:#0e0f11}
 .mode button:active{transform:scale(.97);transition:transform 160ms var(--ease),color 250ms ease}
 @media (prefers-reduced-motion: reduce){.mode .thumb{transition:none}}
-.mode small{color:inherit;opacity:.65;margin-left:6px}
+.mode small{color:inherit;opacity:.84;margin-left:6px}
+.mode button[aria-pressed="true"] small{opacity:.72}
 body.tldr .full{display:none!important}
 
 /* stills */
@@ -240,7 +242,7 @@ figcaption{margin-top:12px;max-width:44em;font-size:14px;line-height:1.5;color:v
 .curtain.on{transform:none;pointer-events:auto}
 .curtain span{text-align:center;max-width:calc(100vw - 48px);font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;color:#eeeeeb;opacity:0;transform:translateY(24px);transition:opacity 360ms ease 180ms,transform 620ms cubic-bezier(.23,1,.32,1) 180ms}
 .curtain.on span{opacity:1;transform:none}
-html.curtain-in::after{content:attr(data-curtain);background:#101114!important;position:fixed;inset:0;text-align:center;padding:0 24px;z-index:100;display:grid;place-items:center;background:#17181b;color:#eeeeeb;font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;transition:transform 720ms cubic-bezier(.77,0,.175,1)}
+html.curtain-in::after{content:attr(data-curtain);background:var(--curtain-img,none) 0 0/100% 100% no-repeat,#101114!important;position:fixed;inset:0;text-align:center;padding:0 24px;z-index:100;display:grid;place-items:center;color:#eeeeeb;font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;transition:transform 720ms cubic-bezier(.77,0,.175,1)}
 html.curtain-in main{transform:translateY(32px);opacity:.001;transition:transform 900ms cubic-bezier(.23,1,.32,1) 180ms,opacity 500ms ease 180ms}
 html.curtain-out::after{transform:translateY(-100%)}
 html.curtain-out main{transform:none;opacity:1}
@@ -260,7 +262,7 @@ html.curtain-in .title-sq path{animation-delay:calc(1150ms + var(--d) * 1.25)}
 
 /* Full case additions are marked in the accent blue, so it's clear at a glance what the longer read adds.
    They also fade in when the switch is flipped. */
-:root{--full:var(--mute);--full-hi:#dccaa2}
+:root{--full:#aba495;--full-hi:#dccaa2}
 .blocks .full h3{color:var(--full-hi)}
 .blocks .full p{color:var(--full)}
 div.full .ch h2::before{content:"Full case";display:block;margin-bottom:10px;font-size:14px;font-weight:400;letter-spacing:0;color:var(--full-hi)}
@@ -353,7 +355,7 @@ html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
     <dl class="meta"><div><dt>My role</dt><dd>Product design, development and data integration</dd></div><div><dt>Timeline</dt><dd>Sep 2026 – ongoing</dd></div><div><dt>Try it</dt><dd><a href="https://helsinki-sports-map.vercel.app/" target="_blank" rel="noopener">Open the map ↗</a></dd></div></dl>
   </section>
 
-  <div class="mode-bar"><div class="mode" role="group" aria-label="Reading length"><span class="thumb" aria-hidden="true"></span><button type="button" data-mode="tldr" aria-pressed="true" aria-label="Short version, 2 minute read">TL;DR<small>2 min</small></button><button type="button" data-mode="full" aria-pressed="false" aria-label="Full case, 3 minute read">Full case<small>3 min</small></button></div></div>
+  <div class="mode-bar"><div class="mode" role="group" aria-label="Reading length"><span class="thumb" aria-hidden="true"></span><button type="button" data-mode="tldr" aria-pressed="true" aria-label="Short version, 1 minute read">TL;DR<small>1 min</small></button><button type="button" data-mode="full" aria-pressed="false" aria-label="Full case, 3 minute read">Full case<small>3 min</small></button></div></div>
 
     <figure class="wide"><span class="clipbox"><video class="clip" muted loop playsinline preload="auto" poster="/v2/h-explore.jpg" width="1920" height="1200" aria-label="Filtering Helsinki Sports Map to basketball, zooming into Kallio and opening a venue"><source src="/v2/h-explore.webm" type="video/webm"></video></span><figcaption>Filtering to basketball, zooming into Kallio and opening a venue: details and directions sit in the list beside the map.</figcaption></figure>
 
@@ -378,21 +380,21 @@ html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
     <figure class="pair"><img class="reveal zoom" src="/h/hsm-before.jpg" alt="The earlier Helsinki Sports Map: a header with a long row of sport chips, a separate search field and a facility list beside the map" width="1920" height="1200" loading="lazy"><img class="reveal zoom" src="/v2/h-explore.jpg" alt="The reworked Helsinki Sports Map: one panel with search, Near me, sport filters and the list of places beside the map" width="1920" height="1200" loading="lazy"><figcaption>Left: before. Right: now, with search, Near me and filters in one panel beside the map.</figcaption></figure>
   </section>
 
-  <section class="ch" aria-labelledby="c2">
+<div class="full">  <section class="ch" aria-labelledby="c2">
     <h2 id="c2">Replace the custom map to focus on the product</h2>
-    <div class="blocks"><div class=""><h3>Problem</h3><p>I first built a custom renderer for a distinctive look. As the dataset grew, smooth zooming and rendering became a project of its own.</p></div><div class="full"><h3>What helped, for a while</h3><p>Spatial chunks, rendering in a background worker and reused frames helped, but optimisation kept taking time away from the product.</p></div><div class=""><h3>Decision</h3><p>I switched to MapLibre GL JS with OpenFreeMap’s Positron basemap, with its touch gestures, clustering and 2D or tilted views.</p></div><div class=""><h3>Trade-off</h3><p>The switch gave up some character in exchange for the whole city, smooth zooming and time for helping people find a place and get there.</p></div></div>
+    <div class="blocks"><div class=""><h3>Problem</h3><p>I first built a custom renderer for a distinctive look. As the dataset grew, smooth zooming and rendering became a project of its own.</p></div><div class=""><h3>What helped, for a while</h3><p>Spatial chunks, rendering in a background worker and reused frames helped, but optimisation kept taking time away from the product.</p></div><div class=""><h3>Decision</h3><p>I switched to MapLibre GL JS with OpenFreeMap’s Positron basemap, with its touch gestures, clustering and 2D or tilted views.</p></div><div class=""><h3>Trade-off</h3><p>The switch gave up some character in exchange for the whole city, smooth zooming and time for helping people find a place and get there.</p></div></div>
     <figure class="pair"><img class="reveal zoom" src="/h/hsm-custom-map-2d.webp" alt="The custom-rendered map in 2D: a beige, hand-drawn style map of part of Helsinki with numbered venue clusters" width="1440" height="960"><img class="reveal zoom" src="/h/hsm-custom-map-isometric.webp" alt="The same custom map in an isometric view, showing districts and venue clusters" width="1440" height="960"><figcaption>The custom renderer had its own character in 2D and isometric views, but it covered only part of the city.</figcaption></figure>
   </section>
 
   <section class="ch" aria-labelledby="c3">
     <h2 id="c3">Use the right source for each part of the journey</h2>
-    <div class="blocks"><div class=""><h3>Routes</h3><p>Walking, cycling and driving routes sit alongside public transport from HSL’s Digitransit routing API, with fare zones and ticket reminders.</p></div><div class=""><h3>Venues</h3><p>Venue data comes from LIPAS, enriched with Helsinki Service Map information. Coverage is citywide, but completeness varies by field.</p></div><div class="full"><h3>Addresses</h3><p>Helsinki’s Paikkatietohaku provides address lookup through separately requested API access, and the city’s street index supports suggestions.</p></div><div class="full"><h3>Prices</h3><p>Free use can be confirmed from the data. Paid access and exact prices need checking, which is what the review queue is for.</p></div></div>
+    <div class="blocks"><div class=""><h3>Routes</h3><p>Walking, cycling and driving routes sit alongside public transport from HSL’s Digitransit routing API, with fare zones and ticket reminders.</p></div><div class=""><h3>Venues</h3><p>Venue data comes from LIPAS, enriched with Helsinki Service Map information. Coverage is citywide, but completeness varies by field.</p></div><div class=""><h3>Addresses</h3><p>Helsinki’s Paikkatietohaku provides address lookup through separately requested API access, and the city’s street index supports suggestions.</p></div><div class=""><h3>Prices</h3><p>Free use can be confirmed from the data. Paid access and exact prices need checking, which is what the review queue is for.</p></div></div>
     <figure class="phones-fig"><div class="phones"><div class="device" style="--sb:#eff6ee"><div class="screen"><span class="island" aria-hidden="true"></span><div class="sb"><span>9:41</span><i><svg viewBox="0 0 18 11"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="6" rx="1"/><rect x="10" y="2.5" width="3" height="8.5" rx="1"/><rect x="15" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11"><path d="M8 2.2c2.3 0 4.4.9 5.9 2.4l1.2-1.2A10 10 0 0 0 8 .5 10 10 0 0 0 .9 3.4l1.2 1.2A8.3 8.3 0 0 1 8 2.2zm0 3.4c1.4 0 2.6.5 3.5 1.4l1.2-1.2A6.6 6.6 0 0 0 8 3.9a6.6 6.6 0 0 0-4.7 1.9L4.5 7c.9-.9 2.1-1.4 3.5-1.4zM8 9a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.2" fill="none" stroke="#111" opacity=".4"/><rect x="2" y="2" width="17" height="8" rx="2"/><path d="M24 4v4c.8-.3 1.3-1.1 1.3-2S24.8 4.3 24 4z" opacity=".5"/></svg></i></div><span class="clipbox"><video class="clip" muted loop playsinline preload="auto" poster="/v2/h-route.jpg" width="780" height="1688" aria-label="On a phone: entering a starting point, comparing travel modes and switching to public transport"><source src="/v2/h-route.webm" type="video/webm"></video></span></div></div><div class="device" style="--sb:#eff6ee"><div class="screen"><span class="island" aria-hidden="true"></span><div class="sb"><span>9:41</span><i><svg viewBox="0 0 18 11"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="6" rx="1"/><rect x="10" y="2.5" width="3" height="8.5" rx="1"/><rect x="15" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11"><path d="M8 2.2c2.3 0 4.4.9 5.9 2.4l1.2-1.2A10 10 0 0 0 8 .5 10 10 0 0 0 .9 3.4l1.2 1.2A8.3 8.3 0 0 1 8 2.2zm0 3.4c1.4 0 2.6.5 3.5 1.4l1.2-1.2A6.6 6.6 0 0 0 8 3.9a6.6 6.6 0 0 0-4.7 1.9L4.5 7c.9-.9 2.1-1.4 3.5-1.4zM8 9a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.2" fill="none" stroke="#111" opacity=".4"/><rect x="2" y="2" width="17" height="8" rx="2"/><path d="M24 4v4c.8-.3 1.3-1.1 1.3-2S24.8 4.3 24 4z" opacity=".5"/></svg></i></div><img class="reveal zoom" src="/v2/h-route-walk-still.jpg" alt="Walking route on a phone from Helsinginkatu to Aleksis Kiven peruskoulu" width="780" height="1688"></div></div></div><figcaption>Left: from a venue to a route, ending on public transport with HSL fare zones and the tram leg. Right: the same trip on foot.</figcaption></figure>
   </section>
-
+</div>
   <section class="ch" aria-labelledby="c4">
     <h2 id="c4">Review discrepancies before treating them as facts</h2>
-    <div class="blocks"><div class=""><h3>Problem</h3><p>People should be able to make a practical decision from what the map shows. A missing price can’t be shown as free access.</p></div><div class=""><h3>What I did</h3><p>A manual review queue keeps incoming venue data apart from what I’m prepared to approve. I compare it with the official source, accept, correct or reject it, and export approved records. Approval never publishes anything by itself.</p></div><div class="full"><h3>Evidence, not probability</h3><p>Each candidate gets a rule-based evidence score: a recognised price format, a match to the LIPAS venue and a fresh source add points, while an unfinished cross-check holds points back.</p></div><div class=""><h3>Next</h3><p>Price conditions matter too: an adult ticket, a concession and an equipment charge are different costs. Accessibility details come next, so people can judge a venue before travelling.</p></div></div>
+    <div class="blocks"><div class=""><h3>Problem</h3><p>People should be able to make a practical decision from what the map shows. A missing price can’t be shown as free access.</p></div><div class=""><h3>What I did</h3><p>A manual review queue keeps incoming venue data apart from what I’m prepared to approve. I compare it with the official source, accept, correct or reject it, and export approved records. Approval never publishes anything by itself.</p></div><div class="full"><h3>Evidence, not probability</h3><p>Each candidate gets a rule-based evidence score: a recognised price format, a match to the LIPAS venue and a fresh source add points, while an unfinished cross-check holds points back.</p></div><div class="full"><h3>Next</h3><p>Price conditions matter too: an adult ticket, a concession and an equipment charge are different costs. Accessibility details come next, so people can judge a venue before travelling.</p></div></div>
     <figure class="wide"><img class="reveal zoom" src="/h/hsm-review-queue.webp" alt="Review queue: pending venues, the selected venue’s price options to approve, provenance details and a breakdown of its evidence score" width="1908" height="886"><figcaption>Review queue v0.1. Each venue’s prices wait for approval, with the source and the evidence score broken down by check.</figcaption></figure>
   </section>
 
@@ -406,7 +408,7 @@ html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
     <div class="blocks"><div class=""><h3>Built to expand</h3><p>City-specific configuration and data providers are separate from the interface, so another city means adapting sources rather than rebuilding the app.</p></div><div class=""><h3>Visitors</h3><p>A Chinese-speaking friend has helped with translations towards Chinese support for visitors. A trending layer would need enough real activity first; the current preview is illustrative.</p></div></div>
   </section>
 
-</div>  <a class="next" href="/kelikamera/" data-curtain="Kelikamera AI"><span class="next-row"><span><small>Next project</small><b>Kelikamera AI</b><em class="next-desc">A live road weather map, and a local model for the cameras no sensor covers.</em></span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5"/></svg></span><span class="next-media"><video class="clip" autoplay muted loop playsinline preload="metadata" poster="/kk/kk-map.jpg" width="1920" height="1200" aria-hidden="true"><source src="/kk/kk-map.webm" type="video/webm"></video></span></a>
+</div>  <a class="next" href="/tahti/" data-curtain="Tahti"><span class="next-row"><span><small>Next project</small><b>Tahti</b><em class="next-desc">A Chrome extension that shows selected text one word at a time.</em></span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5"/></svg></span><span class="next-media"><video class="clip" autoplay muted loop playsinline preload="metadata" poster="/t/tahtiUIv3.webp" width="1920" height="1080" aria-hidden="true"><source src="/t/tahti.mp4" type="video/mp4"></video></span></a>
 </main>
 <div class="toast" id="toast" role="status" hidden></div>
 <script>

@@ -24,7 +24,7 @@
 <meta name="twitter:image" content="https://www.petu.design/og/home-v1.jpg">
 <title>Havain case study — Petteri Helttula</title>
 <script>/* the case always opens with its panel: from the portfolio, from a direct link, or on refresh */
-try{const r=document.documentElement,l=sessionStorage.getItem("curtain");if(l!==null)sessionStorage.removeItem("curtain");if(!matchMedia("(prefers-reduced-motion: reduce)").matches){r.classList.add("curtain-in");r.setAttribute("data-curtain",(l&&l.trim())||"Havain")}}catch(e){}</script>
+try{const r=document.documentElement,l=sessionStorage.getItem("curtain"),img=sessionStorage.getItem("curtain-img");if(l!==null)sessionStorage.removeItem("curtain");if(img!==null)sessionStorage.removeItem("curtain-img");if(!matchMedia("(prefers-reduced-motion: reduce)").matches){r.classList.add("curtain-in");r.setAttribute("data-curtain",(l&&l.trim())||"Havain");if(img)r.style.setProperty("--curtain-img","url("+img+")")}}catch(e){}</script>
 
 <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <style>
@@ -120,6 +120,7 @@ h1{margin:136px 0 0;font-weight:600;font-size:clamp(52px,7.4vw,80px);line-height
 .meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin:64px 0 0;padding:0}
 .meta dt{font-size:14px;color:var(--faint)}
 .meta dd{margin:6px 0 0;font-size:17px;line-height:1.45}
+.meta > div:first-child dd{max-width:22ch}
 
 /* reading mode */
 /* reading switch: a recessed glass track with a raised pill that slides to the chosen option */
@@ -127,19 +128,20 @@ h1{margin:136px 0 0;font-weight:600;font-size:clamp(52px,7.4vw,80px);line-height
 .mode-bar{position:sticky;top:calc(14px + env(safe-area-inset-top,0px));z-index:20;width:max-content;margin-top:56px}
 .mode-bar.stuck .mode{box-shadow:inset 0 1px 3px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.08),0 1px 0 rgba(255,255,255,.05),0 16px 40px -12px rgba(0,0,0,.9)}
 .mode{position:relative;display:inline-flex;gap:4px;padding:4px;border-radius:999px;isolation:isolate;
-  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),rgba(23,24,27,.72);
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018)),rgba(23,24,27,.8);
   -webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);
-  box-shadow:inset 0 1px 3px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.06),0 1px 0 rgba(255,255,255,.05),0 10px 30px -14px rgba(0,0,0,.8)}
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.11),0 1px 0 rgba(255,255,255,.06),0 10px 30px -14px rgba(0,0,0,.8)}
 .mode .thumb{position:absolute;z-index:-1;top:4px;bottom:4px;left:0;width:var(--w,0px);transform:translateX(var(--x,4px));border-radius:999px;
   background:linear-gradient(180deg,#fbfbf8 0%,#e4e4de 100%);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(0,0,0,.14),0 1px 2px rgba(0,0,0,.45),0 8px 18px -8px rgba(0,0,0,.75);
   transition:transform 420ms var(--ease),width 420ms var(--ease)}
-.mode button{position:relative;border:0;background:none;padding:8px 16px;border-radius:999px;cursor:pointer;font-size:14px;color:var(--mute);transition:color 250ms ease}
-.mode button:hover{color:var(--ink)}
+.mode button{position:relative;border:0;background:none;padding:8px 16px;border-radius:999px;cursor:pointer;font-size:14px;color:#e4e5e9;transition:color 250ms ease}
+.mode button:hover{color:#ffffff}
 .mode button[aria-pressed="true"]{color:#0e0f11}
 .mode button:active{transform:scale(.97);transition:transform 160ms var(--ease),color 250ms ease}
 @media (prefers-reduced-motion: reduce){.mode .thumb{transition:none}}
-.mode small{color:inherit;opacity:.65;margin-left:6px}
+.mode small{color:inherit;opacity:.84;margin-left:6px}
+.mode button[aria-pressed="true"] small{opacity:.72}
 body.tldr .full{display:none!important}
 
 /* stills */
@@ -240,7 +242,7 @@ figcaption{margin-top:12px;max-width:44em;font-size:14px;line-height:1.5;color:v
 .curtain.on{transform:none;pointer-events:auto}
 .curtain span{text-align:center;max-width:calc(100vw - 48px);font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;color:#eeeeeb;opacity:0;transform:translateY(24px);transition:opacity 360ms ease 180ms,transform 620ms cubic-bezier(.23,1,.32,1) 180ms}
 .curtain.on span{opacity:1;transform:none}
-html.curtain-in::after{content:attr(data-curtain);background:#101114!important;position:fixed;inset:0;text-align:center;padding:0 24px;z-index:100;display:grid;place-items:center;background:#17181b;color:#eeeeeb;font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;transition:transform 720ms cubic-bezier(.77,0,.175,1)}
+html.curtain-in::after{content:attr(data-curtain);background:var(--curtain-img,none) 0 0/100% 100% no-repeat,#101114!important;position:fixed;inset:0;text-align:center;padding:0 24px;z-index:100;display:grid;place-items:center;color:#eeeeeb;font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;transition:transform 720ms cubic-bezier(.77,0,.175,1)}
 html.curtain-in main{transform:translateY(32px);opacity:.001;transition:transform 900ms cubic-bezier(.23,1,.32,1) 180ms,opacity 500ms ease 180ms}
 html.curtain-out::after{transform:translateY(-100%)}
 html.curtain-out main{transform:none;opacity:1}
@@ -260,7 +262,7 @@ html.curtain-in .title-sq path{animation-delay:calc(1150ms + var(--d) * 1.25)}
 
 /* Full case additions are marked in the accent blue, so it's clear at a glance what the longer read adds.
    They also fade in when the switch is flipped. */
-:root{--full:var(--mute);--full-hi:#dccaa2}
+:root{--full:#aba495;--full-hi:#dccaa2}
 .blocks .full h3{color:var(--full-hi)}
 .blocks .full p{color:var(--full)}
 div.full .ch h2::before{content:"Full case";display:block;margin-bottom:10px;font-size:14px;font-weight:400;letter-spacing:0;color:var(--full-hi)}
@@ -353,13 +355,13 @@ html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
     <dl class="meta"><div><dt>My role</dt><dd>Product design, research and development</dd></div><div><dt>Timeline</dt><dd>Nov 2026 – in progress</dd></div><div><dt>Status</dt><dd>Simulation, phone prototype and maintenance centre demo on a simulated store; computer vision in progress</dd></div></dl>
   </section>
 
-  <div class="mode-bar"><div class="mode" role="group" aria-label="Reading length"><span class="thumb" aria-hidden="true"></span><button type="button" data-mode="tldr" aria-pressed="true" aria-label="Short version, 4 minute read">TL;DR<small>4 min</small></button><button type="button" data-mode="full" aria-pressed="false" aria-label="Full case, 5 minute read">Full case<small>5 min</small></button></div></div>
+  <div class="mode-bar"><div class="mode" role="group" aria-label="Reading length"><span class="thumb" aria-hidden="true"></span><button type="button" data-mode="tldr" aria-pressed="true" aria-label="Short version, 2 minute read">TL;DR<small>2 min</small></button><button type="button" data-mode="full" aria-pressed="false" aria-label="Full case, 5 minute read">Full case<small>5 min</small></button></div></div>
 
   <figure class="wide"><img class="zoom" src="/hv/havain-centre.jpg" alt="Havain maintenance centre demo on a simulated dairy department: summary figures, a department map with each fixture’s most urgent status, details of a near-date yoghurt with batches marked inferred and observed, alerts and the front of the yoghurt cooler with vision overlays" width="1920" height="1200"><figcaption>The maintenance centre demo on a simulated store: each fixture’s most urgent status and when it was last captured, a near-date yoghurt with its batches marked inferred and observed, and the alerts.</figcaption></figure>
 
   <section class="ch" aria-labelledby="goal">
     <h2 id="goal">What Havain is meant to become</h2>
-    <div class="blocks"><div class=""><h3>The goal</h3><p>A system that keeps every shelf in a grocery store mapped and current: what is on it, where, and until when. Employees capture shelves with a phone during their normal rounds, and department managers and retailers see in one place what needs attention: near-expiry batches, gaps, wrong products and shelves that need facing.</p></div><div class=""><h3>Where it starts</h3><p>Expiry and waste in fresh departments, in Finnish grocery retail. It’s built on global standards, GS1 2D barcodes and GTINs, so it isn’t tied to one chain or one country.</p></div></div>
+    <div class="blocks"><div class=""><h3>The goal</h3><p>A system that keeps every shelf in a grocery store mapped and current: what is on it, where, and until when. Employees capture shelves with a phone during their normal rounds, and department managers and retailers see in one place what needs attention: near-expiry batches, gaps, wrong products and shelves that need facing.</p></div><div class="full"><h3>Where it starts</h3><p>Expiry and waste in fresh departments, in Finnish grocery retail. It’s built on global standards, GS1 2D barcodes and GTINs, so it isn’t tied to one chain or one country.</p></div></div>
     <p class="note"><b>Early days.</b> Havain is at the start of development. Everything on this page, the screenshots included, will change as it’s built and tested.</p>
   </section>
 
@@ -368,11 +370,11 @@ html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
     <div class="blocks"><div class=""><h3>Problem</h3><p>My 2025 concept, <a href="/s-havikki/" data-curtain="S-hävikki">S-hävikki</a>, had one big gap: an EAN barcode doesn’t carry the expiry date, so checking dates stays manual.</p></div><div class=""><h3>What changed</h3><p>GS1 2D barcodes can carry the batch and expiry date, and retail is moving to read them at checkout. Sunrise 2027 is an industry goal, not a law, and Finland is in the pilot stage.</p></div></div>
   </section>
 
-  <section class="ch" aria-labelledby="c2">
+<div class="full">  <section class="ch" aria-labelledby="c2">
     <h2 id="c2">Test the idea before building it</h2>
-    <div class="blocks"><div class=""><h3>What I did</h3><p>A day-by-day simulation of one dairy shelf, comparing four ways of finding near-expiry products: today’s walk-through routine, a manually updated shelf map (the 2025 concept), a shelf map with 2D data, and the same plus sales speed.</p></div><div class="full"><h3>Assumptions</h3><p>Most parameters are assumptions, and they’re listed on the simulation page. The results below are model results, not field measurements.</p></div></div>
+    <div class="blocks"><div class=""><h3>What I did</h3><p>A day-by-day simulation of one dairy shelf, comparing four ways of finding near-expiry products: today’s walk-through routine, a manually updated shelf map (the 2025 concept), a shelf map with 2D data, and the same plus sales speed.</p></div><div class=""><h3>Assumptions</h3><p>Most parameters are assumptions, and they’re listed on the simulation page. The results below are model results, not field measurements.</p></div></div>
   </section>
-
+</div>
   <section class="ch" aria-labelledby="c3">
     <h2 id="c3">My shop-floor experience corrected the model</h2>
     <div class="blocks"><div class=""><h3>What the model said</h3><p>The first version said labelling every near-expiry product would lower the margin.</p></div><div class=""><h3>What I knew</h3><p>After four years in a hypermarket dairy department, I knew fast sellers almost never get close to their date. The model had an unrealistic shelf: fast sellers reached the label window on 15–19% of days. Once fixed, about 2%, and the result disappeared.</p></div><div class="wide-b"><h3>Principle</h3><p><strong>A model is only as good as the shelf it imagines.</strong> Domain knowledge decides which results to trust.</p></div></div>
@@ -384,27 +386,28 @@ html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
     <p class="note"><b>Model results under stated assumptions,</b> not field measurements.</p>
   </section>
 
-  <section class="ch" aria-labelledby="c5">
+<div class="full">  <section class="ch" aria-labelledby="c5">
     <h2 id="c5">Design for the newest person on the shift</h2>
-    <div class="blocks"><div class=""><h3>Why</h3><p>Retail has high staff turnover, so someone on every shift is still learning the store, and people read and work in different ways. The tool has to work for all of them, starting with someone in their first week.</p></div><div class=""><h3>Rules</h3><p>Tasks one at a time, plain language, never colour alone, undo everywhere, “I can’t find these” as a normal answer, and tasks scoped by role.</p></div><div class="full"><h3>Phone prototype</h3><p>One scan, two jobs: receive a new batch, or confirm the right product for a task. GS1 Digital Link QR codes open it straight from the iPhone camera. Demo codes use the GS1 example prefix 952, so no real product codes.</p></div><div class="full"><h3>Tested so far</h3><p>In a desktop browser at phone width, in Finnish and English. It hasn’t been tested on a real iPhone in a store yet.</p></div></div>
+    <div class="blocks"><div class=""><h3>Why</h3><p>Retail has high staff turnover, so someone on every shift is still learning the store, and people read and work in different ways. The tool has to work for all of them, starting with someone in their first week.</p></div><div class=""><h3>Rules</h3><p>Tasks one at a time, plain language, never colour alone, undo everywhere, “I can’t find these” as a normal answer, and tasks scoped by role.</p></div><div class=""><h3>Phone prototype</h3><p>One scan, two jobs: receive a new batch, or confirm the right product for a task. GS1 Digital Link QR codes open it straight from the iPhone camera. Demo codes use the GS1 example prefix 952, so no real product codes.</p></div><div class=""><h3>Tested so far</h3><p>In a desktop browser at phone width, in Finnish and English. It hasn’t been tested on a real iPhone in a store yet.</p></div></div>
   </section>
-
+</div>
   <section class="ch" aria-labelledby="c6">
     <h2 id="c6">From expiry tool to platform</h2>
-    <div class="blocks"><div class=""><h3>The assumption</h3><p>The simulation assumed a shelf map exists and stays correct. In a real store someone has to build it and keep it up to date as the assortment changes, and that is the job for computer vision.</p></div><div class=""><h3>Key idea</h3><p><strong>Identity comes from the shelf-edge label; vision only checks what is above it.</strong> Identifying any of thousands of products becomes checking whether this is the product the label says.</p></div><div class="full wide-b"><h3>Two products, one data</h3><p>A maintenance centre on the desktop, with the store map, shelf front views and a review queue for what vision is unsure about, and a field app on the phone for scans, tasks and guided capture. The maintenance centre runs as a demo on a simulated store; it isn’t on real store data yet.</p></div></div>
+    <div class="blocks"><div class="full"><h3>The assumption</h3><p>The simulation assumed a shelf map exists and stays correct. In a real store someone has to build it and keep it up to date as the assortment changes, and that is the job for computer vision.</p></div><div class=""><h3>Key idea</h3><p><strong>Identity comes from the shelf-edge label; vision only checks what is above it.</strong> Identifying any of thousands of products becomes checking whether this is the product the label says.</p></div><div class="full wide-b"><h3>Two products, one data</h3><p>A maintenance centre on the desktop, with the store map, shelf front views and a review queue for what vision is unsure about, and a field app on the phone for scans, tasks and guided capture. The maintenance centre runs as a demo on a simulated store; it isn’t on real store data yet.</p></div></div>
   </section>
 
-  <section class="ch" aria-labelledby="c6r">
+<div class="full">  <section class="ch" aria-labelledby="c6r">
     <h2 id="c6r">Check what already exists</h2>
-    <div class="blocks"><div class="wide-b"><h3>How I did it</h3><p>Two rounds of desk research with a research agent. The first covered GS1 2D barcodes, expiry data and what studies say about date checks and waste. The second asked who already does shelf recognition and expiry management in Europe, what staff criticise, what Finnish law says and how a retailer would buy. I set the questions and read the reports. The sources aren’t verified yet, so no figures from them appear here.</p></div><div class="full"><h3>The technology is coming, not here</h3><p>Checkouts reading 2D codes is an industry goal for 2027, not a law. In Finland, 2D codes with dates are still in pilots.</p></div><div class=""><h3>Nobody does the whole loop</h3><p>Fixed shelf cameras and expiry tools are in use in large European chains, but I found no product that ties batch data, the shelf slot read from the price label and a task on a phone together.</p></div><div class=""><h3>Staff criticise the capture, not the AI</h3><p>Shelf-photo apps get poor ratings for failed stitching, battery drain and stuck uploads. Fixed cameras draw criticism for adding work and for the feeling of being watched.</p></div><div class="full"><h3>Finland is empty for a reason</h3><p>A small market, two big groups and waste that is already low. The real competitor is today’s routine: manual checks, red labels and the evening discount.</p></div><div class="wide-b"><h3>What it changed</h3><p>One niche first: date checks in fresh departments, tied to the shelf slot. The full system stays the vision. Existing systems are partners, not rivals: read stock and markdowns from them, use electronic shelf labels to point to the slot, and don’t build forecasting.</p><p>One design rule: measure the shelf, not the person. No individual metrics, no location tracking, and people blurred on the device. Using the data to monitor staff would need co-operation with them under Finnish law, and the EU AI Act treats it as high-risk. That’s my reading, and it needs a lawyer.</p></div><div class="full wide-b"><h3>Limits</h3><p>About half of the second report rests on search snippets rather than opened pages. Every result figure comes from retailers or vendors, not independent studies, and there are no first-hand accounts from store staff. The numbers that matter most aren’t published anywhere, so the next step is to ask people.</p></div></div>
+    <div class="blocks"><div class="wide-b"><h3>How I did it</h3><p>Two rounds of desk research with a research agent. The first covered GS1 2D barcodes, expiry data and what studies say about date checks and waste. The second asked who already does shelf recognition and expiry management in Europe, what staff criticise, what Finnish law says and how a retailer would buy. I set the questions and read the reports. The sources aren’t verified yet, so no figures from them appear here.</p></div><div class=""><h3>The technology is coming, not here</h3><p>Checkouts reading 2D codes is an industry goal for 2027, not a law. In Finland, 2D codes with dates are still in pilots.</p></div><div class=""><h3>Nobody does the whole loop</h3><p>Fixed shelf cameras and expiry tools are in use in large European chains, but I found no product that ties batch data, the shelf slot read from the price label and a task on a phone together.</p></div><div class=""><h3>Staff criticise the capture, not the AI</h3><p>Shelf-photo apps get poor ratings for failed stitching, battery drain and stuck uploads. Fixed cameras draw criticism for adding work and for the feeling of being watched.</p></div><div class=""><h3>Finland is empty for a reason</h3><p>A small market, two big groups and waste that is already low. The real competitor is today’s routine: manual checks, red labels and the evening discount.</p></div><div class="wide-b"><h3>What it changed</h3><p>One niche first: date checks in fresh departments, tied to the shelf slot. The full system stays the vision. Existing systems are partners, not rivals: read stock and markdowns from them, use electronic shelf labels to point to the slot, and don’t build forecasting.</p><p>One design rule: measure the shelf, not the person. No individual metrics, no location tracking, and people blurred on the device. Using the data to monitor staff would need co-operation with them under Finnish law, and the EU AI Act treats it as high-risk. That’s my reading, and it needs a lawyer.</p></div><div class="wide-b"><h3>Limits</h3><p>About half of the second report rests on search snippets rather than opened pages. Every result figure comes from retailers or vendors, not independent studies, and there are no first-hand accounts from store staff. The numbers that matter most aren’t published anywhere, so the next step is to ask people.</p></div></div>
   </section>
+</div>
 
   <section class="ch" aria-labelledby="c7">
     <h2 id="c7">What’s next, and what isn’t proven</h2>
     <div class="blocks"><div class=""><h3>Next</h3><p>Interview store staff, retailers and managers. Then capture real shelves with the store’s permission, measure what vision recognises, and publish each validation step’s result.</p></div><div class=""><h3>Not proven yet</h3><p>No real shelf has been captured and no recognition accuracy has been measured. No retailer has been approached, on purpose: the proof comes first.</p></div></div>
   </section>
 
-  <a class="next" href="/korislab/" data-curtain="KorisLab"><span class="next-row"><span><small>Next project</small><b>KorisLab</b><em class="next-desc">An analytics tool for Finnish basketball that goes past the box score.</em></span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5"/></svg></span><span class="next-media"><video class="clip" autoplay muted loop playsinline preload="metadata" poster="/v2/k-home.jpg" width="1920" height="1200" aria-hidden="true"><source src="/v2/k-home.webm" type="video/webm"></video></span></a>
+  <a class="next" href="/kelikamera/" data-curtain="Kelikamera AI"><span class="next-row"><span><small>Next project</small><b>Kelikamera AI</b><em class="next-desc">A live road weather map, and a local model for the cameras no sensor covers.</em></span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5"/></svg></span><span class="next-media"><video class="clip" autoplay muted loop playsinline preload="metadata" poster="/kk/kk-map.jpg" width="1920" height="1200" aria-hidden="true"><source src="/kk/kk-map.webm" type="video/webm"></video></span></a>
 </main>
 <div class="toast" id="toast" role="status" hidden></div>
 <script>
