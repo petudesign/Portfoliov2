@@ -1,4 +1,4 @@
-const { chromium } = require('/Users/petu/Documents/ChatGPT/Kharon/node_modules/playwright-core'); const path = require('path'); const fs = require('fs');
+const { chromium } = require(process.env.PLAYWRIGHT_CORE_MODULE || 'playwright-core'); const path = require('path'); const fs = require('fs');
 const M = JSON.parse(fs.readFileSync(path.join(__dirname, 'out/marks.json'), 'utf8'));
 (async () => { const b = await chromium.launch({ channel: 'chrome' }); const p = await b.newPage({ viewport: { width: 1200, height: 750 } });
   p.on('pageerror', e => console.log('ERR', e.message));

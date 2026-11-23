@@ -1,4 +1,4 @@
-const { chromium } = require('/Users/petu/Documents/ChatGPT/Kharon/node_modules/playwright-core');
+const { chromium } = require(process.env.PLAYWRIGHT_CORE_MODULE || 'playwright-core');
 const fs = require('fs'), path = require('path');
 const [url, outDir, fps = '60', secs = '4', only] = process.argv.slice(2);
 (async () => {

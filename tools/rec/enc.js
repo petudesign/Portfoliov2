@@ -1,5 +1,5 @@
 // node enc.js webp|jpeg quality in out [in out ...]
-const { chromium } = require('/Users/petu/Documents/ChatGPT/Kharon/node_modules/playwright-core'); const fs = require('fs');
+const { chromium } = require(process.env.PLAYWRIGHT_CORE_MODULE || 'playwright-core'); const fs = require('fs');
 const [fmt, q, ...rest] = process.argv.slice(2);
 (async () => { const b = await chromium.launch({ channel: 'chrome' }); const p = await b.newPage();
   for (let k = 0; k < rest.length; k += 2) { const i = rest[k], o = rest[k + 1]; const ext = i.split('.').pop();

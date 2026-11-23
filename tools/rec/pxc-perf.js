@@ -1,4 +1,4 @@
-const { chromium } = require('/Users/petu/Documents/ChatGPT/Kharon/node_modules/playwright-core'); const path = require('path');
+const { chromium } = require(process.env.PLAYWRIGHT_CORE_MODULE || 'playwright-core'); const path = require('path');
 (async () => { const b = await chromium.launch({ channel: 'chrome' }); const p = await b.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2 });
   p.on('pageerror', e => console.log('ERR', p.url(), e.message));
   const watch = () => p.evaluate(() => { window.__gaps = []; window.__long = []; let last = performance.now();

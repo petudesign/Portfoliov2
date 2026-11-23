@@ -1,5 +1,5 @@
 // Records a page through Chrome's screencast and encodes a constant-frame-rate VP9 WebM.
-const { chromium } = require('/Users/petu/Documents/ChatGPT/Kharon/node_modules/playwright-core');
+const { chromium } = require(process.env.PLAYWRIGHT_CORE_MODULE || 'playwright-core');
 const { spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');

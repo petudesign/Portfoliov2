@@ -1,5 +1,5 @@
 // node crop.js in.png out.jpg x y w h [quality]
-const { chromium } = require('/Users/petu/Documents/ChatGPT/Kharon/node_modules/playwright-core'); const fs = require('fs'); const path = require('path');
+const { chromium } = require(process.env.PLAYWRIGHT_CORE_MODULE || 'playwright-core'); const fs = require('fs'); const path = require('path');
 const [inp, out, x, y, w, h, q = '0.86'] = process.argv.slice(2);
 (async () => { const b = await chromium.launch({ channel: 'chrome' }); const p = await b.newPage();
   const data = 'data:image/png;base64,' + fs.readFileSync(inp).toString('base64');

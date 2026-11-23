@@ -1,5 +1,5 @@
 // node build.js OUT_DIR  — renders the README images through the local server
-const { chromium } = require('/Users/petu/Documents/ChatGPT/Kharon/node_modules/playwright-core'); const fs = require('fs'); const path = require('path');
+const { chromium } = require(process.env.PLAYWRIGHT_CORE_MODULE || 'playwright-core'); const fs = require('fs'); const path = require('path');
 const out = process.argv[2]; fs.mkdirSync(out, { recursive: true });
 const save = (n, d) => fs.writeFileSync(path.join(out, n), Buffer.from(d.split(',')[1], 'base64'));
 const TILES = [

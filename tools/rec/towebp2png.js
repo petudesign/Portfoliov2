@@ -1,4 +1,4 @@
-const { chromium } = require('/Users/petu/Documents/ChatGPT/Kharon/node_modules/playwright-core'); const fs = require('fs');
+const { chromium } = require(process.env.PLAYWRIGHT_CORE_MODULE || 'playwright-core'); const fs = require('fs');
 (async () => { const b = await chromium.launch({ channel: 'chrome' }); const p = await b.newPage();
   for (const [i, o] of process.argv.slice(2).reduce((a, x, k, arr) => k % 2 ? a : [...a, [x, arr[k + 1]]], [])) {
     const ext = i.split('.').pop(); const d = `data:image/${ext === 'jpg' ? 'jpeg' : ext};base64,` + fs.readFileSync(i).toString('base64');
