@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Maamitta case study: map measurement, material estimator and PDF quote tool for Finnish landscaping, earthworks, paving and fencing contractors.">
+<meta name="author" content="Petteri Helttula">
+<meta name="theme-color" content="#0e0f11">
+<link rel="canonical" href="https://www.petu.design/maamitta/">
+<link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs summary">
+<link rel="icon" href="/assets/favicon.svg?v=2" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Petteri Helttula">
+<meta property="og:locale" content="en_FI">
+<meta property="og:url" content="https://www.petu.design/maamitta/">
+<meta property="og:title" content="Maamitta case study — Petteri Helttula">
+<meta property="og:description" content="Maamitta case study: map measurement, material estimator and PDF quote tool for Finnish landscaping, earthworks, paving and fencing contractors.">
+<meta property="og:image" content="https://www.petu.design/m/maamitta-demo.jpg">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="1200">
+<meta property="og:image:alt" content="Maamitta desktop view showing an official Helsinki parcel with automatic building subtraction, edge lengths and an itemized stone paving estimate">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Maamitta case study — Petteri Helttula">
+<meta name="twitter:description" content="Maamitta case study: map measurement, material estimator and PDF quote tool for Finnish landscaping, earthworks, paving and fencing contractors.">
+<meta name="twitter:image" content="https://www.petu.design/m/maamitta-demo.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Maamitta case study", "description": "Maamitta case study: map measurement, material estimator and PDF quote tool for Finnish landscaping, earthworks, paving and fencing contractors.", "url": "https://www.petu.design/maamitta/", "image": "https://www.petu.design/m/maamitta-demo.jpg", "datePublished": "2026-11-23", "dateModified": "2026-11-23", "inLanguage": "en", "keywords": ["MapLibre GL", "Cadastral Data", "MML OGC API", "Material Estimator", "PDF Generation", "Colorblind Accessibility", "Product Design"], "author": {"@type": "Person", "@id": "https://www.petu.design/#person", "name": "Petteri Helttula", "url": "https://www.petu.design/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://www.petu.design/"}, {"@type": "ListItem", "position": 2, "name": "Maamitta", "item": "https://www.petu.design/maamitta/"}]}]}</script>
+<title>Maamitta case study — Petteri Helttula</title>
+<script>/* the case always opens with its panel: from the portfolio, from a direct link, or on refresh */
+try{const r=document.documentElement,l=sessionStorage.getItem("curtain"),img=sessionStorage.getItem("curtain-img");if(l!==null)sessionStorage.removeItem("curtain");if(img!==null)sessionStorage.removeItem("curtain-img");if(!matchMedia("(prefers-reduced-motion: reduce)").matches){r.classList.add("curtain-in");r.setAttribute("data-curtain",(l&&l.trim())||"Maamitta");if(img)r.style.setProperty("--curtain-img","url("+img+")")}}catch(e){}</script>
+
+<link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Geist is served from the site itself, so no font request leaves the page */
+@font-face{font-family:"Geist";src:url("/fonts/Geist-Variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:block}
+@font-face{font-family:"Geist Mono";src:url("/fonts/GeistMono-Variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* clips: a frame that holds the video and its pause button */
+.clipbox{position:relative;display:block;overflow:hidden;border-radius:14px;border:1px solid var(--hair);background:var(--raise)}
+.clipbox video{display:block;width:100%;height:auto}
+.wide .clipbox{margin:0}
+@media (min-width:1000px){.wide .clipbox{width:min(1120px,calc(100vw - 96px));max-width:none;margin-left:calc((864px - 48px - min(1120px,calc(100vw - 96px)))/2)}}
+.clip-toggle{position:absolute;z-index:3;right:12px;bottom:12px;display:grid;place-items:center;width:36px;height:36px;padding:0;border:0;border-radius:999px;cursor:pointer;color:#fff;
+  background:rgba(14,15,17,.62);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);opacity:.55;transition:opacity 200ms ease,transform 160ms cubic-bezier(.23,1,.32,1)}
+.clip-toggle svg{width:14px;height:14px;fill:currentColor;stroke:none}
+.clipbox:hover .clip-toggle,.clip-toggle:focus-visible,.clip-toggle[aria-pressed="true"]{opacity:1}
+.clip-toggle:active{transform:scale(.94)}
+@media (hover:none){.clip-toggle{opacity:.85}}
+
+/* phones: a device frame with a status bar in the app's own colour */
+.phones{align-items:flex-start}
+.device{position:relative;flex:0 1 auto;width:min(270px,44vw);padding:9px;border-radius:44px;background:linear-gradient(150deg,#34353b,#16171a 40%,#0d0e10);
+  box-shadow:inset 0 0 0 1.5px #45464d,inset 0 0 0 3px #0a0a0c,0 30px 60px -24px rgba(0,0,0,.9)}
+.device::after{content:"";position:absolute;right:-2px;top:22%;width:3px;height:64px;border-radius:2px;background:#2b2c31}
+.device .screen{position:relative;overflow:hidden;border-radius:35px;background:var(--sb,#fff)}
+.device .sb{display:flex;align-items:center;justify-content:space-between;height:34px;padding:0 22px 0 26px;background:var(--sb,#fff);color:#111;font:600 12px/1 var(--sans);letter-spacing:-.01em}
+.device .sb i{display:flex;gap:4px;align-items:center}
+.device .sb svg{width:auto;height:10px;fill:#111;stroke:none}
+.device .island{position:absolute;z-index:2;top:8px;left:50%;width:76px;height:22px;margin-left:-38px;border-radius:12px;background:#000}
+.device .clipbox,.device img{border:0;border-radius:0;background:none;max-height:none}
+.device img{display:block;width:100%;height:auto}
+.phones .device img.zoom{max-height:none;border-radius:0;border:0}
+@media (max-width:640px){.device{width:min(220px,44vw);border-radius:34px;padding:7px}.device .screen{border-radius:28px}.device .sb{height:26px;font-size:10px;padding:0 16px 0 20px}.device .island{top:6px;width:58px;height:17px;margin-left:-29px}}
+</style>
+<style>
+:root{
+  --bg:#0e0f11; --raise:#17181b; --ink:#eeeeeb; --mute:#a3a4a9; --faint:#7c7e86; --hair:#26272b;
+  --accent:#e5173f;--accent-hi:#f0697c; --accent-ink:#ffffff;
+  --sans:"Geist","Helvetica Neue",Arial,sans-serif;
+  --ease:cubic-bezier(.23,1,.32,1);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+::selection{background:#571221;color:inherit}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{overflow-x:clip}
+body{margin:0;background:transparent;color:var(--ink);font:17px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
+svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.page{max-width:864px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px));padding-block:28px 96px}
+
+/* top bar */
+.top{position:sticky;top:calc(10px + env(safe-area-inset-top,0px));z-index:30;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  margin:0 -12px;padding:4px 12px;
+  transition:transform 420ms cubic-bezier(.23,1,.32,1)}
+.top::before{content:"";position:absolute;z-index:-1;left:-50vw;right:-50vw;top:calc(-10px - env(safe-area-inset-top,0px));bottom:-22px;
+  background:linear-gradient(180deg,rgba(14,15,17,.94) 0%,rgba(14,15,17,.82) 60%,rgba(14,15,17,0) 100%);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);-webkit-mask-image:linear-gradient(#000 68%,transparent);mask-image:linear-gradient(#000 68%,transparent);opacity:0;transition:opacity 300ms ease;pointer-events:none}
+.top.float::before{opacity:1}
+.top.away{transform:translateY(calc(-100% - 24px))}
+.mode-bar{transition:transform 420ms cubic-bezier(.23,1,.32,1)}
+.top-on .mode-bar.stuck{transform:translateY(60px)}
+@media (prefers-reduced-motion: reduce){.top,.mode-bar,.next-media img{transition:none}}
+.home{display:inline-flex;align-items:center;gap:12px;text-decoration:none;min-height:44px}
+.home img{width:33px;height:44px;border-radius:7px;object-fit:cover;background:#f8f4e7}
+.home span{font-weight:430;font-size:17px;letter-spacing:-.01em;transition:color 200ms ease}
+@media (hover:hover) and (pointer:fine){.home:hover span{color:var(--accent-hi)}}
+.acts{display:flex;align-items:center;gap:22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 17px;line-height:1;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);cursor:pointer;font-size:14.5px;transition:transform 160ms var(--ease)}
+.btn:active{transform:scale(.97)}
+.swap{display:inline-grid;align-items:center}.swap svg{display:block}.swap>*{grid-area:1/1;transition:opacity 200ms ease,filter 200ms ease,transform 200ms var(--ease)}
+.swap .b{opacity:0;filter:blur(2px);transform:translateY(4px)}
+.is-copied .swap .a{opacity:0;filter:blur(2px);transform:translateY(-4px)}.is-copied .swap .b{opacity:1;filter:none;transform:none}
+
+/* intro */
+h1{margin:136px 0 0;font-weight:600;font-size:clamp(52px,7.4vw,80px);line-height:1;letter-spacing:-.055em}
+.intro p{margin:40px 0 0;max-width:34em;font-size:clamp(19px,2.1vw,21px);line-height:1.45;letter-spacing:-.02em;text-wrap:pretty}
+.intro p + p{margin-top:16px}
+.meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin:64px 0 0;padding:0}
+.meta dt{font-size:14px;color:var(--faint)}
+.meta dd{margin:6px 0 0;font-size:17px;line-height:1.45}
+.meta > div:first-child dd{max-width:22ch}
+.meta dd a{text-decoration:none;border-bottom:1px solid var(--hair);transition:border-color 200ms ease}
+.meta dd a:hover{border-color:var(--ink)}
+
+/* reading mode */
+.mode-bar{position:sticky;top:calc(14px + env(safe-area-inset-top,0px));z-index:20;width:max-content;margin-top:56px}
+.mode-bar.stuck .mode{box-shadow:inset 0 1px 3px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.08),0 1px 0 rgba(255,255,255,.05),0 16px 40px -12px rgba(0,0,0,.9)}
+.mode{position:relative;display:inline-flex;gap:4px;padding:4px;border-radius:999px;isolation:isolate;
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018)),rgba(23,24,27,.86);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.11),0 1px 0 rgba(255,255,255,.06),0 10px 30px -14px rgba(0,0,0,.8)}
+.mode .thumb{position:absolute;z-index:-1;top:4px;bottom:4px;left:0;width:var(--w,0px);transform:translateX(var(--x,4px));border-radius:999px;
+  background:linear-gradient(180deg,#fbfbf8 0%,#e4e4de 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(0,0,0,.14),0 1px 2px rgba(0,0,0,.45),0 8px 18px -8px rgba(0,0,0,.75);
+  transition:transform 420ms var(--ease),width 420ms var(--ease)}
+.mode button{position:relative;border:0;background:none;padding:8px 16px;border-radius:999px;cursor:pointer;font-size:14px;color:#e4e5e9;transition:color 250ms ease}
+.mode button:hover{color:#ffffff}
+.mode button[aria-pressed="true"]{color:#0e0f11}
+.mode button:active{transform:scale(.97);transition:transform 160ms var(--ease),color 250ms ease}
+@media (prefers-reduced-motion: reduce){.mode .thumb{transition:none}}
+.mode small{color:inherit;opacity:.84;margin-left:6px}
+.mode button[aria-pressed="true"] small{opacity:.72}
+body.tldr .full{display:none!important}
+
+/* stills & document frames */
+figure{margin:0}
+.wide{margin-top:48px}
+.wide img,.pair img{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--hair);background:var(--raise)}
+@media (min-width:1000px){.wide img{width:min(1120px,calc(100vw - 96px));max-width:none;margin-left:calc((864px - 48px - min(1120px,calc(100vw - 96px)))/2)}}
+.doc-fig{margin-top:48px;display:flex;flex-direction:column;align-items:center}
+.doc-fig img{display:block;width:min(620px,100%);height:auto;border-radius:14px;border:1px solid var(--hair);background:#fff;box-shadow:0 28px 60px -24px rgba(0,0,0,.85)}
+.doc-fig figcaption{text-align:center;margin:14px auto 0}
+.inline-fig{margin-top:8px;display:flex;flex-direction:column;align-items:center}
+.inline-fig img{display:block;width:min(460px,100%);height:auto;border-radius:14px;border:1px solid var(--hair);background:var(--raise)}
+.inline-fig figcaption{text-align:center;margin:14px auto 0}
+.mark-card{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:36px;margin-top:24px;padding:28px 24px;border-radius:14px;border:1px solid var(--hair);background:var(--raise)}
+.mark-item{display:flex;flex-direction:column;align-items:center;gap:10px}
+.mark-item span{font-size:13px;color:var(--faint);font-variant-numeric:tabular-nums}
+.mark-card svg{stroke:none;width:auto;height:auto}
+.mark-pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 8px;border-radius:999px;background:#184e3b;color:#fff;font-weight:500;font-size:15px;letter-spacing:-.01em}
+figcaption{margin-top:12px;max-width:44em;font-size:14px;line-height:1.5;color:var(--faint)}
+
+/* key numbers */
+.key{margin-top:96px}
+.label{margin:0 0 20px;font-size:14px;color:var(--faint)}
+.scope{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin:0;padding:0;list-style:none}
+[data-count]{font-variant-numeric:tabular-nums}
+.scope b{display:block;font-weight:500;font-size:clamp(30px,4.2vw,44px);line-height:1.05;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.scope span{display:block;margin-top:6px;font-size:15px;line-height:1.4;color:var(--mute)}
+@media (max-width:720px){.scope{grid-template-columns:1fr 1fr;gap:22px 16px}}
+
+/* chapters */
+.ch{margin-top:144px}
+.ch h2{margin:6px 0 0;font-weight:600;font-size:clamp(34px,4.6vw,48px);line-height:1.04;letter-spacing:-.045em;text-wrap:balance}
+.ch .lead{margin:16px 0 0;max-width:42em;font-size:18px;line-height:1.5;color:var(--mute);text-wrap:pretty}
+.blocks{display:grid;grid-template-columns:1fr 1fr;gap:44px 48px;margin:48px 0 0}
+.blocks h3{margin:0;font-weight:500;font-size:20px;letter-spacing:-.02em}
+.blocks p{margin:12px 0 0;font-size:17px;line-height:1.6;color:var(--mute);text-wrap:pretty}
+.blocks p strong{color:var(--ink);font-weight:500}
+.blocks p a{text-decoration:none;border-bottom:1px solid var(--hair);transition:border-color 200ms ease}
+.blocks p a:hover{border-color:var(--ink)}
+.blocks .wide-b{grid-column:1/-1}
+.note{margin:40px 0 0;padding:18px 20px;border-radius:12px;background:var(--raise);font-size:16px;line-height:1.5;color:var(--mute)}
+.note b{color:var(--ink);font-weight:500}
+
+/* adversarial agent findings (same system as Kelikamera) */
+.personas{list-style:none;margin:28px 0 0;padding:0;border-top:1px solid var(--hair)}
+.personas>li{display:grid;grid-template-columns:210px 1fr;gap:10px 40px;padding:28px 0;border-bottom:1px solid var(--hair)}
+.personas .who b{display:block;font-weight:500;font-size:17px;line-height:1.35;letter-spacing:-.01em;color:var(--ink)}
+.personas .who span{display:block;margin-top:6px;font-size:14px;line-height:1.45;color:var(--faint)}
+.blocks .personas p{margin:0}
+.blocks .personas .found{color:var(--ink)}
+.blocks .personas .fix{margin-top:12px}
+.personas .fix span{display:block;margin-bottom:2px;font-size:14px;color:var(--faint)}
+.personas li.full .who b{color:var(--full-hi)}
+.blocks .personas li.full .found{color:var(--full-hi)}
+@media (max-width:720px){.personas>li{grid-template-columns:1fr;gap:12px;padding:24px 0}}
+
+/* inline deuteranopia comparison diagram */
+.cb-fig{margin-top:44px}
+.cb{display:block;width:100%;max-width:540px;height:auto;font-family:inherit;overflow:visible}
+.cb text{fill:var(--faint);stroke:none;font-weight:400}
+
+/* lightbox */
+.zoom{cursor:zoom-in}
+.lb{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:24px;background:rgba(8,8,10,.92);cursor:zoom-out;opacity:0;transition:opacity 200ms ease}
+.lb.open{opacity:1}
+.lb img{max-width:min(1600px,100%);max-height:calc(100vh - 48px);max-height:calc(100dvh - 48px);width:auto;height:auto;border-radius:10px;transform:scale(.97);transition:transform 260ms var(--ease)}
+.lb.open img{transform:none}
+.lb button{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--hair);background:var(--raise);cursor:pointer;font-size:14px}
+
+/* reveal */
+.reveal{clip-path:inset(5% 4% 5% 4% round 14px);transform:translateY(28px);transition:clip-path 900ms var(--ease),transform 900ms var(--ease)}
+.reveal.is-in{clip-path:inset(0 0 0 0 round 14px);transform:none}
+
+/* next */
+.next{display:block;margin-top:140px;padding:28px 0 0;border-top:1px solid var(--hair);text-decoration:none}
+.next-row{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.next-desc{display:block;margin-top:8px;max-width:46ch;font-style:normal;font-size:16px;line-height:1.45;color:var(--mute);text-wrap:pretty}
+.next-media{display:block;margin-top:24px;overflow:hidden;border-radius:14px;border:1px solid var(--hair);background:#16171a;aspect-ratio:16/10}
+.next-media img,.next-media video{display:block;width:100%;height:100%;object-fit:cover;transition:filter 300ms ease}
+.next small{display:block;font-size:14px;color:var(--faint)}
+.next b{display:block;margin-top:4px;font-weight:500;font-size:28px;letter-spacing:-.03em;transition:color 200ms ease}
+.next svg{width:22px;height:22px;color:var(--faint);transition:transform 240ms var(--ease),color 200ms ease}
+@media (hover:hover) and (pointer:fine){.next:hover b{color:var(--accent-hi)}.next:hover svg{transform:translateX(4px);color:var(--ink)}.next:hover .next-media img,.next:hover .next-media video{filter:brightness(1.06)}}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:14px;z-index:50}
+
+/* mobile: keep mode switch static under the intro so it never collides with the scrolling bar or covers body copy */
+@media (max-width:640px){
+  .page{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 64px}
+  .top{top:0;padding:10px 12px}
+  .top::before{top:0;bottom:-14px;background:linear-gradient(180deg,#0e0f11 0%,rgba(14,15,17,.96) 72%,rgba(14,15,17,0) 100%)}
+  .mode-bar{position:static;margin-top:36px}
+  .top-on .mode-bar.stuck{transform:none}
+  h1{margin-top:72px;font-size:48px}
+  .intro p{font-size:18px;margin-top:28px}
+  .meta{grid-template-columns:1fr;gap:18px;margin-top:40px}
+  .blocks{grid-template-columns:1fr;gap:32px;margin-top:32px}
+  .ch h2{font-size:32px}
+  .ch{margin-top:104px}
+  .btn .t{display:none}
+}
+@media (prefers-reduced-motion: reduce){.reveal{transform:none!important;transition:clip-path 1ms}.btn,.swap>*{transition:none}}
+
+/* curtain */
+.curtain{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#17181b;transform:translateY(100%);transition:transform 620ms cubic-bezier(.77,0,.175,1);pointer-events:none}
+.curtain.on{transform:none;pointer-events:auto}
+.curtain span{text-align:center;max-width:calc(100vw - 48px);font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;color:#eeeeeb;opacity:0;transform:translateY(24px);transition:opacity 360ms ease 180ms,transform 620ms cubic-bezier(.23,1,.32,1) 180ms}
+.curtain.on span{opacity:1;transform:none}
+html.curtain-in::after{content:attr(data-curtain);background:var(--curtain-img,none) 0 0/100% 100% no-repeat,#101114!important;position:fixed;inset:0;text-align:center;padding:0 24px;z-index:100;display:grid;place-items:center;color:#eeeeeb;font:600 clamp(44px,7vw,72px)/1 "Geist","Helvetica Neue",Arial,sans-serif;letter-spacing:-.05em;transition:transform 720ms cubic-bezier(.77,0,.175,1)}
+html.curtain-in main{transform:translateY(32px);opacity:.001;transition:transform 900ms cubic-bezier(.23,1,.32,1) 180ms,opacity 500ms ease 180ms}
+html.curtain-out::after{transform:translateY(-100%)}
+html.curtain-out main{transform:none;opacity:1}
+
+/* project title mark: a surveyed parcel polygon with a building cutout inside */
+.title-sq{display:inline-block;width:.68em;height:auto;margin-left:.16em;vertical-align:.1em;overflow:visible;fill:none;stroke:#e5173f;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.title-sq path{stroke-dasharray:1;stroke-dashoffset:1;animation:sq-draw var(--t) cubic-bezier(.45,0,.2,1) calc(700ms + var(--d) * 1.25) forwards;will-change:stroke-dashoffset}
+@keyframes sq-draw{to{stroke-dashoffset:0}}
+html.curtain-in .title-sq path{animation-delay:calc(1150ms + var(--d) * 1.25)}
+@media (prefers-reduced-motion: reduce){.title-sq path{animation:none;stroke-dashoffset:0}}
+
+/* Full case additions */
+:root{--full:#aba495;--full-hi:#dccaa2}
+.blocks .full h3{color:var(--full-hi)}
+.blocks .full p{color:var(--full)}
+div.full .ch h2::before{content:"Full case";display:block;margin-bottom:10px;font-size:14px;font-weight:400;letter-spacing:0;color:var(--full-hi)}
+div.full .ch h2{color:var(--ink)}
+div.full .blocks h3{color:var(--full-hi)}
+div.full .blocks p{color:var(--full)}
+@keyframes full-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+body:not(.tldr) .full{animation:full-in 520ms cubic-bezier(.23,1,.32,1) both}
+@media (prefers-reduced-motion: reduce){body:not(.tldr) .full{animation-name:none}}
+
+/* contents rail */
+.toc{position:fixed;z-index:25;top:50%;left:24px;width:40px;padding:14px 0;transform:translateY(-50%);opacity:0;pointer-events:none;transition:opacity 300ms ease}
+.toc.on{opacity:1;pointer-events:auto}
+.toc::before{content:"";position:absolute;z-index:-1;left:-10px;top:0;bottom:0;width:var(--cw,312px);border-radius:16px;
+  background:rgba(20,21,24,.78);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 22px 50px -18px rgba(0,0,0,.9);
+  clip-path:inset(0 100% 0 0 round 16px);transition:clip-path 420ms cubic-bezier(.23,1,.32,1)}
+.toc:hover::before,.toc:focus-within::before{clip-path:inset(0 0 0 0 round 16px)}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.toc a{position:relative;display:flex;align-items:center;height:26px;padding-left:2px;text-decoration:none}
+.toc .dot{flex:none;width:var(--w,6px);height:3px;border-radius:999px;background:var(--faint);
+  transition:width 300ms cubic-bezier(.23,1,.32,1),background-color 250ms ease}
+.toc li.near1 .dot{--w:11px;background:var(--mute)}
+.toc li.active .dot{--w:18px;background:var(--ink)}
+.toc .full .dot{background:#6b6250}
+.toc li.full.active .dot{background:var(--full-hi)}
+.toc li.full.near1 .dot{background:#9a8d6e}
+.toc .t{position:absolute;left:30px;white-space:nowrap;font-size:13px;letter-spacing:-.005em;color:var(--mute);opacity:0;transform:translateX(-6px);pointer-events:none;
+  transition:opacity 220ms ease,transform 320ms cubic-bezier(.23,1,.32,1),color 200ms ease}
+.toc:hover .t,.toc:focus-within .t{opacity:1;transform:none;pointer-events:auto;transition-delay:calc(var(--k) * 22ms)}
+.toc li.active .t{color:var(--ink)}
+.toc .full .t{color:#a8997a}.toc li.full.active .t,.toc .full a:hover .t{color:var(--full-hi)}
+.toc a:hover .t{color:var(--ink)}
+.toc a:hover .dot{background:var(--mute)}
+.toc .full a:hover .dot{background:var(--full-hi)}
+body.tldr .toc .full{display:none}
+@media (max-width:1023px){.toc{display:none}}
+@media (prefers-reduced-motion: reduce){.toc::before,.toc .t,.toc .dot{transition:none}}
+@keyframes toc-wave{0%{width:var(--w,6px)}45%{width:18px}100%{width:var(--w,6px)}}
+.toc.peek .dot{animation:toc-wave 700ms cubic-bezier(.45,0,.2,1) calc(260ms + var(--k) * 55ms) both}
+@media (prefers-reduced-motion: reduce){.toc.peek .dot{animation:none}}
+
+/* phones */
+.phones{display:flex;justify-content:center;gap:20px;margin-top:48px}
+.phones img{display:block;width:auto;max-width:100%;height:auto;max-height:560px;border-radius:22px;border:1px solid var(--hair);background:var(--raise)}
+.phones + figcaption,.phones figcaption{text-align:center;margin-left:auto;margin-right:auto}
+.phones-fig figcaption{text-align:center;margin:12px auto 0}
+@media (max-width:640px){.phones{gap:12px}.phones img{max-height:420px;border-radius:16px}}
+
+html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
+</style>
+</head>
+<body class="tldr">
+<main class="page">
+  <header class="top">
+    <a class="home" href="/" data-curtain="Petteri Helttula" aria-label="Back to Petteri Helttula’s portfolio"><img src="/avatar.jpg" alt="" width="33" height="44"><span>Petteri Helttula</span></a>
+    <div class="acts">
+      <button class="btn" id="copyEmail" type="button"><span class="swap" aria-hidden="true"><span class="a"><svg viewBox="0 0 16 16"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 3.5v-.5a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h.5"/></svg></span><span class="b"><svg viewBox="0 0 16 16"><path d="M3.5 8.5 6.5 11.5 12.5 4.5"/></svg></span></span><span class="swap t"><span class="a">Copy email</span><span class="b" aria-hidden="true">Copied</span></span></button>
+    </div>
+  </header>
+
+  <section class="intro" aria-labelledby="caseT">
+    <h1 id="caseT">Maamitta<svg class="title-sq" viewBox="0 0 120 100" aria-hidden="true"><path pathLength="1" d="M22 24 L94 16 L102 74 L28 84 Z" style="--d:80ms;--t:820ms"/><path pathLength="1" d="M52 34 L78 31 L82 62 L56 65 Z" style="--d:680ms;--t:560ms"/></svg></h1>
+    <p>Quoting a landscaping or paving job in Finland usually means bouncing between four tools: a map app to check property borders, eyeballing how much house footprint to subtract, a spreadsheet for cubic metres, density, waste, pallets, truck loads and 25.5% VAT, and a separate document for the client quote.</p>
+    <p>Maamitta puts that chain into one browser tool for Finnish landscaping, groundworks, paving, fencing and property maintenance contractors, as well as landowners. Click an official National Land Survey (MML) parcel to cut out the buildings automatically, draw only the part of the yard being paved, or trace a driveway centerline and expand it to 3.5 m or 4.0 m wide. Account for terrain slope, combine multiple work types into one estimate, and export a client-ready PDF, a 4-line WhatsApp summary, or GeoJSON and KML for CAD/GIS.</p>
+    <dl class="meta">
+      <div><dt>My role</dt><dd>Product design and development</dd></div>
+      <div><dt>Timeline</dt><dd>Nov 2026 – ongoing</dd></div>
+      <div><dt>Live</dt><dd><a href="https://maamitta.pages.dev/" target="_blank" rel="noopener">Open the app ↗</a></dd></div>
+    </dl>
+  </section>
+
+  <div class="mode-bar"><div class="mode" role="group" aria-label="Reading length"><span class="thumb" aria-hidden="true"></span><button type="button" data-mode="tldr" aria-pressed="true" aria-label="Short version, 3 minute read">TL;DR<small>3 min</small></button><button type="button" data-mode="full" aria-pressed="false" aria-label="Full case, 8 minute read">Full case<small>8 min</small></button></div></div>
+
+  <figure class="wide"><span class="clipbox"><video class="clip" muted loop playsinline preload="auto" poster="/m/maamitta-demo.jpg" width="1920" height="1200" aria-label="Picking an official Helsinki parcel in Maamitta, automatic building subtraction, edge lengths and live stone paving calculation"><source src="/m/maamitta-demo.webm" type="video/webm"></video></span><figcaption>One-click parcel pick in Helsinki: official MML property boundary in blue, automatic building subtraction in amber, edge lengths on the map, and an itemized estimate with 25.5% VAT.</figcaption></figure>
+
+  <section class="key" aria-labelledby="keyT">
+    <h2 class="label" id="keyT">What it covers</h2>
+    <ul class="scope">
+      <li><b data-count="9">9</b><span>job calculators, from gravel and paving to fencing and excavation</span></li>
+      <li><b data-count="4">4</b><span>exports: PDF quote, 4-line WhatsApp summary, GeoJSON and KML</span></li>
+      <li><b data-count="41">41</b><span>kB gzipped app bundle after splitting libraries (down from 1,441 kB)</span></li>
+      <li><b data-count="21">21</b><span>unit tests covering geometry, calculators, quotes and exports</span></li>
+    </ul>
+  </section>
+
+  <section class="ch" aria-labelledby="c1">
+    <h2 id="c1">One chain from parcel to quote</h2>
+    <div class="blocks">
+      <div class=""><h3>The gap</h3><p>Existing Finnish map apps like Karttaselain, Mapis and MML Karttapaikka are strong for hiking and checking parcel borders, but they stop at square metres. None turn a yard measurement into truck loads, paver pallets, edging metres, slope corrections and a VAT breakdown ready to send to a client.</p></div>
+      <div class=""><h3>Partial yards and driveways</h3><p>Nobody paves an entire property. Alongside one-click parcel picking, a contractor can draw just the front yard being paved, trace a driveway centerline and expand it into a 3.5 m or 4.0 m wide corridor, and stack multiple work types plus custom labour (such as 4 hours of excavator work) into one quote.</p></div>
+      <div class="full wide-b"><h3>Why a web app before a native iOS app</h3><p>Contractors often measure on site with a phone and finish the quote on a laptop in the evening. Shipping as a mobile-first web app works on both screens immediately, removes the App Store review and 15–30% fee barrier, and lets beta testers try it with zero signup wall.</p></div>
+    </div>
+    <figure class="wide"><span class="clipbox"><video class="clip" muted loop playsinline preload="metadata" poster="/m/maamitta-workflow.jpg" width="1920" height="1200" aria-label="Drawing a partial front-yard stone paving area and a 3.5 metre gravel driveway from a centerline, combining both into one multi-zone quote"><source src="/m/maamitta-workflow.webm" type="video/webm"></video></span><figcaption>Multi-zone quoting: drawing a partial front-yard stone paving area, tracing a driveway centerline and expanding it to 3.5 m wide for gravel, and combining both zones into one total.</figcaption></figure>
+  </section>
+
+  <section class="ch" aria-labelledby="c2">
+    <h2 id="c2">Dead ends and design decisions</h2>
+    <div class="blocks">
+      <div class="wide-b"><h3>Cadastral borders and red-green colourblindness</h3><p>MML’s official raster property borders looked like thick marker strokes when zoomed in, and lightening them to white made them vanish against bright roofs and forest canopies. I switched to fetching visible parcels as vector features and rendering a dark 3.2 px casing under a crisp cyan dashed line. Every measurement layer follows an Okabe-Ito-inspired palette (blue measured area, amber dashed building cutout, violet linear measurement) so nothing merges under red-green colourblindness.</p>
+      <figure class="cb-fig"><svg class="cb" viewBox="0 0 520 236" role="img" aria-label="Maamitta map layers before and after the colourblind-safe palette, as designed and with deuteranopia simulated">
+        <g font-size="14" fill="var(--faint)"><text x="118" y="18">As designed</text><text x="330" y="18">Deuteranopia, simulated</text><text x="0" y="88">Before</text><text x="0" y="188">Now</text></g>
+        <g>
+          <rect x="82" y="32" width="204" height="90" rx="12" fill="#182019" stroke="#26272b"/>
+          <rect x="304" y="32" width="204" height="90" rx="12" fill="#1f1e18" stroke="#26272b"/>
+          <rect x="82" y="134" width="204" height="90" rx="12" fill="#182019" stroke="#26272b"/>
+          <rect x="304" y="134" width="204" height="90" rx="12" fill="#1f1e18" stroke="#26272b"/>
+        </g>
+        <!-- Before: As designed (red raster border, orange area, red cutout) -->
+        <g>
+          <path d="M96 42 L272 42 L266 112 L102 112 Z" fill="none" stroke="#e53935" stroke-width="4.5" opacity=".9"/>
+          <path d="M114 48 L252 48 L248 104 L118 104 Z" fill="#f97316" fill-opacity=".35" stroke="#f97316" stroke-width="2.5"/>
+          <rect x="174" y="58" width="56" height="36" fill="#dc2626" fill-opacity=".45" stroke="#dc2626" stroke-width="2"/>
+        </g>
+        <!-- Before: Deuteranopia simulated (all collapse into muddy olive/brown) -->
+        <g>
+          <path d="M318 42 L494 42 L488 112 L324 112 Z" fill="none" stroke="#9e8738" stroke-width="4.5" opacity=".9"/>
+          <path d="M336 48 L474 48 L470 104 L340 104 Z" fill="#b89d42" fill-opacity=".35" stroke="#b89d42" stroke-width="2.5"/>
+          <rect x="396" y="58" width="56" height="36" fill="#8f7a32" fill-opacity=".45" stroke="#8f7a32" stroke-width="2"/>
+        </g>
+        <!-- Now: As designed (dark-cased cyan vector border, blue area, amber dashed cutout) -->
+        <g>
+          <path d="M96 144 L272 144 L266 214 L102 214 Z" fill="none" stroke="#0b1216" stroke-width="4.2"/>
+          <path d="M96 144 L272 144 L266 214 L102 214 Z" fill="none" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="6 4"/>
+          <path d="M114 150 L252 150 L248 206 L118 206 Z" fill="#0b6efd" fill-opacity=".30" stroke="#0b6efd" stroke-width="2.5"/>
+          <rect x="174" y="160" width="56" height="36" fill="#d97706" fill-opacity=".42" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5 3"/>
+        </g>
+        <!-- Now: Deuteranopia simulated (blue, light sky cyan and warm amber remain clearly separate) -->
+        <g>
+          <path d="M318 144 L494 144 L488 214 L324 214 Z" fill="none" stroke="#0b1216" stroke-width="4.2"/>
+          <path d="M318 144 L494 144 L488 214 L324 214 Z" fill="none" stroke="#8ecae6" stroke-width="1.8" stroke-dasharray="6 4"/>
+          <path d="M336 150 L474 150 L470 206 L340 206 Z" fill="#2c6fd6" fill-opacity=".34" stroke="#2c6fd6" stroke-width="2.5"/>
+          <rect x="396" y="160" width="56" height="36" fill="#c79e3b" fill-opacity=".46" stroke="#e2b84a" stroke-width="2" stroke-dasharray="5 3"/>
+        </g>
+      </svg><figcaption>Simulated red-green colourblindness (deuteranopia). Before, the red raster border, orange measurement fill and red building cutout all turned olive. Now, dark-cased cyan borders, blue area fills and amber dashed cutouts stay distinct.</figcaption></figure></div>
+      <div class=""><h3>Automatic building subtraction</h3><p>OpenStreetMap’s Overpass API was slow in rural areas and missed newer buildings. Moving to MML’s official building register cut lookup times to around 100 ms with full Finnish coverage. Subtraction checks real geometric overlap area (at least 6 m²), so a neighbouring house sharing a wall or border isn’t cut out by mistake while L- and C-shaped footprints stay accurate.</p></div>
+      <div class=""><h3>Satellite tilt vs. ground truth</h3><p>In satellite view, an amber building cutout can look shifted a metre or two off the roof. That is satellite parallax: photos shot at a slight angle make taller roofs lean away from their foundations. The official MML vector polygon is the ground truth, not the tilted roof. Satellite imagery can also lag a year or two behind new construction while the MML register is already current, which is why the map shows the photo’s capture date and resolution.</p></div>
+      <div class="wide-b"><figure class="inline-fig"><img class="reveal zoom" src="/m/maamitta-parallax.jpg" alt="Satellite photo of a tall house leaning slightly to the right while the official amber MML building cutout sits accurately on the foundation" width="606" height="602" loading="lazy"><figcaption>Satellite parallax: the roof leans right in the angled photo, while the amber MML footprint sits on the true foundation.</figcaption></figure></div>
+      <div class="full"><h3>Archipelago, coastlines and stray clicks</h3><p>A hand-drawn 40-point Finland mask accidentally sliced off the Turku archipelago and Åland, so I replaced it with an official 382-point maritime boundary. Shoreline plots with more than 24 vertices lost all edge-length labels under a hard limit; replacing it with screen-space collision avoidance kept readable labels on complex plots. Starting in Area mode also dropped stray points while panning, and Hand mode still grabbed corner handles; locking startup to Hand/Pan (H) and adding a 30-step Ctrl+Z geometry history stopped accidental edits.</p></div>
+      <div class="full wide-b"><h3>The Palsta mark</h3><p>I built six original 32×32 icon directions, deliberately avoiding generic map pins and M-monograms, and tested each at 16 px favicon size. The winner, <strong>Palsta</strong> — a parcel grid with one highlighted plot — stays legible at tiny sizes and renders as a crisp vector mark in the PDF quote footer.</p><div class="mark-card" role="img" aria-label="The Palsta vector logo shown at 64 px app icon size, inside the Maamitta brand pill, and at 16 px favicon size"><div class="mark-item"><svg width="64" height="64" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#184E3B"/><path d="M5 9C5 6.79 6.79 5 9 5H17.5L13.5 19.5H5V9Z" fill="#FFFFFF"/><path d="M20.5 5H23C25.21 5 27 6.79 27 9V14.5H17.9L20.5 5Z" fill="#FFFFFF" fill-opacity="0.38"/><path d="M17.1 17.5H27V23C27 25.21 25.21 27 23 27H14.5L17.1 17.5Z" fill="#FFFFFF" fill-opacity="0.62"/><path d="M5 22.5H12.7L11.5 27H9C6.79 27 5 25.21 5 23V22.5Z" fill="#7DD3FC"/></svg><span>App icon · 64 px</span></div><div class="mark-item"><div class="mark-pill"><svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M5 9C5 6.79 6.79 5 9 5H17.5L13.5 19.5H5V9Z" fill="#FFFFFF"/><path d="M20.5 5H23C25.21 5 27 6.79 27 9V14.5H17.9L20.5 5Z" fill="#FFFFFF" fill-opacity="0.38"/><path d="M17.1 17.5H27V23C27 25.21 25.21 27 23 27H14.5L17.1 17.5Z" fill="#FFFFFF" fill-opacity="0.62"/><path d="M5 22.5H12.7L11.5 27H9C6.79 27 5 25.21 5 23V22.5Z" fill="#7DD3FC"/></svg>Maamitta</div><span>Map pill</span></div><div class="mark-item"><svg width="16" height="16" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#184E3B"/><path d="M5 9C5 6.79 6.79 5 9 5H17.5L13.5 19.5H5V9Z" fill="#FFFFFF"/><path d="M20.5 5H23C25.21 5 27 6.79 27 9V14.5H17.9L20.5 5Z" fill="#FFFFFF" fill-opacity="0.38"/><path d="M17.1 17.5H27V23C27 25.21 25.21 27 23 27H14.5L17.1 17.5Z" fill="#FFFFFF" fill-opacity="0.62"/><path d="M5 22.5H12.7L11.5 27H9C6.79 27 5 25.21 5 23V22.5Z" fill="#7DD3FC"/></svg><span>Favicon · 16 px</span></div></div></div>
+    </div>
+  </section>
+
+  <section class="ch" aria-labelledby="c3">
+    <h2 id="c3">Breaking the app with agents</h2>
+    <p class="lead">Before sharing the link, I ran three adversarial agent reviews in parallel, followed by a senior architecture pass.</p>
+    <div class="blocks"><div class="wide-b">
+      <ol class="personas">
+        <li><div class="who"><b>Code &amp; Security Auditor</b><span>Proxy · calculators · geometry</span></div><div class="what"><p class="found">Found a path-traversal risk (.., \) and cached 4xx/5xx error responses in the MML proxy, NaN/Infinity crashes when extreme or negative numbers hit the calculator, and a chaining bug when subtracting multiple buildings.</p><p class="fix"><span>What changed</span>Strict path validation, caching only 2xx responses, sanitized calculator inputs, and sequential cutout chaining.</p></div></li>
+        <li><div class="who"><b>UI Breaker &amp; Chaos Tester</b><span>Extreme values · PDF · storage</span></div><div class="what"><p class="found">Multi-zone quotes with more than 7 rows overflowed the first PDF page, corrupted local browser storage could crash startup, and dragging a vertex off the map canvas left the drag state stuck.</p><p class="fix"><span>What changed</span>Automatic PDF pagination, schema-validated storage recovery on load, and window-level pointer release handling.</p></div></li>
+        <li><div class="who"><b>Live UX &amp; Bilingual QA</b><span>1440 px &amp; 390 px · FI &amp; EN</span></div><div class="what"><p class="found">Tested all 9 job types on desktop and phone in Finnish and English, catching a two-line English field label misalignment, overlapping tooltips, and Finnish strings leaking into English mode.</p><p class="fix"><span>What changed</span>Aligned input label grids, directional tooltips, and complete bilingual coverage across UI and PDF output.</p></div></li>
+        <li class="full"><div class="who"><b>Architecture &amp; Performance</b><span>Bundle · drag saves · tests</span></div><div class="what"><p class="found">Dragging a corner vertex triggered browser storage writes at 60 fps, and all mapping and PDF libraries shipped in a single 1,441 kB JavaScript bundle.</p><p class="fix"><span>What changed</span>Debounced saves (300 ms plus a pagehide flush), split heavy vendor libraries into separate chunks (cutting the app bundle to 130 kB / 41 kB gzipped), and expanded coverage to 21 unit tests.</p></div></li>
+      </ol>
+    </div></div>
+  </section>
+
+  <section class="ch" aria-labelledby="c4">
+    <h2 id="c4">Client-ready PDFs and field mobile</h2>
+    <div class="blocks">
+      <div class=""><h3>Offscreen PDF snapshots</h3><p>Capturing the visible map canvas produced screenshots at whatever zoom level the user happened to be on, cluttered with drag handles and neighbouring parcel lines. A separate hidden map renderer frames the measured zones cleanly, bakes edge lengths into the image and closes right after capture so the user’s camera never jumps.</p></div>
+      <div class=""><h3>Built for outdoor phone use</h3><p>44×44 px touch targets, 16 px inputs so iOS Safari never zooms when editing quantities, safe-area 100dvh layout, tabular numbers so totals never jump while typing, and a centre crosshair mode for placing corners with one thumb.</p></div>
+    </div>
+    <figure class="doc-fig"><img class="reveal zoom" src="/m/maamitta-pdf.jpg" alt="Exported Maamitta A4 PDF quote showing an offscreen satellite map of two measured zones, itemized stone paving and gravel quantities, 25.5% VAT breakdown, total price and the Palsta vector logo in the footer" width="1272" height="1800" loading="lazy"><figcaption>An exported PDF quote: clean offscreen satellite snapshot with no edit handles, itemized stone paving and gravel driveway quantities, 25.5% VAT breakdown, and the Palsta vector mark in the footer.</figcaption></figure>
+    <figure class="phones-fig">
+      <div class="phones">
+        <div class="device" style="--sb:#faf9f6"><div class="screen"><span class="island" aria-hidden="true"></span><div class="sb"><span>9:41</span><i><svg viewBox="0 0 18 11"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="6" rx="1"/><rect x="10" y="2.5" width="3" height="8.5" rx="1"/><rect x="15" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11"><path d="M8 2.2c2.3 0 4.4.9 5.9 2.4l1.2-1.2A10 10 0 0 0 8 .5 10 10 0 0 0 .9 3.4l1.2 1.2A8.3 8.3 0 0 1 8 2.2zm0 3.4c1.4 0 2.6.5 3.5 1.4l1.2-1.2A6.6 6.6 0 0 0 8 3.9a6.6 6.6 0 0 0-4.7 1.9L4.5 7c.9-.9 2.1-1.4 3.5-1.4zM8 9a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.2" fill="none" stroke="#111" opacity=".4"/><rect x="2" y="2" width="17" height="8" rx="2"/><path d="M24 4v4c.8-.3 1.3-1.1 1.3-2S24.8 4.3 24 4z" opacity=".5"/></svg></i></div><img class="reveal zoom" src="/m/maamitta-phone-map.jpg" alt="Maamitta mobile map at 390 px showing a picked Helsinki parcel with automatic building cutout, edge lengths and bottom tool dock" width="780" height="1688" loading="lazy"></div></div>
+        <div class="device" style="--sb:#faf9f6"><div class="screen"><span class="island" aria-hidden="true"></span><div class="sb"><span>9:41</span><i><svg viewBox="0 0 18 11"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="6" rx="1"/><rect x="10" y="2.5" width="3" height="8.5" rx="1"/><rect x="15" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11"><path d="M8 2.2c2.3 0 4.4.9 5.9 2.4l1.2-1.2A10 10 0 0 0 8 .5 10 10 0 0 0 .9 3.4l1.2 1.2A8.3 8.3 0 0 1 8 2.2zm0 3.4c1.4 0 2.6.5 3.5 1.4l1.2-1.2A6.6 6.6 0 0 0 8 3.9a6.6 6.6 0 0 0-4.7 1.9L4.5 7c.9-.9 2.1-1.4 3.5-1.4zM8 9a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.2" fill="none" stroke="#111" opacity=".4"/><rect x="2" y="2" width="17" height="8" rx="2"/><path d="M24 4v4c.8-.3 1.3-1.1 1.3-2S24.8 4.3 24 4z" opacity=".5"/></svg></i></div><img class="reveal zoom" src="/m/maamitta-phone-sheet.jpg" alt="Maamitta mobile calculator sheet at 390 px showing paving parameters, itemized quantities, VAT total and Download PDF quote button" width="780" height="1688" loading="lazy"></div></div>
+      </div>
+      <figcaption>At 390 px on a phone: picked MML parcel with automatic building subtraction and compact bottom dock, and the calculator sheet with itemized quantities, VAT total and PDF export.</figcaption>
+    </figure>
+  </section>
+
+<div class="full">
+  <section class="ch" aria-labelledby="c5">
+    <h2 id="c5">Privacy, security and cookie-free analytics</h2>
+    <div class="blocks">
+      <div class=""><h3>Zero-cost serverless proxy</h3><p>Because MML’s parcel and building APIs require an API key, hosting on a plain static host like GitHub Pages wasn’t an option without exposing it. All MML requests pass through a Cloudflare Pages serverless proxy with an encrypted secret and edge caching, keeping hosting at €0/month.</p></div>
+      <div class=""><h3>No owner data, no cookie banner</h3><p>Property owner names are restricted personal data under Finnish KTJ licensing and GDPR, so Maamitta never fetches or stores them; it shows the open parcel ID with a copy button and links to MML’s official portal. Projects stay in the user’s browser with no login wall. Analytics are cookie-free and log area sizes only as coarse brackets, ready for EU-hosted tracking without a cookie banner.</p></div>
+    </div>
+  </section>
+</div>
+
+  <section class="ch" aria-labelledby="c6">
+    <h2 id="c6">Where it stands, and what comes next</h2>
+    <div class="blocks">
+      <div class=""><h3>Current status</h3><p>Live at <a href="https://maamitta.pages.dev/" target="_blank" rel="noopener">maamitta.pages.dev</a>. Tested thoroughly by myself and by agents across desktop and mobile, but not yet field-tested with paying contractors.</p></div>
+      <div class=""><h3>Next: contractor testing</h3><p>Put Maamitta in front of 3–5 Finnish landscaping and groundworks contractors with zero signup friction to learn which job types and exports (PDF quote vs. 4-line WhatsApp summary) save real time, and where field use slows down.</p></div>
+      <div class="full wide-b"><h3>Planned for v1.1+</h3><p>MML’s 2 m elevation model for more accurate slope and drainage calculations; optional cloud sync and custom unit price lists only once repeat users ask for phone-to-desktop sync; and a shareable interactive quote link alongside the PDF.</p></div>
+    </div>
+  </section>
+
+  <a class="next" href="/korislab/" data-curtain="KorisLab"><span class="next-row"><span><small>Next project</small> <b>KorisLab</b> <em class="next-desc">An analytics tool for Finnish basketball that goes past the box score.</em></span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5"/></svg></span><span class="next-media"><video class="clip" autoplay muted loop playsinline preload="metadata" poster="/v2/k-home.jpg" width="1920" height="1200" aria-hidden="true"><source src="/v2/k-home.webm" type="video/webm"></video></span></a>
+</main>
+<div class="toast" id="toast" role="status" hidden></div>
+<script>
+const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const EMAIL="helttula.petteri@gmail.com",toast=document.getElementById("toast"),copyBtn=document.getElementById("copyEmail");let ct,tt;
+copyBtn.addEventListener("click",()=>{(navigator.clipboard?navigator.clipboard.writeText(EMAIL):Promise.reject()).then(()=>{copyBtn.classList.add("is-copied");clearTimeout(ct);ct=setTimeout(()=>copyBtn.classList.remove("is-copied"),1800)},()=>{toast.textContent=EMAIL;toast.hidden=false;clearTimeout(tt);tt=setTimeout(()=>toast.hidden=true,2600)})});
+/* TL;DR shows the short case; Full case adds the detail back. The choice is remembered per viewer. */
+(function(){
+  const btns=[...document.querySelectorAll(".mode button")];
+  const thumb=document.querySelector(".mode .thumb");
+  const place=()=>{const b=btns.find(x=>x.getAttribute("aria-pressed")==="true");if(!b||!thumb)return;thumb.style.setProperty("--x",b.offsetLeft+"px");thumb.style.setProperty("--w",b.offsetWidth+"px")};
+  const anchor=()=>{const chs=[...document.querySelectorAll(".ch")].filter(c=>c.offsetParent!==null);let a=null;for(const c of chs){if(c.getBoundingClientRect().top<=120)a=c}return a};
+  const set=(m,save)=>{const a=save&&anchor(),before=a&&a.getBoundingClientRect().top;
+    document.body.classList.toggle("tldr",m==="tldr");
+    if(a){const vis=a.offsetParent!==null?a:[...document.querySelectorAll(".ch")].filter(c=>c.offsetParent!==null&&c.compareDocumentPosition(a)&Node.DOCUMENT_POSITION_FOLLOWING).pop();if(vis){const se=document.scrollingElement||document.documentElement;se.scrollTop+=vis.getBoundingClientRect().top-(vis===a?before:120)}}btns.forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.mode===m)));place();if(save)try{localStorage.setItem("case-mode",m)}catch(e){}};
+  const still=()=>{if(!thumb)return;thumb.style.transition="none";place();thumb.getBoundingClientRect();thumb.style.transition=""};
+  still();document.fonts&&document.fonts.ready.then(still);addEventListener("resize",still);
+  const bar=document.querySelector(".mode-bar");
+  if(bar&&"IntersectionObserver" in window){const s=document.createElement("div");s.style.cssText="height:1px;margin-top:-1px";bar.before(s);new IntersectionObserver(([e])=>bar.classList.toggle("stuck",!e.isIntersecting&&e.boundingClientRect.top<0)).observe(s)}
+  let saved=null;try{saved=localStorage.getItem("case-mode")}catch(e){}
+  if(saved==="full")set("full");
+  btns.forEach(b=>b.addEventListener("click",()=>set(b.dataset.mode,true)));
+})();
+/* any still opens larger; click, Escape or the button closes it */
+(function(){
+  let lb=null,last=null;
+  const close=()=>{if(!lb)return;const el=lb;lb=null;el.classList.remove("open");setTimeout(()=>el.remove(),reduceMotion?0:200);last&&last.focus({preventScroll:true})};
+  document.querySelectorAll("img.zoom").forEach(img=>{
+    img.tabIndex=0;img.setAttribute("role","button");img.setAttribute("aria-label","Open larger: "+img.alt);
+    const open=()=>{last=img;lb=document.createElement("div");lb.className="lb";lb.setAttribute("role","dialog");lb.setAttribute("aria-modal","true");lb.setAttribute("aria-label",img.alt);
+      lb.innerHTML='<img alt=""><button type="button">Close</button>';lb.querySelector("img").src=img.currentSrc||img.src;lb.querySelector("img").alt=img.alt;
+      lb.addEventListener("click",close);document.body.append(lb);setTimeout(()=>lb&&lb.classList.add("open"),16);lb.querySelector("button").focus()};
+    img.addEventListener("click",open);img.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();open()}});
+  });
+  addEventListener("keydown",e=>{if(e.key==="Escape")close();else if(e.key==="Tab"&&lb){e.preventDefault();lb.querySelector("button").focus()}});
+})();
+/* stills open up as they enter the viewport; anything already on screen stays as it is */
+(function(){
+  const els=[...document.querySelectorAll(".reveal")];
+  if(reduceMotion||!("IntersectionObserver" in window)){els.forEach(e=>e.classList.add("is-in"));return}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("is-in");io.unobserve(e.target)}}),{rootMargin:"0px 0px -10% 0px"});
+  els.forEach(e=>{if(e.getBoundingClientRect().top<innerHeight)e.classList.add("is-in");else io.observe(e)});
+})();
+/* mouse-wheel smoothing, same as the index; switches itself off if it can't scroll */
+(function(){
+  if(reduceMotion||!matchMedia("(pointer: fine)").matches)return;
+  const se=()=>document.scrollingElement||document.documentElement;let target=null,raf=0,off=false;
+  const stop=()=>{target=null;cancelAnimationFrame(raf);raf=0};
+  const step=()=>{const el=se(),cur=el.scrollTop,next=cur+(target-cur)*.2;el.scrollTop=Math.abs(target-next)<.5?target:next;
+    if(el.scrollTop===cur&&Math.abs(target-cur)>1){off=true;const t=target;stop();window.scrollBy(0,t-cur);return}
+    if(Math.abs(target-el.scrollTop)>.5)raf=requestAnimationFrame(step);else stop()};
+  addEventListener("wheel",e=>{if(off||e.ctrlKey||e.metaKey||e.shiftKey||e.deltaX)return;
+    const d=e.deltaMode===1?e.deltaY*18:e.deltaMode===2?e.deltaY*innerHeight:e.deltaY;
+    if(!(e.deltaMode!==0||(Math.abs(d)>=50&&Number.isInteger(e.deltaY)))){stop();return}
+    const el=se(),max=el.scrollHeight-el.clientHeight;if(max<=0)return;e.preventDefault();
+    if(target===null)target=el.scrollTop;target=Math.max(0,Math.min(max,target+d));if(!raf)raf=requestAnimationFrame(step)},{passive:false});
+  ["keydown","pointerdown","touchstart"].forEach(ev=>addEventListener(ev,stop,{passive:true}));
+})();
+</script>
+<script src="/pixel-curtain.js"></script>
+<script>
+/* Leaving: same-site links to a case or back home raise the panel first, then navigate. */
+(function(){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const internal=a=>a&&!a.target&&a.origin===location.origin&&/^\/(korislab\/|peluutin\/|helsinki-sports-map\/|s-havikki\/|kelikamera\/|tahti\/|havain\/|maamitta\/)?$/.test(a.pathname)&&a.pathname!==location.pathname;
+  document.addEventListener("click",e=>{
+    const a=e.target.closest("a");
+    if(!internal(a)||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0)return;
+    e.preventDefault();
+    const label=a.dataset.curtain||"";
+    try{sessionStorage.setItem("curtain",label||" ")}catch(err){}
+    if(window.PixelCurtain)PixelCurtain.leave(label,a.href);else location.href=a.href;
+  });
+  const pre=new Set();
+  document.addEventListener("pointerover",e=>{const a=e.target.closest&&e.target.closest("a");if(!internal(a)||pre.has(a.href))return;pre.add(a.href);const l=document.createElement("link");l.rel="prefetch";l.href=a.href;document.head.append(l)},{passive:true});
+  addEventListener("pageshow",e=>{if(e.persisted)document.querySelectorAll(".curtain").forEach(n=>n.remove())});
+})();
+/* Arriving: if the previous page raised the curtain, cover this one until the pixel curtain takes over. */
+(function(){
+  const r=document.documentElement;if(!r.classList.contains("curtain-in"))return;
+  try{history.scrollRestoration="manual"}catch(e){}
+  const place=()=>{const t=location.hash&&document.getElementById(decodeURIComponent(location.hash.slice(1)));if(t)t.scrollIntoView({block:"start"});else{(document.scrollingElement||document.documentElement).scrollTop=0;window.scrollTo(0,0)}};
+  place();addEventListener("DOMContentLoaded",place,{once:true});addEventListener("load",place,{once:true});
+  const label=(r.getAttribute("data-curtain")||"").trim();let shown=false;
+  const reveal=()=>{if(shown)return;shown=true;r.classList.remove("curtain-in","curtain-out")};
+  const start=()=>{if(window.PixelCurtain)PixelCurtain.arrive(label,reveal);else reveal()};
+  if(document.readyState!=="loading")start();else addEventListener("DOMContentLoaded",start,{once:true});
+  setTimeout(reveal,2500);
+})();
+</script>
+<script>
+/* name bar: hide on the way down, show on the way up */
+(function(){
+  const bar=document.querySelector(".top");if(!bar)return;
+  let last=scrollY;
+  const update=()=>{const y=scrollY,dy=y-last;
+    if(y<80){bar.classList.remove("float","away");document.documentElement.classList.remove("top-on")}
+    else if(dy>6){bar.classList.add("away");document.documentElement.classList.remove("top-on")}
+    else if(dy<-6){bar.classList.add("float");bar.classList.remove("away");document.documentElement.classList.add("top-on")}
+    if(Math.abs(dy)>6||y<80)last=y};
+  addEventListener("scroll",update,{passive:true});
+  bar.addEventListener("focusin",()=>{bar.classList.remove("away");bar.classList.add("float");document.documentElement.classList.add("top-on")});
+  if(matchMedia("(hover: hover) and (pointer: fine)").matches){
+    let byHover=false;
+    const hide=()=>{byHover=false;bar.classList.add("away");document.documentElement.classList.remove("top-on")};
+    let dwell=0;
+    addEventListener("mousemove",e=>{
+      const inZone=e.clientY<=16&&!(e.target.closest&&e.target.closest(".mode-bar"));
+      if(inZone&&scrollY>=80&&bar.classList.contains("away")){if(!dwell)dwell=setTimeout(()=>{dwell=0;byHover=true;bar.classList.add("float");bar.classList.remove("away");document.documentElement.classList.add("top-on");last=scrollY},260)}
+      else{clearTimeout(dwell);dwell=0;if(byHover&&e.clientY>bar.getBoundingClientRect().bottom+48)hide()}},{passive:true});
+    document.documentElement.addEventListener("mouseleave",()=>{if(byHover)hide()});
+    let py=scrollY;addEventListener("scroll",()=>{if(scrollY<py-6)byHover=false;py=scrollY},{passive:true});
+  }
+})();
+</script>
+<script>
+/* contents list built from the chapter titles; highlights the chapter you're in */
+(function(){
+  const chs=[...document.querySelectorAll(".ch")];if(!chs.length)return;
+  const nav=document.createElement("nav");nav.className="toc";nav.setAttribute("aria-label","Contents");
+  const ol=document.createElement("ol");nav.append(ol);
+  const items=chs.map(ch=>{const h=ch.querySelector("h2");const li=document.createElement("li");if(ch.closest(".full"))li.className="full";
+    const a=document.createElement("a");a.href="#"+h.id;a.setAttribute("aria-label",h.textContent);
+    const k=ol.children.length;a.innerHTML='<span class="dot"></span><span class="t"></span>';a.querySelector(".t").textContent=h.textContent;li.style.setProperty("--k",k);li.append(a);ol.append(li);
+    a.addEventListener("click",e=>{e.preventDefault();const y=ch.getBoundingClientRect().top+scrollY-40;scrollTo({top:y,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})});
+    return {ch,a,li}});
+  const mb=document.querySelector(".mode-bar");if(mb)mb.after(nav);else document.body.append(nav);
+  const end=document.querySelector(".next");
+  const spy=()=>{const mid=innerHeight*.35;let cur=null;
+    for(const it of items){if(it.ch.offsetParent===null)continue;if(it.ch.getBoundingClientRect().top<=mid)cur=it}
+    items.forEach(it=>{it.li.classList.toggle("active",it===cur);it.a.toggleAttribute("aria-current",it===cur)});near();
+    const first=items.find(it=>it.ch.offsetParent!==null);
+    const show=first&&first.ch.getBoundingClientRect().top<innerHeight*.6&&(!end||end.getBoundingClientRect().top>innerHeight*.5);
+    nav.classList.toggle("on",!!show||nav.classList.contains("peek")||nav.matches(":hover,:focus-within"))};
+  const near=()=>{const vis=items.filter(it=>it.ch.offsetParent!==null);const i=vis.findIndex(it=>it.li.classList.contains("active"));
+    items.forEach(it=>it.li.classList.remove("near1","near2"));if(i<0)return;
+    [[i-1,"near1"],[i+1,"near1"]].forEach(([j,c])=>{if(vis[j])vis[j].li.classList.add(c)})};
+  const fit=()=>{if(nav.offsetParent===null&&getComputedStyle(nav).display==="none")return;const w=Math.max(...items.map(it=>it.a.querySelector(".t").scrollWidth));nav.style.setProperty("--cw",Math.ceil(w+30+30)+"px")};
+  nav.addEventListener("mousemove",e=>{items.forEach(it=>{const d=it.a.querySelector(".dot");
+    if(it.li.classList.contains("active")){d.style.removeProperty("--w");return}
+    const r=d.getBoundingClientRect(),rows=(r.top+r.height/2-e.clientY)/28;
+    d.style.setProperty("--w",(6+12*Math.exp(-rows*rows)).toFixed(1)+"px")})});
+  nav.addEventListener("mouseleave",()=>{items.forEach(it=>it.a.querySelector(".dot").style.removeProperty("--w"));spy()});
+  nav.addEventListener("focusout",()=>setTimeout(spy,0));
+  const peek=()=>{if(getComputedStyle(nav).display==="none")return;nav.classList.add("peek","on");
+    const n=items.filter(it=>it.ch.offsetParent!==null).length;setTimeout(()=>{nav.classList.remove("peek");spy()},260+n*55+700+500)};
+  setTimeout(peek,document.documentElement.classList.contains("curtain-in")?1100:500);
+  addEventListener("scroll",spy,{passive:true});addEventListener("resize",()=>{spy();fit()});document.querySelectorAll(".mode button").forEach(b=>b.addEventListener("click",()=>setTimeout(spy,0)));spy();fit();document.fonts&&document.fonts.ready.then(fit);
+})();
+</script>
+<script>(()=>{const els=[...document.querySelectorAll("[data-count]")];if(!els.length)return;
+if(matchMedia("(prefers-reduced-motion: reduce)").matches||!("IntersectionObserver" in window))return;
+const fmt=n=>n.toLocaleString("en-US");
+els.forEach(el=>{const t=document.createElement("span");t.className="sr-only";t.textContent=el.textContent;el.before(t);el.setAttribute("aria-hidden","true")});
+els.forEach(el=>{el.style.display=getComputedStyle(el).display==="inline"?"inline-block":"";el.style.minWidth=el.getBoundingClientRect().width+"px";el.textContent="0"});
+const run=el=>{const to=+el.dataset.count,dur=1400+Math.min(600,Math.log10(to+1)*120),t0=performance.now();
+  const step=t=>{const k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,4);el.textContent=fmt(Math.round(to*e));if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)};
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const el=e.target;io.unobserve(el);setTimeout(()=>run(el),+(el.closest("li")?[...el.closest("ul").children].indexOf(el.closest("li")):0)*90)}}),{rootMargin:"0px 0px -12% 0px"});
+els.forEach(el=>io.observe(el))})();</script>
+<p class="sr-only" id="srLive" aria-live="polite"></p>
+<script>
+/* tell screen readers when the email has been copied */
+(function(){const b=document.getElementById("copyEmail"),live=document.getElementById("srLive");if(!b||!live)return;
+  b.addEventListener("click",()=>setTimeout(()=>{live.textContent="";setTimeout(()=>{live.textContent=b.classList.contains("is-copied")?"Email address copied":"Email: helttula.petteri@gmail.com"},30)},60))})();
+</script>
+<script>
+/* clips play while on screen; the corner button pauses and resumes them, and a paused clip stays paused */
+(function(){
+  const clips=[...document.querySelectorAll("video.clip")];if(!clips.length)return;
+  const still=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const icon={pause:'<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="2.5" width="3" height="11" rx="1"/><rect x="9.5" y="2.5" width="3" height="11" rx="1"/></svg>',
+    play:'<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 2.8v10.4a.8.8 0 0 0 1.2.7l8.4-5.2a.8.8 0 0 0 0-1.4L5.7 2.1a.8.8 0 0 0-1.2.7z"/></svg>'};
+  clips.forEach(v=>{
+    const box=v.closest(".clipbox");if(!box)return;
+    const b=document.createElement("button");b.type="button";b.className="clip-toggle";box.append(b);
+    const draw=()=>{const p=v.paused;b.innerHTML=p?icon.play:icon.pause;b.setAttribute("aria-label",p?"Play video":"Pause video");b.setAttribute("aria-pressed",String(p&&v.dataset.user==="paused"))};
+    b.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();if(v.paused){v.dataset.user="";const p=v.play();p&&p.catch(()=>{})}else{v.dataset.user="paused";v.pause()}});
+    v.addEventListener("play",draw);v.addEventListener("pause",draw);draw();
+    if(still)v.dataset.user="paused";
+  });
+  if(still)return;
+  const io=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){if(v.dataset.user!=="paused"){const p=v.play();p&&p.catch(()=>{})}}else v.pause()}),{threshold:.35});
+  clips.forEach(v=>io.observe(v));
+})();
+</script>
+</body>
+</html>

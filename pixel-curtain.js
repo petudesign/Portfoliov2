@@ -4,7 +4,7 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const BG = '#101114', BLOCK = 32;
   const cellFor = (W) => (W < 600 ? 4 : 5);
-  const TONE = { '': '#ff5a6e', 'Kelikamera AI': '#9cc8ff', 'Peluutin': '#86d98a', 'KorisLab': '#ff9b52', 'Helsinki Sports Map': '#6fd6c4', 'Havain': '#c7b6ff', 'S-hävikki': '#e8d36a', 'Tahti': '#f0a6d8' };
+  const TONE = { '': '#ff5a6e', 'Kelikamera AI': '#9cc8ff', 'Peluutin': '#86d98a', 'KorisLab': '#ff9b52', 'Maamitta': '#76d9a8', 'Helsinki Sports Map': '#6fd6c4', 'Havain': '#c7b6ff', 'S-hävikki': '#e8d36a', 'Tahti': '#f0a6d8' };
 
   /* ---------- the subjects, drawn in greys so the dither has real shapes ---------- */
   const g = (v) => `rgb(${v},${v},${v})`;
@@ -122,6 +122,24 @@
         for (let l = 0; l < 13; l++) { const y = top + H * .07 + l * (bot - top - H * .12) / 13, len = pw * (.55 + r() * .3); x.fillRect(s > 0 ? cx + pw * .1 : cx - pw * .1 - len, y, len, H * .012); }
       });
       x.fillStyle = g(250); x.fillRect(cx + pw * .1, top + H * .07 + 5 * (bot - top - H * .12) / 13 - H * .01, pw * .22, H * .032);   // the word being read
+    },
+    'Maamitta'(x, W, H) { // a surveyed property parcel with contour lines, corner pins and a building cutout
+      x.fillStyle = g(24); x.fillRect(0, 0, W, H);
+      x.strokeStyle = g(64); x.lineWidth = 3;
+      for (let i = 0; i < 6; i++) {
+        x.beginPath(); x.ellipse(W * .25, H * .75, W * (.18 + i * .14), H * (.16 + i * .12), -.3, 0, 7); x.stroke();
+      }
+      const pts = [[W * .26, H * .22], [W * .74, H * .16], [W * .78, H * .76], [W * .30, H * .84]];
+      const gr = x.createLinearGradient(W * .26, H * .16, W * .78, H * .84);
+      gr.addColorStop(0, g(175)); gr.addColorStop(1, g(110)); x.fillStyle = gr;
+      x.beginPath(); x.moveTo(...pts[0]); pts.slice(1).forEach((p) => x.lineTo(...p)); x.closePath(); x.fill();
+      x.strokeStyle = g(245); x.lineWidth = 5; x.stroke();
+      // recessed building cutout inside the parcel
+      const bld = [[W * .48, H * .30], [W * .66, H * .28], [W * .68, H * .60], [W * .50, H * .62]];
+      x.fillStyle = g(36); x.beginPath(); x.moveTo(...bld[0]); bld.slice(1).forEach((p) => x.lineTo(...p)); x.closePath(); x.fill();
+      x.save(); x.setLineDash([12, 8]); x.strokeStyle = g(230); x.lineWidth = 3.5; x.stroke(); x.restore();
+      // corner survey pins
+      pts.forEach(([px, py]) => { x.fillStyle = g(250); x.beginPath(); x.arc(px, py, 9, 0, 7); x.fill(); x.fillStyle = g(24); x.beginPath(); x.arc(px, py, 4, 0, 7); x.fill(); });
     },
   };
 

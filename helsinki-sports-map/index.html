@@ -478,7 +478,7 @@ copyBtn.addEventListener("click",()=>{(navigator.clipboard?navigator.clipboard.w
 /* Leaving: same-site links to a case or back home raise the panel first, then navigate. */
 (function(){
   if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
-  const internal=a=>a&&!a.target&&a.origin===location.origin&&/^\/(korislab\/|peluutin\/|helsinki-sports-map\/|s-havikki\/|kelikamera\/|tahti\/|havain\/)?$/.test(a.pathname)&&a.pathname!==location.pathname;
+  const internal=a=>a&&!a.target&&a.origin===location.origin&&/^\/(korislab\/|peluutin\/|helsinki-sports-map\/|s-havikki\/|kelikamera\/|tahti\/|havain\/|maamitta\/)?$/.test(a.pathname)&&a.pathname!==location.pathname;
   document.addEventListener("click",e=>{
     const a=e.target.closest("a");
     if(!internal(a)||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0)return;

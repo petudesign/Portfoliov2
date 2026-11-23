@@ -30,7 +30,7 @@
 <meta name="twitter:title" content="Petteri Helttula — Product &amp; data">
 <meta name="twitter:description" content="I dig into the numbers, design the experience and build it with AI agents. Based in Helsinki.">
 <meta name="twitter:image" content="https://www.petu.design/og/home-v1.jpg">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfilePage", "url": "https://www.petu.design/", "name": "Petteri Helttula — Product & data", "dateModified": "2026-11-22", "mainEntity": {"@type": "Person", "@id": "https://www.petu.design/#person", "name": "Petteri Helttula", "alternateName": "Petu", "url": "https://www.petu.design/", "image": "https://www.petu.design/avatar.jpg", "jobTitle": "Product, Data & AI", "description": "ICT Engineering graduate (Metropolia UAS) based in Helsinki working at the intersection of data analytics, AI tools and product design.", "email": "mailto:helttula.petteri@gmail.com", "homeLocation": {"@type": "Place", "name": "Helsinki, Finland"}, "alumniOf": {"@type": "CollegeOrUniversity", "name": "Metropolia University of Applied Sciences"}, "knowsLanguage": ["fi", "en"], "knowsAbout": ["Product Design", "Data Analysis", "Data Visualization", "AI Tools and Workflows", "AI-Assisted Prototyping", "User Research and Testing", "UX Design", "Decision Support Tools", "Computer Vision Prototyping", "ICT Engineering"], "sameAs": ["https://www.linkedin.com/in/petteri-helttula/"]}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfilePage", "url": "https://www.petu.design/", "name": "Petteri Helttula — Product & data", "dateModified": "2026-11-23", "mainEntity": {"@type": "Person", "@id": "https://www.petu.design/#person", "name": "Petteri Helttula", "alternateName": "Petu", "url": "https://www.petu.design/", "image": "https://www.petu.design/avatar.jpg", "jobTitle": "Product, Data & AI", "description": "ICT Engineering graduate (Metropolia UAS) based in Helsinki working at the intersection of data analytics, AI tools and product design.", "email": "mailto:helttula.petteri@gmail.com", "homeLocation": {"@type": "Place", "name": "Helsinki, Finland"}, "alumniOf": {"@type": "CollegeOrUniversity", "name": "Metropolia University of Applied Sciences"}, "knowsLanguage": ["fi", "en"], "knowsAbout": ["Product Design", "Data Analysis", "Data Visualization", "AI Tools and Workflows", "AI-Assisted Prototyping", "User Research and Testing", "UX Design", "Decision Support Tools", "Computer Vision Prototyping", "ICT Engineering"], "sameAs": ["https://www.linkedin.com/in/petteri-helttula/"]}}</script>
 <script>try{const r=document.documentElement;if(sessionStorage.getItem("entrance-seen")||sessionStorage.getItem("curtain")!==null)r.classList.add("no-entrance")}catch(e){document.documentElement.classList.add("no-entrance")}</script>
 <script>
 /* the opening animation waits until the font is in and the page has painted, so it is actually seen;
@@ -346,6 +346,14 @@ html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
       </div>
       <div class="shot clipbox"><video class="clip" muted loop playsinline preload="metadata" poster="/kk/kk-map.jpg" width="1920" height="1200" aria-label="Kelikamera map flying into southern Finland and opening a road weather camera"><source src="/kk/kk-map.webm" type="video/webm"></video><a class="shot-link cover" href="/kelikamera/" data-curtain="Kelikamera AI" tabindex="-1" aria-hidden="true"></a></div>
     </article>
+    <article class="case" id="maamitta">
+      <div class="case-copy">
+        <h2>Maamitta <span class="yr">2026</span></h2>
+        <p class="lead">Click a Finnish property on the map, cut out the buildings automatically and turn the net area into a material estimate and PDF quote.</p>
+        <a class="case-link" href="/maamitta/" data-curtain="Maamitta" aria-label="View the Maamitta case study"><span class="fill" aria-hidden="true"></span><span class="label" data-text="View case study"><span class="base">View case study</span><span class="scr" aria-hidden="true"></span></span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5"/></svg></a>
+      </div>
+      <div class="shot clipbox"><video class="clip" muted loop playsinline preload="metadata" poster="/m/maamitta-demo.jpg" width="1920" height="1200" aria-label="Picking an official Helsinki parcel in Maamitta, automatic building subtraction and stone paving estimate"><source src="/m/maamitta-demo.webm" type="video/webm"></video><a class="shot-link cover" href="/maamitta/" data-curtain="Maamitta" tabindex="-1" aria-hidden="true"></a></div>
+    </article>
 
       <article class="case" id="korislab">
       <div class="case-copy">
@@ -499,7 +507,7 @@ copyBtns.forEach(btn=>btn.addEventListener("click",()=>{
 /* Leaving: same-site links to a case or back home raise the panel first, then navigate. */
 (function(){
   if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
-  const internal=a=>a&&!a.target&&a.origin===location.origin&&/^\/(korislab\/|peluutin\/|helsinki-sports-map\/|s-havikki\/|kelikamera\/|tahti\/|havain\/)?$/.test(a.pathname)&&a.pathname!==location.pathname;
+  const internal=a=>a&&!a.target&&a.origin===location.origin&&/^\/(korislab\/|peluutin\/|helsinki-sports-map\/|s-havikki\/|kelikamera\/|tahti\/|havain\/|maamitta\/)?$/.test(a.pathname)&&a.pathname!==location.pathname;
   document.addEventListener("click",e=>{
     const a=e.target.closest("a");
     if(!internal(a)||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0)return;
