@@ -154,9 +154,9 @@ svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;stroke
   .case-link:hover .fill{clip-path:inset(0 0 0 0)}
   .case-link:hover svg{transform:translateX(3px)}
 }
-/* product stills open up as they scroll into view */
-.shot.will-reveal{clip-path:inset(5% 4% 5% 4% round 14px);transform:translateY(28px);transition:clip-path 900ms var(--ease),transform 900ms var(--ease)}
-.shot.will-reveal.is-in{clip-path:inset(0 0 0 0 round 14px);transform:none}
+/* product stills open up as they scroll into view (composite-only transform + opacity so mobile Safari never tears <video> layers) */
+.shot.will-reveal{opacity:0;transform:translateY(24px) scale(.975);transition:opacity 700ms var(--ease),transform 820ms var(--ease)}
+.shot.will-reveal.is-in{opacity:1;transform:none}
 
 /* earlier + about */
 .sec{margin-top:140px}
@@ -302,8 +302,8 @@ html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
 .clip-toggle:active{transform:scale(.94)}
 @media (hover:none){.clip-toggle{opacity:.85}}
 
-.shot.clipbox{padding:0}
-.shot.clipbox video{border-radius:0}
+.shot.clipbox{padding:0;aspect-ratio:16/10}
+.shot.clipbox video{border-radius:0;width:100%;height:100%;object-fit:cover}
 .shot-link.cover{position:absolute;inset:0;z-index:1;border-radius:inherit}
 @media (hover:hover) and (pointer:fine){.shot.clipbox:hover video{filter:brightness(1.06)}}
 .shot.clipbox video{transition:filter 300ms ease}
@@ -352,7 +352,7 @@ html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
         <p class="lead">A map tool for Finnish landscaping contractors that turns official property data into material estimates and client-ready PDF quotes.</p>
         <a class="case-link" href="/maamitta/" data-curtain="Maamitta" aria-label="View the Maamitta case study"><span class="fill" aria-hidden="true"></span><span class="label" data-text="View case study"><span class="base">View case study</span><span class="scr" aria-hidden="true"></span></span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5"/></svg></a>
       </div>
-      <div class="shot clipbox"><video class="clip" muted loop playsinline preload="metadata" poster="/m/maamitta-demo.jpg" width="1920" height="1200" aria-label="Picking an official Helsinki parcel in Maamitta, automatic building subtraction and sod estimate"><source src="/m/maamitta-demo.webm" type="video/webm"></video><a class="shot-link cover" href="/maamitta/" data-curtain="Maamitta" tabindex="-1" aria-hidden="true"></a></div>
+      <div class="shot clipbox"><video class="clip" muted loop playsinline preload="none" poster="/m/maamitta-demo.jpg" width="1920" height="1200" aria-label="Picking an official Helsinki parcel in Maamitta, automatic building subtraction and sod estimate"><source src="/m/maamitta-demo.webm" type="video/webm"></video><a class="shot-link cover" href="/maamitta/" data-curtain="Maamitta" tabindex="-1" aria-hidden="true"></a></div>
     </article>
 
       <article class="case" id="korislab">
@@ -361,7 +361,7 @@ html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
         <p class="lead">An analytics tool for Finnish basketball that goes past the box score, across both Korisliiga leagues.</p>
         <a class="case-link" href="/korislab/" data-curtain="KorisLab" aria-label="View the KorisLab case study"><span class="fill" aria-hidden="true"></span><span class="label" data-text="View case study"><span class="base">View case study</span><span class="scr" aria-hidden="true"></span></span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5"/></svg></a>
       </div>
-      <div class="shot clipbox"><video class="clip" muted loop playsinline preload="metadata" poster="/v2/k-home.jpg" width="1920" height="1200" aria-label="KorisLab home page, then Matchup Lab comparing two teams"><source src="/v2/k-home.webm" type="video/webm"></video><a class="shot-link cover" href="/korislab/" data-curtain="KorisLab" tabindex="-1" aria-hidden="true"></a></div>
+      <div class="shot clipbox"><video class="clip" muted loop playsinline preload="none" poster="/v2/k-home.jpg" width="1920" height="1200" aria-label="KorisLab home page, then Matchup Lab comparing two teams"><source src="/v2/k-home.webm" type="video/webm"></video><a class="shot-link cover" href="/korislab/" data-curtain="KorisLab" tabindex="-1" aria-hidden="true"></a></div>
     </article>
     <article class="case" id="peluutin">
       <div class="case-copy">
@@ -369,7 +369,7 @@ html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
         <p class="lead">A web app that helps junior coaches keep playing time fair and plan training in 3D, shaped feature by feature with test coaches.</p>
         <a class="case-link" href="/peluutin/" data-curtain="Peluutin" aria-label="View the Peluutin case study"><span class="fill" aria-hidden="true"></span><span class="label" data-text="View case study"><span class="base">View case study</span><span class="scr" aria-hidden="true"></span></span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5"/></svg></a>
       </div>
-      <div class="shot clipbox"><video class="clip" muted loop playsinline preload="metadata" poster="/v2/p-exercise.jpg" width="1920" height="1200" aria-label="A Peluutin drill playing in the 3D exercise planner"><source src="/v2/p-exercise.webm" type="video/webm"></video><a class="shot-link cover" href="/peluutin/" data-curtain="Peluutin" tabindex="-1" aria-hidden="true"></a></div>
+      <div class="shot clipbox"><video class="clip" muted loop playsinline preload="none" poster="/v2/p-exercise.jpg" width="1920" height="1200" aria-label="A Peluutin drill playing in the 3D exercise planner"><source src="/v2/p-exercise.webm" type="video/webm"></video><a class="shot-link cover" href="/peluutin/" data-curtain="Peluutin" tabindex="-1" aria-hidden="true"></a></div>
     </article>
     <article class="case" id="hsm">
       <div class="case-copy">
@@ -377,7 +377,7 @@ html{overflow-y:scroll;scrollbar-gutter:stable;background:var(--bg)}
         <p class="lead">A map for finding somewhere to exercise in Helsinki, and the easiest way to get there.</p>
         <a class="case-link" href="/helsinki-sports-map/" data-curtain="Helsinki Sports Map" aria-label="View the Helsinki Sports Map case study"><span class="fill" aria-hidden="true"></span><span class="label" data-text="View case study"><span class="base">View case study</span><span class="scr" aria-hidden="true"></span></span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5"/></svg></a>
       </div>
-      <div class="shot clipbox"><video class="clip" muted loop playsinline preload="metadata" poster="/v2/h-explore.jpg" width="1920" height="1200" aria-label="Helsinki Sports Map filtered to basketball, zooming in and opening a venue"><source src="/v2/h-explore.webm" type="video/webm"></video><a class="shot-link cover" href="/helsinki-sports-map/" data-curtain="Helsinki Sports Map" tabindex="-1" aria-hidden="true"></a></div>
+      <div class="shot clipbox"><video class="clip" muted loop playsinline preload="none" poster="/v2/h-explore.jpg" width="1920" height="1200" aria-label="Helsinki Sports Map filtered to basketball, zooming in and opening a venue"><source src="/v2/h-explore.webm" type="video/webm"></video><a class="shot-link cover" href="/helsinki-sports-map/" data-curtain="Helsinki Sports Map" tabindex="-1" aria-hidden="true"></a></div>
     </article>
     </section>
 
@@ -583,7 +583,7 @@ copyBtns.forEach(btn=>btn.addEventListener("click",()=>{
     if(still)v.dataset.user="paused";
   });
   if(still)return;
-  const io=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){if(v.dataset.user!=="paused"){const p=v.play();p&&p.catch(()=>{})}}else v.pause()}),{threshold:.35});
+  const io=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){if(v.dataset.user!=="paused"){clips.forEach(o=>{if(o!==v&&!o.paused)o.pause()});const p=v.play();p&&p.catch(()=>{})}}else v.pause()}),{threshold:.45});
   clips.forEach(v=>io.observe(v));
 })();
 </script>
