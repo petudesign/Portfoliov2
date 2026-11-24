@@ -70,8 +70,8 @@ Strongest fit for:
 - Summary: Bilingual (FI/EN) mobile-first web app for Finnish landscaping, earthworks, paving, fencing and property maintenance contractors. Pick an official National Land Survey (MML) parcel with automatic building subtraction, draw partial yard areas or 3.5 m/4.0 m driveway corridors from a centerline, combine multiple work types and custom labour rows with slope correction and 25.5% VAT, and export client-ready PDF quotes, 4-line WhatsApp summaries, GeoJSON or KML.
 - Engineering & UX highlights:
   - Replaced thick MML raster borders with dark-cased cyan vector parcel boundaries and an Okabe-Ito-inspired colourblind-safe measurement palette; replaced OSM Overpass with MML's official building register (~100 ms, >= 6 m² geometric overlap).
-  - Stress-tested by 3 parallel adversarial agents (security/proxy audit, chaos/UI breaker, bilingual desktop/mobile QA) plus a senior architecture pass that debounced drag saves, cut the gzipped app bundle to 41 kB (from 1,441 kB), and expanded coverage to 21 unit tests.
-  - Runs on Cloudflare Pages with a €0/month serverless proxy for MML API keys, no personal owner data (KTJ/GDPR), no login wall, and cookie-free analytics.
+  - Stress-tested by 3 parallel adversarial agents (security/proxy audit, chaos/UI breaker, bilingual desktop/mobile QA) plus a senior architecture pass that debounced drag saves, cut the gzipped app bundle to 41 kB (from 1,441 kB), and expanded coverage to 23 unit tests.
+  - Runs on Cloudflare Pages with a €0/month serverless proxy for MML API keys, no personal owner data (KTJ/GDPR), no login wall, and opt-in EU-hosted PostHog beta telemetry with masked inputs.
   - Built a Python outreach script on top of Finland's open YTJ API (checking active VAT, prepayment and employer registers, then scanning company websites for paving, sodding, driveway and gravel services) that screened 59 active companies into 46 contactable pilot candidates (31 strong matches) in an Excel tracker.
 
 ### KorisLab — Finnish Basketball Analytics Platform
