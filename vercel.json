@@ -1,4 +1,5 @@
 {
+  "cleanUrls": true,
   "redirects": [
     { "source": "/korisiq", "destination": "/korislab/", "permanent": true },
     { "source": "/korisiq/:path*", "destination": "/korislab/", "permanent": true }
