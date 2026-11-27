@@ -2,7 +2,7 @@
    builds up in blocks and breaks apart to show the page. Also draws the faint screen static behind the content. */
 (function () {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const BG = '#101114', BLOCK = 32;
+  const BG = '#101114';
   const cellFor = (W) => (W < 600 ? 4 : 5);
   const TONE = { '': '#ff5a6e', 'Kelikamera AI': '#9cc8ff', 'Peluutin': '#86d98a', 'KorisLab': '#ff9b52', 'Maamitta': '#76d9a8', 'Helsinki Sports Map': '#6fd6c4', 'Havain': '#c7b6ff', 'S-hävikki': '#e8d36a', 'Tahti': '#f0a6d8' };
 
@@ -224,27 +224,38 @@
   /* leaving: the ground fades in while the picture develops from the middle out, then the browser moves on */
   async function leave(label, href) {
     if (reduce) { location.href = href; return; }
-    const o = overlay(label); o.span.classList.add('off'); o.frame(0, 0);
-    await run(460, (k) => { o.frame(k * 1.04, Math.min(1, k * 1.5)); if (k > .55) o.span.classList.remove('off'); });
-    o.frame(2, 1); o.span.classList.remove('off');
-    /* carry the exact finished frame across the page load so the picture never disappears and pops back in */
-    try { sessionStorage.setItem('curtain-img', o.cv.toDataURL('image/png')); } catch (e) {}
+    try {
+      const o = overlay(label); o.span.classList.add('off'); o.frame(0, 0);
+      await run(460, (k) => { o.frame(k * 1.04, Math.min(1, k * 1.5)); if (k > .55) o.span.classList.remove('off'); });
+      o.frame(2, 1); o.span.classList.remove('off');
+      /* carry the exact finished frame across the page load so the picture never disappears and pops back in */
+      try { sessionStorage.setItem('curtain-img', o.cv.toDataURL('image/png')); } catch {}
+    } catch {
+      document.querySelectorAll('.pxc').forEach((n) => n.remove());
+    }
     requestAnimationFrame(() => { location.href = href; });
   }
 
   /* arriving: the picture is already on screen from the previous page, holds briefly, then dissolves away */
   async function arrive(label, reveal) {
     const carried = Boolean(document.documentElement.style.getPropertyValue('--curtain-img'));
-    const o = overlay(label); o.frame(2, 1);
-    /* wait one paint so the live canvas is on top before removing the CSS handoff layer */
-    await new Promise((r) => requestAnimationFrame(r));
-    reveal();
-    document.documentElement.style.removeProperty('--curtain-img');
-    if (reduce) { setTimeout(() => o.el.remove(), 250); return; }
-    await new Promise((r) => setTimeout(r, carried ? 120 : 220));
-    o.span.classList.add('off');
-    await run(520, (k) => { const t = 1 - k; o.frame(t * 1.04, Math.min(1, t * 1.6)); });
-    o.el.remove();
+    let o = null;
+    try {
+      o = overlay(label); o.frame(2, 1);
+      /* wait one paint so the live canvas is on top before removing the CSS handoff layer */
+      await new Promise((r) => requestAnimationFrame(r));
+      reveal();
+      document.documentElement.style.removeProperty('--curtain-img');
+      if (reduce) { setTimeout(() => o.el.remove(), 250); return; }
+      await new Promise((r) => setTimeout(r, carried ? 120 : 220));
+      o.span.classList.add('off');
+      await run(520, (k) => { const t = 1 - k; o.frame(t * 1.04, Math.min(1, t * 1.6)); });
+      o.el.remove();
+    } catch {
+      reveal();
+      document.documentElement.style.removeProperty('--curtain-img');
+      if (o && o.el) o.el.remove();
+    }
   }
   addEventListener('pageshow', (e) => { if (e.persisted) document.querySelectorAll('.pxc').forEach((n) => n.remove()); });
 
@@ -252,6 +263,9 @@
   function screen() {
     ['crt crt-noise', 'crt crt-lines', 'crt crt-vig'].forEach((c) => { const d = document.createElement('div'); d.className = c; d.setAttribute('aria-hidden', 'true'); document.body.prepend(d); });
     const n = document.querySelector('.crt-noise');
+    if (!n) return;
+    const probe = document.createElement('canvas');
+    if (!probe.getContext('2d')) return;
     const frames = Array.from({ length: 8 }, () => { const c = document.createElement('canvas'); c.width = c.height = 110; const x = c.getContext('2d'), d = x.createImageData(110, 110);
       for (let i = 0; i < d.data.length; i += 4) { const v = Math.random() * 255; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = Math.random() < .5 ? 255 : Math.random() * 140; }
       x.putImageData(d, 0, 0); return c.toDataURL(); });
