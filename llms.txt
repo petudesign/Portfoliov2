@@ -15,7 +15,7 @@ For a complete, single-file Markdown summary of background, skills, target roles
 
 ## Selected case studies
 
-- [Kelikamera AI](https://www.petu.design/kelikamera/): Live map of Finland's 800 Fintraffic road weather cameras, collecting winter 2026–27 image and sensor pairs to train a local road-condition and friction estimation model for the 475 cameras with no surface sensor.
+- [Kelikamera AI](https://www.petu.design/kelikamera/): Live map of Finland's 800 Fintraffic road weather cameras with live LAM/TMS traffic, lazy-loaded salting/ploughing and roadworks layers, route search with estimated passing times, native macOS/iOS WidgetKit widgets, and winter 2026–27 data collection to train a local friction model for cameras without an optical surface sensor.
 - [Maamitta](https://www.petu.design/maamitta/): Map measurement, material estimator and PDF quote tool for Finnish landscaping, earthworks, paving and fencing contractors. Pick an official MML parcel with automatic building subtraction, draw partial yards or 3.5 m/4.0 m driveways, combine multiple zones and export PDF quotes, 4-line WhatsApp summaries, GeoJSON or KML. Live at https://maamitta.pages.dev/.
 - [KorisLab](https://www.petu.design/korislab/): Basketball analytics platform for women's and men's Korisliiga (692 games, 566 players, 96,019 shot attempts), featuring 1,000x Monte Carlo game simulation, play-by-play replay, matchup comparisons and natural-language season search.
 - [Peluutin](https://www.petu.design/peluutin/): Mobile playing-time tracker and 2D/3D training exercise planner built with two junior football coaches, used across 4+ months and 20+ matches in football and futsal.
