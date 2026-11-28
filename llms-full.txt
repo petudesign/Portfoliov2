@@ -41,10 +41,10 @@ Strongest fit for:
 - URL: https://www.petu.design/havain/
 - Role: Product design, research and development
 - Timeline: Nov 2026 – in progress
-- Status: Shelf simulation, phone prototype and maintenance centre demo on a simulated store; computer vision in progress.
-- Summary: Turns grocery shelves into structured data by combining shelf-edge label detection, computer vision for what sits above each label, and GS1 2D barcodes (batches and expiry dates). First use case is expiry and food waste in fresh departments.
+- Status: Shelf simulation and real-time synced phone + maintenance centre demo on a simulated store; computer vision in progress.
+- Summary: Turns grocery shelves into structured data by combining shelf-edge label detection from phone sweeps, computer vision for what sits above each label, and GS1 2D barcodes (batches and expiry dates). First use case is expiry and food waste in fresh departments.
 - Key data & validation insight: Built a day-by-day dairy shelf simulation comparing four workflows. The first simulation predicted labelling every near-expiry item would hurt margin — four years of shop-floor dairy experience revealed the simulated shelf was unrealistic (fast sellers hit the label window on 15–19% of days instead of ~2%). Correcting the model showed today's manual routine missed 5–14 near-expiry units per shelf per week across new-employee skill levels, whereas the data map missed none and cut simulated waste by ~1/3.
-- UX principles: Designed for the newest person on the shift (high retail turnover) — one task at a time, plain language, never colour alone, undo everywhere, and "I can't find these" as a valid answer.
+- UX & closed-loop principles: Human-in-the-loop design assuming trained retail staff who verify reality and override machine guesses (one task at a time without multi-step babysitting checklists, enlarged high-contrast vision overlays readable at arm's length, "I can't find these on the shelf" with optional 1-tap discrepancy reasons, and restock confirmation without forcing new shelf photos). Tracks honest outcomes (sold with discount vs. labelled and wasted vs. missed) and models messy evening shelves, varied store fixtures, and adjacent verticals (kiosks, meal-kit packhouses, EU FMD pharmacies).
 
 ---
 
