@@ -19,7 +19,7 @@ For a complete, single-file Markdown summary of background, skills, target roles
 - [Maamitta](https://www.petu.design/maamitta/): Map measurement, material estimator and PDF quote tool for Finnish landscaping, earthworks, paving and fencing contractors. Pick an official MML parcel with automatic building subtraction, draw partial yards or 3.5 m/4.0 m driveways, combine multiple zones and export PDF quotes, 4-line WhatsApp summaries, GeoJSON or KML. Live at https://maamitta.pages.dev/.
 - [KorisLab](https://www.petu.design/korislab/): Basketball analytics platform for women's and men's Korisliiga (692 games, 566 players, 96,019 shot attempts), featuring 1,000x Monte Carlo game simulation, play-by-play replay, matchup comparisons and natural-language season search.
 - [Peluutin](https://www.petu.design/peluutin/): Mobile playing-time tracker and 2D/3D training exercise planner built with two junior football coaches, used across 4+ months and 20+ matches in football and futsal.
-- [Helsinki Sports Map](https://www.petu.design/helsinki-sports-map/): Mobile-first map uniting 1,368 Helsinki sports venues from 3 open data sources (LIPAS, Helsinki Service Map, Paikkatietohaku) with walking, cycling, driving and HSL public transport routing, backed by a manual data-review queue.
+- [Helsinki Sports Map](https://www.petu.design/helsinki-sports-map/): Mobile-first map uniting 1,344 Helsinki sports venues across 178 districts from 3 open data sources (LIPAS, 1,065 Helsinki Service Map units, Paikkatietohaku) with walking, cycling, driving and HSL public transport routing, Meet-halfway search between two districts, and a manual data-review queue.
 
 ## Other projects
 

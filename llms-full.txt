@@ -100,9 +100,11 @@ Strongest fit for:
 - URL: https://www.petu.design/helsinki-sports-map/
 - Role: Product design, development and data integration
 - Timeline: Sep 2026 – ongoing
-- Scale: 1,368 sports areas across Helsinki joining 3 open data sources (LIPAS, Helsinki Service Map, Helsinki Paikkatietohaku) with walking, cycling, driving and HSL Digitransit public transport routes (including fare zones).
-- Data quality & pragmatic trade-offs:
-  - Built a manual review queue with a rule-based evidence score (recognised price format, LIPAS match, source freshness) so unverified or missing price/accessibility fields are never presented as "free" or confirmed fact.
+- Scale: 1,344 sports areas across 178 Helsinki districts joining 3 open data sources (LIPAS, 1,065 Helsinki Service Map units with 532 official photos, 193 opening-hour schedules and 192 accessibility records, and Helsinki Paikkatietohaku) with walking, cycling, driving and HSL Digitransit public transport routes (including fare zones).
+- UX & real-device iteration:
+  - Integrated Meet-halfway search directly into the main search bar (e.g. "Kallio and Lauttasaari" or Finnish slang like "koris Kallio ja Laru") after testing a separate panel proved cluttered; plots both starting areas with a dashed line and ranks venues by fairness with colour-coded distances.
+  - Redesigned mobile transit routing after iPhone 11 testing: collapsed the resolved planner into one 3-row card, moved step-by-step HSL directions, the 100 € ticket reminder and a colour-coded vertical leg timeline into a ResizeObserver-bounded bottom sheet, and kept Saved favourites progressive (chip appears only after starring a venue).
+  - Built a manual review queue with a rule-based evidence score (recognised price format, LIPAS match, source freshness) so unverified or missing price fields are never presented as "free" or confirmed fact.
   - Replaced a custom-built map renderer with MapLibre GL JS + OpenFreeMap Positron to stop spending engineering time on tile optimisation and focus on user discovery and data quality.
   - Includes a linked text list for full keyboard and screen-reader browsing without relying on map markers.
 
